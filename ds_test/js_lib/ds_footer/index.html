@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>底部jsSDK测试</title>
+    <script src="../../../js_lib//ds_footer/v1/index.js"></script>
+</head>
+
+<body>
+    <button onclick="addNode()">添加内容</button>
+    <h1>测试页面</h1>
+    <h2>测试底部jsSDK</h2>
+    <h3>高度不指定</h3>
+</body>
+<script>
+    function addNode() {
+        var body = document.getElementsByTagName('body').item(0)
+        var divEl = document.createElement('div')
+        divEl.innerHTML = `<h1>测试页面</h1>
+                        <h2>测试底部jsSDK</h2>
+                        <h3>高度不指定</h3>`
+        body.insertBefore(divEl, null)
+    }
+</script>
+
+</html>
