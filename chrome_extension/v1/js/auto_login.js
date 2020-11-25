@@ -1,3 +1,4 @@
+// 针对天润融通 cxCloud
 function portalLogin_trrt() {
     const inputS = document.getElementsByTagName('input')
     const valueMap = {
@@ -8,6 +9,9 @@ function portalLogin_trrt() {
     }
     for (let i = 0; i < inputS.length; i++) {
         const elemEl = inputS.item(i);
+        if(!elemEl.attributes.formcontrolname) {
+            return
+        }
         const fromCtrlValue = elemEl.attributes.formcontrolname.value;
         if (valueMap.hasOwnProperty(fromCtrlValue)) {
             elemEl.value = valueMap[fromCtrlValue]
@@ -17,13 +21,19 @@ function portalLogin_trrt() {
         }
     }
     const submitBtu = document.getElementsByTagName('button').item(0)
-    submitBtu.click()
+    if(submitBtu) {
+        submitBtu.click()
+    }
 }
 
 
-window.onload = () => {
+
+// 登录初始化
+function autoLoaginInit(){
+    // 天润融通 cxCloud 需执行代码数组
     var portalArr_trrt = [
-        'portal-dev2-cxcloud.cticloud.cn'
+        'portal-dev2-cxcloud.cticloud.cn',
+        'localhost:4200'
     ]
     if (portalArr_trrt.includes(window.location.host)) {
         console.log('此页面进行的模拟登录方式')

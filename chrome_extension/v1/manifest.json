@@ -13,12 +13,29 @@
         "default_title": "ds_extension插件",
         "default_popup": "html/popup.html"
     },
-    "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "js": ["js/auto_login.js"],
-        "css": [],
-        "run_at": "document_start"
-    }],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["js/util/inject.js", "js/auto_login.js", "js/index.js"],
+            "css": [],
+            "run_at": "document_start"
+        }
+    ],
+    "background":
+	{
+		"page": "html/background.html"
+	},
+    "web_accessible_resources": ["js/global.js"],
+    "homepage_url": "https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html",
+    "chrome_url_overrides":
+	{
+		"newtab": "html/home.html"
+    },
+    "options_ui":
+	{
+		"page": "html/setting.html"
+    },
+	"devtools_page": "html/devtools.html",
     "permissions": [
         "contextMenus",
         "tabs",
