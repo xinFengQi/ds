@@ -6,18 +6,71 @@
     <title>脚本管理</title>
 </head>
 <style>
-    .name{
-        margin: 10px;
+    body{
+        padding: 40px;
     }
+    .content {
+        margin: 30px;
+        display: flex;
+    }
+    #left {
+        width: 300px;
+        height: 400px;
+        overflow-y: auto;
+        margin-right: 30px;
+    }
+    #right{
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+    }
+    #right_btugroup {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .bturight{
+        margin-right: 10px;
+    }
+    .bturight:last-child{
+        margin-right: 0;
+    }
+    #right_codeName{
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 2px;
+    }
+    #right_codeContent{
+        padding: 3px;
+        width: 100%;
+        flex: 1;
+    }
+    .name{
+        padding: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+    }
+    
 </style>
 <body>
-    扩展脚本管理
-    <button id="sendMessage">发送消息</button>
+    <h1>扩展脚本管理</h1>
+    <button id="sendMessage">增加一条默认脚本</button>
     <div class="content">
         <div id="left"></div>
-        <div id="right"></div> 
+        <div id="right">
+            <div id="right_btugroup">
+                <button id="btu_save_as" class="bturight">另存为</button>
+                <button id="btu_save" class="bturight">保存</button>
+            </div>
+            脚本名：<input id="right_codeName" />
+            脚本内容：
+            <textarea id="right_codeContent"></textarea>
+        </div>
     </div>
 </body>
 <script src="../../js/util/inject.js"></script>
 <script src="./script_code.js"></script>
+<script src="../../js/component/footer.js"></script>
+
 </html>

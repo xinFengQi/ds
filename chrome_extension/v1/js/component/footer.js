@@ -25,7 +25,6 @@ if(!document.getElementsByTagName('body')) {
         return url.startsWith('http') ? url : 'http://' + url
     }
     // js加载完后执行
-    window.onload = () => {
         var divContent = `
         <div style="{{contentDivClass}}">
             <div></div>
@@ -155,6 +154,5 @@ if(!document.getElementsByTagName('body')) {
         // 以上述配置开始观察目标节点
         observer.observe(body, config);
 
-    }
 
 })()

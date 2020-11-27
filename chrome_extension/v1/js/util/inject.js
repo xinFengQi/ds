@@ -55,6 +55,13 @@ messageUtil = {
 	},
 	setData: function(dataJson){
 		// 保存数据  会存在数据覆盖，需做好数据拼接
+		for (const key in dataJson) {
+			if (dataJson.hasOwnProperty(key)) {
+				if(dataJson[key] instanceof Array)
+				dataJson[key] = dataJson[key].filter(v => v);
+			}
+		}
+		console.log(dataJson)
 		chrome.storage.sync.set(dataJson, function () {
 			console.log('保存成功！');
 		});
@@ -70,9 +77,56 @@ function RMethod(key, value, cb) {
 }
 
 // 增加数据
-function ADDMethod(key, value, cb) {
+function ADDMethod(key, contentJson, cb) {
     messageUtil.getDataCB({[key]: []}, function(v){
-        messageUtil.setData({[key]: [...v[key], value]});
-        RMethod(key, value, cb)
+        messageUtil.setData({[key]: [...v[key], contentJson]});
+        RMethod(key, [], cb)
     })
+}
+
+// 删除数据
+function DELETEMethod(key, valueKey, value, cb) {
+	messageUtil.getDataCB({[key]: []}, function(v){
+		const index = v[key].findIndex(s => s && s[valueKey]  && s[valueKey]+'' === value);
+		if(index > -1) {
+			v[key].splice(index, 1)
+		}
+        messageUtil.setData({[key]: [...v[key]]});
+        RMethod(key, [], cb)
+    })
+}
+
+
+function UPDATEMethod(key, valueKey, value, contentJson, cb) {
+	messageUtil.getDataCB({[key]: []}, function(v){
+		const index = v[key].findIndex(s => s && s[valueKey]  && s[valueKey]+'' === value);
+		if(index > -1) {
+			v[key][index] = contentJson
+		} else {
+			v[key].push(contentJson)
+		}
+        messageUtil.setData({[key]: [...v[key]]});
+        RMethod(key, [], cb)
+    })
+}
+
+
+// 获取当前选项卡ID
+function getCurrentTabId(callback)
+{
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
+	{
+		if(callback) callback(tabs.length ? tabs[0].id: null);
+	});
+}
+
+function getCurrentTabId2(callback)
+{
+	chrome.windows.getCurrent(function(currentWindow)
+	{
+		chrome.tabs.query({active: true, windowId: currentWindow.id}, function(tabs)
+		{
+			if(callback) callback(tabs.length ? tabs[0].id: null);
+		});
+	});
 }

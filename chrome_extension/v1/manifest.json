@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "ds_extension",
+    "name": "__MSG_extensionName__",
     "version": "1.0.0",
-    "description": "ds_extension插件",
+    "description": "__MSG_extensionName__",
     "icons": {
         "16": "img/icon.png",
         "48": "img/icon.png",
@@ -10,7 +10,7 @@
     },
     "browser_action": {
         "default_icon": "img/icon.png",
-        "default_title": "ds_extension插件",
+        "default_title": "__MSG_extensionName__",
         "default_popup": "html/popup.html"
     },
     "content_scripts": [
@@ -35,8 +35,10 @@
 	{
 		"page": "html/setting.html"
     },
-	"devtools_page": "html/devtools.html",
+    "devtools_page": "html/devtools.html",
+    "default_locale": "zh_CN",
     "permissions": [
+        "background",
         "contextMenus",
         "tabs",
         "notifications",
