@@ -45,6 +45,7 @@
         "webRequest",
         "webRequestBlocking",
         "storage",
+        "bookmarks",
         "http://*/*",
         "https://*/*"
     ]

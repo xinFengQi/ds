@@ -1,7 +1,5 @@
-// chrome.bookmarks.getTree(markNodes => {
-//     this.marks = this.dumpTreeNodes(markNodes)[0].children;
-// });
 
+// ==============================菜单管理=================================================================
 
 // 脚本管理
 scriptCodeSrc = chrome.extension.getURL('html/menu_html/script_code.html');
@@ -94,3 +92,41 @@ function menuScriptDataHandler(request) {
 }
 
 
+// =================================请求监听=================================================================
+
+
+// 后期规划
+// chrome.webRequest.onActionIgnored
+// chrome.webRequest.onAuthRequired
+// chrome.webRequest.onBeforeRedirect
+// chrome.webRequest.onBeforeRequest
+// chrome.webRequest.onBeforeSendHeaders
+// chrome.webRequest.onCompleted
+// chrome.webRequest.onErrorOccurred
+// chrome.webRequest.onHeadersReceived
+// chrome.webRequest.onResponseStarted
+// chrome.webRequest.onSendHeaders
+
+// 监听请求头
+chrome.webRequest.onBeforeRequest.addListener(details => {
+        console.log(details)
+}, {urls: ["<all_urls>"]}, ["blocking"]);
+
+
+
+// 塞入请求头
+chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+	// details.requestHeaders.push({
+    //     name:"xxx",
+    //     value:"xxxx"
+    // });
+    console.log(details, '塞入头')
+    return {
+        requestHeaders: details.requestHeaders
+    };
+},
+    {
+        urls: ["<all_urls>"]
+    },
+    ["blocking", "requestHeaders", "extraHeaders"]
+);
