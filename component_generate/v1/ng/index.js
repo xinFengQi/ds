@@ -27,5 +27,4 @@ readInterface(testAPath)
 
 // 读取文件中的接口数据
 function readInterface(filepath) {
-    const str = fs.
 }
