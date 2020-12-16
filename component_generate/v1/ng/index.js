@@ -23,46 +23,6 @@ function readDir(dirpath) {
     })
 }
 
-readInterface(testAPath)
-
-// 读取文件中的接口数据
-function readInterface(filepath) {
-    console.log(`解析${filepath}中interface数据`)
-    // const str = fs.readFileSync(filepath).toString();
-    const interface = {}
-    read_file(filepath, (data) => {
-        console.log(data);
-        data.forEach((v, i) => {
-            if(v.includes('interface')) {
-                const strArr = v.split(' ');
-                interface[strArr[strArr.length - 1]] = {
-                    dec: 123,
-                    params: {}
-                } 
-            }
-        });
-        console.log(interface)
-    })
-}
-
-// 获取括号中的数据，形成数组，生成elemet,children,type
-// 有修饰符就是type,没有修饰符就是object
-function getCodeTree(codeArr, index) {
-    let isLoop = true;
-    const obj = {
-        code: [],
-        type: 'object',
-        children: []
-    };
-    while(isLoop) {
-
-        if(codeArr.includes('}')) {
-            isLoop = false;
-        }
-        index = index + 1;
-    }
-}
-
 // 按照行读取
 function read_file(path, callback) {
     var fRead = fs.createReadStream(path);
@@ -78,3 +38,19 @@ function read_file(path, callback) {
         callback(arr.filter(s => s.length > 0).map(v => v.trim()));
     });
 }
+
+
+
+/*-----------babel学习----------------*/
+const parser = require('@babel/parser').parse;
+
+const str = fs.readFileSync(testAPath).toString();
+const outstr = parser(str, {
+    sourceType: "module",
+    plugins: [
+        "jsx",
+        "typescript"
+    ]
+})
+fs.writeFileSync('./dist.json', JSON.stringify(outstr))
+console.log( outstr)

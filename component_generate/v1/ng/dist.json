@@ -1,0 +1,1166 @@
+{
+    "type": "File",
+    "start": 0,
+    "end": 390,
+    "loc": {
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 28,
+            "column": 2
+        }
+    },
+    "errors": [],
+    "program": {
+        "type": "Program",
+        "start": 0,
+        "end": 390,
+        "loc": {
+            "start": {
+                "line": 1,
+                "column": 0
+            },
+            "end": {
+                "line": 28,
+                "column": 2
+            }
+        },
+        "sourceType": "module",
+        "interpreter": null,
+        "body": [
+            {
+                "type": "ExportNamedDeclaration",
+                "start": 8,
+                "end": 109,
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "column": 1
+                    }
+                },
+                "leadingComments": [
+                    {
+                        "type": "CommentLine",
+                        "value": " 这是描述",
+                        "start": 0,
+                        "end": 7,
+                        "loc": {
+                            "start": {
+                                "line": 1,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 1,
+                                "column": 7
+                            }
+                        }
+                    }
+                ],
+                "trailingComments": [
+                    {
+                        "type": "CommentBlock",
+                        "value": "*\n * @author damon.dong\n * @description 这个切换中英文不咋好用\n * \n ",
+                        "start": 113,
+                        "end": 174,
+                        "loc": {
+                            "start": {
+                                "line": 10,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 14,
+                                "column": 3
+                            }
+                        }
+                    }
+                ],
+                "exportKind": "type",
+                "specifiers": [],
+                "source": null,
+                "declaration": {
+                    "type": "TSInterfaceDeclaration",
+                    "start": 15,
+                    "end": 109,
+                    "loc": {
+                        "start": {
+                            "line": 2,
+                            "column": 7
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 1
+                        }
+                    },
+                    "id": {
+                        "type": "Identifier",
+                        "start": 25,
+                        "end": 39,
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 17
+                            },
+                            "end": {
+                                "line": 2,
+                                "column": 31
+                            },
+                            "identifierName": "CeshiInterface"
+                        },
+                        "name": "CeshiInterface"
+                    },
+                    "body": {
+                        "type": "TSInterfaceBody",
+                        "start": 39,
+                        "end": 109,
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 31
+                            },
+                            "end": {
+                                "line": 7,
+                                "column": 1
+                            }
+                        },
+                        "body": [
+                            {
+                                "type": "TSPropertySignature",
+                                "start": 55,
+                                "end": 67,
+                                "loc": {
+                                    "start": {
+                                        "line": 4,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 4,
+                                        "column": 16
+                                    }
+                                },
+                                "leadingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 名字",
+                                        "start": 45,
+                                        "end": 50,
+                                        "loc": {
+                                            "start": {
+                                                "line": 3,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 3,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "trailingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 这是复杂的情况",
+                                        "start": 69,
+                                        "end": 79,
+                                        "loc": {
+                                            "start": {
+                                                "line": 4,
+                                                "column": 18
+                                            },
+                                            "end": {
+                                                "line": 4,
+                                                "column": 28
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 设置",
+                                        "start": 84,
+                                        "end": 89,
+                                        "loc": {
+                                            "start": {
+                                                "line": 5,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 5,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 55,
+                                    "end": 58,
+                                    "loc": {
+                                        "start": {
+                                            "line": 4,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 4,
+                                            "column": 7
+                                        },
+                                        "identifierName": "key"
+                                    },
+                                    "name": "key"
+                                },
+                                "computed": false,
+                                "typeAnnotation": {
+                                    "type": "TSTypeAnnotation",
+                                    "start": 58,
+                                    "end": 66,
+                                    "loc": {
+                                        "start": {
+                                            "line": 4,
+                                            "column": 7
+                                        },
+                                        "end": {
+                                            "line": 4,
+                                            "column": 15
+                                        }
+                                    },
+                                    "typeAnnotation": {
+                                        "type": "TSStringKeyword",
+                                        "start": 60,
+                                        "end": 66,
+                                        "loc": {
+                                            "start": {
+                                                "line": 4,
+                                                "column": 9
+                                            },
+                                            "end": {
+                                                "line": 4,
+                                                "column": 15
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "TSPropertySignature",
+                                "start": 94,
+                                "end": 107,
+                                "loc": {
+                                    "start": {
+                                        "line": 6,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 6,
+                                        "column": 17
+                                    }
+                                },
+                                "leadingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 这是复杂的情况",
+                                        "start": 69,
+                                        "end": 79,
+                                        "loc": {
+                                            "start": {
+                                                "line": 4,
+                                                "column": 18
+                                            },
+                                            "end": {
+                                                "line": 4,
+                                                "column": 28
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 设置",
+                                        "start": 84,
+                                        "end": 89,
+                                        "loc": {
+                                            "start": {
+                                                "line": 5,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 5,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 94,
+                                    "end": 98,
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 8
+                                        },
+                                        "identifierName": "name"
+                                    },
+                                    "name": "name"
+                                },
+                                "computed": false,
+                                "typeAnnotation": {
+                                    "type": "TSTypeAnnotation",
+                                    "start": 98,
+                                    "end": 106,
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 16
+                                        }
+                                    },
+                                    "typeAnnotation": {
+                                        "type": "TSNumberKeyword",
+                                        "start": 100,
+                                        "end": 106,
+                                        "loc": {
+                                            "start": {
+                                                "line": 6,
+                                                "column": 10
+                                            },
+                                            "end": {
+                                                "line": 6,
+                                                "column": 16
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "type": "ExportNamedDeclaration",
+                "start": 175,
+                "end": 389,
+                "loc": {
+                    "start": {
+                        "line": 15,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 28,
+                        "column": 1
+                    }
+                },
+                "leadingComments": [
+                    {
+                        "type": "CommentBlock",
+                        "value": "*\n * @author damon.dong\n * @description 这个切换中英文不咋好用\n * \n ",
+                        "start": 113,
+                        "end": 174,
+                        "loc": {
+                            "start": {
+                                "line": 10,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 14,
+                                "column": 3
+                            }
+                        }
+                    }
+                ],
+                "exportKind": "type",
+                "specifiers": [],
+                "source": null,
+                "declaration": {
+                    "type": "TSInterfaceDeclaration",
+                    "start": 182,
+                    "end": 389,
+                    "loc": {
+                        "start": {
+                            "line": 15,
+                            "column": 7
+                        },
+                        "end": {
+                            "line": 28,
+                            "column": 1
+                        }
+                    },
+                    "id": {
+                        "type": "Identifier",
+                        "start": 192,
+                        "end": 207,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 17
+                            },
+                            "end": {
+                                "line": 15,
+                                "column": 32
+                            },
+                            "identifierName": "CeshiInterfaceA"
+                        },
+                        "name": "CeshiInterfaceA"
+                    },
+                    "body": {
+                        "type": "TSInterfaceBody",
+                        "start": 207,
+                        "end": 389,
+                        "loc": {
+                            "start": {
+                                "line": 15,
+                                "column": 32
+                            },
+                            "end": {
+                                "line": 28,
+                                "column": 1
+                            }
+                        },
+                        "body": [
+                            {
+                                "type": "TSPropertySignature",
+                                "start": 223,
+                                "end": 235,
+                                "loc": {
+                                    "start": {
+                                        "line": 17,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 17,
+                                        "column": 16
+                                    }
+                                },
+                                "leadingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 名字",
+                                        "start": 213,
+                                        "end": 218,
+                                        "loc": {
+                                            "start": {
+                                                "line": 16,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 16,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "trailingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 设置",
+                                        "start": 240,
+                                        "end": 245,
+                                        "loc": {
+                                            "start": {
+                                                "line": 18,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 18,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 223,
+                                    "end": 226,
+                                    "loc": {
+                                        "start": {
+                                            "line": 17,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 17,
+                                            "column": 7
+                                        },
+                                        "identifierName": "key"
+                                    },
+                                    "name": "key"
+                                },
+                                "computed": false,
+                                "typeAnnotation": {
+                                    "type": "TSTypeAnnotation",
+                                    "start": 226,
+                                    "end": 234,
+                                    "loc": {
+                                        "start": {
+                                            "line": 17,
+                                            "column": 7
+                                        },
+                                        "end": {
+                                            "line": 17,
+                                            "column": 15
+                                        }
+                                    },
+                                    "typeAnnotation": {
+                                        "type": "TSStringKeyword",
+                                        "start": 228,
+                                        "end": 234,
+                                        "loc": {
+                                            "start": {
+                                                "line": 17,
+                                                "column": 9
+                                            },
+                                            "end": {
+                                                "line": 17,
+                                                "column": 15
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "TSPropertySignature",
+                                "start": 250,
+                                "end": 263,
+                                "loc": {
+                                    "start": {
+                                        "line": 19,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 19,
+                                        "column": 17
+                                    }
+                                },
+                                "leadingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " 设置",
+                                        "start": 240,
+                                        "end": 245,
+                                        "loc": {
+                                            "start": {
+                                                "line": 18,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 18,
+                                                "column": 9
+                                            }
+                                        }
+                                    }
+                                ],
+                                "trailingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " ",
+                                        "start": 268,
+                                        "end": 271,
+                                        "loc": {
+                                            "start": {
+                                                "line": 20,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 20,
+                                                "column": 7
+                                            }
+                                        }
+                                    }
+                                ],
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 250,
+                                    "end": 254,
+                                    "loc": {
+                                        "start": {
+                                            "line": 19,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 19,
+                                            "column": 8
+                                        },
+                                        "identifierName": "name"
+                                    },
+                                    "name": "name"
+                                },
+                                "computed": false,
+                                "typeAnnotation": {
+                                    "type": "TSTypeAnnotation",
+                                    "start": 254,
+                                    "end": 262,
+                                    "loc": {
+                                        "start": {
+                                            "line": 19,
+                                            "column": 8
+                                        },
+                                        "end": {
+                                            "line": 19,
+                                            "column": 16
+                                        }
+                                    },
+                                    "typeAnnotation": {
+                                        "type": "TSNumberKeyword",
+                                        "start": 256,
+                                        "end": 262,
+                                        "loc": {
+                                            "start": {
+                                                "line": 19,
+                                                "column": 10
+                                            },
+                                            "end": {
+                                                "line": 19,
+                                                "column": 16
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "TSPropertySignature",
+                                "start": 276,
+                                "end": 387,
+                                "loc": {
+                                    "start": {
+                                        "line": 21,
+                                        "column": 4
+                                    },
+                                    "end": {
+                                        "line": 27,
+                                        "column": 5
+                                    }
+                                },
+                                "leadingComments": [
+                                    {
+                                        "type": "CommentLine",
+                                        "value": " ",
+                                        "start": 268,
+                                        "end": 271,
+                                        "loc": {
+                                            "start": {
+                                                "line": 20,
+                                                "column": 4
+                                            },
+                                            "end": {
+                                                "line": 20,
+                                                "column": 7
+                                            }
+                                        }
+                                    }
+                                ],
+                                "key": {
+                                    "type": "Identifier",
+                                    "start": 276,
+                                    "end": 281,
+                                    "loc": {
+                                        "start": {
+                                            "line": 21,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 21,
+                                            "column": 9
+                                        },
+                                        "identifierName": "heehi"
+                                    },
+                                    "name": "heehi"
+                                },
+                                "computed": false,
+                                "typeAnnotation": {
+                                    "type": "TSTypeAnnotation",
+                                    "start": 281,
+                                    "end": 387,
+                                    "loc": {
+                                        "start": {
+                                            "line": 21,
+                                            "column": 9
+                                        },
+                                        "end": {
+                                            "line": 27,
+                                            "column": 5
+                                        }
+                                    },
+                                    "typeAnnotation": {
+                                        "type": "TSTypeLiteral",
+                                        "start": 283,
+                                        "end": 387,
+                                        "loc": {
+                                            "start": {
+                                                "line": 21,
+                                                "column": 11
+                                            },
+                                            "end": {
+                                                "line": 27,
+                                                "column": 5
+                                            }
+                                        },
+                                        "members": [
+                                            {
+                                                "type": "TSPropertySignature",
+                                                "start": 293,
+                                                "end": 303,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 22,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 22,
+                                                        "column": 18
+                                                    }
+                                                },
+                                                "key": {
+                                                    "type": "Identifier",
+                                                    "start": 293,
+                                                    "end": 294,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 22,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 22,
+                                                            "column": 9
+                                                        },
+                                                        "identifierName": "a"
+                                                    },
+                                                    "name": "a"
+                                                },
+                                                "computed": false,
+                                                "typeAnnotation": {
+                                                    "type": "TSTypeAnnotation",
+                                                    "start": 294,
+                                                    "end": 302,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 22,
+                                                            "column": 9
+                                                        },
+                                                        "end": {
+                                                            "line": 22,
+                                                            "column": 17
+                                                        }
+                                                    },
+                                                    "typeAnnotation": {
+                                                        "type": "TSNumberKeyword",
+                                                        "start": 296,
+                                                        "end": 302,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 22,
+                                                                "column": 11
+                                                            },
+                                                            "end": {
+                                                                "line": 22,
+                                                                "column": 17
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "TSPropertySignature",
+                                                "start": 312,
+                                                "end": 326,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 23,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 23,
+                                                        "column": 22
+                                                    }
+                                                },
+                                                "key": {
+                                                    "type": "Identifier",
+                                                    "start": 312,
+                                                    "end": 313,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 23,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 23,
+                                                            "column": 9
+                                                        },
+                                                        "identifierName": "b"
+                                                    },
+                                                    "name": "b"
+                                                },
+                                                "computed": false,
+                                                "typeAnnotation": {
+                                                    "type": "TSTypeAnnotation",
+                                                    "start": 313,
+                                                    "end": 325,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 23,
+                                                            "column": 9
+                                                        },
+                                                        "end": {
+                                                            "line": 23,
+                                                            "column": 21
+                                                        }
+                                                    },
+                                                    "typeAnnotation": {
+                                                        "type": "TSFunctionType",
+                                                        "start": 315,
+                                                        "end": 325,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 23,
+                                                                "column": 11
+                                                            },
+                                                            "end": {
+                                                                "line": 23,
+                                                                "column": 21
+                                                            }
+                                                        },
+                                                        "parameters": [],
+                                                        "typeAnnotation": {
+                                                            "type": "TSTypeAnnotation",
+                                                            "start": 318,
+                                                            "end": 325,
+                                                            "loc": {
+                                                                "start": {
+                                                                    "line": 23,
+                                                                    "column": 14
+                                                                },
+                                                                "end": {
+                                                                    "line": 23,
+                                                                    "column": 21
+                                                                }
+                                                            },
+                                                            "typeAnnotation": {
+                                                                "type": "TSVoidKeyword",
+                                                                "start": 321,
+                                                                "end": 325,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 23,
+                                                                        "column": 17
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 23,
+                                                                        "column": 21
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "TSPropertySignature",
+                                                "start": 335,
+                                                "end": 381,
+                                                "loc": {
+                                                    "start": {
+                                                        "line": 24,
+                                                        "column": 8
+                                                    },
+                                                    "end": {
+                                                        "line": 26,
+                                                        "column": 9
+                                                    }
+                                                },
+                                                "key": {
+                                                    "type": "Identifier",
+                                                    "start": 335,
+                                                    "end": 336,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 24,
+                                                            "column": 8
+                                                        },
+                                                        "end": {
+                                                            "line": 24,
+                                                            "column": 9
+                                                        },
+                                                        "identifierName": "c"
+                                                    },
+                                                    "name": "c"
+                                                },
+                                                "computed": false,
+                                                "typeAnnotation": {
+                                                    "type": "TSTypeAnnotation",
+                                                    "start": 336,
+                                                    "end": 381,
+                                                    "loc": {
+                                                        "start": {
+                                                            "line": 24,
+                                                            "column": 9
+                                                        },
+                                                        "end": {
+                                                            "line": 26,
+                                                            "column": 9
+                                                        }
+                                                    },
+                                                    "typeAnnotation": {
+                                                        "type": "TSTypeLiteral",
+                                                        "start": 338,
+                                                        "end": 381,
+                                                        "loc": {
+                                                            "start": {
+                                                                "line": 24,
+                                                                "column": 11
+                                                            },
+                                                            "end": {
+                                                                "line": 26,
+                                                                "column": 9
+                                                            }
+                                                        },
+                                                        "members": [
+                                                            {
+                                                                "type": "TSPropertySignature",
+                                                                "start": 352,
+                                                                "end": 362,
+                                                                "loc": {
+                                                                    "start": {
+                                                                        "line": 25,
+                                                                        "column": 12
+                                                                    },
+                                                                    "end": {
+                                                                        "line": 25,
+                                                                        "column": 22
+                                                                    }
+                                                                },
+                                                                "trailingComments": [
+                                                                    {
+                                                                        "type": "CommentLine",
+                                                                        "value": " 这是假的",
+                                                                        "start": 364,
+                                                                        "end": 371,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 25,
+                                                                                "column": 24
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 25,
+                                                                                "column": 31
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "key": {
+                                                                    "type": "Identifier",
+                                                                    "start": 352,
+                                                                    "end": 353,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 25,
+                                                                            "column": 12
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 25,
+                                                                            "column": 13
+                                                                        },
+                                                                        "identifierName": "f"
+                                                                    },
+                                                                    "name": "f"
+                                                                },
+                                                                "computed": false,
+                                                                "typeAnnotation": {
+                                                                    "type": "TSTypeAnnotation",
+                                                                    "start": 353,
+                                                                    "end": 362,
+                                                                    "loc": {
+                                                                        "start": {
+                                                                            "line": 25,
+                                                                            "column": 13
+                                                                        },
+                                                                        "end": {
+                                                                            "line": 25,
+                                                                            "column": 22
+                                                                        }
+                                                                    },
+                                                                    "typeAnnotation": {
+                                                                        "type": "TSBooleanKeyword",
+                                                                        "start": 355,
+                                                                        "end": 362,
+                                                                        "loc": {
+                                                                            "start": {
+                                                                                "line": 25,
+                                                                                "column": 15
+                                                                            },
+                                                                            "end": {
+                                                                                "line": 25,
+                                                                                "column": 22
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "directives": []
+    },
+    "comments": [
+        {
+            "type": "CommentLine",
+            "value": " 这是描述",
+            "start": 0,
+            "end": 7,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 7
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 名字",
+            "start": 45,
+            "end": 50,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 4
+                },
+                "end": {
+                    "line": 3,
+                    "column": 9
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 这是复杂的情况",
+            "start": 69,
+            "end": 79,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 18
+                },
+                "end": {
+                    "line": 4,
+                    "column": 28
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 设置",
+            "start": 84,
+            "end": 89,
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 9
+                }
+            }
+        },
+        {
+            "type": "CommentBlock",
+            "value": "*\n * @author damon.dong\n * @description 这个切换中英文不咋好用\n * \n ",
+            "start": 113,
+            "end": 174,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 3
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 名字",
+            "start": 213,
+            "end": 218,
+            "loc": {
+                "start": {
+                    "line": 16,
+                    "column": 4
+                },
+                "end": {
+                    "line": 16,
+                    "column": 9
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 设置",
+            "start": 240,
+            "end": 245,
+            "loc": {
+                "start": {
+                    "line": 18,
+                    "column": 4
+                },
+                "end": {
+                    "line": 18,
+                    "column": 9
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " ",
+            "start": 268,
+            "end": 271,
+            "loc": {
+                "start": {
+                    "line": 20,
+                    "column": 4
+                },
+                "end": {
+                    "line": 20,
+                    "column": 7
+                }
+            }
+        },
+        {
+            "type": "CommentLine",
+            "value": " 这是假的",
+            "start": 364,
+            "end": 371,
+            "loc": {
+                "start": {
+                    "line": 25,
+                    "column": 24
+                },
+                "end": {
+                    "line": 25,
+                    "column": 31
+                }
+            }
+        }
+    ]
+}

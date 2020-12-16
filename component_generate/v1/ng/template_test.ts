@@ -1,4 +1,3 @@
-
 // 这是描述
 export interface CeshiInterface{
     // 名字
