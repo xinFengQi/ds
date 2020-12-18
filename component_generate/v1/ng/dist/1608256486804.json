@@ -1,0 +1,18 @@
+// 这是描述
+export interface CeshiInterface {
+  // 名字
+  key: string; // 这是复杂的情况
+  // 研究
+  // 设置
+
+  name: number; // 
+
+  heehi: {
+    a: number;
+    b: () => void;
+    c: {
+      f: boolean; // 这是假的
+
+    };
+  };
+}

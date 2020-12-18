@@ -1,0 +1,23 @@
+<nz-input-group *ngIf="inputGroupModel.beforeArr.length > 0" [nzAddOnBefore]="addOnBeforeTemplate" >
+  <input type="text" nz-input [(ngModel)]="inputValue" (ngModelChange)="inputChange($event)" />
+</nz-input-group>
+<nz-input-group *ngIf="inputGroupModel.afterArr.length > 0" [nzAddOnAfter]="addOnAfterTemplate">
+  <input type="text" nz-input [(ngModel)]="inputValue" (ngModelChange)="inputChange($event)" />
+</nz-input-group>
+<nz-input-group *ngIf="inputGroupModel.beforeArr.length > 0 && inputGroupModel.afterArr.length > 0" [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
+  <input type="text" nz-input [(ngModel)]="inputValue" (ngModelChange)="inputChange($event)" />
+</nz-input-group>
+<ng-template #addOnBeforeTemplate>
+  <nz-select  [ngModel]="beforeValue"
+    (ngModelChange)="inputBeforeChange($event)">
+    <nz-option *ngFor="let before of inputGroupModel.beforeArr" [nzLabel]="before.label" [nzValue]="before.value">
+    </nz-option>
+  </nz-select>
+</ng-template>
+<ng-template #addOnAfterTemplate>
+  <nz-select  [ngModel]="afterValue"
+    (ngModelChange)="inputAfterChange($event)">
+    <nz-option *ngFor="let after of inputGroupModel.afterArr" [nzLabel]="after.label" [nzValue]="after.value">
+    </nz-option>
+  </nz-select>
+</ng-template>

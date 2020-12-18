@@ -1,0 +1,20 @@
+<form nz-form>
+    <ng-container *ngFor="let item of formModel">
+        <nz-form-item *ngIf="!item.noShow && item.default">
+            <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)">
+                <span class="label">{{item.label}}</span></nz-form-label>
+            <nz-form-control>
+                <div *ngIf="item.type=='input' || item.type=='datetime'" class="input-a" [id]="item.key">
+                    {{item.default}}</div>
+                <div *ngIf="item.type=='select' " class="input-a" [id]="item.key">
+                    {{getShowContent(item.default, item.selectData)}}</div>
+                <div *ngIf=" item.type=='radio'" class="input-a" [id]="item.key">
+                    {{getShowContent(item.default, item.radioData)}}</div>
+                <div *ngIf="item.type=='richText'" [innerHTML]="item.default|html"></div>
+                <app-file-upload *ngIf="item.type=='uploadFile'" [name]="item.key" [(ngModel)]="item.default"
+                    [onlyRead]="true"></app-file-upload>
+            </nz-form-control>
+        </nz-form-item>
+        </ng-container>
+
+</form>

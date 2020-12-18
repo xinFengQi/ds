@@ -1,0 +1,151 @@
+<form nz-form [formGroup]="formBuildCtrl">
+    <div class="form_content">
+        <ng-container *ngFor="let item of formModel">
+            <ng-container *ngIf="!item.noShow">
+                <!-- 输入框 -->
+                <nz-form-item *ngIf="item.type=='input'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <input class="input-b" [disabled]="item.disabled" [formControlName]="item.key" nz-input
+                            [name]="item.key" type="text" [id]="item.key">
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 输入框组 -->
+                <nz-form-item *ngIf="item.type=='inputgroup'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-input-group *ngIf="item.type=='inputgroup'" [inputGroupModel]="item.inputGroupModel"
+                            [formControlName]="item.key" [id]="item.key"></app-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 文本域 -->
+                <nz-form-item *ngIf="item.type=='textarea'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <textarea [formControlName]="item.key" rows="4" nz-input></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 富文本框 -->
+                <nz-form-item *ngIf="item.type=='richText'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-tinymce-ngx class="tinymce-class" [richTextParams]="getRichTextParamsConfig(item.key)"
+                            [formControlName]="item.key" rows="4" nz-input>
+                        </app-tinymce-ngx>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 下拉选 -->
+                <nz-form-item *ngIf="item.type=='select'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <nz-select class="input-b" [nzDisabled]="item.disabled" [formControlName]="item.key"
+                            nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let select of item.selectData" [nzLabel]="select.label"
+                                [nzValue]="select.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 单选框 -->
+                <nz-form-item *ngIf="item.type=='radio'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <nz-radio-group [nzDisabled]="item.disabled" [formControlName]="item.key">
+                            <label class="radio" *ngFor="let radio of item.radioData" nz-radio
+                                [nzValue]="radio.value">{{radio.label}}</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 单独时间选择框 -->
+                <nz-form-item *ngIf="item.type=='datetime'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-datetime-single [placeHolder]="item.placeholder" [formControlName]="item.key">
+                        </app-datetime-single>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 开始结束时间框 -->
+                <nz-form-item *ngIf="item.type=='datetimeStartEnd'">
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-datetime-start-end [data]="item" [formControlName]="item.key">
+                        </app-datetime-start-end>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 文件上传 -->
+                <nz-form-item *ngIf="item.type=='uploadFile'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-file-upload [fileUploadParams]="getUploadFileParamsConfig(item.key)" [formSub]="formSub$"
+                            [formControlName]="item.key"></app-file-upload>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- 条件判断 -->
+                <nz-form-item *ngIf="item.type=='judgecondition'">
+                    <nz-form-label class="label" [ngStyle]="getShow(item.noShowLabel)" [nzRequired]="!item.noRequire">
+                        <span class="label">{{item.label}}</span></nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <app-judge-condition [formControlName]="item.key"></app-judge-condition>
+                    </nz-form-control>
+                </nz-form-item>
+                <ng-template #errorTpl let-control>
+                    <ng-container *ngIf="item.type=='datetimeStartEnd'">
+                        <nz-form-label style="visibility: hidden"></nz-form-label>
+                    </ng-container>
+
+                    <ng-container *ngIf="control.hasError('required')">
+                        <ng-container *ngIf="item.noRequireErrorTip"> {{item.noRequireErrorTip}}</ng-container>
+                        <ng-container *ngIf="!item.noRequireErrorTip"> 请输入{{item.label}}</ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('dateTimeNoToday')">
+                        {{item.label}}时间需大于当前时间
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('endThenStart') && item.type=='datetimeStartEnd'">
+                        {{item.dateTimeStartEndModel.labelStart}}时间必须大于{{item.dateTimeStartEndModel.labelEnd}}时间
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('noOneInput') && item.type=='datetimeStartEnd'">
+                        {{item.dateTimeStartEndModel.labelStart}}和{{item.dateTimeStartEndModel.labelEnd}}不可只填一项
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('maxlength')">
+                        超过限定长度,字数最多为{{ item.length || getRichTextParamsConfig(item.key).length}}
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('uploadFileError')">
+                        文件上传错误，请删除重新进行操作
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('uploadFileLoadding')">
+                        文件正在上传，请等待
+                    </ng-container>
+
+
+                </ng-template>
+            </ng-container>
+
+        </ng-container>
+    </div>
+
+    <nz-form-item style="margin-bottom: 0;">
+        <nz-form-control>
+            <div *ngIf="buttonData && buttonData.length > 0" class="footer">
+                <button class="footer-btu" nz-button *ngFor="let item of buttonData" (click)="item.onClick($event)"
+                    [nzType]="item.type">{{item.title}}</button>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>

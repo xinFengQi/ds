@@ -1,0 +1,156 @@
+[
+    {
+        "dec": "*\r\n * title: 单个时间选择组件\r\n * type: form-element\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\datetime-single\\datetime-single.component.ts",
+        "inputArr": [
+            {
+                "key": "disableDate",
+                "dec": " 不可以选择的日期"
+            },
+            {
+                "key": "placeHolder",
+                "dec": " 输入框默认选择项"
+            },
+            {
+                "key": "format",
+                "dec": " 返回的数据格式 "
+            }
+        ],
+        "outputArr": []
+    },
+    {
+        "dec": "*\r\n * title: 时间期限选择组件——只用于表单\r\n * type: form-element\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\datetime-start-end\\datetime-start-end.component.ts",
+        "inputArr": [
+            {
+                "key": "data",
+                "dec": ""
+            },
+            {
+                "key": "format",
+                "dec": " 日期的数据格式 "
+            },
+            {
+                "key": "showTime",
+                "dec": " 展示时间"
+            }
+        ],
+        "outputArr": []
+    },
+    {
+        "dec": "*\r\n * title: 文件上传组件\r\n * type: form-element\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\file-upload\\file-upload.component.ts",
+        "inputArr": [
+            {
+                "key": "systemName",
+                "dec": " * ds0.0.2"
+            },
+            {
+                "key": "reviewFileUrl",
+                "dec": " 查看图片路径"
+            },
+            {
+                "key": "onlyRead",
+                "dec": " 只读"
+            },
+            {
+                "key": "formSub",
+                "dec": " 监听Subject"
+            },
+            {
+                "key": "fileUploadParams",
+                "dec": ""
+            }
+        ],
+        "outputArr": []
+    },
+    {
+        "dec": "*\r\n * title: 使用简单表单时配置表单组件\r\n * type: form\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\form-component\\form-component.component.ts",
+        "inputArr": [
+            {
+                "key": "formModel",
+                "dec": " 表单模型数据"
+            },
+            {
+                "key": "formElementBaseConfig",
+                "dec": " 表单元素配置"
+            },
+            {
+                "key": "formElementConfig",
+                "dec": " 定制表单元素配置"
+            }
+        ],
+        "outputArr": [
+            {
+                "key": "formValueChange",
+                "dec": " 表单改变检测"
+            },
+            {
+                "key": "ok",
+                "dec": " 表单确认返回"
+            },
+            {
+                "key": "cacel",
+                "dec": " 表单取消返回"
+            }
+        ]
+    },
+    {
+        "dec": "*\r\n * title: 使用简单表单时预览组件\r\n * type: form\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\form-detail\\form-detail.component.ts",
+        "inputArr": [
+            {
+                "key": "formModel",
+                "dec": " 表单模型数据"
+            }
+        ],
+        "outputArr": []
+    },
+    {
+        "dec": "*\r\n * title: 同行输入组组件\r\n * type: form-element\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\input-group\\input-group.component.ts",
+        "inputArr": [
+            {
+                "key": "placeHolder",
+                "dec": " 输入框默认选择项"
+            },
+            {
+                "key": "inputGroupModel",
+                "dec": ""
+            }
+        ],
+        "outputArr": []
+    },
+    {
+        "dec": "*\r\n * title: 富文本组件\r\n * type: form-element\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-form\\tinymce-ngx\\tinymce-ngx.component.ts",
+        "inputArr": [
+            {
+                "key": "richTextParams",
+                "dec": ""
+            },
+            {
+                "key": "isDelete",
+                "dec": ""
+            }
+        ],
+        "outputArr": [
+            {
+                "key": "isEdit",
+                "dec": " 是否在编辑"
+            }
+        ]
+    },
+    {
+        "dec": "*\r\n * title: 使用二级及以上面包屑时使用的组件\r\n * type: layout\r\n ",
+        "filePath": "C:\\F_code\\personal\\ds\\component_generate\\v1\\ng\\eg\\cx-shared\\cx-layout\\content-breadcrumb\\content-breadcrumb.component.ts",
+        "inputArr": [
+            {
+                "key": "data",
+                "dec": " 面包屑数据"
+            }
+        ],
+        "outputArr": []
+    }
+]
