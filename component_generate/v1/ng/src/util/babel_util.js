@@ -2,6 +2,7 @@ const fs = require('fs')
 const parser = require('@babel/parser').parse;
 const traverse = require('@babel/traverse');
 const { DH_UNABLE_TO_CHECK_GENERATOR } = require('constants');
+const { type } = require('os');
 
 
 // 通过文件生成AST
@@ -53,6 +54,7 @@ function getInterFaceAllByFile(codeTree, file) {
     return insterFaceMap;
 }
 
+// 获取描述，注释
 function getDec(node, line) {
     let leadingComments = '';
     if(node.leadingComments){
@@ -89,7 +91,9 @@ function getComponentAllByFile(codeTree, file) {
               if(node.decorators[0].expression.callee.name === 'Input') {
                 componentInfo.inputArr.push({
                     key: node.key.name,
-                    dec: getDec(node, node.loc.start.line)
+                    dec: getDec(node, node.loc.start.line),
+                    type: getParamsType(node),
+                    default: getParamsDefaultValue(node)
                 })
               } else if( node.decorators[0].expression.callee.name === 'Output') {
                 componentInfo.outputArr.push({
@@ -103,6 +107,31 @@ function getComponentAllByFile(codeTree, file) {
     })
     return componentInfo;
 }
+
+// 获取参数类型
+function getParamsType(node) {
+    let type = '';
+    if(node.typeAnnotation) {
+        type =  node.typeAnnotation.typeAnnotation.type
+    } else {
+        if(node.value) {
+            type =  node.value.type
+        }
+    }
+   
+    return type;
+}
+
+// 获取参数默认值
+function getParamsDefaultValue(node) {
+    if(node.value) {
+        return node.value
+    } else {
+        return ''
+    }
+}   
+
+
 
 // 将接口数组生产md文档字符串
 function getInterFaceMdStr(interFaceAllArr) {
