@@ -12,6 +12,7 @@
     "@babel/parser": "^7.12.11"
   },
   "dependencies": {
-    "@babel/traverse": "^7.12.10"
+    "@babel/traverse": "^7.12.10",
+    "request": "^2.88.2"
   }
 }
