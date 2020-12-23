@@ -1,8 +1,7 @@
 const fs = require('fs')
 const parser = require('@babel/parser').parse;
+const generate = require('@babel/generator')
 const traverse = require('@babel/traverse');
-const { DH_UNABLE_TO_CHECK_GENERATOR } = require('constants');
-const { type } = require('os');
 
 
 // 通过文件生成AST
@@ -57,11 +56,11 @@ function getInterFaceAllByFile(codeTree, file) {
 // 获取描述，注释
 function getDec(node, line) {
     let leadingComments = '';
-    if(node.leadingComments){
+    if (node.leadingComments) {
         leadingComments = node.leadingComments.map(v => v.value).join(';')
     }
     let trailingComments = '';
-    if(node.trailingComments){
+    if (node.trailingComments) {
         trailingComments = node.trailingComments.filter(s => s.loc.start.line === line).map(v => v.value).join(';')
     }
     return leadingComments + trailingComments;
@@ -74,9 +73,17 @@ function getComponentAllByFile(codeTree, file) {
     traverse.default(codeTree, {
         // 取出组件第一个描述
         ImportDeclaration: (path) => {
-            if(isFirst) {
-                if(path.node.leadingComments) {
-                    componentInfo.dec =  path.node.leadingComments[0].value;
+            if (isFirst) {
+                if (path.node.leadingComments) {
+                    componentInfo.dec = path.node.leadingComments[0].value.replace(/\*/g, '')
+                        .split('\r\n').map(v => v.trim())
+                        .filter(s => s && s.length > 0)
+                        .map(v => {
+                            const ar = v.split(':').map(p => p.trim())
+                            return { [ar[0]]: ar[1] }
+                        }).reduce((a, b) => {
+                            return { ...a, ...b }
+                        })
                 }
                 componentInfo.filePath = file;
                 componentInfo.inputArr = [];
@@ -84,26 +91,48 @@ function getComponentAllByFile(codeTree, file) {
                 isFirst = false;
             }
         },
-        // 进入接口节点
+        // 进入类的属性节点
         ClassProperty: (path) => {
-          const node = path.node;
-          if(node.decorators && node.decorators[0].expression) {
-              if(node.decorators[0].expression.callee.name === 'Input') {
-                componentInfo.inputArr.push({
-                    key: node.key.name,
-                    dec: getDec(node, node.loc.start.line),
-                    type: getParamsType(node),
-                    default: getParamsDefaultValue(node)
-                })
-              } else if( node.decorators[0].expression.callee.name === 'Output') {
-                componentInfo.outputArr.push({
-                    key: node.key.name,
-                    dec: getDec(node, node.loc.start.line)
-                })
-              }
-            
-          }
-        } 
+            const node = path.node;
+            if (node.decorators && node.decorators[0].expression) {
+                if (node.decorators[0].expression.callee.name === 'Input') {
+                    componentInfo.inputArr.push({
+                        key: node.key.name,
+                        dec: getDec(node, node.loc.start.line).trim(),
+                        type: getParamsType(node),
+                        default: getParamsDefaultValue(node)
+                    })
+                } else if (node.decorators[0].expression.callee.name === 'Output') {
+                    componentInfo.outputArr.push({
+                        key: node.key.name,
+                        dec: getDec(node, node.loc.start.line).trim(),
+                        type: getParamsType(node),
+                        default: getParamsDefaultValue(node)
+                    })
+                }
+
+            }
+        },
+        // 进入类的描述节点___查询providers
+        ClassDeclaration: (path) => {
+            const componentDecoratorArgs = path.node.decorators.filter(s => s.expression.callee.name === 'Component')[0]
+            if (componentDecoratorArgs) {
+                const componentProviders = componentDecoratorArgs.expression.arguments[0].properties.filter(s => s.key.name === 'providers')[0]
+                if (componentProviders) {
+                    const providersMap = componentProviders.value.elements.map(s => s.properties.map(p => {
+                        return {
+                            key: p.key.name,
+                            value: generate.default(p.value).code
+                        }
+                    }))
+                    // componentInfo.componentProviders = providersMap
+                    const providersArr = providersMap.map(ss => ss.filter(pp => pp.key === 'provide').map(pp => pp.value)).join(',').split(',')
+                    if (providersArr.includes('NG_VALUE_ACCESSOR')) {
+                        componentInfo.inNgModel = true
+                    }
+                }
+            }
+        }
     })
     return componentInfo;
 }
@@ -111,25 +140,88 @@ function getComponentAllByFile(codeTree, file) {
 // 获取参数类型
 function getParamsType(node) {
     let type = '';
-    if(node.typeAnnotation) {
-        type =  node.typeAnnotation.typeAnnotation.type
+    if (node.typeAnnotation) {
+        type = node.typeAnnotation.typeAnnotation.type
     } else {
-        if(node.value) {
-            type =  node.value.type
+        if (node.value) {
+            type = node.value.type
         }
     }
-   
-    return type;
+    return switchType(type, node);
 }
+
+function switchType(type, node) {
+    let outType = '';
+    const outTypeArr = []
+    function byGenerate(node) {
+        const typeValue = { ...node.typeAnnotation };
+        return generate.default(typeValue).code.replace(':', '').trim()
+    }
+    switch (type) {
+        case 'ArrowFunctionExpression':
+            {
+                const typeValue = { ...node.value };
+                delete typeValue['body']
+                outType = 'Function:' + generate.default(typeValue).code.replace('=>', '').trim()
+            }
+            break;
+        case 'TSUnionType':
+            {
+                const typeValue = { ...node.typeAnnotation.typeAnnotation }
+                if (typeValue.types) {
+                    typeValue.types.forEach(s => {
+                        outTypeArr.push(s.literal.value ? s.literal.value : "''")
+                    })
+                }
+                outType = outTypeArr.join('|')
+            }
+            break;
+        case 'TSTypeReference':
+            outType = byGenerate(node)
+            break;
+        case 'TSArrayType':
+            outType = byGenerate(node)
+            break;
+        case 'TSTypeLiteral':
+            outType = byGenerate(node)
+            break;
+        case 'NewExpression':
+            {
+                outType = node.value.callee.name
+                break;
+            }
+        case 'TSStringKeyword':
+            outType = 'string';
+            break;
+        case 'TSBooleanKeyword':
+            outType = 'boolean';
+            break;
+        case 'StringLiteral':
+            outType = 'string';
+            break;
+        case 'BooleanLiteral':
+            outType = 'boolean';
+            break;
+        case 'TSAnyKeyword':
+            outType = 'any';
+            break;
+        default: {
+            outType = type
+        }
+    }
+    return outType
+}
+
+
 
 // 获取参数默认值
 function getParamsDefaultValue(node) {
-    if(node.value) {
-        return node.value
+    if (node.value) {
+        return generate.default(node.value).code
     } else {
         return ''
     }
-}   
+}
 
 
 

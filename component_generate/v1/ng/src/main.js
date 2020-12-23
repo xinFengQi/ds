@@ -2,6 +2,7 @@
 // 代码启动进程
 const { readDir, isTsOrJs } = require('./util/handler_file');
 const { getCodeTreeByfile, getInterFaceAllByFile,getInterFaceMdStr, getComponentAllByFile } = require('./util/babel_util');
+const { mdToHtml } = require('./util/marked_html')
 const fs = require('fs');
 const fileDirPath = 'C:/F_code/personal/ds/component_generate/v1/ng/eg';
 
@@ -25,3 +26,5 @@ files.forEach(file => {
 })
 fs.writeFileSync('./dist/component.json', JSON.stringify(componentAllArr))
 fs.writeFileSync('./dist/interface.md', getInterFaceMdStr(interFaceAllArr))
+fs.writeFileSync('./dist/interface.html', mdToHtml(getInterFaceMdStr(interFaceAllArr)))
+
