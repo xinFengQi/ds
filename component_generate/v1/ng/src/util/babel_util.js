@@ -106,8 +106,7 @@ function getComponentAllByFile(codeTree, file) {
                     componentInfo.outputArr.push({
                         key: node.key.name,
                         dec: getDec(node, node.loc.start.line).trim(),
-                        type: getParamsType(node),
-                        default: getParamsDefaultValue(node)
+                        type: getParamsType(node)
                     })
                 }
 
@@ -128,7 +127,18 @@ function getComponentAllByFile(codeTree, file) {
                     // componentInfo.componentProviders = providersMap
                     const providersArr = providersMap.map(ss => ss.filter(pp => pp.key === 'provide').map(pp => pp.value)).join(',').split(',')
                     if (providersArr.includes('NG_VALUE_ACCESSOR')) {
-                        componentInfo.inNgModel = true
+                        componentInfo.inNgModel = true;
+                        componentInfo.inputArr.push({
+                            key: `[(ngModel)]`,
+                            dec: '双向绑定的值，可做表单组件',
+                            type: 'any',
+                            default: ''
+                        })
+                        componentInfo.outputArr.push({
+                            key: 'ngModelChange',
+                            dec: '双向绑定值变化事件',
+                            type: 'EventEmitter<any>',
+                        })
                     }
                 }
             }
@@ -225,31 +235,8 @@ function getParamsDefaultValue(node) {
 
 
 
-// 将接口数组生产md文档字符串
-function getInterFaceMdStr(interFaceAllArr) {
-    let inFaceStr = '';
-    interFaceAllArr.forEach(
-        str => {
-            if (str.dec || str.name) {
-                inFaceStr = `${inFaceStr}### ${str.dec ? str.dec : ''}_${str.name}\n`
-            }
-            if (str.filePath) {
-                inFaceStr = `${inFaceStr}来源地址: ${str.filePath}\n`
-            }
-            if (str.type) {
-                str.code = `${str.type} ${str.code}`;
-            }
-            inFaceStr = inFaceStr + '```javascript\n'
-            inFaceStr = inFaceStr + str.code + '\n'
-            inFaceStr = inFaceStr + '```\n\n'
-        }
-    )
-    return inFaceStr
-}
-
 module.exports = {
     getCodeTreeByfile,
     getInterFaceAllByFile,
-    getInterFaceMdStr,
     getComponentAllByFile
 }

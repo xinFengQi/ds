@@ -1,11 +1,81 @@
 const marked = require('marked')
 
-function mdToHtml(content) {
-    return  createTemplate().replace('{{{content}}}', marked(content))
+
+// 将接口数组生产md文档字符串
+function getInterFaceMdStr(interFaceAllArr) {
+    let inFaceStr = '';
+    interFaceAllArr.forEach(
+        str => {
+            if (str.dec || str.name) {
+                inFaceStr = `${inFaceStr}## ${str.name}\n`
+                inFaceStr = `${inFaceStr}### ${str.dec ? str.dec : ''}\n`
+            }
+            if (str.filePath) {
+                inFaceStr = `${inFaceStr}来源地址: ${str.filePath}\n`
+            }
+            if (str.type) {
+                str.code = `${str.type} ${str.code}`;
+            }
+            inFaceStr = inFaceStr + '```javascript\n'
+            inFaceStr = inFaceStr + str.code.replace(/\n\n/g, '\n') + '\n'
+            inFaceStr = inFaceStr + '```\n\n'
+        }
+    )
+    return inFaceStr
 }
 
 
-function createTemplate() {
+function generateMDTable(tableHeaderArr, data, dataKeyArr) {
+    let str = `| ${tableHeaderArr.join(` | `)} |\n`;
+    str = str + tableHeaderArr.reduce((s, a) => {
+        if(s === tableHeaderArr[0]) {
+            return `| :----: | :----:`
+        }
+        return s + `| :----: `
+    }) + ` |\n`
+    data.forEach(item => {
+        str = str + `| ${dataKeyArr.map(v => {
+            if(item[v]) {
+               return item[v].replace(/\|/g, '&#124;').replace(/\n/g, '<br>')
+            } else {
+                return ''
+            }
+        }).join(` | `)} | \n`
+    })
+    return str;
+}
+
+
+function getComponentMDByInfo(componentInfo) {
+    let str = '';
+    str = str + '## ' + componentInfo.dec.title + '\n\n'
+    str = str + '## ' + componentInfo.key + '\n\n'
+    if (componentInfo.inputMarkTable) {
+        str = str + '### Input属性\n\n'
+        str = str + componentInfo.inputMarkTable + '\n\n'
+    }
+    if (componentInfo.outputMarkTable) {
+        str = str + '### Output属性\n\n'
+        str = str + componentInfo.outputMarkTable + '\n\n'
+    }
+
+    return str;
+}
+
+
+function mdToVueHtml(content) {
+    content = content.replace(/</g, '&lt')
+    return  createTemplate().replace('{{{content}}}', marked(content))
+}
+
+function mdToHtml(content) {
+    content = content.replace(/</g, '&lt')
+    return  createHtmlTemplate().replace('{{{content}}}', marked(content))
+}
+
+
+
+function createHtmlTemplate() {
     const template = `<!DOCTYPE html>
     <html>
         <head>
@@ -26,6 +96,7 @@ function createTemplate() {
                 }
             }
         </style>
+        <link rel="stylesheet" href="../resource/purple/purple.css">
         </head>
         <body>
             <article class="markdown-body">
@@ -36,7 +107,20 @@ function createTemplate() {
     return template;
 }
 
-module.exports = {
-    mdToHtml
+function createTemplate() {
+    const template = `
+        <div>
+            <article class="markdown-body">
+                {{{content}}}
+            </article>  
+        </div>`;
+    return template;
 }
 
+module.exports = {
+    getInterFaceMdStr,
+    mdToHtml,
+    mdToVueHtml,
+    generateMDTable,
+    getComponentMDByInfo
+}

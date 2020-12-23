@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+        <meta charset="utf-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>md文件转html页面</title>
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="../resource/purple/purple.css">
+        </head>
+        <body>
+            <article class="markdown-body">
+                <h2 id="单个时间选择组件">单个时间选择组件</h2>
+<h2 id="datetime-single">datetime-single</h2>
+<h3 id="input属性">Input属性</h3>
+<table>
+<thead>
+<tr>
+<th align="center">属性值</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">[(ngModel)]</td>
+<td align="center">双向绑定的值，可做表单组件</td>
+<td align="center">any</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">disableDate</td>
+<td align="center">不可以选择的日期</td>
+<td align="center">Function:(current: Date): boolean</td>
+<td align="center">(current: Date): boolean =&gt; {&amp;ltbr&gt;  return differenceInCalendarDays(current, new Date()) &amp;lt 0;&amp;ltbr&gt;}</td>
+</tr>
+<tr>
+<td align="center">placeHolder</td>
+<td align="center">输入框默认选择项</td>
+<td align="center">string</td>
+<td align="center">&#39;请选择日期&#39;</td>
+</tr>
+<tr>
+<td align="center">format</td>
+<td align="center">返回的数据格式</td>
+<td align="center">&#39;&#39;&#124;YYYY-MM-DD HH:mm:ss</td>
+<td align="center">&#39;YYYY-MM-DD HH:mm:ss&#39;</td>
+</tr>
+</tbody></table>
+<h3 id="output属性">Output属性</h3>
+<table>
+<thead>
+<tr>
+<th align="center">属性值</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ngModelChange</td>
+<td align="center">双向绑定值变化事件</td>
+<td align="center">EventEmitter&amp;ltany&gt;</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
+            </article>  
+        </body>
+    </html>

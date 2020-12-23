@@ -13,18 +13,6 @@ export interface BreadcrumbBtuData {
     onClick: (...value: any[]) => void;
 }
 
-// 富文本配置
-export interface RichTextParams {
-    // 内容高度
-    height?: string;
-    // 内容宽度
-    width?: string;
-    // 插件列表
-    plugins?: string;
-    // toolbar
-    toolbar?: string;
-}
-
 // 表单模型配置
 export interface CxFromModel {
     // 表单元素键值
