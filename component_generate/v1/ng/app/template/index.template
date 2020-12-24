@@ -11,17 +11,18 @@
 
 <body>
     <div id="app">
-       <router-view></router-view>
+        <div class="left">
+            {{{toc}}}
+        </div>
+        <div class="main">
+            <router-view></router-view>
+        </div>
+        <div class="right">
+
+        </div>
     </div>
 </body>
 <script>
-    function show(event){
-        console.log( event.target.childNodes)
-        const childrenNodes = event.target.childNodes;
-        for(let i=0; i< childrenNodes.length; i++) {
-            console.log( childrenNodes.item(i))
-        }
-    }
     window.onload = () => {
         vueInit('#app')
     }
@@ -30,8 +31,5 @@
 <script src="./resource/vue-router.js"></script>
 <script src="vue/data/componentdata.js"></script>
 <script src="vue/js/index.js"></script>
-<script src = "vue/component/leftnav.js"></script>
-<script>
-    initLeftNavComponent()
-</script>
+
 </html>

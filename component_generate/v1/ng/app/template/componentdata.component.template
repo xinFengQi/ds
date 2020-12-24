@@ -1,0 +1,4 @@
+{
+    path: '/{{{routerName}}}',
+    component: { template: `{{{template}}}` },
+},

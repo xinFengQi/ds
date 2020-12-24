@@ -1,118 +1,93 @@
 
 
+const fs = require('fs');
+const { type } = require('os');
+const path = require('path')
+const vuebaseUrl = './app/template';
 
+/*
+{
+    dec: {
+        type: 
+        title:
+    },
+    vuehtml: 
+}
+*/
+// 暂定二层
 function gettocRouterLink(arr) {
-    const templateA = `<div class="nav"><router-link to="/{{{router}}}">{{{routername}}}</router-link></div>`;
-    const templateB = `const {{{routerName}}} = { template: \`{{{template}}}\` }`
-    const templateC = `{ path: '/{{{routerName}}}', component: {{{routerName}}} }`
-    const templateD = `const routes = [
-        {{{templateC}}}
-    ];`
-    let strA = ''
-    let strB = ''
-    let strC = ''
+    const indexRouterNavTel = fs.readFileSync(path.resolve(vuebaseUrl, './index.router.template')).toString();
+    const indexRouterNavClickTel = fs.readFileSync(path.resolve(vuebaseUrl, './index.router_click.template')).toString();
+    const dataComponentPath = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.component.template')).toString();
+
+    const indexNavMap = {}
+    let componentPathStr = ''
     arr.forEach(element => {
         const keys = element.key.replace(/-/g, '_');
-        strA = strA + templateA.replace('{{{router}}}',keys).replace('{{{routername}}}', element.dec.title) + '\n'
-        strB = strB + templateB.replace('{{{routerName}}}', keys).replace('{{{template}}}', element.vuehtml) + '\n'
-        strC = strC + templateC.replace('{{{routerName}}}', keys).replace('{{{routerName}}}', keys) + ',\n'
+        getNavTreeByType(element, indexNavMap)
+        componentPathStr = componentPathStr + dataComponentPath.replace('{{{routerName}}}', keys).replace('{{{template}}}', element.vuehtml)
     });
-    strC = templateD.replace('{{{templateC}}}', strC) + '\n'
-    return getIndexHtml(strA, strB + strC)
+    const dataTel = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.template')).toString();
+    const componentDataStr = dataTel.replace('{{{componentInfo}}}', componentPathStr)
+    return { indexHtml: getIndexHtml(getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, indexNavMap, 0)), componentData: componentDataStr }
 }
 
-function getIndexHtml(toc, router) {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>组件文档</title>
-    </head>
-    <link rel="stylesheet" href="resource/purple/purple.css">
-    <style>
-        html {
-            width: 100%;
-            height: 100%;
+// 根据nav树生成代码
+function getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, tree, i) {
+    i = i + 1;
+    let str = ''
+    for (const key in tree) {
+        if (key !== '__value') {
+            str = str + indexRouterNavClickTel.replace('{{{navLevel}}}', i).replace('{{{routername}}}', key) + '\n'
+            str = str + getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, tree[key], i)
         }
-    
-        body {
-            width: 100%;
-            height: 100%;
+    }
+    console.log(Object.keys(tree))
+    if (tree.__value) {
+        tree.__value.forEach(t => {
+            const keys = t.key.replace(/-/g, '_');
+            str = str + indexRouterNavTel.replace('{{{navLevel}}}', i).replace('{{{router}}}', keys).replace('{{{routername}}}', t.dec.title) + '\n'
+        })
+    }
+
+    return str
+}
+
+
+// 根据type生成nav树
+function getNavTreeByType(item, typemap) {
+    const typeArr = item.dec.type.split(':');
+    let dataMap = { ...typemap }, outputDataMap = typemap, i = 0;
+    let type = typeArr[i]
+    for (i; i < typeArr.length; i++) {
+        type = typeArr[i]
+        if (dataMap.hasOwnProperty(type)) {
+            dataMap = { ...dataMap[type] }
+            outputDataMap = outputDataMap[type]
+        } else {
+            break;
         }
-    
-        #app {
-            display: flex;
-            height: 100%;
-            padding: 20px;
-            overflow: scroll;
-        }
-    
-        .left {
-            min-width: 280px;
-            background-color: rgb(237, 241, 241);
-        }
-        .nav {
-            padding: 10px 0px 0px 4px;
-        }
-    
-        .main {
-            flex: 1;
-            min-width: 880px;
-        }
-    
-        .right {
-            min-width: 200px;
-            background-color: rgb(241, 247, 247);
-        }
-    
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
-        }
-    
-        @media (max-width: 767px) {
-            .markdown-body {
-                padding: 15px;
+    }
+    if (i === typeArr.length) {
+        outputDataMap.__value.push(item)
+    } else {
+        if (type) {
+            outputDataMap[type] = { __value: [] }
+            outputDataMap[type].__value = [item]
+        } else {
+            if (outputDataMap.__value) {
+                outputDataMap.__value.push(item)
+            } else {
+                outputDataMap.__value = [item]
             }
         }
-    </style>
-    
-    <body>
-        <div id="app">
-            <div class="left">
-               ${toc}
-            </div>
-            <div class="main">
-                <router-view></router-view>
-            </div>
-            <div class="right">
-    
-            </div>
-        </div>
-    </body>
-    <script>
-        window.onload = () => {
-           ${router}
-    
-            const router = new VueRouter({
-                routes
-            })
-    
-            const vue = new Vue({
-                router
-            }).$mount("#app")
-        }
-    
-    
-    </script>
-    <script src="./resource/vue.js"></script>
-    <script src="./resource/vue-router.js"></script>
-    </html>`
+
+    }
+}
+
+function getIndexHtml(toc) {
+    const htmlTemplate = fs.readFileSync(path.resolve(vuebaseUrl, './index.template')).toString();
+    return htmlTemplate.replace('{{{toc}}}', toc)
 }
 
 

@@ -1,6 +1,6 @@
 /**
  * title: 文件上传组件
- * type: form-element
+ * type: form-element:typr
  */
 
 import { Component, OnInit, forwardRef, Input, OnDestroy } from '@angular/core';

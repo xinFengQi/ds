@@ -80,7 +80,7 @@ function getComponentAllByFile(codeTree, file) {
                         .filter(s => s && s.length > 0)
                         .map(v => {
                             const ar = v.split(':').map(p => p.trim())
-                            return { [ar[0]]: ar[1] }
+                            return { [ar[0]]: ar.slice(1, ar.length).join(':') }
                         }).reduce((a, b) => {
                             return { ...a, ...b }
                         })

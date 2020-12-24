@@ -39,7 +39,10 @@ files.forEach(file => {
     }
 })
 
+const {indexHtml, componentData} = gettocRouterLink(componentAllArr);
 fs.writeFileSync('./dist/component.json', JSON.stringify(componentAllArr))
 fs.writeFileSync(`./app/markdown/interface.md`, getInterFaceMdStr(interFaceAllArr))
 fs.writeFileSync(`./app/html/interface.html`,  mdToHtml(getInterFaceMdStr(interFaceAllArr)))
-fs.writeFileSync(`./app/index.html`, gettocRouterLink(componentAllArr))
+fs.writeFileSync(`./app/index.html`, indexHtml)
+fs.writeFileSync(`./app/vue/data/componentdata.js`, componentData)
+
