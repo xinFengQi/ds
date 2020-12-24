@@ -1,64 +1,9 @@
-if (!window.$VUE_DATA) {
+if(!window.$VUE_DATA) {
     window.$VUE_DATA = {}
 }
-window.$VUE_DATA.component = [
-    {
-        path: '/',
-        component: {
-            template: `<div> <div class="left">
-        <left-nav :navData="navData"></left-nav>
-        <div class="nav1">form-element</div>
-<div class="nav2" onclick="show(event)">typr</div>
-<div class="nav3"><router-link to="/file_upload">文件上传组件</router-link></div>
-<div class="nav2"><router-link to="/datetime_single">单个时间选择组件</router-link></div>
-<div class="nav2"><router-link to="/datetime_start_end">时间期限选择组件——只用于表单</router-link></div>
-<div class="nav2"><router-link to="/input_group">同行输入组组件</router-link></div>
-<div class="nav2"><router-link to="/tinymce_ngx">富文本组件</router-link></div>
-<div class="nav1">form</div>
-<div class="nav2"><router-link to="/form_component">使用简单表单时配置表单组件</router-link></div>
-<div class="nav2"><router-link to="/form_detail">使用简单表单时预览组件</router-link></div>
-<div class="nav1">layout</div>
-<div class="nav2"><router-link to="/content_breadcrumb">使用二级及以上面包屑时使用的组件</router-link></div>
-
-    </div>
-    <div class="main">
-        <router-view></router-view>
-    </div>
-    <div class="right">
-
-    </div></div>`,
-            data: () => {
-                return {
-                    navData: [
-                        {
-                            title: '123',
-                            key: '123',
-                            __value: [
-                                {
-                                    title: '21312',
-                                    key: '12312',
-                                }
-                            ]
-                        },
-                        {
-                            title: '123',
-                            key: '123',
-                            __value: [
-                                {
-                                    title: '21312',
-                                    key: '12312',
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    {
-        path: '/datetime_single',
-        component: {
-            template: `
+window.$VUE_DATA.component = [{
+    path: '/datetime_single',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="单个时间选择组件">单个时间选择组件</h2>
@@ -118,10 +63,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/datetime_start_end',
-        component: {
-            template: `
+},{
+    path: '/datetime_start_end',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="时间期限选择组件只用于表单">时间期限选择组件——只用于表单</h2>
@@ -181,10 +125,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/file_upload',
-        component: {
-            template: `
+},{
+    path: '/file_upload',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="文件上传组件">文件上传组件</h2>
@@ -256,10 +199,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/form_component',
-        component: {
-            template: `
+},{
+    path: '/form_component',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="使用简单表单时配置表单组件">使用简单表单时配置表单组件</h2>
@@ -325,10 +267,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/form_detail',
-        component: {
-            template: `
+},{
+    path: '/form_detail',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="使用简单表单时预览组件">使用简单表单时预览组件</h2>
@@ -353,10 +294,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/input_group',
-        component: {
-            template: `
+},{
+    path: '/input_group',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="同行输入组组件">同行输入组组件</h2>
@@ -410,10 +350,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/tinymce_ngx',
-        component: {
-            template: `
+},{
+    path: '/tinymce_ngx',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="富文本组件">富文本组件</h2>
@@ -473,10 +412,9 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    }, {
-        path: '/content_breadcrumb',
-        component: {
-            template: `
+},{
+    path: '/content_breadcrumb',
+    component: { template: `
         <div>
             <article class="markdown-body">
                 <h2 id="使用二级及以上面包屑时使用的组件">使用二级及以上面包屑时使用的组件</h2>
@@ -501,4 +439,4 @@ window.$VUE_DATA.component = [
 
             </article>  
         </div>` },
-    },]
+},]

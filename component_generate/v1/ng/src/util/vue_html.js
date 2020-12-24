@@ -14,12 +14,8 @@ const vuebaseUrl = './app/template';
     vuehtml: 
 }
 */
-// 暂定二层
 function gettocRouterLink(arr) {
-    const indexRouterNavTel = fs.readFileSync(path.resolve(vuebaseUrl, './index.router.template')).toString();
-    const indexRouterNavClickTel = fs.readFileSync(path.resolve(vuebaseUrl, './index.router_click.template')).toString();
     const dataComponentPath = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.component.template')).toString();
-
     const indexNavMap = {}
     let componentPathStr = ''
     arr.forEach(element => {
@@ -29,28 +25,8 @@ function gettocRouterLink(arr) {
     });
     const dataTel = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.template')).toString();
     const componentDataStr = dataTel.replace('{{{componentInfo}}}', componentPathStr)
-    return { indexHtml: getIndexHtml(getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, indexNavMap, 0)), componentData: componentDataStr }
-}
-
-// 根据nav树生成代码
-function getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, tree, i) {
-    i = i + 1;
-    let str = ''
-    for (const key in tree) {
-        if (key !== '__value') {
-            str = str + indexRouterNavClickTel.replace('{{{navLevel}}}', i).replace('{{{routername}}}', key) + '\n'
-            str = str + getHtmlByNavtree(indexRouterNavTel, indexRouterNavClickTel, tree[key], i)
-        }
-    }
-    console.log(Object.keys(tree))
-    if (tree.__value) {
-        tree.__value.forEach(t => {
-            const keys = t.key.replace(/-/g, '_');
-            str = str + indexRouterNavTel.replace('{{{navLevel}}}', i).replace('{{{router}}}', keys).replace('{{{routername}}}', t.dec.title) + '\n'
-        })
-    }
-
-    return str
+    console.log(indexNavMap)
+    return { appComponent: getAppComponent(indexNavMap), componentData: componentDataStr }
 }
 
 
@@ -68,26 +44,27 @@ function getNavTreeByType(item, typemap) {
             break;
         }
     }
+    const keys = item.key.replace(/-/g, '_');
     if (i === typeArr.length) {
-        outputDataMap.__value.push(item)
+        outputDataMap.__value.push({ title: item.dec.title, key: keys, link: '/' + keys })
     } else {
         if (type) {
             outputDataMap[type] = { __value: [] }
-            outputDataMap[type].__value = [item]
+            outputDataMap[type].__value = [{ title: item.dec.title, key: keys, link: '/' + keys }]
         } else {
             if (outputDataMap.__value) {
-                outputDataMap.__value.push(item)
+                outputDataMap.__value.push({ title: item.dec.title, key: keys, link: '/' + keys })
             } else {
-                outputDataMap.__value = [item]
+                outputDataMap.__value = [{ title: item.dec.title, key: keys, link: '/' + keys }]
             }
         }
 
     }
 }
 
-function getIndexHtml(toc) {
-    const htmlTemplate = fs.readFileSync(path.resolve(vuebaseUrl, './index.template')).toString();
-    return htmlTemplate.replace('{{{toc}}}', toc)
+function getAppComponent(navData) {
+    const htmlTemplate = fs.readFileSync(path.resolve(vuebaseUrl, './appcomponent.template')).toString();
+    return htmlTemplate.replace('{{{navDatas}}}', JSON.stringify(navData))
 }
 
 

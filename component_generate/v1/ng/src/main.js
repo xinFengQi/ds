@@ -6,7 +6,7 @@ const { mdToHtml, mdToVueHtml, getComponentMDByInfo, getInterFaceMdStr } = requi
 const { generateMDTable } = require('./util/marked_html')
 const { gettocRouterLink } = require('./util/vue_html');
 const fs = require('fs');
-const fileDirPath = 'C:/F_code/personal/ds/component_generate/v1/ng/eg';
+const fileDirPath = './eg';
 
 const files = readDir(fileDirPath)
 let interFaceAllArr = []
@@ -39,10 +39,10 @@ files.forEach(file => {
     }
 })
 
-const {indexHtml, componentData} = gettocRouterLink(componentAllArr);
+const {appComponent, componentData} = gettocRouterLink(componentAllArr);
 fs.writeFileSync('./dist/component.json', JSON.stringify(componentAllArr))
 fs.writeFileSync(`./app/markdown/interface.md`, getInterFaceMdStr(interFaceAllArr))
 fs.writeFileSync(`./app/html/interface.html`,  mdToHtml(getInterFaceMdStr(interFaceAllArr)))
-fs.writeFileSync(`./app/index.html`, indexHtml)
+fs.writeFileSync(`./app/vue/data/appcomponent.data.js`, appComponent)
 fs.writeFileSync(`./app/vue/data/componentdata.js`, componentData)
 

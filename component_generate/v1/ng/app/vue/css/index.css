@@ -9,10 +9,10 @@ body {
 }
 
 #app {
-    display: flex;
-    height: 100%;
     padding: 20px;
-    overflow: scroll;
+}
+.vueContent{
+    display: flex;
 }
 
 .left {
