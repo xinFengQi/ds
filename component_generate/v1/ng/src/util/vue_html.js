@@ -25,13 +25,15 @@ function gettocRouterLink(arr) {
     });
     const dataTel = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.template')).toString();
     const componentDataStr = dataTel.replace('{{{componentInfo}}}', componentPathStr)
-    console.log(indexNavMap)
     return { appComponent: getAppComponent(indexNavMap), componentData: componentDataStr }
 }
 
 
 // 根据type生成nav树
 function getNavTreeByType(item, typemap) {
+    if(!item.dec.type) {
+        return
+    }
     const typeArr = item.dec.type.split(':');
     let dataMap = { ...typemap }, outputDataMap = typemap, i = 0;
     let type = typeArr[i]

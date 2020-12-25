@@ -1,16 +1,15 @@
 function initLeftNavComponent() {
     Vue.component('left-nav', {
         template: `<div>
-                        <template v-for="(item, i) in Object.keys(navData).reverse()">
-                            
-                            <template v-if="item == '__value' && navData[item].isShow">
-                                <div :class="'nav'+getIndex(index+1)" v-for="(value, iv) in navData[item]">
+                        <template v-for="(key, i) in Object.keys(navData).reverse()">
+                            <template v-if="key == '__value'">
+                                <div :class="'nav'+getIndex(index+1)" v-for="(value, iv) in navData[key]">
                                     <router-link :to="value.link">{{value.title}}</router-link>
                                 </div>
                             </template>
-                            <template v-if="item != '__value'">
-                               <div @click="isShowToggle(navData[item])" :class="'nav'+getIndex(index+1)"> {{item}} </div>
-                                <left-nav v-if="navData[item].isShow" :navData="navData[item]" :index="getIndex(index+1)"></left-nav>
+                            <template v-if="key != '__value' && key != 'isShow'">
+                               <div @click="isShowToggle(navData[key])" :class="'nav'+getIndex(index+1)"> {{key}} </div>
+                                <left-nav v-if="!navData[key].isShow" :navData="navData[key]" :index="getIndex(index+1)"></left-nav>
                             </template>
                            
                         </template>
@@ -18,7 +17,6 @@ function initLeftNavComponent() {
         props: ['navData', 'index'],
         data: () => {
             return {
-                isShow: false
             }
         },
         created: () => {
@@ -29,7 +27,9 @@ function initLeftNavComponent() {
             },
             isShowToggle(item) {
                 console.log(item)
-                item.isShow = !item.isShow
+                item.isShow = !item.isShow;
+                this.$forceUpdate();
+                // this.$set(item, 'isShow', !item.isShow)
             }
         },
 

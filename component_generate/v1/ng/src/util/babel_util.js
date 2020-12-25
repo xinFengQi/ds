@@ -95,14 +95,14 @@ function getComponentAllByFile(codeTree, file) {
         ClassProperty: (path) => {
             const node = path.node;
             if (node.decorators && node.decorators[0].expression) {
-                if (node.decorators[0].expression.callee.name === 'Input') {
+                if (node.decorators[0].expression.callee && node.decorators[0].expression.callee.name === 'Input') {
                     componentInfo.inputArr.push({
                         key: node.key.name,
                         dec: getDec(node, node.loc.start.line).trim(),
                         type: getParamsType(node),
                         default: getParamsDefaultValue(node)
                     })
-                } else if (node.decorators[0].expression.callee.name === 'Output') {
+                } else if (node.decorators[0].expression.callee && node.decorators[0].expression.callee.name === 'Output') {
                     componentInfo.outputArr.push({
                         key: node.key.name,
                         dec: getDec(node, node.loc.start.line).trim(),
@@ -114,16 +114,25 @@ function getComponentAllByFile(codeTree, file) {
         },
         // 进入类的描述节点___查询providers
         ClassDeclaration: (path) => {
+            if (!path.node.decorators) {
+                return
+            }
             const componentDecoratorArgs = path.node.decorators.filter(s => s.expression.callee.name === 'Component')[0]
             if (componentDecoratorArgs) {
                 const componentProviders = componentDecoratorArgs.expression.arguments[0].properties.filter(s => s.key.name === 'providers')[0]
                 if (componentProviders) {
-                    const providersMap = componentProviders.value.elements.map(s => s.properties.map(p => {
-                        return {
-                            key: p.key.name,
-                            value: generate.default(p.value).code
+                    const providersMap = componentProviders.value.elements.map(s => {
+                        if (s.properties) {
+                            return s.properties.map(p => {
+                                return {
+                                    key: p.key.name,
+                                    value: generate.default(p.value).code
+                                }
+                            })
+                        } else {
+                            return []
                         }
-                    }))
+                    })
                     // componentInfo.componentProviders = providersMap
                     const providersArr = providersMap.map(ss => ss.filter(pp => pp.key === 'provide').map(pp => pp.value)).join(',').split(',')
                     if (providersArr.includes('NG_VALUE_ACCESSOR')) {
@@ -214,6 +223,12 @@ function switchType(type, node) {
             break;
         case 'TSAnyKeyword':
             outType = 'any';
+            break;
+        case 'NumericLiteral':
+            outType = 'number';
+            break;
+        case 'ArrayExpression':
+            outType = 'Array';
             break;
         default: {
             outType = type

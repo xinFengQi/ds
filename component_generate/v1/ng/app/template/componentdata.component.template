@@ -1,4 +1,11 @@
 {
     path: '/{{{routerName}}}',
-    component: { template: `{{{template}}}` },
+    component: { template: `{{{template}}}`, methods: {
+        scrollTop(e) {
+            e.target.scrollIntoView()
+        },
+        scrollIdTop(id) {
+             document.getElementById(id).scrollIntoView()
+        }
+    } },
 },

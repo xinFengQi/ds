@@ -1,4 +1,5 @@
 const marked = require('marked')
+const rendererMD = new marked.Renderer();
 
 
 // 将接口数组生产md文档字符串
@@ -24,19 +25,19 @@ function getInterFaceMdStr(interFaceAllArr) {
     return inFaceStr
 }
 
-
+// 生成表格
 function generateMDTable(tableHeaderArr, data, dataKeyArr) {
     let str = `| ${tableHeaderArr.join(` | `)} |\n`;
     str = str + tableHeaderArr.reduce((s, a) => {
-        if(s === tableHeaderArr[0]) {
+        if (s === tableHeaderArr[0]) {
             return `| :----: | :----:`
         }
         return s + `| :----: `
     }) + ` |\n`
     data.forEach(item => {
         str = str + `| ${dataKeyArr.map(v => {
-            if(item[v]) {
-               return item[v].replace(/\|/g, '&#124;').replace(/\n/g, '<br>')
+            if (item[v]) {
+                return item[v].replace(/\|/g, '&#124;').replace(/\n/g, '<br>')
             } else {
                 return ''
             }
@@ -45,7 +46,7 @@ function generateMDTable(tableHeaderArr, data, dataKeyArr) {
     return str;
 }
 
-
+// 生成组件信息
 function getComponentMDByInfo(componentInfo) {
     let str = '';
     str = str + '## ' + componentInfo.dec.title + '\n\n'
@@ -63,18 +64,27 @@ function getComponentMDByInfo(componentInfo) {
 }
 
 
+
+
 function mdToVueHtml(content) {
-    content = content.replace(/</g, '&lt')
-    return  createTemplate().replace('{{{content}}}', marked(content))
+    // content = content.replace(/</g, '&lt')
+    let tocNav = '';
+    rendererMD.heading = function (text, level) {
+        tocNav = tocNav + `<a @click="scrollIdTop('${text}')" class="nav${level} right_nav">${text}</a>`;
+        return `<h${level} @click="scrollTop($event)" id="${text}">${text}</h${level}>`
+    }
+    const markedStr = marked(content, { renderer: rendererMD });
+    const outPutStr = createTemplate().replace('{{{content}}}', markedStr).replace('{{{nav}}}', tocNav)
+    return outPutStr
 }
 
 function mdToHtml(content) {
     content = content.replace(/</g, '&lt')
-    return  createHtmlTemplate().replace('{{{content}}}', marked(content))
+    return createHtmlTemplate().replace('{{{content}}}', marked(content, { renderer: rendererMD }))
 }
 
 
-
+// 普通markdown转为html
 function createHtmlTemplate() {
     const template = `<!DOCTYPE html>
     <html>
@@ -109,10 +119,17 @@ function createHtmlTemplate() {
 
 function createTemplate() {
     const template = `
-        <div>
-            <article class="markdown-body">
-                {{{content}}}
-            </article>  
+        <div class="markdown_content">
+            <div class="main">
+                <article class="markdown-body">
+                    {{{content}}}
+                </article>  
+            </div>
+            <div class="right">
+                <article class="divfixed">
+                    {{{nav}}}
+                </article>  
+            </div>
         </div>`;
     return template;
 }

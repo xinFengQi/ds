@@ -14,6 +14,7 @@ function vueInit(id) {
     routes[0].children = routes[0].children.concat($VUE_DATA.component)
     console.log(routes)
     const router = new VueRouter({
+        mode: 'hash',
         routes
     })
     const vue = new Vue({

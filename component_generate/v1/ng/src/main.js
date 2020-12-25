@@ -6,7 +6,7 @@ const { mdToHtml, mdToVueHtml, getComponentMDByInfo, getInterFaceMdStr } = requi
 const { generateMDTable } = require('./util/marked_html')
 const { gettocRouterLink } = require('./util/vue_html');
 const fs = require('fs');
-const fileDirPath = './eg';
+const fileDirPath = 'C:/F_code/work/CxCloud/cxcloud-app/cxcloud-portal-webapp/src';
 
 const files = readDir(fileDirPath)
 let interFaceAllArr = []
@@ -30,8 +30,8 @@ files.forEach(file => {
             }
             const mdFileContent = getComponentMDByInfo(componentInfo);
             fs.writeFileSync(`./dist/${fileName}.json`, JSON.stringify(codeTree))
-            fs.writeFileSync(`./app/markdown/${fileName}.md`, mdFileContent)
-            fs.writeFileSync(`./app/html/${fileName}.html`, mdToHtml(mdFileContent))
+            fs.writeFileSync(`./app/dist_markdown/${fileName}.md`, mdFileContent)
+            fs.writeFileSync(`./app/dist_html/${fileName}.html`, mdToHtml(mdFileContent))
             componentInfo.vuehtml = mdToVueHtml(mdFileContent)
             componentAllArr.push(componentInfo)
             console.log(fileName+'解析成功')

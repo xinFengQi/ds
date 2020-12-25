@@ -10,9 +10,21 @@ body {
 
 #app {
     padding: 20px;
+    min-height: calc(100% - 40px);
+    overflow: auto;
 }
 .vueContent{
     display: flex;
+}
+.markdown_content{
+    flex: 1;
+    display: flex;
+}
+
+.divfixed{
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 }
 
 .left {
@@ -47,13 +59,18 @@ body {
 
 .right {
     min-width: 200px;
+    padding-top: 45px;
+}
+
+.right_nav{
+    display: block;
+    border-left: 1px solid rebeccapurple;
 }
 
 .markdown-body {
     box-sizing: border-box;
     min-width: 200px;
     max-width: 980px;
-    margin: 0 auto;
     padding: 45px;
 }
 
