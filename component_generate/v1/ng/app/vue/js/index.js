@@ -6,12 +6,12 @@ function vueInit(id) {
             children: [
                 {
                     path: '/',
-                    component: $VUE_DATA.component[0].component
+                    component: $VUE_DATA.component[$VUE_DATA.component.length -1].component
                 },
+                ...$VUE_DATA.component
             ]
         },
     ];
-    routes[0].children = routes[0].children.concat($VUE_DATA.component)
     console.log(routes)
     const router = new VueRouter({
         mode: 'hash',

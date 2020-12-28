@@ -21,12 +21,12 @@ files.forEach(file => {
         // 解析组件数据
         const componentInfo = getComponentAllByFile(codeTree, file);
         componentInfo.key = fileName;
-        if (componentInfo.dec) {
+        if (componentInfo.dec && componentInfo.dec.title && componentInfo.dec.type) {
             if (componentInfo.inputArr.length > 0) {
-                componentInfo.inputMarkTable = generateMDTable(['属性值', '描述', '类型', '默认值'], componentInfo.inputArr, ['key', 'dec', 'type', 'default'])
+                componentInfo.inputMarkTable = generateMDTable(['属性值', '描述', '类型', '默认值'], componentInfo.inputArr, ['key', 'dec', ['type', 'interfaceTypesLink'], 'default'])
             }
             if (componentInfo.outputArr.length > 0) {
-                componentInfo.outputMarkTable = generateMDTable(['属性值', '描述', '类型', '默认值'], componentInfo.outputArr, ['key', 'dec', 'type', 'default'])
+                componentInfo.outputMarkTable = generateMDTable(['属性值', '描述', '类型'], componentInfo.outputArr, ['key', 'dec', 'type'])
             }
             const mdFileContent = getComponentMDByInfo(componentInfo);
             fs.writeFileSync(`./dist/${fileName}.json`, JSON.stringify(codeTree))
@@ -39,10 +39,27 @@ files.forEach(file => {
     }
 })
 
-const {appComponent, componentData} = gettocRouterLink(componentAllArr);
+// 接口的md， html
+const interFaceMd =  getInterFaceMdStr(interFaceAllArr);
+fs.writeFileSync('./dist/interface.json', JSON.stringify(interFaceAllArr))
+fs.writeFileSync(`./app/dist_markdown/interface.md`, interFaceMd)
+fs.writeFileSync(`./app/dist_html/interface.html`,  mdToHtml(interFaceMd))
+
+
+const nvaContet = [
+    {
+        dec: {
+            type: 'interface',
+            title: '数据模型'
+        },
+        vuehtml: mdToVueHtml(interFaceMd),
+        key: 'component-interface'
+    },
+    ...componentAllArr,
+   
+]
+const {appComponent, componentData} = gettocRouterLink(nvaContet);
 fs.writeFileSync('./dist/component.json', JSON.stringify(componentAllArr))
-fs.writeFileSync(`./app/markdown/interface.md`, getInterFaceMdStr(interFaceAllArr))
-fs.writeFileSync(`./app/html/interface.html`,  mdToHtml(getInterFaceMdStr(interFaceAllArr)))
 fs.writeFileSync(`./app/vue/data/appcomponent.data.js`, appComponent)
 fs.writeFileSync(`./app/vue/data/componentdata.js`, componentData)
 

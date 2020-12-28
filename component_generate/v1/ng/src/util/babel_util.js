@@ -2,6 +2,7 @@ const fs = require('fs')
 const parser = require('@babel/parser').parse;
 const generate = require('@babel/generator')
 const traverse = require('@babel/traverse');
+const codeFrameColumns = require('@babel/code-frame');
 
 
 // 通过文件生成AST
@@ -17,6 +18,8 @@ function getCodeTreeByfile(filePath) {
     });
     return outstr;
 }
+
+
 
 // 得到接口，通过文件
 function getInterFaceAllByFile(codeTree, file) {
@@ -66,6 +69,7 @@ function getDec(node, line) {
     return leadingComments + trailingComments;
 }
 
+componentInfotype = false;
 // 得到组件，通过文件
 function getComponentAllByFile(codeTree, file) {
     const componentInfo = {};
@@ -94,22 +98,30 @@ function getComponentAllByFile(codeTree, file) {
         // 进入类的属性节点
         ClassProperty: (path) => {
             const node = path.node;
+            componentInfotype = false
             if (node.decorators && node.decorators[0].expression) {
                 if (node.decorators[0].expression.callee && node.decorators[0].expression.callee.name === 'Input') {
                     componentInfo.inputArr.push({
                         key: node.key.name,
                         dec: getDec(node, node.loc.start.line).trim(),
                         type: getParamsType(node),
+                        interfaceTypesLink: [],
                         default: getParamsDefaultValue(node)
                     })
+                    componentInfotype = true;
                 } else if (node.decorators[0].expression.callee && node.decorators[0].expression.callee.name === 'Output') {
                     componentInfo.outputArr.push({
                         key: node.key.name,
                         dec: getDec(node, node.loc.start.line).trim(),
-                        type: getParamsType(node)
+                        type: getParamsType(node),
                     })
                 }
 
+            }
+        },
+        TSTypeReference: (path) => {
+            if(componentInfotype && componentInfo.inputArr.length > 0) {
+                componentInfo.inputArr[ componentInfo.inputArr.length-1].interfaceTypesLink.push(path.node.typeName.name);
             }
         },
         // 进入类的描述节点___查询providers
@@ -141,6 +153,7 @@ function getComponentAllByFile(codeTree, file) {
                             key: `[(ngModel)]`,
                             dec: '双向绑定的值，可做表单组件',
                             type: 'any',
+                            interfaceTypesLink: [],
                             default: ''
                         })
                         componentInfo.outputArr.push({
@@ -168,7 +181,6 @@ function getParamsType(node) {
     }
     return switchType(type, node);
 }
-
 function switchType(type, node) {
     let outType = '';
     const outTypeArr = []
@@ -181,7 +193,7 @@ function switchType(type, node) {
             {
                 const typeValue = { ...node.value };
                 delete typeValue['body']
-                outType = 'Function:' + generate.default(typeValue).code.replace('=>', '').trim()
+                outType = 'Function' + generate.default(typeValue).code.replace('=>', '').trim()
             }
             break;
         case 'TSUnionType':
@@ -196,43 +208,36 @@ function switchType(type, node) {
             }
             break;
         case 'TSTypeReference':
-            outType = byGenerate(node)
-            break;
         case 'TSArrayType':
-            outType = byGenerate(node)
-            break;
         case 'TSTypeLiteral':
-            outType = byGenerate(node)
+            outType =  byGenerate(node);
             break;
         case 'NewExpression':
             {
                 outType = node.value.callee.name
                 break;
             }
+        case 'StringLiteral':
         case 'TSStringKeyword':
-            outType = 'string';
+            outType = 'String';
             break;
         case 'TSBooleanKeyword':
-            outType = 'boolean';
-            break;
-        case 'StringLiteral':
-            outType = 'string';
+            outType = 'Boolean';
             break;
         case 'BooleanLiteral':
-            outType = 'boolean';
+            outType = 'Boolean';
             break;
         case 'TSAnyKeyword':
-            outType = 'any';
+            outType = 'Any';
             break;
         case 'NumericLiteral':
-            outType = 'number';
+            outType = 'Number';
             break;
         case 'ArrayExpression':
             outType = 'Array';
             break;
-        default: {
+        default:
             outType = type
-        }
     }
     return outType
 }
