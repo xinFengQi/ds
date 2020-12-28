@@ -22,11 +22,16 @@ function gettocRouterLink(arr) {
         const keys = element.key.replace(/-/g, '_');
         getNavTreeByType(element, indexNavMap)
         const htmlStr = element.vuehtml.replace(/`/g, '\'').replace(/\\/g, '/')
-        componentPathStr = componentPathStr + dataComponentPath.replace('{{{routerName}}}', keys).replace('{{{template}}}', htmlStr)
+        const markdown = element.markdown.replace(/`/g, '\'').replace(/\\/g, '/')
+        componentPathStr = componentPathStr + dataComponentPath.replace('{{{routerName}}}', keys)
+                                                               .replace('{{{template}}}', htmlStr)
+                                                               .replace('{{{markdown}}}', markdown)
+                                                               .replace('{{{idxName}}}', element.dec.title)
     });
     const dataTel = fs.readFileSync(path.resolve(vuebaseUrl, './componentdata.template')).toString();
-    const componentDataStr = dataTel.replace('{{{componentInfo}}}', componentPathStr)
-    return { appComponent: getAppComponent(indexNavMap), componentData: componentDataStr }
+    const componentDataStr = dataTel.replace('{{{globalName}}}', 'component').replace('{{{componentInfo}}}', componentPathStr)
+    const appComponentDataStr = dataTel.replace('{{{globalName}}}', 'appComponentNavData').replace('{{{componentInfo}}}', JSON.stringify(indexNavMap))
+    return { appComponent: appComponentDataStr, componentData: componentDataStr }
 }
 
 
@@ -65,10 +70,6 @@ function getNavTreeByType(item, typemap) {
     }
 }
 
-function getAppComponent(navData) {
-    const htmlTemplate = fs.readFileSync(path.resolve(vuebaseUrl, './appcomponent.template')).toString();
-    return htmlTemplate.replace('{{{navDatas}}}', JSON.stringify(navData))
-}
 
 
 module.exports = {

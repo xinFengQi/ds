@@ -21,9 +21,34 @@
 </script>
 <script src="./resource/vue.js"></script>
 <script src="./resource/vue-router.js"></script>
+<script src="./resource/lunr.js"></script>
 <script src="vue/data/appcomponent.data.js"></script>
 <script src="vue/data/componentdata.js"></script>
+<script>
+    if (!window.$VUE_DATA) {
+        window.$VUE_DATA = {}
+    }
+    window.$VUE_DATA.idx = lunr(function () {
+        this.ref('path')
+        this.field('component')
+        this.field('idxName')
+        window.$VUE_DATA.componentSearchData = []
+        window.$VUE_DATA.component.forEach(function (doc) {
+            const da = {
+                path: doc.path,
+                component: doc.component.markdown,
+                idxName: doc.component.idxName
+            }
+            window.$VUE_DATA.componentSearchData.push(da)
+            this.add(da)
+        }, this)
+    });
+</script>
+<!-- app组件 -->
+<script src="vue/component/appcomponent.js"></script>
+<!-- 构建vue -->
 <script src="vue/js/index.js"></script>
+<!-- vue组件 -->
 <script src="vue/component/leftnav.js"></script>
 <script>
     initLeftNavComponent()

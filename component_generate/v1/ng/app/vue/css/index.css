@@ -23,12 +23,40 @@ body {
 
 .divfixed{
     position: fixed;
-    height: 100%;
-    overflow: auto;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .left {
+    padding-top: 45px;
     min-width: 280px;
+}
+.input_search_div{
+    padding: 6px;
+    transition: top 0.5s ease;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    margin-bottom: 5px;
+    margin-top: -1px;
+}
+
+.input_search{
+    width: 100%;
+    background: 0 0;
+    border: 1px solid transparent;
+    box-shadow: none;
+    outline: 0;
+    line-height: 22px;
+    padding: 7px 7px;
+    color: inherit;
+}
+
+.search_Content{
+    padding-left: 45px;
+    padding-top: 45px;
+
 }
 
 .nav1 {

@@ -13,7 +13,7 @@ function getInterFaceMdStr(interFaceAllArr) {
             if (str.dec) {
                 inFaceStr = `${inFaceStr}注释: \n`
                 inFaceStr = inFaceStr + '```javascript\n'
-                inFaceStr = inFaceStr + str.dec.replace(/\*/g, '')
+                inFaceStr = inFaceStr + str.dec.replace(/\*/g, '') + '\n'
                 inFaceStr = inFaceStr + '```\n\n'
             }
             if (str.filePath) {
@@ -41,11 +41,10 @@ function generateMDTable(tableHeaderArr, data, dataKeyArr) {
     }) + ` |\n`
     data.forEach(item => {
         str = str + `| ${dataKeyArr.map(v => {
-            // todo
             if (typeof (v) === 'string') {
-                return item[v].replace(/\|/g, '&#124;').replace(/\n/g, '<br>')
+                return item[v].replace(/\|/g, '&#124;').replace(/</g, '&lt;').replace(/\n/g, '<br />')
             } else if (v instanceof Array && v.length == 2) {
-                let outStr = item[v[0]].replace(/\|/g, '&#124;').replace(/\n/g, '<br>');
+                let outStr = item[v[0]].replace(/\|/g, '&#124;').replace(/</g, '&lt;').replace(/\n/g, '<br/>');
                 item[v[1]].forEach(s => {
                     const link = encodeURI(`component_interface?id=${s}`)
                     const strRoutLink = `<router-link :to="'${link}'">` + s + '</router-link>'
@@ -54,7 +53,6 @@ function generateMDTable(tableHeaderArr, data, dataKeyArr) {
                 return outStr
             }
             return ''
-
         }).join(` | `)} | \n`
     })
     return str;

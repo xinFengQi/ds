@@ -29,9 +29,10 @@ files.forEach(file => {
                 componentInfo.outputMarkTable = generateMDTable(['属性值', '描述', '类型'], componentInfo.outputArr, ['key', 'dec', 'type'])
             }
             const mdFileContent = getComponentMDByInfo(componentInfo);
-            fs.writeFileSync(`./dist/${fileName}.json`, JSON.stringify(codeTree))
+            fs.writeFileSync(`./app/dist_json/${fileName}.json`, JSON.stringify(codeTree))
             fs.writeFileSync(`./app/dist_markdown/${fileName}.md`, mdFileContent)
             fs.writeFileSync(`./app/dist_html/${fileName}.html`, mdToHtml(mdFileContent))
+            componentInfo.markdown = mdFileContent
             componentInfo.vuehtml = mdToVueHtml(mdFileContent)
             componentAllArr.push(componentInfo)
             console.log(fileName+'解析成功')
@@ -41,7 +42,7 @@ files.forEach(file => {
 
 // 接口的md， html
 const interFaceMd =  getInterFaceMdStr(interFaceAllArr);
-fs.writeFileSync('./dist/interface.json', JSON.stringify(interFaceAllArr))
+fs.writeFileSync('./app/dist_json/interface.json', JSON.stringify(interFaceAllArr))
 fs.writeFileSync(`./app/dist_markdown/interface.md`, interFaceMd)
 fs.writeFileSync(`./app/dist_html/interface.html`,  mdToHtml(interFaceMd))
 
@@ -53,13 +54,14 @@ const nvaContet = [
             title: '数据模型'
         },
         vuehtml: mdToVueHtml(interFaceMd),
+        markdown: interFaceMd,
         key: 'component-interface'
     },
     ...componentAllArr,
    
 ]
 const {appComponent, componentData} = gettocRouterLink(nvaContet);
-fs.writeFileSync('./dist/component.json', JSON.stringify(componentAllArr))
+fs.writeFileSync('./app/dist_json/component.json', JSON.stringify(componentAllArr))
 fs.writeFileSync(`./app/vue/data/appcomponent.data.js`, appComponent)
 fs.writeFileSync(`./app/vue/data/componentdata.js`, componentData)
 

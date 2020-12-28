@@ -1,11 +1,24 @@
 {
     path: '/{{{routerName}}}',
-    component: { template: `{{{template}}}`, methods: {
-        scrollTop(e) {
-            e.target.scrollIntoView()
+    component: { 
+        template: `{{{template}}}`, 
+        markdown: `{{{markdown}}}`,
+        idxName: `{{{idxName}}}`, 
+        mounted(){
+            if(this.$route.query.id) {
+                const element =  document.getElementById(this.$route.query.id);
+                if(element) {
+                    element.scrollIntoView()
+                }
+            }
         },
-        scrollIdTop(id) {
-             document.getElementById(id).scrollIntoView()
+        methods: {
+            scrollTop(e) {
+                e.target.scrollIntoView()
+            },
+            scrollIdTop(id) {
+                document.getElementById(id).scrollIntoView()
+            }
         }
-    } },
+    },
 },

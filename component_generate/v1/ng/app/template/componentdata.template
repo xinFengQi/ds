@@ -1,4 +1,5 @@
 if(!window.$VUE_DATA) {
     window.$VUE_DATA = {}
 }
-window.$VUE_DATA.component = [{{{componentInfo}}}]
+// component appComponentNavData
+window.$VUE_DATA.{{{globalName}}} = [{{{componentInfo}}}]
