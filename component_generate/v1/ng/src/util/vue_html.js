@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path')
-const vuebaseUrl = './app/template';
+const vuebaseUrl = path.resolve(__dirname,'../../' , './app/template') ;
 
 /*
 {

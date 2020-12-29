@@ -1,13 +1,16 @@
 {
-  "name": "component_generate_ng",
+  "name": "dfb_ng_compodoc",
   "version": "1.0.0",
-  "description": "",
+  "description": "dfb的ng辅助工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "damon",
   "license": "ISC",
+  "bin": {
+    "dfbng": "index.js"
+  },
   "devDependencies": {
     "@babel/code-frame": "^7.12.11",
     "@babel/generator": "^7.12.11",
@@ -16,6 +19,12 @@
   "dependencies": {
     "@babel/traverse": "^7.12.10",
     "marked": "^1.2.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
+    "handlebars": "^4.5.3",
+    "inquirer": "^7.0.1",
+    "log-symbols": "^3.0.0",
+    "ora": "^4.0.3"
   }
 }

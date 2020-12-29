@@ -1,6 +1,6 @@
 
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const testAPath = './template_test.ts';
 const readline = require('readline');
 
@@ -46,56 +46,65 @@ const parser = require('@babel/parser').parse;
 const traverse = require('@babel/traverse');
 
 // 解析接口数据
-const insterFaceMap = []
-
-const time = new Date().getTime() + '';
-const str = fs.readFileSync(testAPath).toString();
-const outstr = parser(str, {
-    sourceType: "module",
-    plugins: [
-        "jsx",
-        "typescript"
-    ]
-});
-let a = {}
-traverse.default(outstr, {
-    ExportNamedDeclaration: (path) => {
-        if(Object.keys(a).length > 0) {
-            insterFaceMap.push(a);
+function getInterFaceMap() {
+    const insterFaceMap = []
+    const time = new Date().getTime() + '';
+    const str = fs.readFileSync(testAPath).toString();
+    const outstr = parser(str, {
+        sourceType: "module",
+        plugins: [
+            "jsx",
+            "typescript"
+        ]
+    });
+    let a = {}
+    traverse.default(outstr, {
+        ExportNamedDeclaration: (path) => {
+            if (Object.keys(a).length > 0) {
+                insterFaceMap.push(a);
+            }
+            a = { dec: '' };
+            if (path.node.leadingComments) {
+                path.node.leadingComments.forEach(s => {
+                    a.dec = a.dec + s.value
+                })
+            }
+        },
+        // 接口名描述
+        TSInterfaceDeclaration: (path) => {
+            a.name = { key: path.node.id.name, line: path.node.loc.start.line };
+            a.filed = []
+        },
+        TSPropertySignature: (path) => {
+            const node = path.node;
+            let str = ''
+            if (node.leadingComments) {
+                node.leadingComments.forEach(s => {
+                    const LastaFiled = a.filed[a.filed.length - 1];
+                    console.log(s.loc.start.line, LastaFiled)
+                    if (LastaFiled && s.loc.start.line === LastaFiled.line) {
+                        LastaFiled.dec = LastaFiled.dec + s.value
+                    } else {
+                        str = str + s.value;
+                    }
+                })
+            }
+            const key = { key: node.key.name, dec: str, line: node.key.loc.start.line, type: node.typeAnnotation.typeAnnotation.type };
+            a.filed.push(key)
         }
-        a = { dec: '' };
-        if (path.node.leadingComments) {
-            path.node.leadingComments.forEach(s => {
-                a.dec = a.dec + s.value
-            })
-        }
-    },
-    // 接口名描述
-    TSInterfaceDeclaration: (path) => {
-        a.name = {key: path.node.id.name, line: path.node.loc.start.line};
-        a.filed = []
-    },
-    TSPropertySignature: (path) => {
-        const node = path.node;
-        let str = ''
-        if (node.leadingComments) {
-            node.leadingComments.forEach(s => {
-                const LastaFiled = a.filed[a.filed.length-1];
-                console.log(s.loc.start.line, LastaFiled)
-                if(LastaFiled && s.loc.start.line === LastaFiled.line) {
-                    LastaFiled.dec =  LastaFiled.dec + s.value
-                } else {
-                    str = str +  s.value;
-                }
-            })
-        }
-        const key = {key:node.key.name, dec: str, line:node.key.loc.start.line, type: node.typeAnnotation.typeAnnotation.type};
-        a.filed.push(key)
+    })
+    if (Object.keys(a).length > 0) {
+        insterFaceMap.push(a);
     }
-})
-if(Object.keys(a).length > 0) {
-    insterFaceMap.push(a);
+    return insterFaceMap;
 }
 
-fs.writeFileSync('./dist/dist2.json', JSON.stringify(insterFaceMap))
+// fs.writeFileSync('./dist/dist2.json', JSON.stringify(insterFaceMap))
 // console.log( outstr)
+
+const pathF = './indEX.js';
+console.log(fs.existsSync(path.resolve(path.dirname(path.resolve(pathF)), pathF)))
+
+console.log(
+    fs.readFileSync(path.resolve(path.dirname(path.resolve(pathF)), pathF)).toString()
+)
