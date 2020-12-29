@@ -18,12 +18,12 @@ window.$VUE_DATA.appComponent = {
         return {
             navData: $VUE_DATA.appComponentNavData[0],
             timer: null,
-            inputContent: ''
+            inputContent: 'Input'
         }
     },
     watch: {
         inputContent(value, oldValue) {
-            if(value !== oldValue) {
+            if (value !== oldValue) {
                 this.gotoSearch(value);
             }
         },
@@ -33,17 +33,39 @@ window.$VUE_DATA.appComponent = {
                 // if (!this.$route.query.value) {
                 //    this.inputContent = ''
                 // }
+                this.$nextTick(() => {
+                    const reg = new RegExp(this.inputContent, 'g');
+                    this.deepDocumentEl(this.inputContent, document.getElementById('app'), reg)
+                })
+              
             },
             deep: true,
         }
     },
-    mounted(){
+    mounted() {
         if (this.$route.query.value) {
             this.inputContent = this.$route.query.value
             this.gotoSearch(this.inputContent)
         }
+        const reg = new RegExp(this.inputContent, 'g');
+        this.deepDocumentEl(this.inputContent, document.getElementById('app'), reg)
+
     },
     methods: {
+        deepDocumentEl(value, el, exp) {
+            const length = el.children.length;
+            console.log(length,  el.innerText,value)
+            if (length === 0 && el.innerText.indexOf(value) > -1) {
+                const textValue = el.innerText.replace(exp, `<span class="ling">${value}</span>`)
+                console.log(textValue)
+                el.innerHTML = textValue
+            }
+            for (let i = 0; i < length; i++) {
+                const elC = el.children.item(i);
+                // console.log(elC, elC.nodeType, elC.innerText)
+                this.deepDocumentEl(value, el.children.item(i), exp)
+            }
+        },
         gotoSearch(value) {
             if (this.timer) {
                 clearTimeout(this.timer);
@@ -53,7 +75,7 @@ window.$VUE_DATA.appComponent = {
                 if (value.length == 0) {
                     if (this.$route.query.value) {
                         this.$router.push({ path: '/' })
-                     }
+                    }
                 } else {
                     this.$router.push({ path: '/vue_search', query: { value: value } })
                 }
