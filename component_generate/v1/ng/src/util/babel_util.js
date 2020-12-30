@@ -56,15 +56,18 @@ function getInterFaceAllByFile(codeTree, file) {
     return insterFaceMap;
 }
 
+lastDecArr = []
 // 获取描述，注释
 function getDec(node, line) {
     let leadingComments = '';
     if (node.leadingComments) {
-        leadingComments = node.leadingComments.map(v => v.value).join(';')
+        leadingComments = node.leadingComments.filter(v => !lastDecArr.includes(v)).map(v => v.value).join(';')
     }
+    lastDecArr = [];
     let trailingComments = '';
     if (node.trailingComments) {
-        trailingComments = node.trailingComments.filter(s => s.loc.start.line === line).map(v => v.value).join(';')
+        lastDecArr = node.trailingComments.filter(s => s.loc.start.line === line);
+        trailingComments = lastDecArr.map(v => v.value).join(';')
     }
     return leadingComments + trailingComments;
 }

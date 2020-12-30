@@ -16,23 +16,19 @@ program.version('0.0.1');
 program.command('build component')
     .description('解析文件')
     .action(() => {
-        const spinner = ora('正在解析文档...').start();
         // console.log(process.execPath)
         // console.log(__dirname)
         // console.log(path.resolve(__dirname, './app'))
         // console.log(process.cwd())
         generateMain(path.resolve('./src'))
-        fs.emptyDirSync('./dfbcomponent')
-        fs.copySync(path.resolve(__dirname, './app'), './dfbcomponent')
-        spinner.succeed('文件解析成功');
-        console.log(logSymbols.success, chalk.green('文件解析成功'));
+        console.log(logSymbols.success, chalk.green('编译成功，目录是dfb_dist'));
     })
 
 program.command('list')
     .description('查看所有项目')
     .action(() => {
         console.log(`
-        build component 
+        build component 组件文档解析
     `);
 
     })

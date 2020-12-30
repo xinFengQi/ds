@@ -64,7 +64,7 @@ function getComponentMDByInfo(componentInfo) {
     str = str + '## ' + componentInfo.dec.title + '\n\n'
     str = str + '## ' + componentInfo.key + '\n\n'
     if(componentInfo.componentDecMD) {
-        str = str + componentDecMD
+        str = str + componentInfo.componentDecMD
     }
     if (componentInfo.inputMarkTable) {
         str = str + '### Input属性\n\n'

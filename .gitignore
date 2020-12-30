@@ -4,4 +4,5 @@ node_modules/**
 **/dist_html/**
 **/dist_markdown/**
 **/dist_json/**
+**/dfb_dist/**
 **/dist/**

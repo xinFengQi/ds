@@ -32,3 +32,6 @@ npm install -g dfbng
 3. 通过解析的数据生成markdown，html, json,vue项目等文件
 4. 使用npm link进行npm全局测试
 5. 使用npm发布，进行安装，名为dfbng
+
+#### 代码限制
+1. 暂时只允许单例编译

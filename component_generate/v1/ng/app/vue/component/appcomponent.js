@@ -18,7 +18,7 @@ window.$VUE_DATA.appComponent = {
         return {
             navData: $VUE_DATA.appComponentNavData[0],
             timer: null,
-            inputContent: 'Input'
+            inputContent: ''
         }
     },
     watch: {
@@ -29,7 +29,6 @@ window.$VUE_DATA.appComponent = {
         },
         $route: {
             handler() {
-                console.log('=======================路由变化')
                 // if (!this.$route.query.value) {
                 //    this.inputContent = ''
                 // }
@@ -54,14 +53,12 @@ window.$VUE_DATA.appComponent = {
     methods: {
         deepDocumentEl(value, el, exp) {
             const length = el.children.length;
-            console.log(length,  el.innerText,value)
             if (length === 0 && el.innerText.indexOf(value) > -1) {
                 const textValue = el.innerText.replace(exp, `<span class="ling">${value}</span>`)
-                console.log(textValue)
                 el.innerHTML = textValue
             }
             for (let i = 0; i < length; i++) {
-                const elC = el.children.item(i);
+                // const elC = el.children.item(i);
                 // console.log(elC, elC.nodeType, elC.innerText)
                 this.deepDocumentEl(value, el.children.item(i), exp)
             }
