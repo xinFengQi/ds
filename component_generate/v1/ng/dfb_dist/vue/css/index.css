@@ -1,0 +1,115 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    padding: 20px;
+    min-height: calc(100% - 40px);
+    overflow: auto;
+}
+.vueContent{
+    display: flex;
+}
+.markdown_content{
+    flex: 1;
+    display: flex;
+}
+
+.divfixed{
+    position: fixed;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.left {
+    padding-top: 45px;
+    min-width: 280px;
+}
+.input_search_div{
+    padding: 6px;
+    transition: top 0.5s ease;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    margin-bottom: 5px;
+    margin-top: -1px;
+}
+
+.input_search{
+    width: 100%;
+    background: 0 0;
+    border: 1px solid transparent;
+    box-shadow: none;
+    outline: 0;
+    line-height: 22px;
+    padding: 7px 7px;
+    color: inherit;
+}
+
+.search_Content{
+    padding-left: 45px;
+    padding-top: 45px;
+
+}
+
+.nav1 {
+    padding: 10px 0px 0px 4px;
+    cursor: pointer;
+}
+.nav2 {
+    padding: 10px 0px 0px 12px;
+    cursor: pointer;
+}
+.nav3 {
+    padding: 10px 0px 0px 20px;
+    cursor: pointer;
+}
+.nav4 {
+    padding: 10px 0px 0px 28px;
+    cursor: pointer;
+}
+.nav5 {
+    padding: 10px 0px 0px 36px;
+    cursor: pointer;
+}
+
+.main {
+    flex: 1;
+    min-width: 880px;
+}
+
+.right {
+    min-width: 200px;
+    padding-top: 45px;
+}
+
+.right_nav{
+    display: block;
+    border-left: 1px solid rebeccapurple;
+}
+
+.markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    padding: 45px;
+}
+
+@media (max-width: 767px) {
+    .markdown-body {
+        padding: 15px;
+    }
+}
+
+
+.ling{
+    color: red;
+    background-color:#ff0;
+}
