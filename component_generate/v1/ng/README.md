@@ -1,6 +1,12 @@
 ## component_generate -v1
 主要实现angualr的组件输入输出函数, 文档描述生成
 
+### Demo
+
+```
+https://xinfengqi.github.io/ds/component_generate/v1/ng/dfb_dist/index.html
+```
+
 ### 使用说明
 
 #### 安装
