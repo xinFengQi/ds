@@ -5,3 +5,13 @@ node_modules/**
 **/dist_markdown/**
 **/dist_json/**
 **/dist/**
+
+
+## 其他文件
+.DS_Store
+.DS_Store/**
+**/.DS_Store/**
+
+.gitignore
+.gitignore/**
+**/.gitignore/**
