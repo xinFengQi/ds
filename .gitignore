@@ -4,14 +4,16 @@ node_modules/**
 **/dist_html/**
 **/dist_markdown/**
 **/dist_json/**
+
+dist/**
 **/dist/**
 
+_book/**
+**/_book/**
 
 ## 其他文件
 .DS_Store
-.DS_Store/**
-**/.DS_Store/**
+**/.DS_Store
 
 .gitignore
-.gitignore/**
-**/.gitignore/**
+**/.gitignore
