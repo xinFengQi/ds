@@ -14,5 +14,11 @@
   * [组件API](components/API.md)
   * [组件装饰器](components/Component.md)
   * [组件生命周期](components/LifecycleMethods.md)
+  * [属性](components/Properties.md)
+  * [内部状态](components/InternalState.md)
+  * [响应式数据](components/reactiveData.md)
+  * [使用JSX](components/UsingJSX.md)
+
+
 
 

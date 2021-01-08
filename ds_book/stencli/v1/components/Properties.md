@@ -1,4 +1,4 @@
-# Prop装饰器
+# @Prop()装饰器
 
 Prop是在元素上公开的自定义属性/属性，开发人员可以为其提供值。应该使用Props将数据从父组件向下传递到子组件，而子组件不应该知道和引用父组件的任何内容。组件需要使用@Prop()装饰器显式声明它们希望接收的Prop(属性)。Prop可以是number，string，boolean，或甚至是Object或Array类型的数据。默认情况下，修改用装饰器@Prop()装饰的成员时，组件将进行有效地重新渲染。
 
@@ -127,4 +127,72 @@ class Component {
 
 通过使用此选项，我们可以明确知道哪些属性具有关联的DOM属性及其名称。
 
-## 将属性值反映到属性
+## 将属性(Properties)值反映到属性(Attributes)
+
+在某些情况下，使属性(Prop)与属性(attribute)保持同步可能很有用。在这种情况下，您可以将@Prop()装饰器中的reflect选项设置为true，因为它的默认值为false：
+
+```
+@Prop({
+  reflect: true
+})
+```
+
+当“Prop”设置“reflect”时，表示它们的值将作为HTML属性呈现在DOM中：
+
+以以下组件为例：
+
+```
+@Component({ tag: 'my-cmp' })
+class Cmp {
+  @Prop({ reflect: true }) message = 'Hello';
+  @Prop({ reflect: false }) value = 'The meaning of life...';
+  @Prop({ reflect: true }) number = 42;
+}
+```
+
+在DOM中呈现时，它将看起来像：
+
+```
+<my-cmp message="Hello" number="42"></my-cmp>
+```
+
+请注意，设置“reflect”为true的属性(properties )将呈现为属性(attributes),而未设置“reflect”为true的属性(properties)则不会呈现
+
+虽然未设置为“reflect”的属性(properties)（例如“value”）未呈现为属性(attributes)，但这并不意味着它不存在,该value属性(properties)仍包含The meaning of life...分配的值：
+
+```
+const cmp = document.querySelector('my-cmp');
+console.log(cmp.value); // 输出'The meaning of life...'
+```
+
+## 支持默认值和验证
+
+在属性上设置默认值：
+
+```
+import { Prop } from '@stencil/core';
+
+...
+export class NameElement {
+  @Prop() name: string = 'Stencil';
+}
+```
+
+要验证Prop，您可以使用 @Watch() 装饰器：
+
+```
+import { Prop, Watch } from '@stencil/core';
+
+...
+export class TodoList {
+  @Prop() name: string = 'Stencil';
+
+  @Watch('name')
+  validateName(newValue: string, oldValue: string) {
+    const isBlank = typeof newValue !== 'string' || newValue === '';
+    const has2chars = typeof newValue === 'string' && newValue.length >= 2;
+    if (isBlank) { throw new Error('name: required') };
+    if (!has2chars) { throw new Error('name: has2chars') };
+  }
+}
+```
