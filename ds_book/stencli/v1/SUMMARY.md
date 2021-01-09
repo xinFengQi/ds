@@ -18,6 +18,10 @@
   * [内部状态](components/InternalState.md)
   * [响应式数据](components/reactiveData.md)
   * [使用JSX](components/UsingJSX.md)
+  * [事件](components/events.md)
+  * [方法](components/Methods.md)
+  * [Host 元素](components/HostElement.md)
+
 
 
 
