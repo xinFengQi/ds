@@ -77,14 +77,15 @@ export const config: PrerenderConfig = {
 | referrer | 设置document.referrer   |  |
 | removeAttributeQuotes |  	尽可能删除属性值中的引号。  | true |
 | removeBooleanAttributeQuotes |  从标准化的布尔属性(例如hidden或checked)中移除=""。  | true |
-| removeEmptyAttributes |    | true |
-| removeHtmlComments |    | true |
-| removeScripts |    | false |
-| removeUnusedStyles |    | true |
-| resourcesUrl |    |  |
-| runtimeLogging |    | false |
-| staticComponents |    | false |
-| staticDocument |    | 15000 |
-| timeout |  设置document.title  |  |
-| title |  设置location.href  |  |
+| removeEmptyAttributes |  当class、dir、id、lang和name、title这些标准化属性的值为空时，删除它们。  | true |
+| removeHtmlComments | 删除HTML注释。  | true |
+| removeScripts | 删除文档中出现的所有&lt;script>元素。   | false |
+| removeUnusedStyles |   删除文档中不使用的CSS元素。 | true |
+| resourcesUrl |  运行时用于资源(如静态资源目录)的url。  |  |
+| runtimeLogging |  将运行时控制台日志打印到NodeJS进程。  | false |
+| staticComponents |  这里列出的组件将只进行预渲染或服务器端渲染，而不会在客户端进行hydrated。这对于那些非动态且不需要在浏览器中定义为自定义元素的组件非常有用。例如，页眉或页脚组件就是一个很好的例子，它们可能不需要任何客户端JavaScript。  | false |
+| staticDocument |  整个文档应该是静态的。这对于应该是静态的特定页面(而不是整个站点)很有用。如果整个站点是静态的，那么应该使用prerender配置上的staticSite属性。如果只有某些组件应该是静态的，那么使用staticComponents代替。  | false |
+| timeout | 等待页面完成渲染直到抛出超时错误的毫秒数。   | 15000 |
+| title |  设置document.title  |  |
+| url |  设置location.href  |  |
 | userAgent | 设置navigator.userAgent  |  |
