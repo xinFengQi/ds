@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-20 17:07:17
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-20 17:42:14
+ * @LastEditTime: 2021-01-20 19:06:57
 -->
 
 # 模块打包
@@ -66,6 +66,7 @@ export class MyCmp {}
 
 ```
 import { someUtilFunction } from '../utils.ts';
+
 
 @Component({
   tag: 'my-cmp-two'
