@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-21 10:40:01
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-21 10:55:56
+ * @LastEditTime: 2021-01-21 16:11:36
 -->
 
 # Stencli样式指南
@@ -276,7 +276,7 @@ export class Something {
         attribute="navigation"
         side={this.isRightSide ? 'right' : 'left'}
         type={this.type}
-        class={{
+        class=\{\{
           'something-is-animating': this.isAnimating
         }}
       >
