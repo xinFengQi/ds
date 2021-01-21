@@ -85,7 +85,7 @@ export class NameElement {
 
 ## Prop名称
 
-属性和组件属性紧密相连，但不一定是同一件事。组件属性(attributes )是HTML的概念，但属性(properties )是JS面向对象编程中的概念。
+属性和组件属性紧密相连，但不一定是同一件事。组件特性(attributes )是HTML的概念，但属性(properties )是JS面向对象编程中的概念。
 
 在Stencil中，@Prop()应用于属性的装饰器将指示Stencil编译器也侦​​听DOM属性中的更改。
 
@@ -127,7 +127,7 @@ class Component {
 
 通过使用此选项，我们可以明确知道哪些属性具有关联的DOM属性及其名称。
 
-## 将属性(Properties)值反映到属性(Attributes)
+## 将属性(Properties)值反映到特性(Attributes)
 
 在某些情况下，使属性(Prop)与属性(attribute)保持同步可能很有用。在这种情况下，您可以将@Prop()装饰器中的reflect选项设置为true，因为它的默认值为false：
 
@@ -156,9 +156,9 @@ class Cmp {
 <my-cmp message="Hello" number="42"></my-cmp>
 ```
 
-请注意，设置“reflect”为true的属性(properties )将呈现为属性(attributes),而未设置“reflect”为true的属性(properties)则不会呈现
+请注意，设置“reflect”为true的属性(properties )将呈现为特性(attributes),而未设置“reflect”为true的属性(properties)则不会呈现
 
-虽然未设置为“reflect”的属性(properties)（例如“value”）未呈现为属性(attributes)，但这并不意味着它不存在,该value属性(properties)仍包含The meaning of life...分配的值：
+虽然未设置为“reflect”的属性(properties)（例如“value”）未呈现为特性性(attributes)，但这并不意味着它不存在,该value属性(properties)仍包含The meaning of life...分配的值：
 
 ```
 const cmp = document.querySelector('my-cmp');
