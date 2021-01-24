@@ -7,16 +7,18 @@ const path = require('path');
 const nameMap = {
     angular: {
         buildShell: 'npm run ngbuild',
-        watchPath: path.resolve(__dirname, '../../../src-ng')
+        watchPath: path.resolve(__dirname, '../../../src-ng'),
+        buildDistPath: path.resolve(__dirname, '../../../dist/angular'),
     },
     vue: {
         buildShell: 'npm run vuebuild',
-        watchPath: path.resolve(__dirname, '../../../src-vue')
+        watchPath: path.resolve(__dirname, '../../../src-vue'),
+        buildDistPath: path.resolve(__dirname, '../../../dist/vue'),
     },
     react: {
         buildShell: 'npm run reactbuild',
-        watchPath: path.resolve(__dirname, '../../../src-react')
-
+        watchPath: path.resolve(__dirname, '../../../src-react'),
+        buildDistPath: path.resolve(__dirname, '../../../dist/react'),
     }
 }
 

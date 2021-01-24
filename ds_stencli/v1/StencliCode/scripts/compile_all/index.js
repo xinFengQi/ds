@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs-extra');
 
 const { nameMap, staticPath, staticTemplatePath } = require('./config/config');
-const { buildFrame, watchBuildFrame } = require('./build/build');
+const { buildFrame, watchBuildFrame, indexHtmlBuild } = require('./build/build');
 const { threadId } = require('worker_threads');
 
 
@@ -21,14 +21,14 @@ app.use(express.static(staticPath));
 let i = 0;
 const nameMapKeys = Object.keys(nameMap);
 
-console.log(staticPath)
+
 
 // 初始化dist文件夹
 fs.emptyDirSync(staticPath);
 
 fs.readdir(staticTemplatePath, (err, files) => {
-    if(err) {
-        throw('不存在dist文件夹')
+    if (err) {
+        throw ('不存在dist文件夹')
     }
     files.forEach(v => {
         fs.copySync(path.resolve(staticTemplatePath, v), path.resolve(staticPath, v))
@@ -36,14 +36,17 @@ fs.readdir(staticTemplatePath, (err, files) => {
 })
 
 // 开始运行将三大框架编译
-// nameMapKeys.forEach(key => {
-//     buildFrame(key, null, () => {
-//         console.log(key + '编译成功');
-//         i++;
-//         initDevServe();
-//         watchBuildFrame(key)
-//     })
-// })
+nameMapKeys.forEach(key => {
+    buildFrame(key, null, () => {
+        console.log(key + '编译成功');
+        i++;
+        initDevServe();
+        watchBuildFrame(key, () => {
+            indexHtmlBuild(key)
+        })
+        indexHtmlBuild(key)
+    })
+})
 
 
 function initDevServe() {

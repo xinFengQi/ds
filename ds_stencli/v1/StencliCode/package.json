@@ -1,7 +1,22 @@
 {
   "name": "frame_all",
   "version": "0.0.0",
+  "main": "dist/dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/dist/esm/index.mjs",
+  "es2017": "dist/dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/dist/collection/collection-manifest.json",
+  "collection:main": "dist/dist/collection/index.js",
+  "unpkg": "dist/dist/test/test.js",
+  "files": [
+    "dist/dist",
+    "dist/dist/loader/"
+  ],
   "scripts": {
+    "build": "stencil build --docs-readme",
+    "start": "stencil build --docs-readme --dev  --watch --serve",
+    "g": "stencil generate",
     "serve": "node scripts/compile_all/index.js",
     "ngstart": "ng serve",
     "ngbuild": "ng build",
@@ -22,6 +37,7 @@
     "@angular/router": "~11.0.1",
     "@babel/core": "7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
+    "@stencil/core": "^2.3.0",
     "@svgr/webpack": "5.4.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
