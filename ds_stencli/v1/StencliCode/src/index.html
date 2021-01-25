@@ -10,6 +10,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
   <title>Stencil Component Starter</title>
+  <link rel="stylesheet" href="/build/dsuicomponent.css">
   <link rel="stylesheet" href="/wwwAsserts/index.css" />
   <script type="module" src="/build/dsuicomponent.esm.js"></script>
   <script nomodule src="/build/dsuicomponent.js"></script>
@@ -19,11 +20,16 @@
   <div id="ds-button" class="main">
     <div class="title">ds-button演示</div>
     <div class="content">
-      <ds-button onclick="dsButtonCLick()" style="width: 300px;" ds-type="primary">按钮</ds-button>
-      <ds-button ds-type="dashed">按钮</ds-button>
-      <ds-button ds-type="link">按钮</ds-button>
-      <ds-button ds-type="text">按钮</ds-button>
-      <ds-button>按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()"  ds-danger="true" style="width: 300px;" ds-type="primary">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-disabled="true" ds-type="dashed">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-danger="true" ds-type="link" >按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-type="text" ds-disabled="true">按钮</ds-button>
+      <ds-button  onclick="dsButtonCLick()" ds-danger="true" ds-disabled="true">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()"   style="width: 300px;" ds-type="primary">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()"  ds-disabled="true" ds-type="dashed">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-type="link" >按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()"  ds-type="text" ds-disabled="true">按钮</ds-button>
+      <ds-button  onclick="dsButtonCLick()"  ds-disabled="true">按钮</ds-button>
     </div>
   </div>
 </body>

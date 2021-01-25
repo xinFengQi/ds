@@ -1,3 +1,9 @@
-.main{
-    width: 100%;
+:root {
+    /* 主题色 */
+    --primary-0: #1890ff;
+    --primary-1: #096dd9;  /* 鼠标点击时颜色 */
+    --primary-3: #40a9ff; /* 鼠标移入时颜色 */
+    /* 危险颜色 */
+    --danger-0: #ff4d4f; 
+    --danger-1: #ff7875;  /* 鼠标点击时颜色 */
 }

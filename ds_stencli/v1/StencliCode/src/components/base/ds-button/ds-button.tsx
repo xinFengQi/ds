@@ -11,12 +11,26 @@ export class DsButton {
   @Prop() dsType: 'default' | 'primary' | 'dashed' | 'link' | 'text'
     = 'default';
 
+  /** 是否可点击 */
+  @Prop() dsDisabled = false;
+
+  /** 是否可点击 */
+  @Prop() dsDanger = false;
+
+  private btuClick = (e: Event) => {
+    if (this.dsDisabled) {
+      e.stopPropagation();
+    }
+  }
+
   render() {
+    console.log(this.dsType, this.dsDisabled);
     return (
-        <button class={{ button: true, [this.dsType]: true }} >
+      <div onClick={this.btuClick} class='block'>
+        <button disabled={this.dsDisabled} class={{ button: true, [this.dsType]: true, danger: this.dsDanger }} >
           <slot></slot>
         </button >
-
+      </div>
     );
   }
 

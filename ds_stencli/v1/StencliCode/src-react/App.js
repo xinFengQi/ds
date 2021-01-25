@@ -14,13 +14,7 @@ function App() {
   return (
     <HashRouter>
       <div>
-        测试
-        <Route path='/base' render={() =>
-          <div>
-            123123
-            <Route exact path="/ds-button" component={dsReactButton} />
-          </div>
-        } />
+        <Route  path="/base/ds-button" component={dsReactButton} />
       </div>
     </HashRouter>
   );

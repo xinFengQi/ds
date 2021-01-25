@@ -8,6 +8,14 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DsButton {
         /**
+          * 是否可点击
+         */
+        "dsDanger": boolean;
+        /**
+          * 是否可点击
+         */
+        "dsDisabled": boolean;
+        /**
           * 根据类型显示按钮的样式
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
@@ -26,6 +34,14 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DsButton {
+        /**
+          * 是否可点击
+         */
+        "dsDanger"?: boolean;
+        /**
+          * 是否可点击
+         */
+        "dsDisabled"?: boolean;
         /**
           * 根据类型显示按钮的样式
          */

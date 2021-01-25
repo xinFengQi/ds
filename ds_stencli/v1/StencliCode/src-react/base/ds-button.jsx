@@ -8,7 +8,7 @@ function dsReactButton() {
 
   return (
     <div>
-      测试啊实打实大苏打
+      <ds-button></ds-button>
     </div>
   )
 

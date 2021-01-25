@@ -32,8 +32,6 @@
   },
   "include": [
     "src",
-    "src-ng",
-    "src-vue",
   ],
   "exclude": [
     "node_modules"

@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { defineCustomElements  } from '../dist/dist/loader'; 
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,4 +15,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('react')
 );
+
+defineCustomElements();
 
