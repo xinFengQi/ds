@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-22 15:58:20
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-22 17:11:00
+ * @LastEditTime: 2021-01-25 17:25:16
  * @descript: 编译框架
  */
 
@@ -116,7 +116,7 @@ const watchBuildFrame = (name, cbSuccess) => {
                 },
                 () => {
                     shellExample = null;
-                    console.log(key + ':重新编译成功');
+                    console.log(name + ':重新编译成功');
                     console.log(event, fileName);
                     cbSuccess();
                 })

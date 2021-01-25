@@ -1,21 +1,19 @@
 <!--
  * @Date: 2021-01-22 10:28:54
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-22 10:47:38
+ * @LastEditTime: 2021-01-25 17:05:23
 -->
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: {},
+};
 </script>
 
 <style>

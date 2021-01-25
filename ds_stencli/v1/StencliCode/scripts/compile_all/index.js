@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-22 14:53:30
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-22 17:44:37
+ * @LastEditTime: 2021-01-25 17:21:54
  */
 console.log('开始编译');
 const express = require('express');
@@ -24,7 +24,7 @@ const nameMapKeys = Object.keys(nameMap);
 
 
 // 初始化dist文件夹
-fs.emptyDirSync(staticPath);
+// fs.emptyDirSync(staticPath);
 
 fs.readdir(staticTemplatePath, (err, files) => {
     if (err) {

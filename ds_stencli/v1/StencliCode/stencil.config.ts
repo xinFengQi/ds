@@ -1,7 +1,13 @@
+/*
+ * @Date: 2021-01-25 09:21:12
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-01-25 10:09:09
+ */
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'test',
+  namespace: 'dsUIcomponent',
+  globalStyle: 'src/global/index.css',
   outputTargets: [
     {
       type: 'dist',
@@ -18,6 +24,7 @@ export const config: Config = {
     {
       type: 'www',
       dir: 'dist/www',
+      copy: [{ src: 'wwwAsserts', dest: 'wwwAsserts' }],
       serviceWorker: null, // disable service workers
     },
   ],

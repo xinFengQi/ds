@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-04 09:10:49
  * @LastEditors: dongfb
- * @LastEditTime: 2021-01-21 18:05:39
+ * @LastEditTime: 2021-01-25 10:44:36
 -->
 # Summary
 
@@ -37,12 +37,12 @@
     * [部署方式](StencliDocs/StaticSiteGeneration/Deployment.md)
   * [框架整合]
     * [总览](StencliDocs/FrameworkIntegrations/Overview.md)
-    * [绑定](StencliDocs/Config/Bindings.md)
-    * [Angular](StencliDocs/Config/Angular.md)
-    * [React](StencliDocs/Config/React.md)
-    * [Vue](StencliDocs/Config/Vue.md)
-    * [Ember](StencliDocs/Config/Ember.md)
-    * [JavaScript](StencliDocs/Config/JavaScript.md)
+    * [绑定](StencliDocs/FrameworkIntegrations/Bindings.md)
+    * [Angular](StencliDocs/FrameworkIntegrations/Angular.md)
+    * [React](StencliDocs/FrameworkIntegrations/React.md)
+    * [Vue](StencliDocs/FrameworkIntegrations/Vue.md)
+    * [Ember](StencliDocs/FrameworkIntegrations/Ember.md)
+    * [JavaScript](StencliDocs/FrameworkIntegrations/JavaScript.md)
   * [配置项]
     * [总览](StencliDocs/Config/Overview.md)
     * [开发服务器](StencliDocs/Config/DevServer.md)
