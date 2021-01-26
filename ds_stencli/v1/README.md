@@ -11,3 +11,6 @@
 使用gitbook构建文档
 使用gitee.page发布文档
 
+## 开发时发现的问题
+
+1. 创建新组件时,新组件的css样式不生效。需要重启dev-server

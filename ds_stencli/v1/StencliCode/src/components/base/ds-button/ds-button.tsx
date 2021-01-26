@@ -24,7 +24,7 @@ export class DsButton {
 
   /** 设置载入状态 */
   @Prop() dsLoadding = false;
-  
+
 
   private btuClick = (e: Event) => {
     if (this.dsDisabled || this.dsLoadding) {
@@ -35,13 +35,13 @@ export class DsButton {
   render() {
     return (
       <div onClick={this.btuClick} class='block'>
-        <button disabled={this.dsDisabled} 
-          class={{ 
-              button: true,
-              [this.dsType]: true,
-              danger: this.dsDanger,
-              loadding: this.dsLoadding
-              }} >
+        <button disabled={this.dsDisabled}
+          class={{
+            button: true,
+            [this.dsType]: true,
+            danger: this.dsDanger,
+            loadding: this.dsLoadding
+          }} >
           <slot></slot>
         </button >
       </div>

@@ -24,6 +24,16 @@ export namespace Components {
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsTypography {
+        /**
+          * 主元素显示的HTml
+         */
+        "dsTag": 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+        /**
+          * 文本类型
+         */
+        "dsType": 'default' | 'secondary' | 'warning' | 'danger' | 'success';
+    }
 }
 declare global {
     interface HTMLDsButtonElement extends Components.DsButton, HTMLStencilElement {
@@ -32,8 +42,15 @@ declare global {
         prototype: HTMLDsButtonElement;
         new (): HTMLDsButtonElement;
     };
+    interface HTMLDsTypographyElement extends Components.DsTypography, HTMLStencilElement {
+    }
+    var HTMLDsTypographyElement: {
+        prototype: HTMLDsTypographyElement;
+        new (): HTMLDsTypographyElement;
+    };
     interface HTMLElementTagNameMap {
         "ds-button": HTMLDsButtonElement;
+        "ds-typography": HTMLDsTypographyElement;
     }
 }
 declare namespace LocalJSX {
@@ -55,8 +72,19 @@ declare namespace LocalJSX {
          */
         "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsTypography {
+        /**
+          * 主元素显示的HTml
+         */
+        "dsTag"?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+        /**
+          * 文本类型
+         */
+        "dsType"?: 'default' | 'secondary' | 'warning' | 'danger' | 'success';
+    }
     interface IntrinsicElements {
         "ds-button": DsButton;
+        "ds-typography": DsTypography;
     }
 }
 export { LocalJSX as JSX };
@@ -64,6 +92,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
+            "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
     }
 }

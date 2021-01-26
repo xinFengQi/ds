@@ -20,21 +20,63 @@
   <div id="ds-button" class="main">
     <div class="title">ds-button演示</div>
     <div class="content">
-      <ds-button onclick="dsButtonCLick()"  ds-danger="true" style="width: 300px;" ds-type="primary">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" style="width: 300px;" ds-type="primary">按钮</ds-button>
       <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-disabled="true" ds-type="dashed">按钮</ds-button>
-      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-danger="true" ds-type="link" >按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-danger="true" ds-type="link">按钮</ds-button>
       <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-type="text" ds-disabled="true">按钮</ds-button>
-      <ds-button  onclick="dsButtonCLick()" ds-danger="true" ds-disabled="true">按钮</ds-button>
-      <ds-button onclick="dsButtonCLick()"   style="width: 300px;" ds-type="primary">按钮</ds-button>
-      <ds-button onclick="dsButtonCLick()"  ds-disabled="true" ds-type="dashed">按钮</ds-button>
-      <ds-button onclick="dsButtonCLick()" ds-type="link" >按钮</ds-button>
-      <ds-button onclick="dsButtonCLick()"  ds-type="text" >按钮</ds-button>
-      <ds-button  onclick="dsButtonCLick()" >按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-danger="true" ds-disabled="true">按钮</ds-button>
+      <br />
+      <ds-button onclick="dsButtonCLick()" style="width: 300px;" ds-type="primary">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-disabled="true" ds-type="dashed">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-type="link">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-type="text">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()">按钮</ds-button>
+      <br />
+      <ds-button onclick="dsButtonCLick()" ds-loadding="true" ds-type="primary">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-loadding="true" ds-disabled="true" ds-type="dashed">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-loadding="true" ds-type="link">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-loadding="true" ds-type="text">按钮</ds-button>
+      <ds-button onclick="dsButtonCLick()" ds-loadding="true">按钮</ds-button>
+    </div>
+  </div>
+  <div id="ds-typography" class="main">
+    <div class="title">ds-typography演示</div>
+    <div class="content">
+      <ds-typography ds-tag="h1">h1的内容</ds-typography>
+      <ds-typography ds-tag="h2">h2的内容</ds-typography>
+      <ds-typography ds-tag="h3">h3的内容</ds-typography>
+      <ds-typography ds-tag="h4">h4的内容</ds-typography>
+      <ds-typography ds-tag="h5">h5的内容</ds-typography>
+      <ds-typography ds-tag="p">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"><mark>ds UI组件 (mark)</mark></ds-typography>
+      <ds-typography ds-tag="p"><code>ds UI组件  (code)</code></ds-typography>
+      <ds-typography ds-tag="p"><kbd>ds UI组件  (keyboard)</kbd></ds-typography>
+      <ds-typography ds-tag="p"><u>ds UI组件  (underline)</u></ds-typography>
+      <ds-typography ds-tag="span"><del>ds UI组件  (delete)</del></ds-typography>
+      <ds-typography ds-tag="span"><strong>ds UI组件  (strong)</strong></ds-typography>
+      <ds-typography ds-tag="p">
+        <a href="http://www.baidu.com">点击百度</a>
+      </ds-typography>
+
     </div>
   </div>
 </body>
 
 <script src="/wwwAsserts/ds-button.js"></script>
 
+<script>
+  const showId = 'ds-typography'
+  const ids = [
+    'ds-button',
+    'ds-typography'
+  ]
+
+  ids.forEach(item => {
+    if(item !== showId) {
+      document.getElementById('ds-button').style.display="none";;
+    }
+  })
+
+</script>
 
 </html>
