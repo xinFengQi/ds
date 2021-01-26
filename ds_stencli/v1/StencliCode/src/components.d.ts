@@ -16,6 +16,10 @@ export namespace Components {
          */
         "dsDisabled": boolean;
         /**
+          * 设置载入状态
+         */
+        "dsLoadding": boolean;
+        /**
           * 根据类型显示按钮的样式
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
@@ -42,6 +46,10 @@ declare namespace LocalJSX {
           * 是否可点击
          */
         "dsDisabled"?: boolean;
+        /**
+          * 设置载入状态
+         */
+        "dsLoadding"?: boolean;
         /**
           * 根据类型显示按钮的样式
          */
