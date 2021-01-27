@@ -11,7 +11,8 @@ export class DsTypography {
   @Prop() dsTag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span' = 'p';
 
   /** 文本类型 */
-  @Prop() dsType: 'default' | 'secondary' | 'warning' | 'danger' | 'success' = 'default'
+  @Prop() dsType: 'default' | 'secondary' | 'warning'
+    | 'danger' | 'success' | 'disabled' = 'default';
 
 
 
@@ -19,7 +20,8 @@ export class DsTypography {
     const DsTag = this.dsTag;
     return (
       <DsTag class={{
-        ds_typography_font: true
+        ds_typography_font: true,
+        [this.dsType]: true
       }}>
         <slot></slot>
       </DsTag>

@@ -24,6 +24,22 @@ export namespace Components {
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsDivider {
+        /**
+          * 是否虚线
+         */
+        "dsDashed": boolean;
+        /**
+          * 文本位置
+         */
+        "dsTextDirection": 'center' | 'left' | 'right';
+        /**
+          * 分割线的类型,水平还是垂直
+         */
+        "dsType": 'horizontal' | 'vertical';
+    }
+    interface DsSpace {
+    }
     interface DsTypography {
         /**
           * 主元素显示的HTml
@@ -32,7 +48,8 @@ export namespace Components {
         /**
           * 文本类型
          */
-        "dsType": 'default' | 'secondary' | 'warning' | 'danger' | 'success';
+        "dsType": 'default' | 'secondary' | 'warning'
+    | 'danger' | 'success' | 'disabled';
     }
 }
 declare global {
@@ -42,6 +59,18 @@ declare global {
         prototype: HTMLDsButtonElement;
         new (): HTMLDsButtonElement;
     };
+    interface HTMLDsDividerElement extends Components.DsDivider, HTMLStencilElement {
+    }
+    var HTMLDsDividerElement: {
+        prototype: HTMLDsDividerElement;
+        new (): HTMLDsDividerElement;
+    };
+    interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
+    }
+    var HTMLDsSpaceElement: {
+        prototype: HTMLDsSpaceElement;
+        new (): HTMLDsSpaceElement;
+    };
     interface HTMLDsTypographyElement extends Components.DsTypography, HTMLStencilElement {
     }
     var HTMLDsTypographyElement: {
@@ -50,6 +79,8 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "ds-button": HTMLDsButtonElement;
+        "ds-divider": HTMLDsDividerElement;
+        "ds-space": HTMLDsSpaceElement;
         "ds-typography": HTMLDsTypographyElement;
     }
 }
@@ -72,6 +103,22 @@ declare namespace LocalJSX {
          */
         "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsDivider {
+        /**
+          * 是否虚线
+         */
+        "dsDashed"?: boolean;
+        /**
+          * 文本位置
+         */
+        "dsTextDirection"?: 'center' | 'left' | 'right';
+        /**
+          * 分割线的类型,水平还是垂直
+         */
+        "dsType"?: 'horizontal' | 'vertical';
+    }
+    interface DsSpace {
+    }
     interface DsTypography {
         /**
           * 主元素显示的HTml
@@ -80,10 +127,13 @@ declare namespace LocalJSX {
         /**
           * 文本类型
          */
-        "dsType"?: 'default' | 'secondary' | 'warning' | 'danger' | 'success';
+        "dsType"?: 'default' | 'secondary' | 'warning'
+    | 'danger' | 'success' | 'disabled';
     }
     interface IntrinsicElements {
         "ds-button": DsButton;
+        "ds-divider": DsDivider;
+        "ds-space": DsSpace;
         "ds-typography": DsTypography;
     }
 }
@@ -92,6 +142,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
+            "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
+            "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
     }

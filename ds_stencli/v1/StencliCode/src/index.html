@@ -48,12 +48,19 @@
       <ds-typography ds-tag="h4">h4的内容</ds-typography>
       <ds-typography ds-tag="h5">h5的内容</ds-typography>
       <ds-typography ds-tag="p">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="default">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"  ds-type="secondary">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"  ds-type="warning">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"  ds-type="danger">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"  ds-type="success">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p"  ds-type="disabled">ds UI组件</ds-typography>
+
       <ds-typography ds-tag="p">
         <ul>
-          <li>ds UI组件</li>
+          <li><a href="http://www.baidu.com" target="_blank">点击百度</a></li>
         </ul>
         <ul>
-          <li>ds UI组件</li>
+          <li><a href="http://www.baidu.com" target="_blank">点击百度</a></li>
         </ul>
         <ul>
           <li><a href="http://www.baidu.com" target="_blank">点击百度</a></li>
@@ -68,7 +75,17 @@
       <ds-typography ds-tag="p">
         <a href="http://www.baidu.com" target="_blank">点击百度</a>
       </ds-typography>
+    </div>
+  </div>
 
+  <div id="ds-button" class="main">
+    <div class="title">ds-divider演示</div>
+    <div class="content">
+      <ds-divider>测试</ds-divider>
+      <ds-divider ds-text-direction="left">测试</ds-divider>
+      <ds-divider ds-text-direction="right">测试</ds-divider>
+      <ds-divider style="height: 100px;" ds-type="vertical" ds-text-direction="left" ds-dashed="true">测试</ds-divider>
+      <ds-divider ds-text-direction="right" ds-dashed="true">测试</ds-divider>
     </div>
   </div>
 </body>
@@ -76,15 +93,16 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-typography'
+  const showId = 'ds-divider'
   const ids = [
     'ds-button',
-    'ds-typography'
+    'ds-typography',
+    'ds-divider'
   ]
 
   ids.forEach(item => {
     if(item !== showId) {
-      document.getElementById('ds-button').style.display="none";;
+      document.getElementById(item).style.display="none";;
     }
   })
 

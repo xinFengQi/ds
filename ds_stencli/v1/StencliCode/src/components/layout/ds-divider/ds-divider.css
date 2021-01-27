@@ -1,0 +1,76 @@
+:host {
+  display: block;
+}
+
+.font_mode{
+  writing-mode: tb;
+}
+
+
+.ds_divider_main{
+  width: 100%;
+  display: flex;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ds_divider_main_h{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  writing-mode:lr-tb;
+}
+
+.ds_divider_left{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds_divider_left_main{
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+.ds_divider_left_h_main{
+  height: 100%;
+  border-right: 1px solid rgba(0,0,0,.06);
+}
+
+
+.ds_divider_left_main_dashed{
+  border-top: 1px dashed rgba(0,0,0,.75);
+}
+
+.ds_divider_left_main_h_dashed{
+  border-right: 1px dashed rgba(0,0,0,.75);
+}
+
+.ds_divider_right{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds_divider_right_main{
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+
+.ds_divider_right_h_main{
+  height: 100%;
+  border-right: 1px solid rgba(0,0,0,.06);
+}
+
+.ds_divider_right_main_dashed{
+  border-top: 1px dashed rgba(0,0,0,.75);
+}
+
+.ds_divider_right_main_h_dashed{
+  border-right: 1px dashed rgba(0,0,0,.75);
+}
