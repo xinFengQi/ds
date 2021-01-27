@@ -34,6 +34,12 @@ h5.ds_typography_font {
   border-radius: 3px;
 }
 
+.ds_typography_font ul {
+  margin-left: 1.2em;
+  padding: 0;
+  list-style-type: circle;
+}
+
 .ds_typography_font a {
   color: #1890ff;
   outline: none;
