@@ -49,11 +49,11 @@
       <ds-typography ds-tag="h5">h5的内容</ds-typography>
       <ds-typography ds-tag="p">ds UI组件</ds-typography>
       <ds-typography ds-tag="p" ds-type="default">ds UI组件</ds-typography>
-      <ds-typography ds-tag="p"  ds-type="secondary">ds UI组件</ds-typography>
-      <ds-typography ds-tag="p"  ds-type="warning">ds UI组件</ds-typography>
-      <ds-typography ds-tag="p"  ds-type="danger">ds UI组件</ds-typography>
-      <ds-typography ds-tag="p"  ds-type="success">ds UI组件</ds-typography>
-      <ds-typography ds-tag="p"  ds-type="disabled">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="secondary">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="warning">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="danger">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="success">ds UI组件</ds-typography>
+      <ds-typography ds-tag="p" ds-type="disabled">ds UI组件</ds-typography>
 
       <ds-typography ds-tag="p">
         <ul>
@@ -68,17 +68,17 @@
       </ds-typography>
       <ds-typography ds-tag="p"><mark>ds UI组件 (mark)</mark></ds-typography>
       <ds-typography ds-tag="p"><code>ds UI组件  (code)</code></ds-typography>
-      <ds-typography ds-tag="p"><kbd>ds UI组件  (keyboard)</kbd></ds-typography>
-      <ds-typography ds-tag="p"><u>ds UI组件  (underline)</u></ds-typography>
-      <ds-typography ds-tag="span"><del>ds UI组件  (delete)</del></ds-typography>
-      <ds-typography ds-tag="span"><strong>ds UI组件  (strong)</strong></ds-typography>
+      <ds-typography ds-tag="p"><kbd>ds UI组件 (keyboard)</kbd></ds-typography>
+      <ds-typography ds-tag="p"><u>ds UI组件 (underline)</u></ds-typography>
+      <ds-typography ds-tag="span"><del>ds UI组件 (delete)</del></ds-typography>
+      <ds-typography ds-tag="span"><strong>ds UI组件 (strong)</strong></ds-typography>
       <ds-typography ds-tag="p">
         <a href="http://www.baidu.com" target="_blank">点击百度</a>
       </ds-typography>
     </div>
   </div>
 
-  <div id="ds-button" class="main">
+  <div id="ds-divider" class="main">
     <div class="title">ds-divider演示</div>
     <div class="content">
       <ds-divider>测试</ds-divider>
@@ -88,21 +88,52 @@
       <ds-divider ds-text-direction="right" ds-dashed="true">测试</ds-divider>
     </div>
   </div>
+
+  <div id="ds-space" class="main">
+    <div class="title">ds-space演示</div>
+    <div class="content">
+
+      <ds-space>
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+      </ds-space>
+      <ds-space ds-size="30" ds-direction="vertical">
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+        <ds-space-item style="border: 1px solid red; padding: 10px;">
+          a
+        </ds-space-item>
+      </ds-space>
+    </div>
+  </div>
+
 </body>
 
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-divider'
+  const showId = 'ds-space'
   const ids = [
     'ds-button',
     'ds-typography',
-    'ds-divider'
+    'ds-divider',
+    'ds-space'
   ]
 
   ids.forEach(item => {
-    if(item !== showId) {
-      document.getElementById(item).style.display="none";;
+    if (item !== showId) {
+      document.getElementById(item).style.display = "none";;
     }
   })
 

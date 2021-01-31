@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface DsBreadcrumb {
+    }
     interface DsButton {
         /**
           * 是否可点击
@@ -38,7 +40,31 @@ export namespace Components {
          */
         "dsType": 'horizontal' | 'vertical';
     }
+    interface DsMenu {
+    }
     interface DsSpace {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection": 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize": number;
+    }
+    interface DsSpaceItem {
+        /**
+          * 外部布局，垂直还是水平
+         */
+        "dsDirection": 'vertical' | 'horizontal';
+        /**
+          * 是否是最后一个子元素
+         */
+        "dsLast": boolean;
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize": number;
     }
     interface DsTypography {
         /**
@@ -53,6 +79,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLDsBreadcrumbElement extends Components.DsBreadcrumb, HTMLStencilElement {
+    }
+    var HTMLDsBreadcrumbElement: {
+        prototype: HTMLDsBreadcrumbElement;
+        new (): HTMLDsBreadcrumbElement;
+    };
     interface HTMLDsButtonElement extends Components.DsButton, HTMLStencilElement {
     }
     var HTMLDsButtonElement: {
@@ -65,11 +97,23 @@ declare global {
         prototype: HTMLDsDividerElement;
         new (): HTMLDsDividerElement;
     };
+    interface HTMLDsMenuElement extends Components.DsMenu, HTMLStencilElement {
+    }
+    var HTMLDsMenuElement: {
+        prototype: HTMLDsMenuElement;
+        new (): HTMLDsMenuElement;
+    };
     interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
     }
     var HTMLDsSpaceElement: {
         prototype: HTMLDsSpaceElement;
         new (): HTMLDsSpaceElement;
+    };
+    interface HTMLDsSpaceItemElement extends Components.DsSpaceItem, HTMLStencilElement {
+    }
+    var HTMLDsSpaceItemElement: {
+        prototype: HTMLDsSpaceItemElement;
+        new (): HTMLDsSpaceItemElement;
     };
     interface HTMLDsTypographyElement extends Components.DsTypography, HTMLStencilElement {
     }
@@ -78,13 +122,18 @@ declare global {
         new (): HTMLDsTypographyElement;
     };
     interface HTMLElementTagNameMap {
+        "ds-breadcrumb": HTMLDsBreadcrumbElement;
         "ds-button": HTMLDsButtonElement;
         "ds-divider": HTMLDsDividerElement;
+        "ds-menu": HTMLDsMenuElement;
         "ds-space": HTMLDsSpaceElement;
+        "ds-space-item": HTMLDsSpaceItemElement;
         "ds-typography": HTMLDsTypographyElement;
     }
 }
 declare namespace LocalJSX {
+    interface DsBreadcrumb {
+    }
     interface DsButton {
         /**
           * 是否可点击
@@ -117,7 +166,31 @@ declare namespace LocalJSX {
          */
         "dsType"?: 'horizontal' | 'vertical';
     }
+    interface DsMenu {
+    }
     interface DsSpace {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection"?: 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize"?: number;
+    }
+    interface DsSpaceItem {
+        /**
+          * 外部布局，垂直还是水平
+         */
+        "dsDirection"?: 'vertical' | 'horizontal';
+        /**
+          * 是否是最后一个子元素
+         */
+        "dsLast"?: boolean;
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize"?: number;
     }
     interface DsTypography {
         /**
@@ -131,9 +204,12 @@ declare namespace LocalJSX {
     | 'danger' | 'success' | 'disabled';
     }
     interface IntrinsicElements {
+        "ds-breadcrumb": DsBreadcrumb;
         "ds-button": DsButton;
         "ds-divider": DsDivider;
+        "ds-menu": DsMenu;
         "ds-space": DsSpace;
+        "ds-space-item": DsSpaceItem;
         "ds-typography": DsTypography;
     }
 }
@@ -141,9 +217,12 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ds-breadcrumb": LocalJSX.DsBreadcrumb & JSXBase.HTMLAttributes<HTMLDsBreadcrumbElement>;
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
+            "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
+            "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
             "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
     }
