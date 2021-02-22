@@ -6,56 +6,224 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface DsBreadcrumb {
+    }
+    interface DsButton {
         /**
-          * The first name
+          * 是否可点击
          */
-        "first": string;
+        "dsDanger": boolean;
         /**
-          * The last name
+          * 是否可点击
          */
-        "last": string;
+        "dsDisabled": boolean;
         /**
-          * The middle name
+          * 设置载入状态
          */
-        "middle": string;
+        "dsLoadding": boolean;
+        /**
+          * 根据类型显示按钮的样式
+         */
+        "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
+    }
+    interface DsDivider {
+        /**
+          * 是否虚线
+         */
+        "dsDashed": boolean;
+        /**
+          * 文本位置
+         */
+        "dsTextDirection": 'center' | 'left' | 'right';
+        /**
+          * 分割线的类型,水平还是垂直
+         */
+        "dsType": 'horizontal' | 'vertical';
+    }
+    interface DsMenu {
+    }
+    interface DsSpace {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection": 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize": number;
+    }
+    interface DsSpaceItem {
+        /**
+          * 外部布局，垂直还是水平
+         */
+        "dsDirection": 'vertical' | 'horizontal';
+        /**
+          * 是否是最后一个子元素
+         */
+        "dsLast": boolean;
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize": number;
+    }
+    interface DsTypography {
+        /**
+          * 主元素显示的HTml
+         */
+        "dsTag": 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+        /**
+          * 文本类型
+         */
+        "dsType": 'default' | 'secondary' | 'warning'
+    | 'danger' | 'success' | 'disabled';
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLDsBreadcrumbElement extends Components.DsBreadcrumb, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLDsBreadcrumbElement: {
+        prototype: HTMLDsBreadcrumbElement;
+        new (): HTMLDsBreadcrumbElement;
+    };
+    interface HTMLDsButtonElement extends Components.DsButton, HTMLStencilElement {
+    }
+    var HTMLDsButtonElement: {
+        prototype: HTMLDsButtonElement;
+        new (): HTMLDsButtonElement;
+    };
+    interface HTMLDsDividerElement extends Components.DsDivider, HTMLStencilElement {
+    }
+    var HTMLDsDividerElement: {
+        prototype: HTMLDsDividerElement;
+        new (): HTMLDsDividerElement;
+    };
+    interface HTMLDsMenuElement extends Components.DsMenu, HTMLStencilElement {
+    }
+    var HTMLDsMenuElement: {
+        prototype: HTMLDsMenuElement;
+        new (): HTMLDsMenuElement;
+    };
+    interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
+    }
+    var HTMLDsSpaceElement: {
+        prototype: HTMLDsSpaceElement;
+        new (): HTMLDsSpaceElement;
+    };
+    interface HTMLDsSpaceItemElement extends Components.DsSpaceItem, HTMLStencilElement {
+    }
+    var HTMLDsSpaceItemElement: {
+        prototype: HTMLDsSpaceItemElement;
+        new (): HTMLDsSpaceItemElement;
+    };
+    interface HTMLDsTypographyElement extends Components.DsTypography, HTMLStencilElement {
+    }
+    var HTMLDsTypographyElement: {
+        prototype: HTMLDsTypographyElement;
+        new (): HTMLDsTypographyElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "ds-breadcrumb": HTMLDsBreadcrumbElement;
+        "ds-button": HTMLDsButtonElement;
+        "ds-divider": HTMLDsDividerElement;
+        "ds-menu": HTMLDsMenuElement;
+        "ds-space": HTMLDsSpaceElement;
+        "ds-space-item": HTMLDsSpaceItemElement;
+        "ds-typography": HTMLDsTypographyElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface DsBreadcrumb {
+    }
+    interface DsButton {
         /**
-          * The first name
+          * 是否可点击
          */
-        "first"?: string;
+        "dsDanger"?: boolean;
         /**
-          * The last name
+          * 是否可点击
          */
-        "last"?: string;
+        "dsDisabled"?: boolean;
         /**
-          * The middle name
+          * 设置载入状态
          */
-        "middle"?: string;
+        "dsLoadding"?: boolean;
+        /**
+          * 根据类型显示按钮的样式
+         */
+        "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
+    }
+    interface DsDivider {
+        /**
+          * 是否虚线
+         */
+        "dsDashed"?: boolean;
+        /**
+          * 文本位置
+         */
+        "dsTextDirection"?: 'center' | 'left' | 'right';
+        /**
+          * 分割线的类型,水平还是垂直
+         */
+        "dsType"?: 'horizontal' | 'vertical';
+    }
+    interface DsMenu {
+    }
+    interface DsSpace {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection"?: 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize"?: number;
+    }
+    interface DsSpaceItem {
+        /**
+          * 外部布局，垂直还是水平
+         */
+        "dsDirection"?: 'vertical' | 'horizontal';
+        /**
+          * 是否是最后一个子元素
+         */
+        "dsLast"?: boolean;
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize"?: number;
+    }
+    interface DsTypography {
+        /**
+          * 主元素显示的HTml
+         */
+        "dsTag"?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+        /**
+          * 文本类型
+         */
+        "dsType"?: 'default' | 'secondary' | 'warning'
+    | 'danger' | 'success' | 'disabled';
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "ds-breadcrumb": DsBreadcrumb;
+        "ds-button": DsButton;
+        "ds-divider": DsDivider;
+        "ds-menu": DsMenu;
+        "ds-space": DsSpace;
+        "ds-space-item": DsSpaceItem;
+        "ds-typography": DsTypography;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "ds-breadcrumb": LocalJSX.DsBreadcrumb & JSXBase.HTMLAttributes<HTMLDsBreadcrumbElement>;
+            "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
+            "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
+            "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
+            "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
+            "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
+            "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
     }
 }
