@@ -1,9 +1,15 @@
+/*
+ * @Date: 2021-02-22 13:58:07
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-02-22 18:28:59
+ */
 
 import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'dsUIcomponent',
-  globalStyle: 'src/global/index.css',
+  globalScript: 'src/global_js/index.ts',
+  globalStyle: 'src/global_css/index.css',
   outputTargets: [
     {
       type: 'dist',

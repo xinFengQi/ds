@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-02-22 15:43:43
+ * @LastEditTime: 2021-02-22 18:06:05
 -->
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -12,6 +12,7 @@
   <title>dsUIComponent</title>
   <link rel="stylesheet" href="/build/dsuicomponent.css">
   <link rel="stylesheet" href="/wwwAsserts/index.css" />
+  <script type="module" src="/build/index.esm.js" data-stencil></script>
   <script type="module" src="/build/dsuicomponent.esm.js"></script>
   <script nomodule src="/build/dsuicomponent.js"></script>
 </head>
@@ -118,17 +119,29 @@
     </div>
   </div>
 
+
+  <div id="ds-card" class="main">
+    <div class="title">ds-card演示</div>
+    <div class="content">
+      <ds-card style="width: 200px;height: 300px;"></ds-card>
+      <ds-card ></ds-card>
+
+    </div>
+  </div>
+
+
 </body>
 
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-space'
+  const showId = 'ds-card'
   const ids = [
-    // 'ds-button',
-    // 'ds-typography',
-    // 'ds-divider',
-    // 'ds-space'
+    'ds-button',
+    'ds-typography',
+    'ds-divider',
+    'ds-space',
+    'ds-card'
   ]
 
   ids.forEach(item => {

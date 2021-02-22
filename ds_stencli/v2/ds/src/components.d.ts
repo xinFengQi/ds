@@ -26,6 +26,12 @@ export namespace Components {
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsCard {
+        /**
+          * 卡片操作组
+         */
+        "dsAction": any[];
+    }
     interface DsDivider {
         /**
           * 是否虚线
@@ -41,6 +47,8 @@ export namespace Components {
         "dsType": 'horizontal' | 'vertical';
     }
     interface DsMenu {
+    }
+    interface DsPopover {
     }
     interface DsSpace {
         /**
@@ -91,6 +99,12 @@ declare global {
         prototype: HTMLDsButtonElement;
         new (): HTMLDsButtonElement;
     };
+    interface HTMLDsCardElement extends Components.DsCard, HTMLStencilElement {
+    }
+    var HTMLDsCardElement: {
+        prototype: HTMLDsCardElement;
+        new (): HTMLDsCardElement;
+    };
     interface HTMLDsDividerElement extends Components.DsDivider, HTMLStencilElement {
     }
     var HTMLDsDividerElement: {
@@ -102,6 +116,12 @@ declare global {
     var HTMLDsMenuElement: {
         prototype: HTMLDsMenuElement;
         new (): HTMLDsMenuElement;
+    };
+    interface HTMLDsPopoverElement extends Components.DsPopover, HTMLStencilElement {
+    }
+    var HTMLDsPopoverElement: {
+        prototype: HTMLDsPopoverElement;
+        new (): HTMLDsPopoverElement;
     };
     interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
     }
@@ -124,8 +144,10 @@ declare global {
     interface HTMLElementTagNameMap {
         "ds-breadcrumb": HTMLDsBreadcrumbElement;
         "ds-button": HTMLDsButtonElement;
+        "ds-card": HTMLDsCardElement;
         "ds-divider": HTMLDsDividerElement;
         "ds-menu": HTMLDsMenuElement;
+        "ds-popover": HTMLDsPopoverElement;
         "ds-space": HTMLDsSpaceElement;
         "ds-space-item": HTMLDsSpaceItemElement;
         "ds-typography": HTMLDsTypographyElement;
@@ -152,6 +174,12 @@ declare namespace LocalJSX {
          */
         "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
+    interface DsCard {
+        /**
+          * 卡片操作组
+         */
+        "dsAction"?: any[];
+    }
     interface DsDivider {
         /**
           * 是否虚线
@@ -167,6 +195,8 @@ declare namespace LocalJSX {
         "dsType"?: 'horizontal' | 'vertical';
     }
     interface DsMenu {
+    }
+    interface DsPopover {
     }
     interface DsSpace {
         /**
@@ -206,8 +236,10 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "ds-breadcrumb": DsBreadcrumb;
         "ds-button": DsButton;
+        "ds-card": DsCard;
         "ds-divider": DsDivider;
         "ds-menu": DsMenu;
+        "ds-popover": DsPopover;
         "ds-space": DsSpace;
         "ds-space-item": DsSpaceItem;
         "ds-typography": DsTypography;
@@ -219,8 +251,10 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ds-breadcrumb": LocalJSX.DsBreadcrumb & JSXBase.HTMLAttributes<HTMLDsBreadcrumbElement>;
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
+            "ds-card": LocalJSX.DsCard & JSXBase.HTMLAttributes<HTMLDsCardElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
+            "ds-popover": LocalJSX.DsPopover & JSXBase.HTMLAttributes<HTMLDsPopoverElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
             "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;

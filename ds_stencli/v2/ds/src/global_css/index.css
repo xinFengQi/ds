@@ -7,6 +7,8 @@
     --backgroud-0: #fff;
     --backgroud-1: #d9d9d9;  /* 禁用时背景色 */
     --backgroud-2: #f5f5f5;
+    --backgroud-3: #fafafa;
+
 
     /* 危险颜色 */
     --danger-0: #ff4d4f; 
@@ -27,3 +29,6 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
     margin: 0;
     padding: 0;
 }
+
+
+
