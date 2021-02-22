@@ -5,16 +5,16 @@ const fs = require('fs')
 
 const { initEventServer } = require('./event_center/index');
 
-
+require('./util/getway_express');
 
 initEventServer(app, io);
 
 
-app.get('/test', function (req, res) {
+app.get('/api', function (req, res) {
     res.send('<h1>welcome</h1>');
 })
 
 
 http.listen(10000, function () {
-    console.log('listening on *:10000');
+    console.log('http://localhost:10000/test');
 });
