@@ -1,0 +1,251 @@
+:host {
+  display: inline-block;
+}
+
+.block {
+  width: 100%;
+  height: 100%;
+}
+
+.button {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-align: center;
+  padding: 5px 10px;
+  letter-spacing: 4px;
+  position: relative;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+  border: 0;
+  outline: 0;
+}
+
+
+
+/* 加载中样式 */
+.button:before {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1;
+  display: none;
+  background: var(--backgroud-0);
+  border-radius: inherit;
+  opacity: .5;
+  transition: opacity .2s;
+  content: "";
+  pointer-events: none;
+}
+
+
+/* 默认样式 */
+.default {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 1px solid var(--backgroud-1);
+}
+
+.default:hover,
+.default:focus {
+  color: var(--primary-0);
+  border: 1px solid var(--primary-0);
+}
+
+.default:active {
+  color: var(--primary-1);
+  border: 1px solid var(--primary-1);
+}
+
+.default:disabled {
+  color: rgba(0, 0, 0, .25) !important;
+  background: var(--backgroud-2) !important;
+  border: 1px solid var(--backgroud-1) !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.default.danger {
+  color: var(--danger-0);
+  border: 1px dashed var(--danger-0);
+}
+
+.default.loadding:before {
+  display: block;
+}
+.default.loadding:hover,
+.default.loadding:focus,
+.default.loadding:active {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 1px solid var(--backgroud-1);
+}
+
+
+/* 主题按钮样式 */
+.primary {
+  color: var(--backgroud-0);
+  background: var(--primary-0);
+  border: 0;
+}
+
+.primary:hover,
+.primary:focus {
+  background: var(--primary-3);
+}
+
+.primary:active {
+  background: var(--primary-1);
+}
+
+.primary:disabled {
+  color: rgba(0, 0, 0, .25) !important;
+  background: var(--backgroud-2) !important;
+  border: 1px solid var(--backgroud-1) !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.primary.danger {
+  color: var(--backgroud-0);
+  background: var(--danger-0);
+  border: 1px dashed var(--danger-0);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
+
+.primary.danger:active {
+  background: var(--danger-1);
+  border-color: var(--danger-1);
+}
+
+/* 加载中样式 */
+.primary.loadding:before {
+  display: block;
+}
+.primary.loadding:hover,
+.primary.loadding:focus,
+.primary.loadding:active {
+  color: var(--backgroud-0);
+  background: var(--primary-0);
+  border: 0;
+}
+
+.dashed {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 1px dashed var(--backgroud-1);
+}
+
+.dashed:focus,
+.dashed:hover {
+  color: var(--primary-0);
+  border: 1px dashed var(--primary-0);
+}
+
+.dashed:active {
+  color: var(--primary-1);
+  border: 1px dashed var(--primary-1);
+}
+
+.dashed:disabled {
+  color: rgba(0, 0, 0, .25) !important;
+  background: var(--backgroud-2) !important;
+  border: 1px dashed var(--backgroud-1) !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.dashed.danger {
+  color: var(--danger-0);
+  border: 1px dashed var(--danger-0);
+}
+
+.dashed.loadding:before {
+  display: block;
+}
+.dashed.loadding:hover,
+.dashed.loadding:focus,
+.dashed.loadding:active {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 1px dashed var(--backgroud-1);
+}
+
+.link {
+  color: var(--primary-0);
+  background: var(--backgroud-0);
+  border: 0px;
+}
+
+.link:disabled {
+  color: rgba(0, 0, 0, .25) !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.link.danger {
+  color: var(--danger-0);
+}
+
+.link.loadding:before {
+  display: block;
+}
+.link.loadding:hover,
+.link.loadding:focus,
+.link.loadding:active {
+  color: var(--primary-0);
+  background: var(--backgroud-0);
+  border: 0px;
+}
+
+
+.text {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 0px;
+}
+
+.text:active {
+  background: var(--backgroud-2);
+}
+
+.text:disabled {
+  background: var(--backgroud-0) !important;
+  color: rgba(0, 0, 0, .25) !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.text.danger {
+  color: var(--danger-0);
+}
+
+.text.loadding:before {
+  display: block;
+}
+.text.loadding:hover,
+.text.loadding:focus,
+.text.loadding:active {
+  color: rgba(0, 0, 0, .85);
+  background: var(--backgroud-0);
+  border: 0px;
+}
+
+
