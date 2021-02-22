@@ -10,7 +10,9 @@ function initEventServer(app, io) {
     startIoEvent(io);
 
     // 发送事件
-
+    app.get('/send', function (req, res) {
+        res.json({status: 200, message: '信息发送成功'});
+    })
 
     // 注册事件， 事件名唯一
 
@@ -25,10 +27,6 @@ function initEventServer(app, io) {
 }
 
 function startIoEvent(io) {
-    io.on('testst', (a) => {
-        console.log(a)
-    })
-
 
     io.on('connection', function (socket) {
 
@@ -44,9 +42,6 @@ function startIoEvent(io) {
             })
         }
 
-        socket.on('test', function (a) {
-            io.emit('test', { a, socket: io.sockets.sockets });
-        });
     })
 
     // io.to(socketId).emit('message');
