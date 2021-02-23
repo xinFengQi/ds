@@ -1,29 +1,15 @@
 const fs = require('fs')
 
+require('./http_ctrl');
 
 // 读取db，获取事件
-const eventdata = JSON.parse(fs.readFileSync('./db/eventData.json').toString());
+const eventdata = JSON.parse(fs.readFileSync('./src/db/eventData.json').toString());
 
 
 function initEventServer(app, io) {
 
     startIoEvent(io);
-
-    // 发送事件
-    app.get('/send', function (req, res) {
-        res.json({status: 200, message: '信息发送成功'});
-    })
-
-    // 注册事件， 事件名唯一
-
-    // 删除事件
-
-    // 
-
-
-
-
-
+    
 }
 
 function startIoEvent(io) {

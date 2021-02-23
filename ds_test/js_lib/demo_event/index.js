@@ -2,7 +2,6 @@ console.log('测试事件收发中心');
 
 var socket = io.connect("ws://127.0.0.1:10000");
 
-
 socket.on('connect', (a, b, c) => {
     console.log('连接了')
     console.log(socket.id)

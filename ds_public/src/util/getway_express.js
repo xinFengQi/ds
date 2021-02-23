@@ -1,23 +1,42 @@
 
 const sockerClient = require('socket.io-client')
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http, { cors: true });
 
 
 
-
+// todo  之前的getway连接存在问题
 const appconfig = {
     // system名
     // 局域网ip
     systemIp: `http://localhost:10000`,
-    systemName: 'ds_public.0.1',
+    systemName: 'ds_public0.0.1',
     //getway地址
-    getwayHost: 'http://47.102.97.25:8081',
+    getwayHost: 'http://localhost:10000',
 }
+
+http.listen(10000, function () {});
 
 
 const socket = sockerClient.connect(appconfig.getwayHost)
 
-console.log('哈睡觉打卡结束的', appconfig.getwayHost)
+const apiJSON = {systemInfo: appconfig, apiArr: [] }
 
+
+
+@apiMenu({name: 'test', dec: '初始的测试接口'})
+class Test{
+
+    @api({
+        url: '/test',
+        type: 'get',
+    })
+    test(res, req){
+        req.json(returnJSON.success({message: '测试成功'}));
+    }
+
+}
 
 // 连接getway
 socket.on('connect', () => {
@@ -27,9 +46,6 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
   console.log('getway断开')
 })
-
-const apiJSON = {systemInfo: appconfig, apiArr: [] }
-
 
 socket.on('reconnect', () => {
     console.log('从新连上getway')
@@ -83,11 +99,86 @@ function api({url,dec, type,reqParam,resType, resParam}) {
   gotoApiSwagger({url,dec, type,reqParam,resType, resParam});
   return (target, prototypeKey, descriptor) => {
     // console.log('所装饰类的属性',target, prototypeKey, descriptor)
-    router[type]('/'+ appconfig.systemName  + url, descriptor.value)
+    console.log(appconfig.systemIp+'/'+ appconfig.systemName  + url)
+    app[type]('/'+ appconfig.systemName  + url, descriptor.value)
   };
 }
 
-module.exports = { 
-    apiMenu: apiMenu,
-    api: api,
+
+
+
+
+const returnJSON = {
+  success: (data) => {
+    return { status: 200, data, message: '接口请求成功'}
+  },
 }
+
+
+// post取值
+async function getPostData(res) {
+  return new Promise((resolve, reject) => {
+      var array = [];
+      res.on('data', function (chunk) {
+          array.push(chunk);
+      });
+      res.on('end', function () {
+          var postBody = Buffer.concat(array);
+          postBody = postBody.toString('utf8');
+          resolve(JSON.parse(postBody));
+      });
+  })
+}
+
+
+
+// 获取用户get提交的数据
+async function getGetData(res) {
+  return new Promise((resolve, reject) => {
+      resolve(res.query)
+  })
+}
+
+
+
+module.exports = { 
+    apiMenu,
+    api,
+    app,
+    io,
+    returnJSON,
+    getRequestData: {
+      getPostData,
+      getGetData
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+api注解:  
+{
+    url: '请求路径',
+    type: '请求类型',
+    resType: '返回类型' html|json|file,
+    dec: '接口描述',
+    reqParam: [  // 请求参数
+        {
+            field: '参数字段',
+            dec: '字段描述',
+            require: '是否必填' true|false,
+            type: '类型' string | number | file,
+            default: '默认值'
+        }
+    ]
+}
+*/
+
