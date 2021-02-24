@@ -92,7 +92,7 @@ function api({url,dec, type,reqParam,resType, resParam}) {
     throw `存在接口注解参数不全url:${url},type:${type}`
   }
   type = type.toLowerCase()
-  const arr = ['get', 'post', 'detele', 'put', 'all']
+  const arr = ['get', 'post', 'delete', 'put', 'all']
   if(arr.findIndex(v => v == type) < 0) {
     throw `存在接口类型不正确url:${url},type:${type}`
   }
@@ -112,6 +112,9 @@ const returnJSON = {
   success: (data) => {
     return { status: 200, data, message: '接口请求成功'}
   },
+  fail: (data) => {
+    return {status: 412, data, message: '接口请求失败，存在条件不满足'}
+  }
 }
 
 

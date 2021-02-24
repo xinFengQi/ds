@@ -1,9 +1,11 @@
 const fs = require('fs')
 
+const { getDB } = require('../db/dbUtil');
+
 require('./http_ctrl');
 
 // 读取db，获取事件
-const eventdata = JSON.parse(fs.readFileSync('./src/db/eventData.json').toString());
+const eventdata = getDB('eventData', 'data');
 
 
 function initEventServer(app, io) {

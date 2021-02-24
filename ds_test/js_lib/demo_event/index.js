@@ -12,7 +12,6 @@ socket.on('connect', (a, b, c) => {
     socket.emit('test5', { personalId: socket.id, data: '来自自己的消息' })
     socket.emit('test6', { topicId: 'default_topic', data: '来自default_topic的消息' })
 
-
 })
 
 
