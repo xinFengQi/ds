@@ -36,55 +36,55 @@ class eventCenterHttp {
             },
         ]
     })
-    async add(res, req) {
-        const data = await getRequestData.getPostData(res);
+    async add(req, res) {
+        const data = await getRequestData.getPostData(req);
         if (getDBByKey('eventData', 'data', 'eventName', data.eventName)) {
-            req.json(returnJSON.fail({ message: '事件名已被注册' }))
+            res.json(returnJSON.fail({ message: '事件名已被注册' }))
             return;
         }
         addDB('eventData', 'data', data);
-        req.json(returnJSON.success(data))
+        res.json(returnJSON.success(data))
     }
 
 
-        // 增加一个事件
-        @api({
-            url: '/eventCenter/update',
-            type: 'put',
-            dec: '根据事件名更新',
-            resParam: [
-                {
-                    field: 'eventName',
-                    dec: '事件名',
-                    require: true,
-                    type: 'string',
-                    default: 'test1'
-                },
-                {
-                    field: 'type',
-                    dec: '类型',
-                    require: true,
-                    type: 'string', // global system modules department personal  topic
-                    default: 'global'
-                },
-                {
-                    field: 'isSelf',
-                    dec: '是否发送给自己',
-                    type: 'boolean',
-                    default: false
-                },
-            ]
-        })
-        async update(res, req) {
-            const data = await getRequestData.getPostData(res);
-            if(updateDBByKey('eventData', 'data', 'eventName', data)) {
-                req.json(returnJSON.success(data))
+    // 增加一个事件
+    @api({
+        url: '/eventCenter/update',
+        type: 'put',
+        dec: '根据事件名更新',
+        resParam: [
+            {
+                field: 'eventName',
+                dec: '事件名',
+                require: true,
+                type: 'string',
+                default: 'test1'
+            },
+            {
+                field: 'type',
+                dec: '类型',
+                require: true,
+                type: 'string', // global system modules department personal  topic
+                default: 'global'
+            },
+            {
+                field: 'isSelf',
+                dec: '是否发送给自己',
+                type: 'boolean',
+                default: false
+            },
+        ]
+    })
+    async update(req, res) {
+        const data = await getRequestData.getPostData(req);
+        if (updateDBByKey('eventData', 'data', 'eventName', data)) {
+            res.json(returnJSON.success(data))
 
-            } else {
-                req.json(returnJSON.fail({message: '不存在这个事件'}))
+        } else {
+            res.json(returnJSON.fail({ message: '不存在这个事件' }))
 
-            }
         }
+    }
 
     // 删除一个事件
     @api({
@@ -101,16 +101,16 @@ class eventCenterHttp {
             }
         ]
     })
-    async delete(res, req) {
-        const data = await getRequestData.getGetData(res);
+    async delete(req, res) {
+        const data = await getRequestData.getGetData(req);
         console.log(data)
         const deleteData = getDBByKey('eventData', 'data', 'eventName', data.eventName);
         if (deleteData) {
             deleteDBByKey('eventData', 'data', 'eventName', data.eventName);
-            req.json(returnJSON.success(deleteData))
+            res.json(returnJSON.success(deleteData))
             return;
         }
-        req.json(returnJSON.fail({ message: '事件名不存在' }))
+        res.json(returnJSON.fail({ message: '事件名不存在' }))
     }
 
     // 获取事件
@@ -119,8 +119,8 @@ class eventCenterHttp {
         type: 'get',
         dec: '查询全部事件'
     })
-    async getAll(res, req) {
-        req.json(returnJSON.success(getDB('eventData', 'data')))
+    async getAll(req, res) {
+        res.json(returnJSON.success(getDB('eventData', 'data')))
     }
 
     // 根据事件名获取事件
@@ -138,10 +138,10 @@ class eventCenterHttp {
             }
         ]
     })
-    async getOne(res, req) {
-        const data = await getRequestData.getGetData(res);
+    async getOne(req, res) {
+        const data = await getRequestData.getGetData(req);
 
-        req.json(returnJSON.success(getDBByKey('eventData', 'data', 'eventName', data.eventName)))
+        res.json(returnJSON.success(getDBByKey('eventData', 'data', 'eventName', data.eventName)))
     }
 
 
@@ -174,9 +174,9 @@ class eventCenterHttp {
             },
         ]
     })
-    async send(res, req) {
+    async send(req, res) {
 
-        const data = await getRequestData.getPostData(res);
+        const data = await getRequestData.getPostData(req);
         console.log(data)
         // 发送给其他具有id或者房间
         function broadcast(type, id, name, data) {
@@ -193,10 +193,10 @@ class eventCenterHttp {
                         : broadcast('to', data.id, data.eventName, data.data)
                 }
             })
-            req.json(returnJSON.success({ message: '发送成功' }))
+            res.json(returnJSON.success({ message: '发送成功' }))
 
         } else {
-            req.json(returnJSON.fail({ message: '不存在这个事件', data }))
+            res.json(returnJSON.fail({ message: '不存在这个事件', data }))
 
         }
 

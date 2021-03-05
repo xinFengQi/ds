@@ -17,3 +17,8 @@ _book/**
 
 .gitignore
 **/.gitignore
+
+
+## 文件缓存
+file_center/upload/**
+file_center/temp/**

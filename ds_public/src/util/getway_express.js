@@ -128,7 +128,11 @@ async function getPostData(res) {
       res.on('end', function () {
           var postBody = Buffer.concat(array);
           postBody = postBody.toString('utf8');
-          resolve(JSON.parse(postBody));
+          if(postBody) {
+            resolve(JSON.parse(postBody));
+          } else {
+            resolve()
+          }
       });
   })
 }
@@ -142,6 +146,13 @@ async function getGetData(res) {
   })
 }
 
+// 获取用户路由提交的数据
+async function getRouterData(res) {
+  return new Promise((resolve, reject) => {
+      resolve(res.params)
+  })
+}
+
 
 
 module.exports = { 
@@ -152,7 +163,8 @@ module.exports = {
     returnJSON,
     getRequestData: {
       getPostData,
-      getGetData
+      getGetData,
+      getRouterData
     }
 }
 

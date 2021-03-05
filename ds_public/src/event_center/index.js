@@ -1,6 +1,6 @@
-const fs = require('fs')
-
 const { getDB } = require('../db/dbUtil');
+const { app, io} = require('../util/getway_express');
+
 
 require('./http_ctrl');
 
@@ -8,12 +8,15 @@ require('./http_ctrl');
 const eventdata = getDB('eventData', 'data');
 
 
+initEventServer(app, io);
+
 function initEventServer(app, io) {
 
     startIoEvent(io);
     
 }
 
+// 开始io事件监听
 function startIoEvent(io) {
 
     io.on('connection', function (socket) {
