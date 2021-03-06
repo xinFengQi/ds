@@ -155,7 +155,7 @@ async function getRouterData(res) {
 
 // 获取用户路由提交路径
 function getUrlPathData(url, length = 2) {
-  const urlArr = nodePath.normalize(url).split('\\');
+  const urlArr = nodePath.normalize(url).split(nodePath.sep);
   const len = urlArr.length;
   const types = urlArr[len - 1].split('.');
   const operates = types[types.length - 1].split(';');

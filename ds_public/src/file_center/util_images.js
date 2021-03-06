@@ -2,7 +2,7 @@
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const nodePath = require('path');
-const useLib = 'images';
+const useLib = '';
 let sharp = '';
 if (useLib === 'sharp') {
     sharp = require('sharp');
@@ -21,7 +21,7 @@ function handlerNumber(width, height) {
 
 // 获取文件名-通过原来名字加后缀形成
 function getFileName(path, poxfix) {
-    const paths = nodePath.normalize(path).split('\\').map(v => v);
+    const paths = nodePath.normalize(path).split(nodePath.sep).map(v => v);
     const pathsLen = paths.length;
     const names = paths[pathsLen - 1].split('.');
     const namesLen = names.length;
