@@ -20,5 +20,5 @@ _book/**
 
 
 ## 文件缓存
-file_center/upload/**
-file_center/temp/**
+**/file_center/upload/**
+**/file_center/temp/**
