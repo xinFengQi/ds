@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 
-console.log(__dirname, fs.readdirSync(__dirname))
-
 const db = {}
 
 fs.readdirSync(__dirname).forEach(file => {
@@ -20,8 +18,12 @@ function getDB(name, key) {
     return db[name][key]
 }
 
-function addDB(name, key, data) {
-    getDB(name, key).push(data);
+function addDB(name, key, data, cb) {
+    if(cb) {
+        getDB(name, key).push(cb(data));
+    } else {
+        getDB(name, key).push(data);
+    }
     fs.writeFileSync(path.resolve(__dirname, `${name}.json`), JSON.stringify(db[name]))
 }
 
@@ -34,11 +36,18 @@ function getDBByKey(name, key, idKey, value) {
     return null;
 }
 
-function updateDBByKey(name, key, idKey, data) {
+function updateDBByKey(name, key, idKey, data, cb) {
   
         const index = getDB(name, key).findIndex(v => v[idKey] === data[idKey]);
         if(index > -1) {
-            db[name][key][index] = data;
+
+            if(cb) {
+                db[name][key][index] = cb(data);
+
+            } else {
+                db[name][key][index] = data;
+            }
+
             fs.writeFileSync(path.resolve(__dirname, `${name}.json`), JSON.stringify(db[name]))
             return true;
         } else {

@@ -1,8 +1,1 @@
-{
-    "data": [
-        {
-            "methodName": "test",
-            "method": "function test(a){ console.log(a); return a||34}; return test"
-        }
-    ]
-}
+{"data":[{"methodName":"test","method":"function test(a){ console.log(a); return a||34}; return test"},{"methodName":"test1","method":"\n        function a( ...params) {\n            console.log(params)\n            return params\n        }\n        return a;\n    "},{"methodName":"test13","method":"function main(...params){ return {a: params, b: 1}} return main;"}]}

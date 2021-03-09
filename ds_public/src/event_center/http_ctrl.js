@@ -47,7 +47,7 @@ class eventCenterHttp {
     }
 
 
-    // 增加一个事件
+    // 更新一个事件
     @api({
         url: '/eventCenter/update',
         type: 'put',

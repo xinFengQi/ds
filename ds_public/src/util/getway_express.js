@@ -100,7 +100,7 @@ function api({ url, dec, type, reqParam, resType, resParam }) {
   return (target, prototypeKey, descriptor) => {
     // console.log('所装饰类的属性',target, prototypeKey, descriptor)
     console.log(appconfig.systemIp + '/' + appconfig.systemName + url)
-    app[type]('/' + appconfig.systemName + url, descriptor.value)
+    app[type]('/' + appconfig.systemName + url, (req, res) => descriptor.value(req, res, this))
   };
 }
 
@@ -111,6 +111,9 @@ function api({ url, dec, type, reqParam, resType, resParam }) {
 const returnJSON = {
   success: (data) => {
     return { status: 200, data, message: '接口请求成功' }
+  },
+  error: (data) => {
+    return { status: 500, data, message: '接口逻辑执行失败' }
   },
   fail: (data) => {
     return { status: 412, data, message: '接口请求失败，存在条件不满足' }
