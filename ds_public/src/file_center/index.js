@@ -4,6 +4,11 @@
  * @LastEditTime: 2021-03-06 17:10:34
  */
 
+/*
+ * 文件中心思想
+ *  1. 上传分为三个文件夹，temp，upload, file,  其中file未来作为开发固定的文件夹，不算业务文件夹 上传要选择使用自动命名及使用原名
+ */
+
 const { api, apiMenu, getRequestData, returnJSON, io } = require('../util/getway_express');
 
 const { addDB, getDBByKey, deleteDBByKey, getDB, updateDBByKey } = require('../db/dbUtil');
@@ -13,6 +18,7 @@ const fsExtra = require('fs-extra');
 const fs = require('fs');
 const nodepath = require('path');
 
+require('./template_operate');
 const imagesUtil = require('./util_images');
 
 const tempPath = nodepath.resolve(__dirname, 'temp').replace(nodepath.sep === '/' ? /\//g : /\\/g, '/')

@@ -38,6 +38,10 @@ class eventCenterHttp {
     })
     async add(req, res) {
         const data = await getRequestData.getPostData(req);
+        if(!data.eventName || !data.type) {
+            res.json(returnJSON.error({ message: '参数缺少' }))
+            return;
+        }
         if (getDBByKey('eventData', 'data', 'eventName', data.eventName)) {
             res.json(returnJSON.fail({ message: '事件名已被注册' }))
             return;
@@ -77,6 +81,10 @@ class eventCenterHttp {
     })
     async update(req, res) {
         const data = await getRequestData.getPostData(req);
+        if(!data.eventName || !data.type) {
+            res.json(returnJSON.error({ message: '参数缺少' }))
+            return;
+        }
         if (updateDBByKey('eventData', 'data', 'eventName', data)) {
             res.json(returnJSON.success(data))
 

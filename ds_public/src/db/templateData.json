@@ -1,0 +1,14 @@
+{
+    "data": [
+        {
+            "templateName": "test1",
+            "fliePath": "file/template/{{te}}st.js",
+            "replaceKey": []
+        },
+        {
+            "templateName": "test2",
+            "fliePath": "file/template/test",
+            "replaceKey": []
+        }
+    ]
+}
