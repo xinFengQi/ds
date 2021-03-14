@@ -9,7 +9,7 @@ const { addDB, getDBByKey, deleteDBByKey, getDB, updateDBByKey } = require('../d
 const nodePtah = require('path');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
-
+const { fileToZip } = require('./util_zip');
 const uuid = require('uuid');
 
 
@@ -20,7 +20,7 @@ class templateOperateHttp {
     @api({
         url: '/templateOperate/file',
         type: 'post',
-        dec: '获取样板内容',
+        dec: '获取样板文件',
         resParam: [
             {
                 field: 'templateName',
@@ -40,20 +40,36 @@ class templateOperateHttp {
     })
     async getTemplateOperateFile(req, res) {
         const handlerData = await handlerTemplateOperate(req, res);
-        if(!handlerData) {
+        if (!handlerData) {
             return;
         }
         const { copyDir, dir, data } = handlerData;
         fs.mkdirSync(copyDir);
         const returnObject = handlerFileOrFloder(dir, data.replaceKey, copyDir);
         // 处理文件/文件夹，生成文件或者压缩包 传送到后端
-        if (returnObject.dir) {
-            
+        if (!returnObject.dir) {
+            res.json(returnJSON.fail({ message: '未生成文件' }))
+        }
+        const copyDirPath = copyDir + '/' + returnObject.dir;
+        const copyDirInfoIsFile = fs.statSync(copyDirPath).isFile();
+        let fileStream = null;
+        let zipPath = null;
+        if (copyDirInfoIsFile) {
+            fileStream = fs.createReadStream(copyDirPath)
+        } else {
+            zipPath = await fileToZip(copyDir + '.zip', copyDir)
+            fileStream = fs.createReadStream(zipPath)
+        }
+        fileStream.pipe(res);
+        fileStream.on('end', () => {
+            if (zipPath) {
+                // 删除缓存的压缩文件
+                fsExtra.removeSync(zipPath)
+            }
+            // 删除生产的缓存文件夹
             fsExtra.removeSync(copyDir + '/' + returnObject.dir)
             fsExtra.rmdirSync(copyDir)
-        }
-
-        res.json(returnJSON.success(returnObject))
+        })
     }
 
 

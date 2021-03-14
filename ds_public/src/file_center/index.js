@@ -172,9 +172,7 @@ class fileCenterHttp {
         const { path } = orginUrlData;
         let range = req.headers["range"];
         let p = '';
-        if(path === 'temp') {
-            p = __dirname;
-        }  else if(path.startsWith('temp/')) {
+        if(path === 'temp' || path === 'file' || path.startsWith('temp/') || path.startsWith('file/')) {
             p = nodepath.resolve(__dirname, path)
         } else {
             p = nodepath.resolve(uploadPath, path)
@@ -187,7 +185,6 @@ class fileCenterHttp {
             res.json(returnJSON.success({ dirs: fs.readdirSync(p).map(v => path+'/'+v) }))
             return;
         }
-
         // 存在 range 请求头将返回范围请求的数据
         if (range) {
             // 获取范围请求的开始和结束位置
