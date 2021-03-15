@@ -6,9 +6,7 @@
 
 import { dsHttpAxios } from "./http_axios";
 
-export var s = '123123';
-
-export class util {
+export class golbalJs {
     constructor() {
         if(!window['ds']) {
             window['ds'] = {};
@@ -18,4 +16,4 @@ export class util {
     }
 }
 
-new util();
+new golbalJs();
