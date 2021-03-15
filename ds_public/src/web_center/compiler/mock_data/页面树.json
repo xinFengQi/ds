@@ -1,20 +1,28 @@
 {
     "name": "div",
     "id": "file_page",
+    "type": "h5",
     "property": {},
     "events": {},
     "childres": [
         {
             "name": "div",
             "id": "file_page_top",
+            "type": "h5",
             "property": {},
             "events": {},
             "childres": [
                 {
                     "name": "for",
+                    "type": "ds",
                     "property": {
-                        "layout": "hertet",
-                        "data": "page.historylist"
+                        "layout": {
+                            "value": "hertet"
+                        },
+                        "data": {
+                            "isStore": true,
+                            "value": "page.historylist"
+                        }
                     },
                     "events": {},
                     "childres": [
@@ -25,7 +33,15 @@
                                 "data": []
                             },
                             "events": {},
-                            "childres": []
+                            "childres": [
+                                {
+                                    "type": "text",
+                                    "value": {
+                                        "isParent": true,
+                                        "value": "item.value"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -34,13 +50,18 @@
         {
             "name": "div",
             "id": "file_page_content",
+            "type": "h5",
             "property": {},
             "events": {},
             "childres": [
                 {
                     "name": "for",
+                    "type": "ds",
                     "property": {
-                        "data": "page.currentlist"
+                        "data": {
+                            "isStore": true,
+                            "value": "page.currentlist"
+                        }
                     },
                     "events": {},
                     "childres": [
@@ -51,7 +72,15 @@
                                 "data": []
                             },
                             "events": {},
-                            "childres": []
+                            "childres": [
+                                {
+                                    "type": "text",
+                                    "value": {
+                                        "isParent": true,
+                                        "value": "item.value"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }

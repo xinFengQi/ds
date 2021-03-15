@@ -4,11 +4,16 @@
  * @LastEditTime: 2021-02-22 18:26:57
  */
 
+import { dsHttpAxios } from "./http_axios";
+
 export var s = '123123';
 
 export class util {
     constructor() {
-        window['s'] = '12312312';
+        if(!window['ds']) {
+            window['ds'] = {};
+        }
+        window['ds']['dsHttpAxios'] = new dsHttpAxios();
 
     }
 }
