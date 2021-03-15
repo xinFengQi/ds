@@ -1,0 +1,61 @@
+{
+    "name": "div",
+    "id": "file_page",
+    "property": {},
+    "events": {},
+    "childres": [
+        {
+            "name": "div",
+            "id": "file_page_top",
+            "property": {},
+            "events": {},
+            "childres": [
+                {
+                    "name": "for",
+                    "property": {
+                        "layout": "hertet",
+                        "data": "page.historylist"
+                    },
+                    "events": {},
+                    "childres": [
+                        {
+                            "name": "btu",
+                            "id": "",
+                            "property": {
+                                "data": []
+                            },
+                            "events": {},
+                            "childres": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "div",
+            "id": "file_page_content",
+            "property": {},
+            "events": {},
+            "childres": [
+                {
+                    "name": "for",
+                    "property": {
+                        "data": "page.currentlist"
+                    },
+                    "events": {},
+                    "childres": [
+                        {
+                            "name": "btu",
+                            "id": "",
+                            "property": {
+                                "data": []
+                            },
+                            "events": {},
+                            "childres": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
