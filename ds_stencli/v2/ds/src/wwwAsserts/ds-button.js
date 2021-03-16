@@ -11,9 +11,9 @@ function dsButtonCLick() {
 
 window.onload = () => {
    console.log(ds)
-   ds.axios.get('http://localhost:10000/ds_public0.0.1/eventCenter/getAll').then(v => {
-      console.log(v.data)
-   });
+   // ds.axios.get('http://localhost:10000/ds_public0.0.1/eventCenter/getAll').then(v => {
+   //    console.log(v.data)
+   // });
 
    // const store = new ds.store({ a: 1, b: { a: 1 } }).store;
    // const aChange = store.onChange('a', (a, b, c) => {
@@ -62,4 +62,7 @@ window.onload = () => {
 
    aa.a.v.c[0].d[2] = 11;
    aaStore.store.state.a = {...aa.a};
+
+   aaStore.storeSet('a.v.c[0].d[2]', 22)
+
 }
