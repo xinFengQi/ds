@@ -22,7 +22,11 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.0.1"
+    "@stencil/core": "^2.0.1",
+    "axios": "^0.21.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@stencil/store": "^1.4.1"
+  }
 }

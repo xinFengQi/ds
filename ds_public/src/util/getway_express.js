@@ -6,6 +6,14 @@ const io = require('socket.io')(http, { cors: true });
 const nodePath = require('path');
 
 
+app.all('*', function(req, res, next) {
+  //设为指定的域
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  next();
+});
 // todo  之前的getway连接存在问题
 const appconfig = {
   // system名
