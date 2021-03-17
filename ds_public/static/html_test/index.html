@@ -1,0 +1,58 @@
+<!--
+ * @Date: 2021-03-17 10:41:28
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-17 15:52:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <ds-button id="test_btu"></ds-button>
+</body>
+<script>
+    const state = {
+        page: {
+            text: '按钮',
+            type: 'primary'
+        }
+    };
+    let store = null;
+
+    function initPageData() {
+
+        const test_btu_el = document.getElementById('test_btu');
+        test_btu_el.innerText = store.storeGet('page.text')
+        test_btu_el.dsType = store.storeGet('page.type')
+        test_btu_el.onclick = dsOneButtonCLick;
+        store.on('page.text', (value) => {
+            test_btu_el.innerText = value
+        })
+        store.on('page.type', (value) => {
+            test_btu_el.dsType = value
+        })
+        
+    }
+
+    window.onload = () => {
+        store = new ds.store(state);
+        initPageData();
+    }
+
+    let i = 0;
+    dsOneButtonCLick = () => {
+        console.log('执行事件')
+        store.storeSet('page.text', '变化' + i++)
+    }
+
+
+</script>
+
+</html>

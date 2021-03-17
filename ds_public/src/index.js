@@ -1,9 +1,14 @@
+/*
+ * @Date: 2021-03-02 13:02:41
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-17 13:38:50
+ */
 
 
 
 const { app, io} = require('./util/getway_express');
- 
-
+const express = require('express');
+app.use(express.static('./static'))
 require('./util/getway_express');
 
 require('./event_center/index');

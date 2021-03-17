@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-02-22 17:42:52
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-16 17:33:25
+ * @LastEditTime: 2021-03-17 14:06:15
  */
 import { createStore, ObservableMap } from '@stencil/store';
 
@@ -68,6 +68,11 @@ export class dsStoreJs {
         if (index > -1) {
             this.onHandler.splice(index, 1);
         }
+    }
+
+    storeGet(path: string) {
+        const parsePathData = this.parsePath(path);
+        return parsePathData.get(this.store.state);
     }
 
 

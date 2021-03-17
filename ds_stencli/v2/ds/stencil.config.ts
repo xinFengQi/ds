@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-02-22 13:58:07
  * @LastEditors: dongfb
- * @LastEditTime: 2021-02-22 18:28:59
+ * @LastEditTime: 2021-03-17 13:31:08
  */
 
 import { Config } from '@stencil/core';
@@ -13,7 +13,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      dir: 'dist/dist'
+      dir: './dist/dist'
     },
     {
       type: 'dist-custom-elements-bundle',
