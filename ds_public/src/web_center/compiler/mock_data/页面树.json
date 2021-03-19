@@ -13,7 +13,7 @@
             "events": {},
             "childres": [
                 {
-                    "name": "for",
+                    "name": "ds-for",
                     "type": "ds",
                     "property": {
                         "layout": {
@@ -27,8 +27,9 @@
                     "events": {},
                     "childres": [
                         {
-                            "name": "btu",
+                            "name": "ds-btu",
                             "id": "",
+                            "type": "ds",
                             "property": {
                                 "data": []
                             },
