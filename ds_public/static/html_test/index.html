@@ -10,8 +10,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测试基本生成</title>
-    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
-    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+    <link rel="stylesheet" href="./ds/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./ds/dsuicomponent/dsuicomponent.esm.js"></script>
 </head>
 
 <body>
@@ -35,9 +35,7 @@
         store.on('page.text', (value) => {
             test_btu_el.innerText = value
         })
-        store.on('page.type', (value) => {
-            test_btu_el.dsType = value
-        })
+        store.on('page.type', (value) => {test_btu_el.dsType = value})
         
     }
 

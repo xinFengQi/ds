@@ -14,23 +14,21 @@ let i = 0;
 outputObj = {
     // 页面html结构
     componentHtmlStr: '',
-    // dom结构的属性的初始化及初始化监听
-    componentPropertyInit: ''
 
 }
 
 generatePageDom(pageJson, outputObj)
 
 
-const templateStr = fs.readFileSync(nodePath.resolve(__dirname, './template/index.html')).toString()
+const templateStr = fs.readFileSync(nodePath.resolve(__dirname, './template/index_vue.html')).toString()
 const replaceKey = {
+    pageId: u,
     htmldata: outputObj.componentHtmlStr,
-    initPageData: outputObj.componentPropertyInit,
     state: fs.readFileSync(nodePath.resolve(__dirname, './mock_data/状态树.json')).toString()
 }
 const indexHtmlData = replaceStr(templateStr, replaceKey)
 
-fs.writeFileSync(nodePath.resolve(__dirname, './mock_data/index.html'), beautify.html(indexHtmlData))
+fs.writeFileSync(nodePath.resolve(__dirname, './mock_data/index_vue.html'), beautify.html(indexHtmlData))
 
 // 递归页面树json，生成各种数据
 function generatePageDom(domJson, outputObj) {
@@ -50,35 +48,39 @@ function generatePageDom(domJson, outputObj) {
 
 // 生成DOM树结构
 function generatePageOne(domJson, outputObj) {
+    const propertys = []
+
+    // 初始化属性及事件
+    const domProperty = domJson.property;
+    const domEvents = domJson.events;
+    // 处理属性
+    Object.keys(domProperty).forEach(property => {
+        const pro = domProperty[property];
+        if (pro.isStore) {
+            propertys.push(`v-bind:${property}="${pro.value}"`)
+        } else {
+            let va = pro.value;
+            if (typeof (va) === 'string') {
+                propertys.push(`${property}="${va}"`)
+                va = `'${pro.value}'`
+            } else {
+                
+            }
+        }
+    })
+    // 处理事件
+    Object.keys(domEvents).forEach(ev => {
+        const pro = domEvents[ev];
+        propertys.push(`${ev}="${pro}"`)
+    })
+
+    // 处理指令  v-for v-if等
+
     // 初始化页面
     const id = u + '_' + (i++)
     outputObj.componentHtmlStr = `${outputObj.componentHtmlStr}
-                                        <${domJson.name} id="${id}">`
+                                        <${domJson.name} id="${domJson.id ? domJson.id : id}" ${propertys.join(' ')}>`
 
-    // 初始化属性及事件
-    outputObj.componentPropertyInit = `${outputObj.componentPropertyInit}const ${id} = document.getElementById('${id}');`
-    const domProperty = domJson.property;
-    const domEvents = domJson.events;
-    Object.keys(domProperty).forEach(property => {
-        const pro = domProperty[property];
-        const idpropertyVar = `${id}.${property}`
-        if (pro.isStore) {
-            outputObj.componentPropertyInit = `${outputObj.componentPropertyInit}${idpropertyVar}=store.storeGet('${pro.value}');`
-            outputObj.componentPropertyInit = `${outputObj.componentPropertyInit}store.on('${pro.value}', (value) => {${idpropertyVar} = value});`
-        } else {
-            let va = pro.value;
-            if (typeof (pro.value) === 'string') {
-                va = `'${pro.value}'`
-            }
-            outputObj.componentPropertyInit = `${outputObj.componentPropertyInit}${idpropertyVar}=${va};`
-        }
-    })
-    Object.keys(domEvents).forEach(ev => {
-        const pro = domEvents[ev];
-        const idEvVar = `${id}.${ev}`
-        outputObj.componentPropertyInit = `${outputObj.componentPropertyInit}${idEvVar}=${pro};`
-
-    })
 }
 
 

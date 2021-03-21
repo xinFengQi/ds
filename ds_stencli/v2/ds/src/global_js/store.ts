@@ -91,7 +91,7 @@ export class dsStoreJs {
 
 
     // 将字符串类型通过对象生成数据
-    private parsePath(path: string): { segments: string[], get: (arg: Object) => any , set:(arg,value) => any} {
+    parsePath(path: string): { segments: string[], get: (arg: Object) => any , set:(arg,value) => any} {
         const isNotIncloudsArray = path.indexOf('[') < 0;
         if (isNotIncloudsArray && this.parsePathMap[path]) {
             return this.parsePathMap[path]
@@ -106,6 +106,7 @@ export class dsStoreJs {
             segments,
             get: (obj) => {
                 if (!obj) return null;
+                if(len === 1) return obj;
                 for (let i = 0; i < len; i++) {
                     obj = obj[segments[i]] // 取出属性的值 所以这个地方会执行getter
                 }

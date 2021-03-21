@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <div id="file_page" style="display: none;">
+
+        <div id="file_page">
+            <div id="file_page_top">
+                <ds-for id="file_page_2" layout="hertet" v-bind:data="page.historylist" click="aa" test="bb">
+                    <ds-btu id="file_page_3">
+                        item.value
+                    </ds-btu>
+                </ds-for>
+            </div>
+            <div id="file_page_content">
+                <for id="file_page_5" v-bind:data="page.currentlist">
+                </for>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const state = {
+        "page": {
+            "currentlist": [],
+            "historylist": []
+        }
+    };
+
+    window.onload = () => {
+        ds.vue.init('#file_page', state, {})
+        document.getElementById('test_vue').style.display = 'inline'
+    }
+</script>
+
+</html>

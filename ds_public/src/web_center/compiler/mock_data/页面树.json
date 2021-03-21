@@ -24,7 +24,10 @@
                             "value": "page.historylist"
                         }
                     },
-                    "events": {},
+                    "events": {
+                        "click": "aa",
+                        "test": "bb"
+                    },
                     "childres": [
                         {
                             "name": "ds-btu",

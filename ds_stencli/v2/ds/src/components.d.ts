@@ -46,6 +46,18 @@ export namespace Components {
          */
         "dsType": 'horizontal' | 'vertical';
     }
+    interface DsFor {
+        /**
+          * 是否显示
+         */
+        "dsValue": any[];
+    }
+    interface DsIf {
+        /**
+          * 是否显示
+         */
+        "dsValue": boolean;
+    }
     interface DsMenu {
     }
     interface DsPopover {
@@ -111,6 +123,18 @@ declare global {
         prototype: HTMLDsDividerElement;
         new (): HTMLDsDividerElement;
     };
+    interface HTMLDsForElement extends Components.DsFor, HTMLStencilElement {
+    }
+    var HTMLDsForElement: {
+        prototype: HTMLDsForElement;
+        new (): HTMLDsForElement;
+    };
+    interface HTMLDsIfElement extends Components.DsIf, HTMLStencilElement {
+    }
+    var HTMLDsIfElement: {
+        prototype: HTMLDsIfElement;
+        new (): HTMLDsIfElement;
+    };
     interface HTMLDsMenuElement extends Components.DsMenu, HTMLStencilElement {
     }
     var HTMLDsMenuElement: {
@@ -146,6 +170,8 @@ declare global {
         "ds-button": HTMLDsButtonElement;
         "ds-card": HTMLDsCardElement;
         "ds-divider": HTMLDsDividerElement;
+        "ds-for": HTMLDsForElement;
+        "ds-if": HTMLDsIfElement;
         "ds-menu": HTMLDsMenuElement;
         "ds-popover": HTMLDsPopoverElement;
         "ds-space": HTMLDsSpaceElement;
@@ -194,6 +220,18 @@ declare namespace LocalJSX {
          */
         "dsType"?: 'horizontal' | 'vertical';
     }
+    interface DsFor {
+        /**
+          * 是否显示
+         */
+        "dsValue"?: any[];
+    }
+    interface DsIf {
+        /**
+          * 是否显示
+         */
+        "dsValue"?: boolean;
+    }
     interface DsMenu {
     }
     interface DsPopover {
@@ -238,6 +276,8 @@ declare namespace LocalJSX {
         "ds-button": DsButton;
         "ds-card": DsCard;
         "ds-divider": DsDivider;
+        "ds-for": DsFor;
+        "ds-if": DsIf;
         "ds-menu": DsMenu;
         "ds-popover": DsPopover;
         "ds-space": DsSpace;
@@ -253,6 +293,8 @@ declare module "@stencil/core" {
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
             "ds-card": LocalJSX.DsCard & JSXBase.HTMLAttributes<HTMLDsCardElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
+            "ds-for": LocalJSX.DsFor & JSXBase.HTMLAttributes<HTMLDsForElement>;
+            "ds-if": LocalJSX.DsIf & JSXBase.HTMLAttributes<HTMLDsIfElement>;
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
             "ds-popover": LocalJSX.DsPopover & JSXBase.HTMLAttributes<HTMLDsPopoverElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;

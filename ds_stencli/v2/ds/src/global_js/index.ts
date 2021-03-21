@@ -6,6 +6,7 @@
 
 import axios from 'axios';
 import { dsStoreJs } from './store';
+import  { dsVue }  from './vue';
 
 export class golbalJs {
     constructor() {
@@ -14,6 +15,7 @@ export class golbalJs {
         }
         window['ds']['axios'] = axios;
         window['ds']['store'] = dsStoreJs;
+        window['ds']['vue'] = dsVue;
 
     }
 }

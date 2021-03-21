@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <div id="test_vue" style="display: none;">
+        <ds-button v-bind:ds-type="page.type" v-on:click="dsOneButtonCLick" >{{page.text}}</ds-button>
+    </div>
+</body>
+<script>
+    const state = {
+        page: {
+            text: '按钮',
+            type: 'primary'
+        }
+    };
+    
+    window.onload = () => {
+        ds.vue.init('#test_vue', state, {
+            dsOneButtonCLick(){
+                console.log(this);
+                console.log('测试')
+            }
+        })
+        document.getElementById('test_vue').style.display = 'inline'
+    }
+
+
+
+
+</script>
+
+</html>

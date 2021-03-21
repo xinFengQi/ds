@@ -93,7 +93,6 @@
   <div id="ds-space" class="main">
     <div class="title">ds-space演示</div>
     <div class="content">
-
       <ds-space>
         <ds-space-item style="border: 1px solid red; padding: 10px;">
           a
@@ -125,9 +124,44 @@
     <div class="content">
       <ds-card style="width: 200px;height: 300px;"></ds-card>
       <ds-card ></ds-card>
-
     </div>
   </div>
+
+  <div id="ds-if" class="main">
+    <div class="title">ds-if演示</div>
+    <div class="content">
+      <ds-if ds-value="true" style="display: none;">
+        看是否显示true
+      </ds-if>
+      <ds-if ds-value="false" style="display: none;">
+        <span>看是否显示false</span>
+      </ds-if>
+    </div>
+  </div>
+
+  <div id="ds-for" class="main">
+    <div class="title">ds-for演示</div>
+    <div class="content">
+      <ds-for id="fs_for_test"  ds-value="123123" style="display: none;">
+          <div>
+            <sapn>测试循环的值{_item}</sapn>
+          </div>
+      </ds-for>
+      
+    </div>
+  </div>
+
+  <div id="ds-vue" class="main">
+    <div class="title">ds-vue演示</div>
+    <div class="content">
+      <div id="fs_vue_test" >
+          {{a}}
+      </div>
+      
+    </div>
+  </div>
+
+
 
 
 </body>
@@ -141,7 +175,9 @@
     'ds-typography',
     'ds-divider',
     'ds-space',
-    'ds-card'
+    'ds-card',
+    'ds-if',
+    'ds-for'
   ]
 
   ids.forEach(item => {

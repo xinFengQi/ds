@@ -10,7 +10,7 @@ function dsButtonCLick() {
 
 
 window.onload = () => {
-   console.log(ds)
+   // console.log(ds)
    // ds.axios.get('http://localhost:10000/ds_public0.0.1/eventCenter/getAll').then(v => {
    //    console.log(v.data)
    // });
@@ -41,28 +41,38 @@ window.onload = () => {
    // console.log(store.state.b)
    // console.log(store, aSet, aChange, bChange);
 
-   const a = 'a["v"].c[0].d[2]'
-   const aa = {
-      a: {
-         v: {
-            c: [
-               {
-                  d: [23, 2, 2]
-               }
-            ]
-         }
-      }
-   }
+   // const a = 'a["v"].c[0].d[2]'
+   // const aa = {
+   //    a: {
+   //       v: {
+   //          c: [
+   //             {
+   //                d: [23, 2, 2]
+   //             }
+   //          ]
+   //       }
+   //    }
+   // }
 
-   const aaStore = new ds.store(aa);
+   // const aaStore = new ds.store(aa);
 
-   aaStore.on(a, (value) => {
-      console.log(value, '=========================');
-   })
+   // aaStore.on(a, (value) => {
+   //    console.log(value, '=========================');
+   // })
 
-   aa.a.v.c[0].d[2] = 11;
-   aaStore.store.state.a = {...aa.a};
+   // aa.a.v.c[0].d[2] = 11;
+   // aaStore.store.state.a = {...aa.a};
 
-   aaStore.storeSet('a.v.c[0].d[2]', 22)
+   // aaStore.storeSet('a.v.c[0].d[2]', 22)
+
+
+   // const ds_for = document.getElementById('fs_for_test');
+   // ds_for.dsValue = [1,2,3]
+
+
+
+   // vue
+
+   ds.vue.init('#fs_vue_test', {a: 123})
 
 }

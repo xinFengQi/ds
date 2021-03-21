@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <div id="{{pageId}}" style="display: none;">
+        {{htmldata}}
+    </div>
+</body>
+<script>
+    const state = {{state}};
+    
+    window.onload = () => {
+        ds.vue.init('#{{pageId}}', state, {})
+        document.getElementById('test_vue').style.display = 'inline'
+    }
+
+</script>
+
+</html>

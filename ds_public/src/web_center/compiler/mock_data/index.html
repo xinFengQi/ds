@@ -1,18 +1,74 @@
 <!--
- * @Date: 2021-03-19 15:57:54
+ * @Date: 2021-03-17 10:41:28
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-19 15:58:24
+ * @LastEditTime: 2021-03-17 15:52:26
 -->
-<div id="dd178cd0-8888-11eb-bd10-c3fbb9829b210">
-    <div id="dd178cd0-8888-11eb-bd10-c3fbb9829b211">
-        <ds-for id="dd178cd0-8888-11eb-bd10-c3fbb9829b212">
-            <ds-btu id="dd178cd0-8888-11eb-bd10-c3fbb9829b213">
-                item.value
-            </ds-btu>
-        </ds-for>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+
+    <div id="file_page_0">
+        <div id="file_page_1">
+            <ds-for id="file_page_2">
+                <ds-btu id="file_page_3">
+                    item.value
+
+                </ds-btu>
+            </ds-for>
+        </div>
+        <div id="file_page_4">
+            <for id="file_page_5">
+            </for>
+        </div>
     </div>
-    <div id="dd178cd0-8888-11eb-bd10-c3fbb9829b214">
-        <for id="dd178cd0-8888-11eb-bd10-c3fbb9829b215">
-        </for>
-    </div>
-</div>
+</body>
+<script>
+    const state = {
+        "page": {
+            "currentlist": [],
+            "historylist": []
+        }
+    };
+    let store = null;
+
+    function initPageData() {
+
+        const file_page_0 = document.getElementById('file_page_0');
+        const file_page_1 = document.getElementById('file_page_1');
+        const file_page_2 = document.getElementById('file_page_2');
+        file_page_2.layout = 'hertet';
+        file_page_2.data = store.storeGet('page.historylist');
+        store.on('page.historylist', (value) => {
+            file_page_2.data = value
+        });
+        file_page_2.click = aa;
+        file_page_2.test = bb;
+        const file_page_3 = document.getElementById('file_page_3');
+        file_page_3.data = undefined;
+        const file_page_4 = document.getElementById('file_page_4');
+        const file_page_5 = document.getElementById('file_page_5');
+        file_page_5.data = store.storeGet('page.currentlist');
+        store.on('page.currentlist', (value) => {
+            file_page_5.data = value
+        });
+
+    }
+
+    window.onload = () => {
+        store = new ds.store(state);
+        initPageData();
+    }
+
+    // 所有的js
+</script>
+
+</html>
