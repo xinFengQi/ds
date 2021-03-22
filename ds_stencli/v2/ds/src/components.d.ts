@@ -46,6 +46,11 @@ export namespace Components {
          */
         "dsType": 'horizontal' | 'vertical';
     }
+    interface DsDrag {
+        "operate": string;
+    }
+    interface DsDrop {
+    }
     interface DsFor {
         /**
           * 是否显示
@@ -123,6 +128,18 @@ declare global {
         prototype: HTMLDsDividerElement;
         new (): HTMLDsDividerElement;
     };
+    interface HTMLDsDragElement extends Components.DsDrag, HTMLStencilElement {
+    }
+    var HTMLDsDragElement: {
+        prototype: HTMLDsDragElement;
+        new (): HTMLDsDragElement;
+    };
+    interface HTMLDsDropElement extends Components.DsDrop, HTMLStencilElement {
+    }
+    var HTMLDsDropElement: {
+        prototype: HTMLDsDropElement;
+        new (): HTMLDsDropElement;
+    };
     interface HTMLDsForElement extends Components.DsFor, HTMLStencilElement {
     }
     var HTMLDsForElement: {
@@ -170,6 +187,8 @@ declare global {
         "ds-button": HTMLDsButtonElement;
         "ds-card": HTMLDsCardElement;
         "ds-divider": HTMLDsDividerElement;
+        "ds-drag": HTMLDsDragElement;
+        "ds-drop": HTMLDsDropElement;
         "ds-for": HTMLDsForElement;
         "ds-if": HTMLDsIfElement;
         "ds-menu": HTMLDsMenuElement;
@@ -219,6 +238,11 @@ declare namespace LocalJSX {
           * 分割线的类型,水平还是垂直
          */
         "dsType"?: 'horizontal' | 'vertical';
+    }
+    interface DsDrag {
+        "operate"?: string;
+    }
+    interface DsDrop {
     }
     interface DsFor {
         /**
@@ -276,6 +300,8 @@ declare namespace LocalJSX {
         "ds-button": DsButton;
         "ds-card": DsCard;
         "ds-divider": DsDivider;
+        "ds-drag": DsDrag;
+        "ds-drop": DsDrop;
         "ds-for": DsFor;
         "ds-if": DsIf;
         "ds-menu": DsMenu;
@@ -293,6 +319,8 @@ declare module "@stencil/core" {
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
             "ds-card": LocalJSX.DsCard & JSXBase.HTMLAttributes<HTMLDsCardElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
+            "ds-drag": LocalJSX.DsDrag & JSXBase.HTMLAttributes<HTMLDsDragElement>;
+            "ds-drop": LocalJSX.DsDrop & JSXBase.HTMLAttributes<HTMLDsDropElement>;
             "ds-for": LocalJSX.DsFor & JSXBase.HTMLAttributes<HTMLDsForElement>;
             "ds-if": LocalJSX.DsIf & JSXBase.HTMLAttributes<HTMLDsIfElement>;
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-16 13:07:24
+ * @LastEditTime: 2021-03-22 17:05:03
 -->
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -123,7 +123,7 @@
     <div class="title">ds-card演示</div>
     <div class="content">
       <ds-card style="width: 200px;height: 300px;"></ds-card>
-      <ds-card ></ds-card>
+      <ds-card></ds-card>
     </div>
   </div>
 
@@ -138,28 +138,42 @@
       </ds-if>
     </div>
   </div>
-
+  <!-- 没有完成的半成品，等技术强的在试试 -->
   <div id="ds-for" class="main">
     <div class="title">ds-for演示</div>
     <div class="content">
-      <ds-for id="fs_for_test"  ds-value="123123" style="display: none;">
-          <div>
-            <sapn>测试循环的值{_item}</sapn>
-          </div>
+      <ds-for id="fs_for_test" ds-value="123123" style="display: none;">
+        <div>
+          <sapn>测试循环的值{_item}</sapn>
+        </div>
       </ds-for>
-      
     </div>
   </div>
 
   <div id="ds-vue" class="main">
     <div class="title">ds-vue演示</div>
     <div class="content">
-      <div id="fs_vue_test" >
-          {{a}}
+      <div id="fs_vue_test">
+        {{a}}
       </div>
+    </div>
+  </div>
+
+  <div id="ds-drop-drag" class="main">
+    <div class="title">ds-drop-drag演示</div>
+    <div class="content">
+      <ds-drag>
+        <div>测试</div>
+        <button>测试</button>
+        <span>测试</button>
+      </ds-drag>
+
+      <ds-drop style="width: 300px;height: 300px;border: 1px solid red;">
+      </ds-drop>
       
     </div>
   </div>
+
 
 
 
@@ -169,7 +183,7 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = ''
+  const showId = 'ds-drop-drag'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -177,7 +191,8 @@
     'ds-space',
     'ds-card',
     'ds-if',
-    'ds-for'
+    'ds-for',
+    'ds-vue'
   ]
 
   ids.forEach(item => {
