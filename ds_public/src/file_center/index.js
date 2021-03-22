@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-06 09:16:26
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-06 17:10:34
+ * @LastEditTime: 2021-03-22 16:12:06
  */
 
 /*
@@ -161,6 +161,24 @@ class fileCenterHttp {
 
     }
 
+    //文件——获取首目录
+    @api({
+        url: '/fileCenter/download',
+        type: 'get',
+        dec: '获取首目录',
+    })
+    async downloadFileHead(req, res) {
+        res.json(returnJSON.success(
+            {
+                dirs: [
+                    { isDirectory: true, value: 'upload' },
+                    { isDirectory: true, value: 'temp' },
+                    { isDirectory: true, value: 'file' }
+                ]
+            }))
+    }
+
+
     //文件——下载
     @api({
         url: '/fileCenter/download/**',
@@ -171,18 +189,20 @@ class fileCenterHttp {
         const orginUrlData = getRequestData.getUrlPathData(req.originalUrl, 2);
         const { path } = orginUrlData;
         let range = req.headers["range"];
-        let p = '';
-        if(path === 'temp' || path === 'file' || path.startsWith('temp/') || path.startsWith('file/')) {
-            p = nodepath.resolve(__dirname, path)
-        } else {
-            p = nodepath.resolve(uploadPath, path)
-        }
+        let p = nodepath.resolve(__dirname, path);
+        p = decodeURI(p).replace(/\\/g, '/')
         if (!fs.existsSync(p)) {
             res.json(returnJSON.fail({ message: '不存在此文件或者文件夹' }))
             return;
         }
-        if(fs.statSync(p).isDirectory()) {
-            res.json(returnJSON.success({ dirs: fs.readdirSync(p).map(v => path+'/'+v) }))
+        if (fs.statSync(p).isDirectory()) {
+            res.json(returnJSON.success({
+                dirs: fs.readdirSync(p).map(v => {
+                    const stat = fs.statSync(nodepath.resolve(p, v))
+                    const ty = stat.isFile() ? {isFile: true}: {isDirectory: true} 
+                    return Object.assign({ value: path + '/' + v}, ty);
+                })
+            }))
             return;
         }
         // 存在 range 请求头将返回范围请求的数据
@@ -213,8 +233,6 @@ class fileCenterHttp {
             // 没有 range 请求头时将整个文件内容返回给客户端
             fs.createReadStream(p).pipe(res);
         }
-
-
     }
 
 

@@ -1,3 +1,8 @@
+/*
+ * @Date: 2021-03-15 14:31:24
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-22 16:41:49
+ */
 const fs = require('fs')
 const nodePath = require('path')
 const beautify = require('js-beautify');
@@ -19,11 +24,16 @@ outputObj = {
 
 }
 
-generatePageDom(pageJson, outputObj)
+pageJson.childres ? pageJson.childres.forEach(js => {
+    generatePageDom(js, outputObj)
+}) : null
+
+
 
 
 const templateStr = fs.readFileSync(nodePath.resolve(__dirname, './template/index.html')).toString()
 const replaceKey = {
+    title: pageJson.title,
     htmldata: outputObj.componentHtmlStr,
     initPageData: outputObj.componentPropertyInit,
     state: fs.readFileSync(nodePath.resolve(__dirname, './mock_data/状态树.json')).toString()

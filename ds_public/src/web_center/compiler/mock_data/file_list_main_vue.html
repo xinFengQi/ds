@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件列表</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <div id="file_list_main" style="display: none;">
+        <div id="file_list_main_0" v-for="(item,i) in currentList">
+            <ds-button id="file_list_main_1" ds-type="link" v-on:click="gotoNext(item)">
+                <span id="file_list_main_2" v-if="item.isDirectory">
+                    {{item.value}}
+                </span>
+                <a id="file_list_main_3" target="_blank" v-bind:href="baseApi+'/'+item.value" v-if="item.isFile">
+                    {{item.value}}
+                </a>
+            </ds-button>
+        </div>
+    </div>
+</body>
+<script>
+    const state = {
+        "currentList": [],
+        "baseApi": "http://localhost:10000/ds_public0.0.1/fileCenter/download",
+        "currentPath": "http://localhost:10000/ds_public0.0.1/fileCenter/download"
+    };
+
+    window.onload = () => {
+        ds.vue.init('#file_list_main', state, {})
+        document.getElementById('file_list_main').style.display = 'inline'
+    }
+</script>
+
+</html>

@@ -1,0 +1,74 @@
+<!--
+ * @Date: 2021-03-22 10:17:25
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-22 16:09:11
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试基本生成</title>
+    <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
+    <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
+</head>
+
+<body>
+    <div id="file_list_main" style="display: none;">
+        <div id="file_list_main" v-for="(item,i) in currentList">
+            <ds-button id="file_list_main_1" ds-type="link" v-on:click="gotoNext(item)">
+                <span v-if="item.isDirectory">{{item.value}}</span>
+                <a v-if="item.isFile" v-bind:href="baseApi+'/'+item.value" target="_blank"> {{item.value}}</a>
+            </ds-button>
+        </div>
+    </div>
+</body>
+<script>
+    const state = {
+        "currentList": [],
+        "baseApi": 'http://localhost:10000/ds_public0.0.1/fileCenter/download',
+        "currentPath": 'http://localhost:10000/ds_public0.0.1/fileCenter/download',
+    };
+
+    window.onload = () => {
+        const initThen = ds.axios.get(state.baseApi).then(v => {
+            console.log(v)
+            if (v.data.status === 200) {
+                state.currentList = [...v.data.data.dirs]
+            }
+        })
+        Promise.all([initThen]).then(s => {
+            ds.vue.init('#file_list_main', state, {
+                gotoNext(item) {
+                    if (item.isFile) {
+                        return;
+                    }
+                    if (item.value === '...') {
+                        const currentCache = this.currentPath.split('/')
+                        currentCache.pop();
+                        console.log(this.currentPath)
+                        this.currentPath = currentCache.join('/');
+                        ds.axios.get(this.currentPath).then(v => {
+                            if (v.data.status === 200) {
+                                this.currentList = this.currentPath === this.baseApi ?
+                                    [...v.data.data.dirs] : [{ isDirectory: true, value: '...' }, ...v.data.data.dirs]
+                            }
+                        })
+                        return;
+                    }
+                    this.currentPath = this.baseApi + '/' +  item.value;
+                    ds.axios.get(this.baseApi + '/' + item.value).then(v => {
+                        if (v.data.status === 200) {
+                            this.currentList = [{ isDirectory: true, value: '...' }, ...v.data.data.dirs]
+                        }
+                    })
+                }
+            })
+            document.getElementById('file_list_main').style.display = 'inline'
+        })
+
+    }
+</script>
+
+</html>

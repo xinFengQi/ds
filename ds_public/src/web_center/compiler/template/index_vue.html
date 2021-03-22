@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试基本生成</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="./dist/dsuicomponent/dsuicomponent.css">
     <script type="module" src="./dist/dsuicomponent/dsuicomponent.esm.js"></script>
 </head>
@@ -19,7 +19,7 @@
     
     window.onload = () => {
         ds.vue.init('#{{pageId}}', state, {})
-        document.getElementById('test_vue').style.display = 'inline'
+        document.getElementById('{{pageId}}').style.display = 'inline'
     }
 
 </script>
