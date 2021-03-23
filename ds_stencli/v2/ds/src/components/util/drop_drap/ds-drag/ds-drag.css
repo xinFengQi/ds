@@ -14,7 +14,7 @@
 .resize_class_top_left {
   width: 5px;
   background-color: aquamarine;
-  cursor: w-resize;
+  cursor: e-resize;
 }
 
 

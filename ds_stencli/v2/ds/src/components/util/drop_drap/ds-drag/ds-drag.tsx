@@ -31,7 +31,7 @@ export class DsDrag {
     this.id = this.el.id || dsUtil.getId();
   }
   componentDidLoad() {
-
+    this.el.draggable = this.isDrag;
     this.el.ondragstart = (event: any) => {
       event.dataTransfer.effectAllowed = this.operate
       event.dataTransfer.setData('id', event.target.id);
@@ -44,33 +44,40 @@ export class DsDrag {
     }
   }
 
-  removeDrag = () => {
-    console.log('============================')
-    this.isDrag = false;
+  private removeDrag = () => {
+    this.el.draggable = this.isDrag && false;
+  }
+
+  private addDrag = () => {
+    this.el.draggable = this.isDrag && true;
+  }
+
+  private leftMove = () => {
+    console.log('==========')
+  }
+
+  private getElContenr = () => {
+    return this.isResize ?
+      (<div class="resize_class">
+        <div class="resize_class_top">
+          <div class="resize_class_top_right"><slot></slot></div>
+          <div onMouseDown={this.removeDrag} onMouseMove={this.leftMove} onMouseLeave={this.addDrag} class="resize_class_top_left"></div>
+        </div>
+        <div class="resize_class_bottom">
+          <div class="resize_class_bottom_right"><slot></slot></div>
+          <div class="resize_class_bottom_left"></div>
+        </div>
+      </div>)
+      :
+      (<slot></slot>)
   }
 
   render() {
     return (
-      <Host draggable={true} id={this.id}>
-        {
-          this.isResize ?
-            <div class="resize_class">
-              <div class="resize_class_top">
-                <div class="resize_class_top_right"><slot></slot></div>
-                <div onFocus={this.removeDrag} onBlur={this.removeDrag} class="resize_class_top_left"></div>
-              </div>
-              <div class="resize_class_bottom">
-                <div class="resize_class_bottom_right"><slot></slot></div>
-                <div class="resize_class_bottom_left"></div>
-              </div>
-            </div>
-            :
-            <slot></slot>
-        }
-
-
-      </Host>
-    );
+        <Host draggable="true" id={this.id}>
+          {this.getElContenr()}
+        </Host>
+    )
   }
 
 }
