@@ -1,3 +1,35 @@
 :host {
   display: block;
 }
+
+
+.resize_class_top {
+  display: flex;
+}
+
+.resize_class_top_right {
+  flex: 1;
+}
+
+.resize_class_top_left {
+  width: 5px;
+  background-color: aquamarine;
+  cursor: w-resize;
+}
+
+
+.resize_class_bottom {
+  height: 5px;
+  display: flex;
+  background-color: aquamarine;
+}
+
+.resize_class_bottom_right {
+  flex: 1;
+  cursor: s-resize;
+}
+
+.resize_class_bottom_left {
+  width: 5px;
+  cursor: se-resize;
+}

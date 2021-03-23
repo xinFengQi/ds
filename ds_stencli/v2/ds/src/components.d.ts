@@ -47,7 +47,18 @@ export namespace Components {
         "dsType": 'horizontal' | 'vertical';
     }
     interface DsDrag {
-        "operate": string;
+        /**
+          * 是否可以拖拽
+         */
+        "isDrag": boolean;
+        /**
+          * 是否可以变更大小
+         */
+        "isResize": boolean;
+        /**
+          * 移动得操作，其实主要是传值，会有不同得样式，逻辑依靠这个判断
+         */
+        "operate": 'copy' | 'move';
     }
     interface DsDrop {
     }
@@ -240,7 +251,18 @@ declare namespace LocalJSX {
         "dsType"?: 'horizontal' | 'vertical';
     }
     interface DsDrag {
-        "operate"?: string;
+        /**
+          * 是否可以拖拽
+         */
+        "isDrag"?: boolean;
+        /**
+          * 是否可以变更大小
+         */
+        "isResize"?: boolean;
+        /**
+          * 移动得操作，其实主要是传值，会有不同得样式，逻辑依靠这个判断
+         */
+        "operate"?: 'copy' | 'move';
     }
     interface DsDrop {
     }
