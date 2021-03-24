@@ -4,6 +4,7 @@
  * @LastEditTime: 2021-03-23 13:29:47
  */
 import { Component, Host, h, Element } from '@stencil/core';
+import { dsComponentStore } from '../../../../global_js/store_private';
 import { dsUtil } from '../../../../global_js/util';
 
 // 拖拽 包围一个属性，将内部变为画布，可以放置推拽物
@@ -17,7 +18,30 @@ export class DsDrop {
   @Element() el: HTMLElement;
 
 
+
   componentDidLoad() {
+    let lastX = 0;
+    let lastY = 0;
+    const dropDrapDataStore = dsComponentStore.dropDrapDataStore;
+    this.el.onmousemove = (e: MouseEvent) => {
+      if (dropDrapDataStore.get('isResize')) {
+        const resizeDirection = dropDrapDataStore.get('resizeDirection');
+        const resizeDom = dropDrapDataStore.get('resizeDom');
+        if (resizeDirection === 'lr' || resizeDirection == 'ck') {
+          console.log(resizeDom)
+          resizeDom.style.width = resizeDom.clientWidth + (e.x - lastX) + 'px'
+        }
+        if (resizeDirection === 'ud' || resizeDirection == 'ck') {
+          resizeDom.style.height = resizeDom.clientHeight + (e.y - lastY) + 'px'
+        }
+
+      }
+      lastX = e.x;
+      lastY = e.y;
+    }
+    this.el.onmouseup = (_e) => {
+      dsComponentStore.dropDrapDataStore.set('isResize', false);
+    }
     this.el.ondragenter = function () {
       // console.log('进入目标元素')
     }

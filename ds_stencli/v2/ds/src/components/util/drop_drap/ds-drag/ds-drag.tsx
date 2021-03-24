@@ -4,6 +4,7 @@
  * @LastEditTime: 2021-03-23 14:05:42
  */
 import { Component, Host, h, Element, Prop } from '@stencil/core';
+import { dsComponentStore } from '../../../../global_js/store_private';
 import { dsUtil } from '../../../../global_js/util';
 
 // 拖拽 包围一个属性，将内部变为可推拽属性
@@ -26,6 +27,7 @@ export class DsDrag {
   @Prop() isResize: boolean = true;
 
   id = '';
+  slotDiv = null;
 
   componentWillLoad() {
     this.id = this.el.id || dsUtil.getId();
@@ -44,28 +46,41 @@ export class DsDrag {
     }
   }
 
+  private removeLRDrag = () => {
+    this.removeDrag();
+    dsComponentStore.dropDrapDataStore.set('resizeDirection', 'lr');
+  }
+
+  private removeUDDrag = () => {
+    this.removeDrag();
+    dsComponentStore.dropDrapDataStore.set('resizeDirection', 'ud');
+  }
+
+  private removeCKDrag = () => {
+    this.removeDrag();
+    dsComponentStore.dropDrapDataStore.set('resizeDirection', 'ck');
+  }
+
   private removeDrag = () => {
     this.el.draggable = this.isDrag && false;
+    dsComponentStore.dropDrapDataStore.set('isResize', true);
+    dsComponentStore.dropDrapDataStore.set('resizeDom', this.slotDiv);
   }
 
   private addDrag = () => {
     this.el.draggable = this.isDrag && true;
   }
 
-  private leftMove = () => {
-    console.log('==========')
-  }
-
   private getElContenr = () => {
     return this.isResize ?
       (<div class="resize_class">
         <div class="resize_class_top">
-          <div class="resize_class_top_right"><slot></slot></div>
-          <div onMouseDown={this.removeDrag} onMouseMove={this.leftMove} onMouseLeave={this.addDrag} class="resize_class_top_left"></div>
+          <div ref={(el) => this.slotDiv = el as HTMLDivElement} class="resize_class_top_right"><slot></slot></div>
+          <div onMouseDown={this.removeLRDrag} onMouseLeave={this.addDrag} class="resize_class_top_left"></div>
         </div>
         <div class="resize_class_bottom">
-          <div class="resize_class_bottom_right"><slot></slot></div>
-          <div class="resize_class_bottom_left"></div>
+          <div class="resize_class_bottom_right" onMouseDown={this.removeUDDrag} onMouseLeave={this.addDrag}></div>
+          <div class="resize_class_bottom_left" onMouseDown={this.removeCKDrag} onMouseLeave={this.addDrag}></div>
         </div>
       </div>)
       :
