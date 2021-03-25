@@ -1,0 +1,6 @@
+:host {
+  display: block;
+  border: 1px solid var(--backgroud-1);
+  border-radius: 4px;
+  background-color: var(--backgroud-3);
+}

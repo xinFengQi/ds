@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+
+.ds_collapse {
+  padding: 12px 16px 12px 16px;
+  cursor: pointer;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--backgroud-1);
+}
+
+.ds_collapse_nobottom{
+  border-bottom: 0px;
+}
+
+.ds_collapse_arrow {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.ds_collapse_content {
+  background-color: var(--backgroud-0);
+  padding: 5px;
+  border-bottom: 1px solid var(--backgroud-1);
+}
+
+.ds_collapse_content_last{
+  border-radius: 0px 0px 4px 4px;
+  border-bottom: 0px;
+
+}

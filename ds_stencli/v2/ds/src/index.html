@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-22 17:05:03
+ * @LastEditTime: 2021-03-25 16:23:46
 -->
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -161,19 +161,39 @@
 
   <div id="ds-drop-drag" class="main">
     <div class="title">ds-drop-drag演示</div>
-    <div class="content">
-      <ds-drag>
-        <div>测试</div>
-        <button>测试</button>
-        <span>测试</button>
-      </ds-drag>
-
-      <ds-drop style="width: 300px;height: 300px;border: 1px solid red;">
-      </ds-drop>
-      
+    <div class="content" style="width: 100%;height: 700px;">
+      <div style="height: 100%; width: 100%; display: flex;">
+        <div class="left" style="width: 200px;">
+          <ds-drag data="test">
+            <button>测试</button>
+          </ds-drag>
+        </div>
+        <div class="content" style="flex: 1; height: 100%;">
+          <ds-drop style="border: 1px solid red;height: 100%;">
+          </ds-drop>
+        </div>
+        <div class="right" style="width: 200px;"></div>
+      </div>
     </div>
   </div>
 
+
+  <div id="ds-collapse" class="main">
+    <div class="title">ds-collapse演示</div>
+    <div class="content" style="width: 300px;">
+      <ds-collapse>
+        <ds-collapse-panel style="display: none;">
+          dsadasdasdas
+        </ds-collapse-panel>
+        <ds-collapse-panel style="display: none;">
+          dsadasdasdas
+        </ds-collapse-panel>
+        <ds-collapse-panel style="display: none;">
+          dsadasdasdas
+        </ds-collapse-panel>
+      </ds-collapse>
+    </div>
+  </div>
 
 
 
@@ -183,7 +203,7 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-drop-drag'
+  const showId = 'ds-collapse'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -192,7 +212,9 @@
     'ds-card',
     'ds-if',
     'ds-for',
-    'ds-vue'
+    'ds-vue',
+    'ds-drop-drag',
+    'ds-collapse'
   ]
 
   ids.forEach(item => {

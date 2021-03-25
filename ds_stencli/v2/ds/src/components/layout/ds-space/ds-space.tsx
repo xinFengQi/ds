@@ -25,6 +25,7 @@ export class DsSpace {
       if (child.item(i)?.nodeName === 'DS-SPACE-ITEM') {
         child.item(i)?.setAttribute('ds-size', this.dsSize + '');
         child.item(i)?.setAttribute('ds-direction', this.dsDirection);
+        child.item(i)?.setAttribute('ds-last', '0');
         laseIndex = i;
       }
     }

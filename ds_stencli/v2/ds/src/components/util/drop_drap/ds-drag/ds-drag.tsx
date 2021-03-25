@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-22 16:58:16
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-23 14:05:42
+ * @LastEditTime: 2021-03-25 14:14:01
  */
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 import { dsComponentStore } from '../../../../global_js/store_private';
@@ -26,6 +26,9 @@ export class DsDrag {
   /** 是否可以变更大小 */
   @Prop() isResize: boolean = true;
 
+  /** 携带的数据 */
+  @Prop() data: any = null;
+
   id = '';
   slotDiv = null;
 
@@ -34,10 +37,19 @@ export class DsDrag {
   }
   componentDidLoad() {
     this.el.draggable = this.isDrag;
+
+    this.el.onmousedown = (_e) => {
+      dsComponentStore.dropDrapDataStore.set('clickDownXY', {
+        clickDownX: _e.offsetX,
+        clickDownY: _e.offsetY
+      })
+    }
+
     this.el.ondragstart = (event: any) => {
       event.dataTransfer.effectAllowed = this.operate
       event.dataTransfer.setData('id', event.target.id);
     }
+
     this.el.ondrag = function () {
       // console.log('拖拽中');
     }
@@ -89,9 +101,9 @@ export class DsDrag {
 
   render() {
     return (
-        <Host draggable="true" id={this.id}>
-          {this.getElContenr()}
-        </Host>
+      <Host draggable="true" id={this.id}>
+        {this.getElContenr()}
+      </Host>
     )
   }
 

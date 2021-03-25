@@ -32,6 +32,18 @@ export namespace Components {
          */
         "dsAction": any[];
     }
+    interface DsCollapse {
+    }
+    interface DsCollapsePanel {
+        /**
+          * 是否展开
+         */
+        "dsIsActive": boolean;
+        /**
+          * 是否时最后一个
+         */
+        "dsLast": boolean;
+    }
     interface DsDivider {
         /**
           * 是否虚线
@@ -47,6 +59,10 @@ export namespace Components {
         "dsType": 'horizontal' | 'vertical';
     }
     interface DsDrag {
+        /**
+          * 携带的数据
+         */
+        "data": any;
         /**
           * 是否可以拖拽
          */
@@ -133,6 +149,18 @@ declare global {
         prototype: HTMLDsCardElement;
         new (): HTMLDsCardElement;
     };
+    interface HTMLDsCollapseElement extends Components.DsCollapse, HTMLStencilElement {
+    }
+    var HTMLDsCollapseElement: {
+        prototype: HTMLDsCollapseElement;
+        new (): HTMLDsCollapseElement;
+    };
+    interface HTMLDsCollapsePanelElement extends Components.DsCollapsePanel, HTMLStencilElement {
+    }
+    var HTMLDsCollapsePanelElement: {
+        prototype: HTMLDsCollapsePanelElement;
+        new (): HTMLDsCollapsePanelElement;
+    };
     interface HTMLDsDividerElement extends Components.DsDivider, HTMLStencilElement {
     }
     var HTMLDsDividerElement: {
@@ -197,6 +225,8 @@ declare global {
         "ds-breadcrumb": HTMLDsBreadcrumbElement;
         "ds-button": HTMLDsButtonElement;
         "ds-card": HTMLDsCardElement;
+        "ds-collapse": HTMLDsCollapseElement;
+        "ds-collapse-panel": HTMLDsCollapsePanelElement;
         "ds-divider": HTMLDsDividerElement;
         "ds-drag": HTMLDsDragElement;
         "ds-drop": HTMLDsDropElement;
@@ -236,6 +266,26 @@ declare namespace LocalJSX {
          */
         "dsAction"?: any[];
     }
+    interface DsCollapse {
+        /**
+          * 当展开时状态改变
+         */
+        "onActiveIndexChange"?: (event: CustomEvent<number>) => void;
+    }
+    interface DsCollapsePanel {
+        /**
+          * 是否展开
+         */
+        "dsIsActive"?: boolean;
+        /**
+          * 是否时最后一个
+         */
+        "dsLast"?: boolean;
+        /**
+          * 当展开时状态改变
+         */
+        "onDsIsActiveChange"?: (event: CustomEvent<boolean>) => void;
+    }
     interface DsDivider {
         /**
           * 是否虚线
@@ -251,6 +301,10 @@ declare namespace LocalJSX {
         "dsType"?: 'horizontal' | 'vertical';
     }
     interface DsDrag {
+        /**
+          * 携带的数据
+         */
+        "data"?: any;
         /**
           * 是否可以拖拽
          */
@@ -321,6 +375,8 @@ declare namespace LocalJSX {
         "ds-breadcrumb": DsBreadcrumb;
         "ds-button": DsButton;
         "ds-card": DsCard;
+        "ds-collapse": DsCollapse;
+        "ds-collapse-panel": DsCollapsePanel;
         "ds-divider": DsDivider;
         "ds-drag": DsDrag;
         "ds-drop": DsDrop;
@@ -340,6 +396,8 @@ declare module "@stencil/core" {
             "ds-breadcrumb": LocalJSX.DsBreadcrumb & JSXBase.HTMLAttributes<HTMLDsBreadcrumbElement>;
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
             "ds-card": LocalJSX.DsCard & JSXBase.HTMLAttributes<HTMLDsCardElement>;
+            "ds-collapse": LocalJSX.DsCollapse & JSXBase.HTMLAttributes<HTMLDsCollapseElement>;
+            "ds-collapse-panel": LocalJSX.DsCollapsePanel & JSXBase.HTMLAttributes<HTMLDsCollapsePanelElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
             "ds-drag": LocalJSX.DsDrag & JSXBase.HTMLAttributes<HTMLDsDragElement>;
             "ds-drop": LocalJSX.DsDrop & JSXBase.HTMLAttributes<HTMLDsDropElement>;
