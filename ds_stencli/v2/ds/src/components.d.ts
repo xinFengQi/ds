@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
     interface DsBreadcrumb {
     }
@@ -33,6 +34,14 @@ export namespace Components {
         "dsAction": any[];
     }
     interface DsCollapse {
+        /**
+          * 打开的折叠板
+         */
+        "activeIndex": number;
+        /**
+          * 是否关闭其他的折叠面板
+         */
+        "isCloseOther": boolean;
     }
     interface DsCollapsePanel {
         /**
@@ -43,6 +52,10 @@ export namespace Components {
           * 是否时最后一个
          */
         "dsLast": boolean;
+        /**
+          * 标题
+         */
+        "name": string;
     }
     interface DsDivider {
         /**
@@ -78,6 +91,10 @@ export namespace Components {
     }
     interface DsDrop {
     }
+    interface DsDropdown {
+        "isShow": boolean;
+        "operate": 'focus' | 'click';
+    }
     interface DsFor {
         /**
           * 是否显示
@@ -91,6 +108,9 @@ export namespace Components {
         "dsValue": boolean;
     }
     interface DsMenu {
+    }
+    interface DsOverlay {
+        "isFirst": boolean;
     }
     interface DsPopover {
     }
@@ -117,6 +137,12 @@ export namespace Components {
           * 间距的大小，单位px
          */
         "dsSize": number;
+    }
+    interface DsTree {
+        /**
+          * 数据源
+         */
+        "data": DsTreeData[];
     }
     interface DsTypography {
         /**
@@ -179,6 +205,12 @@ declare global {
         prototype: HTMLDsDropElement;
         new (): HTMLDsDropElement;
     };
+    interface HTMLDsDropdownElement extends Components.DsDropdown, HTMLStencilElement {
+    }
+    var HTMLDsDropdownElement: {
+        prototype: HTMLDsDropdownElement;
+        new (): HTMLDsDropdownElement;
+    };
     interface HTMLDsForElement extends Components.DsFor, HTMLStencilElement {
     }
     var HTMLDsForElement: {
@@ -196,6 +228,12 @@ declare global {
     var HTMLDsMenuElement: {
         prototype: HTMLDsMenuElement;
         new (): HTMLDsMenuElement;
+    };
+    interface HTMLDsOverlayElement extends Components.DsOverlay, HTMLStencilElement {
+    }
+    var HTMLDsOverlayElement: {
+        prototype: HTMLDsOverlayElement;
+        new (): HTMLDsOverlayElement;
     };
     interface HTMLDsPopoverElement extends Components.DsPopover, HTMLStencilElement {
     }
@@ -215,6 +253,12 @@ declare global {
         prototype: HTMLDsSpaceItemElement;
         new (): HTMLDsSpaceItemElement;
     };
+    interface HTMLDsTreeElement extends Components.DsTree, HTMLStencilElement {
+    }
+    var HTMLDsTreeElement: {
+        prototype: HTMLDsTreeElement;
+        new (): HTMLDsTreeElement;
+    };
     interface HTMLDsTypographyElement extends Components.DsTypography, HTMLStencilElement {
     }
     var HTMLDsTypographyElement: {
@@ -230,12 +274,15 @@ declare global {
         "ds-divider": HTMLDsDividerElement;
         "ds-drag": HTMLDsDragElement;
         "ds-drop": HTMLDsDropElement;
+        "ds-dropdown": HTMLDsDropdownElement;
         "ds-for": HTMLDsForElement;
         "ds-if": HTMLDsIfElement;
         "ds-menu": HTMLDsMenuElement;
+        "ds-overlay": HTMLDsOverlayElement;
         "ds-popover": HTMLDsPopoverElement;
         "ds-space": HTMLDsSpaceElement;
         "ds-space-item": HTMLDsSpaceItemElement;
+        "ds-tree": HTMLDsTreeElement;
         "ds-typography": HTMLDsTypographyElement;
     }
 }
@@ -268,6 +315,14 @@ declare namespace LocalJSX {
     }
     interface DsCollapse {
         /**
+          * 打开的折叠板
+         */
+        "activeIndex"?: number;
+        /**
+          * 是否关闭其他的折叠面板
+         */
+        "isCloseOther"?: boolean;
+        /**
           * 当展开时状态改变
          */
         "onActiveIndexChange"?: (event: CustomEvent<number>) => void;
@@ -281,6 +336,10 @@ declare namespace LocalJSX {
           * 是否时最后一个
          */
         "dsLast"?: boolean;
+        /**
+          * 标题
+         */
+        "name"?: string;
         /**
           * 当展开时状态改变
          */
@@ -320,6 +379,10 @@ declare namespace LocalJSX {
     }
     interface DsDrop {
     }
+    interface DsDropdown {
+        "isShow"?: boolean;
+        "operate"?: 'focus' | 'click';
+    }
     interface DsFor {
         /**
           * 是否显示
@@ -333,6 +396,9 @@ declare namespace LocalJSX {
         "dsValue"?: boolean;
     }
     interface DsMenu {
+    }
+    interface DsOverlay {
+        "isFirst"?: boolean;
     }
     interface DsPopover {
     }
@@ -360,6 +426,16 @@ declare namespace LocalJSX {
          */
         "dsSize"?: number;
     }
+    interface DsTree {
+        /**
+          * 数据源
+         */
+        "data"?: DsTreeData[];
+        /**
+          * 数据源
+         */
+        "onClickData"?: (event: CustomEvent<DsTreeData>) => void;
+    }
     interface DsTypography {
         /**
           * 主元素显示的HTml
@@ -380,12 +456,15 @@ declare namespace LocalJSX {
         "ds-divider": DsDivider;
         "ds-drag": DsDrag;
         "ds-drop": DsDrop;
+        "ds-dropdown": DsDropdown;
         "ds-for": DsFor;
         "ds-if": DsIf;
         "ds-menu": DsMenu;
+        "ds-overlay": DsOverlay;
         "ds-popover": DsPopover;
         "ds-space": DsSpace;
         "ds-space-item": DsSpaceItem;
+        "ds-tree": DsTree;
         "ds-typography": DsTypography;
     }
 }
@@ -401,12 +480,15 @@ declare module "@stencil/core" {
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
             "ds-drag": LocalJSX.DsDrag & JSXBase.HTMLAttributes<HTMLDsDragElement>;
             "ds-drop": LocalJSX.DsDrop & JSXBase.HTMLAttributes<HTMLDsDropElement>;
+            "ds-dropdown": LocalJSX.DsDropdown & JSXBase.HTMLAttributes<HTMLDsDropdownElement>;
             "ds-for": LocalJSX.DsFor & JSXBase.HTMLAttributes<HTMLDsForElement>;
             "ds-if": LocalJSX.DsIf & JSXBase.HTMLAttributes<HTMLDsIfElement>;
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
+            "ds-overlay": LocalJSX.DsOverlay & JSXBase.HTMLAttributes<HTMLDsOverlayElement>;
             "ds-popover": LocalJSX.DsPopover & JSXBase.HTMLAttributes<HTMLDsPopoverElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
+            "ds-tree": LocalJSX.DsTree & JSXBase.HTMLAttributes<HTMLDsTreeElement>;
             "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
     }

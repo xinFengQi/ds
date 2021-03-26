@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-25 10:43:45
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-16 17:33:38
+ * @LastEditTime: 2021-03-26 16:11:09
  */
 
 function dsButtonCLick() {
@@ -73,6 +73,27 @@ window.onload = () => {
 
    // vue
 
-   ds.vue.init('#fs_vue_test', {a: 123})
+   // ds.vue.init('#fs_vue_test', {a: 123})
+
+
+   // ds-tree
+   const dsTreeA = document.getElementById('ds-tree-a');
+   if(dsTreeA) {
+      const data = [
+         {
+            name: '测试1',
+            childrens: [
+               {
+                  name: '测试11'
+               }
+            ]
+         },
+         {
+            name: 'jasgdjsad'
+         },
+      ];
+      dsTreeA.data = data;
+
+   }
 
 }

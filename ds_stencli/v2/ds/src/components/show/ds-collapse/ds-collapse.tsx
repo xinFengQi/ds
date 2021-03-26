@@ -1,4 +1,10 @@
-import { Component, Host, h, Element, State, Event, EventEmitter } from '@stencil/core';
+/*
+ * @Date: 2021-03-25 16:05:17
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-26 11:29:50
+ */
+import { Component, Host, h, Element, Prop, Event, EventEmitter } from '@stencil/core';
+
 
 @Component({
   tag: 'ds-collapse',
@@ -10,10 +16,10 @@ export class DsCollapse {
   @Element() el: HTMLElement;
 
   /** 打开的折叠板 */
-  @State() activeIndex: number;
+  @Prop({mutable: true}) activeIndex: number;
 
   /** 是否关闭其他的折叠面板 */
-  @State() isCloseOther: boolean = true;
+  @Prop() isCloseOther: boolean = false;
 
   /** 当展开时状态改变 */
   @Event() activeIndexChange: EventEmitter<number>;
@@ -22,7 +28,6 @@ export class DsCollapse {
   listenArr = [];
 
   componentDidRender() {
-    console.log('渲染次数');
     this.listenArr.forEach(v => {
       v.node.removeEventListener(v.name, v.handler);
     })
@@ -42,7 +47,6 @@ export class DsCollapse {
           node,
           name: 'dsIsActiveChange',
           handler: () => {
-            console.log('点击事件问题', panelNumIndex);
             this.activeIndex = panelNumIndex;
             this.activeIndexChange.emit(this.activeIndex)
             if (this.isCloseOther) {

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-25 16:23:46
+ * @LastEditTime: 2021-03-26 18:18:37
 -->
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -182,8 +182,20 @@
     <div class="title">ds-collapse演示</div>
     <div class="content" style="width: 300px;">
       <ds-collapse>
-        <ds-collapse-panel style="display: none;">
-          dsadasdasdas
+        <ds-collapse-panel name="dsadasdasdas" style="display: none;">
+          <p slot="name">啊哈哈</p>
+          <ds-collapse>
+            <ds-collapse-panel style="display: none;">
+              <p style="height: 200px;" slot="name">啊哈哈1哈</p>
+              dsadasdasdas
+            </ds-collapse-panel>
+            <ds-collapse-panel style="display: none;">
+              dsadasdasdas
+            </ds-collapse-panel>
+            <ds-collapse-panel style="display: none;">
+              dsadasdasdas
+            </ds-collapse-panel>
+          </ds-collapse>
         </ds-collapse-panel>
         <ds-collapse-panel style="display: none;">
           dsadasdasdas
@@ -196,6 +208,26 @@
   </div>
 
 
+  <div id="ds-tree" class="main">
+    <div class="title">ds-tree演示</div>
+    <div class="content" style="width: 300px;">
+      <ds-tree id="ds-tree-a"></ds-tree>
+    </div>
+  </div>
+
+  <div id="ds-dropdown" class="main">
+    <div class="title">ds-dropdown演示</div>
+    <div class="content" style="width: 300px;">
+      <ds-dropdown style="display: none;">
+        <div>测试下拉菜单</div>
+        <div slot="menu" >
+          <p>1</p>
+          <p>2</p>
+        </div>
+      </ds-dropdown>
+    </div>
+  </div>
+
 
 
 </body>
@@ -203,7 +235,7 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-collapse'
+  const showId = 'ds-dropdown'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -214,7 +246,9 @@
     'ds-for',
     'ds-vue',
     'ds-drop-drag',
-    'ds-collapse'
+    'ds-collapse',
+    'ds-tree',
+    'ds-dropdown'
   ]
 
   ids.forEach(item => {

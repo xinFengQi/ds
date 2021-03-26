@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-03-25 14:14:01
  */
 import { Component, Host, h, Element, Prop } from '@stencil/core';
-import { dsComponentStore } from '../../../../global_js/store_private';
+import { dsComponentStore } from '../../../../components_js/store_private';
 import { dsUtil } from '../../../../global_js/util';
 
 // 拖拽 包围一个属性，将内部变为可推拽属性

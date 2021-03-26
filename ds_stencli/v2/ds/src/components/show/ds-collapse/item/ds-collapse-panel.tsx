@@ -1,10 +1,14 @@
 /*
  * @Date: 2021-03-25 15:23:27
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-25 17:32:11
+ * @LastEditTime: 2021-03-26 12:47:33
  */
-import { Component, Host, h, State, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
+/**
+ * @slot 默认插槽 - 折叠面板展示的内容
+ * @slot name - 标题的slot插槽
+ */
 @Component({
   tag: 'ds-collapse-panel',
   styleUrl: 'ds-collapse-panel.css',
@@ -13,13 +17,17 @@ import { Component, Host, h, State, Prop, Event, EventEmitter } from '@stencil/c
 export class DsCollapsePanel {
 
   /** 是否展开 */
-  @Prop() dsIsActive: boolean = false;
+  @Prop({ mutable: true }) dsIsActive: boolean = false;
 
   /** 当展开时状态改变 */
   @Event() dsIsActiveChange: EventEmitter<boolean>;
 
   /** 是否时最后一个 */
   @Prop() dsLast: boolean = false;
+
+  /** 标题 */
+  @Prop() name: string = null;
+
 
 
   openCollapse = () => {
@@ -30,13 +38,13 @@ export class DsCollapsePanel {
   render() {
     return (
       <Host>
-        <div class={{ ds_collapse: true, ds_collapse_nobottom: !this.dsIsActive && this.dsLast  }} onClick={this.openCollapse}>
+        <div class={{ ds_collapse: true, ds_collapse_nobottom: !this.dsIsActive && this.dsLast }} onClick={this.openCollapse}>
           {!!this.dsIsActive ?
             <span class="ds_collapse_arrow"> &lt;</span>
             :
             <span class="ds_collapse_arrow"> &gt;</span>
           }
-           啊哈哈哈
+          {this.name ? this.name : <slot name="name"></slot>}
         </div>
         {
           !!this.dsIsActive ?
