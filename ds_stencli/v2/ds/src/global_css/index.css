@@ -50,4 +50,23 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
 }
 
 
+ds-if{
+    display: none;
+}
 
+ds-for{
+    display: none;
+}
+
+ds-if{
+    display: none;
+}
+
+
+ds-dropdown{
+    display: none;
+}
+
+ds-collapse-panel{
+    display: none;
+}

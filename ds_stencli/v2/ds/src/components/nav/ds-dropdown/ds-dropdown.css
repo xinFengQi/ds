@@ -1,11 +1,12 @@
 :host {
   display: block;
-  position: relative;
 }
 
+.ds-dropdown{
+  cursor: pointer;
+}
 
 .ds-dropdown.menu{
-  list-style-type: none;
   padding: 2px;
   background-color: var(--backgroud-0);
   border-radius: 4px;

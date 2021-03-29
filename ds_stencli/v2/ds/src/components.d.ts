@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Direction } from "./components_js/model";
 import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
     interface DsBreadcrumb {
@@ -92,8 +93,9 @@ export namespace Components {
     interface DsDrop {
     }
     interface DsDropdown {
+        "direction": Direction;
         "isShow": boolean;
-        "operate": 'focus' | 'click';
+        "operate": 'focus' | 'click' | 'contextmenu';
     }
     interface DsFor {
         /**
@@ -110,7 +112,10 @@ export namespace Components {
     interface DsMenu {
     }
     interface DsOverlay {
+        "elment": HTMLElement;
         "isFirst": boolean;
+        "x": number;
+        "y": number;
     }
     interface DsPopover {
     }
@@ -380,8 +385,9 @@ declare namespace LocalJSX {
     interface DsDrop {
     }
     interface DsDropdown {
+        "direction"?: Direction;
         "isShow"?: boolean;
-        "operate"?: 'focus' | 'click';
+        "operate"?: 'focus' | 'click' | 'contextmenu';
     }
     interface DsFor {
         /**
@@ -398,7 +404,10 @@ declare namespace LocalJSX {
     interface DsMenu {
     }
     interface DsOverlay {
+        "elment"?: HTMLElement;
         "isFirst"?: boolean;
+        "x"?: number;
+        "y"?: number;
     }
     interface DsPopover {
     }

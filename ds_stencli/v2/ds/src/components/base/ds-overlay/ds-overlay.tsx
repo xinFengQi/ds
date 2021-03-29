@@ -15,24 +15,49 @@ export class DsOverlay {
 
   @Prop() isFirst = true;
 
+  @Prop() elment:HTMLElement = null;
+
+  @Prop() x = 0;
+  @Prop() y = 0;
+
+  cloneEl: HTMLElement
+
 
   componentDidLoad() {
-    if (this.isFirst) {
-      const el = this.el.cloneNode(true) as any
-      el.isFirst = false;
-      this.el.style.display = 'none';
-      el.children.item(0).attributes.removeNamedItem('hidden')
-      document.body.appendChild(el);
-    }
+      if (this.isFirst) {
+        this.cloneEl = this.elment.cloneNode(true) as any
+        this.cloneEl['isFirst'] = false;
+        this.el.style.display = 'none';
+        this.cloneEl.style.left = this.x + 'px'
+        this.cloneEl.style.top = this.y + 'px'
+
+        this.cloneEl.style.display = 'block'
+        const cloneAttr = this.cloneEl.children.length ? this.cloneEl.children.item(0).attributes: null;
+        if(cloneAttr) {
+          if(cloneAttr.getNamedItem('slot')) {
+            cloneAttr.removeNamedItem('slot')
+          }
+          if(cloneAttr.getNamedItem('hidden')) {
+            cloneAttr.removeNamedItem('hidden')
+          }
+        }
+        document.body.appendChild(this.cloneEl);
+      }
   }
 
 
+  disconnectedCallback() {
+   if(this.cloneEl) {
+     document.body.removeChild(this.cloneEl);
+     this.cloneEl = null;
+   }
+  }
 
 
   render() {
     return (
       <Host>
-        <slot></slot>
+        {/* <slot></slot> */}
       </Host>
     );
   }
