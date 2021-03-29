@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-03-26 18:18:37
+ * @LastEditTime: 2021-03-29 18:00:08
 -->
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -130,10 +130,10 @@
   <div id="ds-if" class="main">
     <div class="title">ds-if演示</div>
     <div class="content">
-      <ds-if ds-value="true" >
+      <ds-if ds-value="true">
         看是否显示true
       </ds-if>
-      <ds-if ds-value="false" >
+      <ds-if ds-value="false">
         <span>看是否显示false</span>
       </ds-if>
     </div>
@@ -142,7 +142,7 @@
   <div id="ds-for" class="main">
     <div class="title">ds-for演示</div>
     <div class="content">
-      <ds-for id="fs_for_test" ds-value="123123" >
+      <ds-for id="fs_for_test" ds-value="123123">
         <div>
           <sapn>测试循环的值{_item}</sapn>
         </div>
@@ -182,25 +182,25 @@
     <div class="title">ds-collapse演示</div>
     <div class="content" style="width: 300px;">
       <ds-collapse>
-        <ds-collapse-panel name="dsadasdasdas" >
+        <ds-collapse-panel name="dsadasdasdas">
           <p slot="name">啊哈哈</p>
           <ds-collapse>
-            <ds-collapse-panel >
+            <ds-collapse-panel>
               <p style="height: 200px;" slot="name">啊哈哈1哈</p>
               dsadasdasdas
             </ds-collapse-panel>
-            <ds-collapse-panel >
+            <ds-collapse-panel>
               dsadasdasdas
             </ds-collapse-panel>
-            <ds-collapse-panel >
+            <ds-collapse-panel>
               dsadasdasdas
             </ds-collapse-panel>
           </ds-collapse>
         </ds-collapse-panel>
-        <ds-collapse-panel >
+        <ds-collapse-panel>
           dsadasdasdas
         </ds-collapse-panel>
-        <ds-collapse-panel >
+        <ds-collapse-panel>
           dsadasdasdas
         </ds-collapse-panel>
       </ds-collapse>
@@ -220,12 +220,24 @@
     <div class="content" style="width: auto">
       <ds-dropdown>
         <div>测试下拉菜单</div>
-        <div slot="menu" >
+        <div slot="menu">
           <p>1</p>
           <ds-dropdown>
             <div>测试下拉菜单</div>
-            <div slot="menu" >
-              <p>1</p>
+            <div slot="menu">
+              <ds-dropdown>
+                <div>测试下拉菜单</div>
+                <div slot="menu">
+                  <p>1</p>
+                  <ds-dropdown>
+                    <div>测试下拉菜单</div>
+                    <div slot="menu">
+                      <p>1</p>
+                      <p>2</p>
+                    </div>
+                  </ds-dropdown>
+                </div>
+              </ds-dropdown>
               <p>2</p>
             </div>
           </ds-dropdown>
@@ -234,6 +246,15 @@
     </div>
   </div>
 
+  <div id="ds-input" class="main">
+    <div class="title">ds-input演示</div>
+    <div class="content" style="width: 300px;">
+      <ds-input  value="12312312" type="password"></ds-input>
+      <ds-input disabled></ds-input>
+      <ds-input disabled value="12312312"></ds-input>
+
+    </div>
+  </div>
 
 
 </body>
@@ -241,7 +262,7 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-dropdown'
+  const showId = 'ds-input'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -254,7 +275,8 @@
     'ds-drop-drag',
     'ds-collapse',
     'ds-tree',
-    'ds-dropdown'
+    'ds-dropdown',
+    'ds-input'
   ]
 
   ids.forEach(item => {
