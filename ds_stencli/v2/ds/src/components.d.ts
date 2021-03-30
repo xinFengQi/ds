@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { CheckStatus } from "./components/form/ds-checkbox/ds-checkbox";
 import { Direction } from "./components_js/model";
 import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
@@ -12,7 +13,7 @@ export namespace Components {
     }
     interface DsButton {
         /**
-          * 是否可点击
+          * 是否是危险样式
          */
         "dsDanger": boolean;
         /**
@@ -35,6 +36,10 @@ export namespace Components {
         "dsAction": any[];
     }
     interface DsCheckbox {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus": CheckStatus;
     }
     interface DsCollapse {
         /**
@@ -143,6 +148,12 @@ export namespace Components {
         "parentEvent": MouseEvent;
     }
     interface DsPopover {
+    }
+    interface DsRadio {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus": boolean;
     }
     interface DsSpace {
         /**
@@ -283,6 +294,12 @@ declare global {
         prototype: HTMLDsPopoverElement;
         new (): HTMLDsPopoverElement;
     };
+    interface HTMLDsRadioElement extends Components.DsRadio, HTMLStencilElement {
+    }
+    var HTMLDsRadioElement: {
+        prototype: HTMLDsRadioElement;
+        new (): HTMLDsRadioElement;
+    };
     interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
     }
     var HTMLDsSpaceElement: {
@@ -324,6 +341,7 @@ declare global {
         "ds-menu": HTMLDsMenuElement;
         "ds-overlay": HTMLDsOverlayElement;
         "ds-popover": HTMLDsPopoverElement;
+        "ds-radio": HTMLDsRadioElement;
         "ds-space": HTMLDsSpaceElement;
         "ds-space-item": HTMLDsSpaceItemElement;
         "ds-tree": HTMLDsTreeElement;
@@ -335,7 +353,7 @@ declare namespace LocalJSX {
     }
     interface DsButton {
         /**
-          * 是否可点击
+          * 是否是危险样式
          */
         "dsDanger"?: boolean;
         /**
@@ -358,6 +376,11 @@ declare namespace LocalJSX {
         "dsAction"?: any[];
     }
     interface DsCheckbox {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus"?: CheckStatus;
+        "onCheckStatusChange"?: (event: CustomEvent<CheckStatus>) => void;
     }
     interface DsCollapse {
         /**
@@ -475,6 +498,13 @@ declare namespace LocalJSX {
     }
     interface DsPopover {
     }
+    interface DsRadio {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus"?: boolean;
+        "onCheckStatusChange"?: (event: CustomEvent<boolean>) => void;
+    }
     interface DsSpace {
         /**
           * 内部布局，垂直还是水平
@@ -537,6 +567,7 @@ declare namespace LocalJSX {
         "ds-menu": DsMenu;
         "ds-overlay": DsOverlay;
         "ds-popover": DsPopover;
+        "ds-radio": DsRadio;
         "ds-space": DsSpace;
         "ds-space-item": DsSpaceItem;
         "ds-tree": DsTree;
@@ -563,6 +594,7 @@ declare module "@stencil/core" {
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
             "ds-overlay": LocalJSX.DsOverlay & JSXBase.HTMLAttributes<HTMLDsOverlayElement>;
             "ds-popover": LocalJSX.DsPopover & JSXBase.HTMLAttributes<HTMLDsPopoverElement>;
+            "ds-radio": LocalJSX.DsRadio & JSXBase.HTMLAttributes<HTMLDsRadioElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
             "ds-tree": LocalJSX.DsTree & JSXBase.HTMLAttributes<HTMLDsTreeElement>;

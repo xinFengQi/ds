@@ -1,3 +1,8 @@
+/*
+ * @Date: 2021-03-29 15:07:01
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-03-30 16:52:59
+ */
 import { Component, Host, h, Element } from '@stencil/core';
 
 @Component({
@@ -14,23 +19,21 @@ export class DsInput {
 
   componentDidLoad() {
     // 将元素的attr加入到内部的标签中
-    const h5Attr = ['type', 'value', 'disabled'];
+    const h5Attr = ['type', 'value', 'disabled', 'placeholder'];
     h5Attr.forEach(item => {
       const elAttr = this.el.attributes.getNamedItem(item);
-      if(elAttr) {
+      if (elAttr) {
         const attr = document.createAttribute(item);
         attr.value = elAttr.value;
         this.inputEl.attributes.setNamedItem(attr)
       }
     })
-    console.log([this.el, this.inputEl])
-
   }
 
   render() {
     return (
       <Host>
-        <input class="input_class" placeholder="12123sd" 
+        <input class="input_class"
           ref={(el) => this.inputEl = el}></input>
       </Host>
     );
