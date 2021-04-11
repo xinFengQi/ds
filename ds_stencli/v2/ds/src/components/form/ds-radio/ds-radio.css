@@ -1,0 +1,61 @@
+.host_div {
+  display: flex;
+  align-items: center;
+}
+
+.host_disabled {
+  color: var(--backgroud-1) !important;
+  cursor: not-allowed !important;
+}
+
+.radio_class_select_disable,
+.radio_class {
+  display: inline-block;
+  width: var(--font-0);
+  height: var(--font-0);
+  outline-style: none;
+  list-style: none;
+  cursor: pointer;
+  margin: 0px 5px 0px 0px;
+  border-radius: 50%;
+  padding: 0;
+  background-image: none;
+  border: 1px solid var(--backgroud-1);
+}
+
+/* 不能点选样式 */
+.radio_class_disabled{
+  cursor: not-allowed;
+  background-color: var(--primary-2);
+}
+.radio_class_select_disable::after,
+.radio_class::after {
+  border-radius: 50%;
+  content: " ";
+  display: block;
+  width: var(--font-0);
+  height: var(--font-0);
+  text-align: start;
+  font-size: calc(var(--font-0) - 1.5px);
+  line-height:  calc( var(--font-0) - 1px);
+  border: 1px solid var(--backgroud-1);
+  box-sizing: border-box;
+}
+
+/* 点击样式 */
+.radio_class:checked::after {
+  display: block;
+  content: "\2714";
+  text-align: center;
+  color: white;
+  background-color: var(--primary-0);
+}
+
+/* 点击样式 */
+.radio_class_select_disable:checked::after {
+  display: block;
+  content: "\2714";
+  text-align: center;
+  color: white;
+  background-color: var(--primary-3);
+}

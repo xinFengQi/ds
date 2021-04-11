@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { CheckStatus } from "./components/form/ds-checkbox/ds-checkbox";
 import { Direction } from "./components_js/model";
 import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
@@ -12,7 +13,7 @@ export namespace Components {
     }
     interface DsButton {
         /**
-          * 是否可点击
+          * 是否是危险样式
          */
         "dsDanger": boolean;
         /**
@@ -33,6 +34,12 @@ export namespace Components {
           * 卡片操作组
          */
         "dsAction": any[];
+    }
+    interface DsCheckbox {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus": CheckStatus;
     }
     interface DsCollapse {
         /**
@@ -93,8 +100,17 @@ export namespace Components {
     interface DsDrop {
     }
     interface DsDropdown {
+        /**
+          * 展示的位置显示，存在边缘修改
+         */
         "direction": Direction;
+        /**
+          * 是否展示，可以由外界控制
+         */
         "isShow": boolean;
+        /**
+          * 什么操作可以触发展示
+         */
         "operate": 'focus' | 'click' | 'contextmenu';
     }
     interface DsFor {
@@ -109,15 +125,35 @@ export namespace Components {
          */
         "dsValue": boolean;
     }
+    interface DsInput {
+    }
     interface DsMenu {
     }
     interface DsOverlay {
+        /**
+          * overlay所在的位置
+         */
+        "direction": Direction;
+        /**
+          * 传入需要在下拉菜单的节点，供克隆到document上使用
+         */
         "elment": HTMLElement;
+        /**
+          * 是否是第一次点击，不需要被引用者使用，内部使用
+         */
         "isFirst": boolean;
-        "x": number;
-        "y": number;
+        /**
+          * 点击或者移入的事件Event
+         */
+        "parentEvent": MouseEvent;
     }
     interface DsPopover {
+    }
+    interface DsRadio {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus": boolean;
     }
     interface DsSpace {
         /**
@@ -180,6 +216,12 @@ declare global {
         prototype: HTMLDsCardElement;
         new (): HTMLDsCardElement;
     };
+    interface HTMLDsCheckboxElement extends Components.DsCheckbox, HTMLStencilElement {
+    }
+    var HTMLDsCheckboxElement: {
+        prototype: HTMLDsCheckboxElement;
+        new (): HTMLDsCheckboxElement;
+    };
     interface HTMLDsCollapseElement extends Components.DsCollapse, HTMLStencilElement {
     }
     var HTMLDsCollapseElement: {
@@ -228,6 +270,12 @@ declare global {
         prototype: HTMLDsIfElement;
         new (): HTMLDsIfElement;
     };
+    interface HTMLDsInputElement extends Components.DsInput, HTMLStencilElement {
+    }
+    var HTMLDsInputElement: {
+        prototype: HTMLDsInputElement;
+        new (): HTMLDsInputElement;
+    };
     interface HTMLDsMenuElement extends Components.DsMenu, HTMLStencilElement {
     }
     var HTMLDsMenuElement: {
@@ -245,6 +293,12 @@ declare global {
     var HTMLDsPopoverElement: {
         prototype: HTMLDsPopoverElement;
         new (): HTMLDsPopoverElement;
+    };
+    interface HTMLDsRadioElement extends Components.DsRadio, HTMLStencilElement {
+    }
+    var HTMLDsRadioElement: {
+        prototype: HTMLDsRadioElement;
+        new (): HTMLDsRadioElement;
     };
     interface HTMLDsSpaceElement extends Components.DsSpace, HTMLStencilElement {
     }
@@ -274,6 +328,7 @@ declare global {
         "ds-breadcrumb": HTMLDsBreadcrumbElement;
         "ds-button": HTMLDsButtonElement;
         "ds-card": HTMLDsCardElement;
+        "ds-checkbox": HTMLDsCheckboxElement;
         "ds-collapse": HTMLDsCollapseElement;
         "ds-collapse-panel": HTMLDsCollapsePanelElement;
         "ds-divider": HTMLDsDividerElement;
@@ -282,9 +337,11 @@ declare global {
         "ds-dropdown": HTMLDsDropdownElement;
         "ds-for": HTMLDsForElement;
         "ds-if": HTMLDsIfElement;
+        "ds-input": HTMLDsInputElement;
         "ds-menu": HTMLDsMenuElement;
         "ds-overlay": HTMLDsOverlayElement;
         "ds-popover": HTMLDsPopoverElement;
+        "ds-radio": HTMLDsRadioElement;
         "ds-space": HTMLDsSpaceElement;
         "ds-space-item": HTMLDsSpaceItemElement;
         "ds-tree": HTMLDsTreeElement;
@@ -296,7 +353,7 @@ declare namespace LocalJSX {
     }
     interface DsButton {
         /**
-          * 是否可点击
+          * 是否是危险样式
          */
         "dsDanger"?: boolean;
         /**
@@ -317,6 +374,13 @@ declare namespace LocalJSX {
           * 卡片操作组
          */
         "dsAction"?: any[];
+    }
+    interface DsCheckbox {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus"?: CheckStatus;
+        "onCheckStatusChange"?: (event: CustomEvent<CheckStatus>) => void;
     }
     interface DsCollapse {
         /**
@@ -385,8 +449,17 @@ declare namespace LocalJSX {
     interface DsDrop {
     }
     interface DsDropdown {
+        /**
+          * 展示的位置显示，存在边缘修改
+         */
         "direction"?: Direction;
+        /**
+          * 是否展示，可以由外界控制
+         */
         "isShow"?: boolean;
+        /**
+          * 什么操作可以触发展示
+         */
         "operate"?: 'focus' | 'click' | 'contextmenu';
     }
     interface DsFor {
@@ -401,15 +474,36 @@ declare namespace LocalJSX {
          */
         "dsValue"?: boolean;
     }
+    interface DsInput {
+    }
     interface DsMenu {
     }
     interface DsOverlay {
+        /**
+          * overlay所在的位置
+         */
+        "direction"?: Direction;
+        /**
+          * 传入需要在下拉菜单的节点，供克隆到document上使用
+         */
         "elment"?: HTMLElement;
+        /**
+          * 是否是第一次点击，不需要被引用者使用，内部使用
+         */
         "isFirst"?: boolean;
-        "x"?: number;
-        "y"?: number;
+        /**
+          * 点击或者移入的事件Event
+         */
+        "parentEvent"?: MouseEvent;
     }
     interface DsPopover {
+    }
+    interface DsRadio {
+        /**
+          * 当前的选择的样式
+         */
+        "checkStatus"?: boolean;
+        "onCheckStatusChange"?: (event: CustomEvent<boolean>) => void;
     }
     interface DsSpace {
         /**
@@ -460,6 +554,7 @@ declare namespace LocalJSX {
         "ds-breadcrumb": DsBreadcrumb;
         "ds-button": DsButton;
         "ds-card": DsCard;
+        "ds-checkbox": DsCheckbox;
         "ds-collapse": DsCollapse;
         "ds-collapse-panel": DsCollapsePanel;
         "ds-divider": DsDivider;
@@ -468,9 +563,11 @@ declare namespace LocalJSX {
         "ds-dropdown": DsDropdown;
         "ds-for": DsFor;
         "ds-if": DsIf;
+        "ds-input": DsInput;
         "ds-menu": DsMenu;
         "ds-overlay": DsOverlay;
         "ds-popover": DsPopover;
+        "ds-radio": DsRadio;
         "ds-space": DsSpace;
         "ds-space-item": DsSpaceItem;
         "ds-tree": DsTree;
@@ -484,6 +581,7 @@ declare module "@stencil/core" {
             "ds-breadcrumb": LocalJSX.DsBreadcrumb & JSXBase.HTMLAttributes<HTMLDsBreadcrumbElement>;
             "ds-button": LocalJSX.DsButton & JSXBase.HTMLAttributes<HTMLDsButtonElement>;
             "ds-card": LocalJSX.DsCard & JSXBase.HTMLAttributes<HTMLDsCardElement>;
+            "ds-checkbox": LocalJSX.DsCheckbox & JSXBase.HTMLAttributes<HTMLDsCheckboxElement>;
             "ds-collapse": LocalJSX.DsCollapse & JSXBase.HTMLAttributes<HTMLDsCollapseElement>;
             "ds-collapse-panel": LocalJSX.DsCollapsePanel & JSXBase.HTMLAttributes<HTMLDsCollapsePanelElement>;
             "ds-divider": LocalJSX.DsDivider & JSXBase.HTMLAttributes<HTMLDsDividerElement>;
@@ -492,9 +590,11 @@ declare module "@stencil/core" {
             "ds-dropdown": LocalJSX.DsDropdown & JSXBase.HTMLAttributes<HTMLDsDropdownElement>;
             "ds-for": LocalJSX.DsFor & JSXBase.HTMLAttributes<HTMLDsForElement>;
             "ds-if": LocalJSX.DsIf & JSXBase.HTMLAttributes<HTMLDsIfElement>;
+            "ds-input": LocalJSX.DsInput & JSXBase.HTMLAttributes<HTMLDsInputElement>;
             "ds-menu": LocalJSX.DsMenu & JSXBase.HTMLAttributes<HTMLDsMenuElement>;
             "ds-overlay": LocalJSX.DsOverlay & JSXBase.HTMLAttributes<HTMLDsOverlayElement>;
             "ds-popover": LocalJSX.DsPopover & JSXBase.HTMLAttributes<HTMLDsPopoverElement>;
+            "ds-radio": LocalJSX.DsRadio & JSXBase.HTMLAttributes<HTMLDsRadioElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
             "ds-tree": LocalJSX.DsTree & JSXBase.HTMLAttributes<HTMLDsTreeElement>;

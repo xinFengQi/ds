@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-25 09:21:12
  * @LastEditors: dongfb
- * @LastEditTime: 2021-02-22 16:17:45
+ * @LastEditTime: 2021-03-30 13:15:54
  */
 import { Component, h, Prop } from '@stencil/core';
 
@@ -19,7 +19,7 @@ export class DsButton {
   /** 是否可点击 */
   @Prop() dsDisabled = false;
 
-  /** 是否可点击 */
+  /** 是否是危险样式 */
   @Prop() dsDanger = false;
 
   /** 设置载入状态 */
