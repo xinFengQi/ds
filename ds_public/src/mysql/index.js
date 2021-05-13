@@ -2,6 +2,8 @@ const { mysqlExecute  }= require('./utild');
 
 
 
+
+
 const getAllFielw =  ``
 
 mysqlExecute(getAllFielw).then(data => {
