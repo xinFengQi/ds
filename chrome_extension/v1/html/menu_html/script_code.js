@@ -110,9 +110,11 @@ function showCode(timeId) {
     }
     oldTimeId = timeId;
     var leftNameIdDiv = document.getElementById(oldTimeId)
-    leftNameIdDiv.style.backgroundColor = '#f3f3f3'
+    if(leftNameIdDiv) {
+        leftNameIdDiv.style.backgroundColor = '#f3f3f3'
+    }
     const content = getScriptNameList.filter(v => v && v.idtime && v.idtime + '' === timeId)[0];
-    setContent(content.content, content.name)
+    content ? setContent(content.content, content.name) : null
 }
 
 // 针对页面进行赋值

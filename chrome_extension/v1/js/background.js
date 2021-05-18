@@ -20,7 +20,8 @@ chrome.contextMenus.create({
 
 
 const scriptCodeMenuMap = {};
-let getScriptNameList = []
+let getScriptNameList = [];
+let scriptCodeMenu = null;
 
 // 查询所有菜单
 RMethod('getScriptName', [], (item) => {
@@ -49,7 +50,7 @@ function createCodeMenu(v) {
 function updateCodeMenu(v) {
     chrome.contextMenus.update(scriptCodeMenuMap[v.idtime], {
         title: v.name,
-        parentId: scriptCodeMenu,
+        parentId: scriptCodeMenu? scriptCodeMenu: null,
         onclick: function () {
             getCurrentTabId(tabId => {
                 chrome.tabs.executeScript(tabId, { code: v.content });
