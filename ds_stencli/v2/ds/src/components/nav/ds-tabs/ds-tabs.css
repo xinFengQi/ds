@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+
+.ds_tabs_main{
+  display: flex;
+}
+
+.ds_tab{
+  cursor: pointer;
+  padding: 4px 8px;
+}

@@ -80,6 +80,8 @@ ds-checkbox{
     display: none;
 }
 
-ds-radio {
+ds-radio,
+ds-tabs
+{
     display: none;
 }

@@ -249,7 +249,7 @@
   <div id="ds-input" class="main">
     <div class="title">ds-input演示</div>
     <div class="content" style="width: 300px;">
-      <ds-input  value="12312312" type="password"></ds-input>
+      <ds-input value="12312312" type="password"></ds-input>
       <ds-input disabled></ds-input>
       <ds-input disabled value="12312312"></ds-input>
     </div>
@@ -273,13 +273,34 @@
     </div>
   </div>
 
+  <div id="ds-tabs" class="main">
+    <div class="title">ds-tabs演示</div>
+    <div class="content" style="width: 300px;">
+      <ds-tabs>
+        <ds-tab slot="tab1" name="测试">
+          132313
+        </ds-tab>
+        <ds-tab slot="tab2">
+          567567
+        </ds-tab>
+        <ds-tab slot="tab3">
+          8988990
+        </ds-tab>
+        <ds-tab slot="tab4">
+          erwrt
+        </ds-tab>
+      </ds-tabs>
+    </div>
+  </div>
+
+
 
 </body>
 
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-drop-drag'
+  const showId = 'ds-tabs'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -295,7 +316,8 @@
     'ds-dropdown',
     'ds-input',
     'ds-checkbox',
-    'ds-radio'
+    'ds-radio',
+    'ds-tabs'
   ]
 
   ids.forEach(item => {

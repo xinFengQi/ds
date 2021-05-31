@@ -179,6 +179,18 @@ export namespace Components {
          */
         "dsSize": number;
     }
+    interface DsTab {
+    }
+    interface DsTabs {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection": 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize": number;
+    }
     interface DsTree {
         /**
           * 数据源
@@ -312,6 +324,18 @@ declare global {
         prototype: HTMLDsSpaceItemElement;
         new (): HTMLDsSpaceItemElement;
     };
+    interface HTMLDsTabElement extends Components.DsTab, HTMLStencilElement {
+    }
+    var HTMLDsTabElement: {
+        prototype: HTMLDsTabElement;
+        new (): HTMLDsTabElement;
+    };
+    interface HTMLDsTabsElement extends Components.DsTabs, HTMLStencilElement {
+    }
+    var HTMLDsTabsElement: {
+        prototype: HTMLDsTabsElement;
+        new (): HTMLDsTabsElement;
+    };
     interface HTMLDsTreeElement extends Components.DsTree, HTMLStencilElement {
     }
     var HTMLDsTreeElement: {
@@ -344,6 +368,8 @@ declare global {
         "ds-radio": HTMLDsRadioElement;
         "ds-space": HTMLDsSpaceElement;
         "ds-space-item": HTMLDsSpaceItemElement;
+        "ds-tab": HTMLDsTabElement;
+        "ds-tabs": HTMLDsTabsElement;
         "ds-tree": HTMLDsTreeElement;
         "ds-typography": HTMLDsTypographyElement;
     }
@@ -529,6 +555,18 @@ declare namespace LocalJSX {
          */
         "dsSize"?: number;
     }
+    interface DsTab {
+    }
+    interface DsTabs {
+        /**
+          * 内部布局，垂直还是水平
+         */
+        "dsDirection"?: 'vertical' | 'horizontal';
+        /**
+          * 间距的大小，单位px
+         */
+        "dsSize"?: number;
+    }
     interface DsTree {
         /**
           * 数据源
@@ -570,6 +608,8 @@ declare namespace LocalJSX {
         "ds-radio": DsRadio;
         "ds-space": DsSpace;
         "ds-space-item": DsSpaceItem;
+        "ds-tab": DsTab;
+        "ds-tabs": DsTabs;
         "ds-tree": DsTree;
         "ds-typography": DsTypography;
     }
@@ -597,6 +637,8 @@ declare module "@stencil/core" {
             "ds-radio": LocalJSX.DsRadio & JSXBase.HTMLAttributes<HTMLDsRadioElement>;
             "ds-space": LocalJSX.DsSpace & JSXBase.HTMLAttributes<HTMLDsSpaceElement>;
             "ds-space-item": LocalJSX.DsSpaceItem & JSXBase.HTMLAttributes<HTMLDsSpaceItemElement>;
+            "ds-tab": LocalJSX.DsTab & JSXBase.HTMLAttributes<HTMLDsTabElement>;
+            "ds-tabs": LocalJSX.DsTabs & JSXBase.HTMLAttributes<HTMLDsTabsElement>;
             "ds-tree": LocalJSX.DsTree & JSXBase.HTMLAttributes<HTMLDsTreeElement>;
             "ds-typography": LocalJSX.DsTypography & JSXBase.HTMLAttributes<HTMLDsTypographyElement>;
         }
