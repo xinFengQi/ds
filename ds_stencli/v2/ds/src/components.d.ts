@@ -5,11 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DsBreadcrumbDataModel } from "./components/nav/ds-breadcrumb/ds-breadcrumb";
 import { CheckStatus } from "./components/form/ds-checkbox/ds-checkbox";
 import { Direction } from "./components_js/model";
 import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
     interface DsBreadcrumb {
+        "dsData": DsBreadcrumbDataModel[];
     }
     interface DsButton {
         /**
@@ -376,6 +378,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DsBreadcrumb {
+        "dsData"?: DsBreadcrumbDataModel[];
     }
     interface DsButton {
         /**

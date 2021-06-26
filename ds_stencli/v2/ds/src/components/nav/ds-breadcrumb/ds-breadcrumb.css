@@ -1,3 +1,19 @@
 :host {
-  display: block;
+  display: flex;
+}
+
+.single_main{
+  display: flex;
+}
+
+.single_disabled{
+  cursor: not-allowed;
+}
+
+.single_text{
+  
+}
+
+.single_link{
+  cursor: pointer;
 }

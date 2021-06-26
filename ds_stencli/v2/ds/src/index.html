@@ -290,6 +290,31 @@
           erwrt
         </ds-tab>
       </ds-tabs>
+      <ds-tabs ds-direction="vertical">
+        <ds-tab slot="tab1" name="测试">
+          132313
+        </ds-tab>
+        <ds-tab slot="tab2">
+          567567
+        </ds-tab>
+        <ds-tab slot="tab3">
+          8988990
+        </ds-tab>
+        <ds-tab slot="tab4">
+          erwrt
+        </ds-tab>
+      </ds-tabs>
+    </div>
+  </div>
+
+  <div id="ds-breadcrumb" class="main">
+    <div class="title">ds-breadcrumb演示</div>
+    <div class="content" style="width: 600px;">
+      <ds-breadcrumb id="ds-breadcrumb-a">
+        <span>
+          >>>>>>
+        </span>
+      </ds-breadcrumb>
     </div>
   </div>
 
@@ -300,7 +325,7 @@
 <script src="/wwwAsserts/ds-button.js"></script>
 
 <script>
-  const showId = 'ds-tabs'
+  const showId = 'ds-breadcrumb'
   const ids = [
     'ds-button',
     'ds-typography',
@@ -317,7 +342,8 @@
     'ds-input',
     'ds-checkbox',
     'ds-radio',
-    'ds-tabs'
+    'ds-tabs',
+    'ds-breadcrumb'
   ]
 
   ids.forEach(item => {

@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  border: solid 1px #000;
+  margin: 4px;
+  flex: 1;
+  display: flex;
+  padding: 4px;
+}
+
+.menu_tree{
+  width: 240px;
+  border: solid 1px #000;
+}
+.web_desigin{
+  flex: 1;
+  border: solid 1px #000;
+}

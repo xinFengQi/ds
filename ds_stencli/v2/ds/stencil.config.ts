@@ -1,9 +1,3 @@
-/*
- * @Date: 2021-02-22 13:58:07
- * @LastEditors: dongfb
- * @LastEditTime: 2021-03-17 13:31:08
- */
-
 import { Config } from '@stencil/core';
 
 export const config: Config = {
@@ -23,11 +17,13 @@ export const config: Config = {
       type: 'docs-readme',
       dir: 'dist/docs'
     },
+    { type: 'docs-json', file: 'dist/docs.json'},
     {
       type: 'www',
       dir: 'dist/www',
       copy: [{ src: 'wwwAsserts', dest: 'wwwAsserts' }],
       serviceWorker: null, // disable service workers
     },
+
   ],
 };

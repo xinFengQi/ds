@@ -39,7 +39,6 @@ export class DsTabs {
         })
       }
     }
-    console.log(this.tabs)
     return true;
   }
 
@@ -51,26 +50,36 @@ export class DsTabs {
 
   render() {
     return (
-      <Host>
-        <div class="ds_tabs_main">
+      <Host class="host">
+        <div class={{
+          ds_tab_host_h: this.dsDirection === 'vertical',
+        }}>
+          <div class={{
+            ds_tabs_main: true,
+            ds_tabs_main_v: this.dsDirection === 'vertical',
+            ds_tabs_main_h: this.dsDirection === 'horizontal',
+          }}
+          >
+            {
+              this.tabs.map((tab, i) => {
+                return (
+                  <div class="ds_tab" onClick={($event) => this.tabClick($event, i, tab)}>
+                    {tab.name}
+                  </div>
+                )
+              })
+            }
+          </div>
+
           {
-            this.tabs.map((tab, i) => {
-              return (
-                <div class="ds_tab" onClick={($event) => this.tabClick($event, i, tab)}>
-                  {tab.name}
-                </div>
-              )
-            })
+            this.tabs.length ? (
+              <div>
+                <slot name={this.tabs[this.activeIndex].slot}></slot>
+              </div>
+            ) : null
           }
         </div>
 
-        {
-          this.tabs.length ? (
-            <div>
-              <slot name={this.tabs[this.activeIndex].slot}></slot>
-            </div>
-          ) : null
-        }
 
       </Host>
     );

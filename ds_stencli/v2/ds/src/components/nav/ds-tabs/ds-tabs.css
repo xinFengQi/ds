@@ -2,9 +2,22 @@
   display: block;
 }
 
+.ds_tab_host_h{
+  display: flex;
+
+}
 
 .ds_tabs_main{
   display: flex;
+}
+
+.ds_tabs_main_v{
+  flex-direction: column;
+}
+
+.ds_tabs_main_h{
+  flex-direction: row;
+
 }
 
 .ds_tab{

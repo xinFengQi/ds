@@ -77,23 +77,52 @@ window.onload = () => {
 
 
    // ds-tree
-   const dsTreeA = document.getElementById('ds-tree-a');
-   if(dsTreeA) {
-      const data = [
-         {
-            name: '测试1',
-            childrens: [
-               {
-                  name: '测试11'
-               }
-            ]
-         },
-         {
-            name: 'jasgdjsad'
-         },
-      ];
-      dsTreeA.data = data;
+   // const dsTreeA = document.getElementById('ds-tree-a');
+   // if(dsTreeA) {
+   //    const data = [
+   //       {
+   //          name: '测试1',
+   //          childrens: [
+   //             {
+   //                name: '测试11'
+   //             }
+   //          ]
+   //       },
+   //       {
+   //          name: 'jasgdjsad'
+   //       },
+   //    ];
+   //    dsTreeA.data = data;
 
+   // }
+
+   // ds-breadcrumb
+   const dsBreadcrumbA = document.getElementById('ds-breadcrumb-a')
+   if(dsBreadcrumbA) {
+      dsBreadcrumbA.dsData = [
+         {
+            name: "第一层",
+            type: "disabled"
+         },
+         {
+            name: "第二层",
+            type: "disabled"
+         },
+         {
+            name: "第三层",
+            type: "disabled",
+            onClick: function(a,b,c){
+               console.log(a,b,c, this)
+            }
+         },
+         {
+            name: "第四层",
+            type: "link",
+            onClick: (a,b,c) => {
+               console.log(a,b,c, this)
+            }
+         },
+      ]
    }
 
 }
