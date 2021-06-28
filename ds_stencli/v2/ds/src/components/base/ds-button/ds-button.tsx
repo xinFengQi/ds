@@ -25,6 +25,8 @@ export class DsButton {
   /** 设置载入状态 */
   @Prop() dsLoadding = false;
 
+  @Prop() dsPreviewPrevite = false;
+
 
   private btuClick = (e: Event) => {
     if (this.dsDisabled || this.dsLoadding) {
@@ -43,6 +45,9 @@ export class DsButton {
             loadding: this.dsLoadding
           }} >
           <slot></slot>
+          {
+            this.dsPreviewPrevite ? '测试按钮' : null
+          }
         </button >
       </div>
     );

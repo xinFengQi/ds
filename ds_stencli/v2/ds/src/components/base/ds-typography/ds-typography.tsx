@@ -12,8 +12,10 @@ export class DsTypography {
 
   /** 文本类型 */
   @Prop() dsType: 'default' | 'secondary' | 'warning'
-    | 'danger' | 'success' | 'disabled' = 'default';
+    | 'danger' | 'success' | 'disabled' = 'success';
 
+
+  @Prop() dsPreviewPrevite = false;
 
 
   render() {
@@ -24,6 +26,10 @@ export class DsTypography {
         [this.dsType]: true
       }}>
         <slot></slot>
+        {this.dsPreviewPrevite ?
+          <p>
+            成功类型
+          </p> : null}
       </DsTag>
     );
   }

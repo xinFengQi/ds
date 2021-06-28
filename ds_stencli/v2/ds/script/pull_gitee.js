@@ -4,7 +4,7 @@ const request = require('request')
 
 
 // 获取stencli.config.ts的打包位置
-const distPath = './dist/dist';
+const distPath = './dist/book';
 
 
 const isExtraDist = fs.existsSync(distPath);
@@ -23,7 +23,9 @@ const access_token = 'e9694199cc954120b37d5d449a56a752';
 // 根据pagejson获取获取文件夹信息
 const pageJsonData = JSON.parse(fs.readFileSync('./package.json').toString())
 
-const gitPath = 'component' + '/'+pageJsonData.name + '/' + pageJsonData.version
+// const gitPath = 'component' + '/'+pageJsonData.name + '/' + pageJsonData.version
+
+const gitPath = 'Stencli';
 
 function pathFomate(path) {
     return path.replace(/\//g, '%2F')

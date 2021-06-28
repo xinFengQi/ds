@@ -1,8 +1,3 @@
-/*
- * @Date: 2021-02-22 13:55:16
- * @LastEditors: dongfb
- * @LastEditTime: 2021-03-26 10:42:02
- */
 import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
@@ -29,7 +24,7 @@ export class DsSpaceItem {
             space = { marginBottom: this.dsSize + 'px' }
         }
         return (
-            !!this.dsLast ?
+            this.dsLast ?
                 <Host>
                     <slot></slot>
                 </Host>

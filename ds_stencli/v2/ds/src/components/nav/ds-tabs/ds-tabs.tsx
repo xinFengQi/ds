@@ -15,6 +15,9 @@ export class DsTabs {
 
   @Element() hostDiv: HTMLElement;
 
+  @Prop() dsPreviewPrevite = false;
+
+
   tabs = [];
 
   activeIndex = 0;

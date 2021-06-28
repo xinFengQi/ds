@@ -9,10 +9,13 @@ export class DsSpace {
 
 
   /** 间距的大小，单位px */
-  @Prop() dsSize = 8;
+  @Prop() dsSize = 24;
 
   /** 内部布局，垂直还是水平 */
   @Prop() dsDirection: 'vertical' | 'horizontal' = 'horizontal';
+
+  @Prop() dsPreviewPrevite = false;
+
 
   hostDiv!: HTMLDivElement;
 
@@ -20,17 +23,15 @@ export class DsSpace {
     // 修改子组件的item的属性
     const child = this.hostDiv.children;
     const len = child.length;
-    let laseIndex  = 0;
+    let laseIndex = 0;
     for (let i = 0; i < len; i++) {
       if (child.item(i)?.nodeName === 'DS-SPACE-ITEM') {
         child.item(i)?.setAttribute('ds-size', this.dsSize + '');
         child.item(i)?.setAttribute('ds-direction', this.dsDirection);
-        child.item(i)?.setAttribute('ds-last', '0');
         laseIndex = i;
       }
     }
     child.item(laseIndex)?.setAttribute('ds-last', '1');
-
   }
 
 
@@ -42,6 +43,13 @@ export class DsSpace {
           horizontal: this.dsDirection === 'horizontal',
         }}>
         <slot></slot>
+        {
+          this.dsPreviewPrevite ? [
+              <ds-space-item>空格</ds-space-item>,
+              <ds-space-item>空格</ds-space-item>
+           ] : null
+
+        }
       </div>
     );
   }

@@ -1,8 +1,3 @@
-/*
- * @Date: 2021-03-25 15:23:27
- * @LastEditors: dongfb
- * @LastEditTime: 2021-03-26 12:47:33
- */
 import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 /**

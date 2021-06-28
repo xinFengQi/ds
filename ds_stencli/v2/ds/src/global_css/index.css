@@ -55,33 +55,19 @@ article, aside, blockquote, body, button, code, dd, details, div, dl, dt, fields
 }
 
 
-ds-if{
-    display: none;
-}
 
-ds-for{
-    display: none;
-}
-
-ds-if{
-    display: none;
-}
-
-
-ds-dropdown{
-    display: none;
-}
-
-ds-collapse-panel{
-    display: none;
-}
-
-ds-checkbox{
-    display: none;
-}
-
+ds-for,
+ds-if,
+ds-dropdown,
+ds-collapse-panel,
+ds-checkbox,
 ds-radio,
 ds-tabs
 {
     display: none;
+}
+
+ds-divider{
+    width: 100%;
+    height: 100%;
 }

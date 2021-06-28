@@ -22,3 +22,21 @@ body {
   width: 80%;
   margin: 0 30px;
 }
+
+
+
+.all_preview_main{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all_preview_card{
+  min-width: 100px;
+  min-height: 100px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}

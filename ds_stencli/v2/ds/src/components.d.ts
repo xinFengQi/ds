@@ -26,6 +26,7 @@ export namespace Components {
           * 设置载入状态
          */
         "dsLoadding": boolean;
+        "dsPreviewPrevite": boolean;
         /**
           * 根据类型显示按钮的样式
          */
@@ -72,6 +73,7 @@ export namespace Components {
           * 是否虚线
          */
         "dsDashed": boolean;
+        "dsPreviewPrevite": boolean;
         /**
           * 文本位置
          */
@@ -162,6 +164,7 @@ export namespace Components {
           * 内部布局，垂直还是水平
          */
         "dsDirection": 'vertical' | 'horizontal';
+        "dsPreviewPrevite": boolean;
         /**
           * 间距的大小，单位px
          */
@@ -188,6 +191,7 @@ export namespace Components {
           * 内部布局，垂直还是水平
          */
         "dsDirection": 'vertical' | 'horizontal';
+        "dsPreviewPrevite": boolean;
         /**
           * 间距的大小，单位px
          */
@@ -200,6 +204,7 @@ export namespace Components {
         "data": DsTreeData[];
     }
     interface DsTypography {
+        "dsPreviewPrevite": boolean;
         /**
           * 主元素显示的HTml
          */
@@ -393,6 +398,7 @@ declare namespace LocalJSX {
           * 设置载入状态
          */
         "dsLoadding"?: boolean;
+        "dsPreviewPrevite"?: boolean;
         /**
           * 根据类型显示按钮的样式
          */
@@ -448,6 +454,7 @@ declare namespace LocalJSX {
           * 是否虚线
          */
         "dsDashed"?: boolean;
+        "dsPreviewPrevite"?: boolean;
         /**
           * 文本位置
          */
@@ -539,6 +546,7 @@ declare namespace LocalJSX {
           * 内部布局，垂直还是水平
          */
         "dsDirection"?: 'vertical' | 'horizontal';
+        "dsPreviewPrevite"?: boolean;
         /**
           * 间距的大小，单位px
          */
@@ -565,6 +573,7 @@ declare namespace LocalJSX {
           * 内部布局，垂直还是水平
          */
         "dsDirection"?: 'vertical' | 'horizontal';
+        "dsPreviewPrevite"?: boolean;
         /**
           * 间距的大小，单位px
          */
@@ -581,6 +590,7 @@ declare namespace LocalJSX {
         "onClickData"?: (event: CustomEvent<DsTreeData>) => void;
     }
     interface DsTypography {
+        "dsPreviewPrevite"?: boolean;
         /**
           * 主元素显示的HTml
          */
