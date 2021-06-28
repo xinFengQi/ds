@@ -55,12 +55,12 @@ export class DsTabs {
     return (
       <Host class="host">
         <div class={{
-          ds_tab_host_h: this.dsDirection === 'vertical',
+          ds_tab_host_h: this.dsDirection === 'horizontal',
         }}>
           <div class={{
             ds_tabs_main: true,
-            ds_tabs_main_v: this.dsDirection === 'vertical',
-            ds_tabs_main_h: this.dsDirection === 'horizontal',
+            ds_tabs_main_v: this.dsDirection === 'horizontal',
+            ds_tabs_main_h: this.dsDirection === 'vertical',
           }}
           >
             {
@@ -81,6 +81,14 @@ export class DsTabs {
               </div>
             ) : null
           }
+          {this.dsPreviewPrevite ? [
+            <ds-tab slot="tab1">
+              tab1
+                </ds-tab>,
+            <ds-tab slot="tab2">
+              tab2
+                </ds-tab>
+          ] : null}
         </div>
 
 

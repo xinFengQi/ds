@@ -3,8 +3,8 @@ import { Component, Host, h, Prop, Element } from '@stencil/core';
 
 export interface DsBreadcrumbDataModel {
   name: string;
-  type: 'disabled' | 'link' | 'text',
-  onClick: (...args) => void
+  type?: 'disabled' | 'link' | 'text',
+  onClick?: (...args) => void
 }
 
 @Component({
@@ -14,8 +14,18 @@ export interface DsBreadcrumbDataModel {
 })
 export class DsBreadcrumb {
 
+  @Prop() dsPreviewPrevite = false;
 
-  @Prop() dsData: DsBreadcrumbDataModel[] = [];
+  @Prop() dsData: DsBreadcrumbDataModel[] = [{
+    name: '第一级',
+    type: 'link',
+    onClick: () => {
+      console.log('点击了第一级')
+    }
+  }, {
+    name: '第二级',
+    type: 'text',
+  }];
 
   @Element() hostEl: any;
 
@@ -36,7 +46,6 @@ export class DsBreadcrumb {
   }
 
   render() {
-    console.log(this.dsData, '=============')
     return (
       <Host>
         {
@@ -52,11 +61,20 @@ export class DsBreadcrumb {
                   single_link: da.type === 'link',
                 }}
                 >{da.name}</span>
-                {i !== this.dsData.length - 1 ? <span ref={(el) => this.splitSpan[i] = el as HTMLDivElement}></span> : null}
+                {i !== this.dsData.length - 1 ?
+                  <span ref={(el) => this.splitSpan[i] = el as HTMLDivElement}>
+                    {this.dsPreviewPrevite ? [
+                      <span>&gt;</span>
+                    ] : null}
+                  </span> :
+                  null}
+
               </div>
             )
           })
         }
+
+
       </Host>
     );
   }

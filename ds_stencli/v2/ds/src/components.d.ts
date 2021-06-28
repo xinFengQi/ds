@@ -12,6 +12,7 @@ import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
     interface DsBreadcrumb {
         "dsData": DsBreadcrumbDataModel[];
+        "dsPreviewPrevite": boolean;
     }
     interface DsButton {
         /**
@@ -384,6 +385,7 @@ declare global {
 declare namespace LocalJSX {
     interface DsBreadcrumb {
         "dsData"?: DsBreadcrumbDataModel[];
+        "dsPreviewPrevite"?: boolean;
     }
     interface DsButton {
         /**
