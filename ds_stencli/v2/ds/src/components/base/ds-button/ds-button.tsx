@@ -1,10 +1,8 @@
-/*
- * @Date: 2021-01-25 09:21:12
- * @LastEditors: dongfb
- * @LastEditTime: 2021-03-30 13:15:54
- */
 import { Component, h, Prop } from '@stencil/core';
 
+/**
+ * @myOtherDocTag someOtherName - some other name
+ */
 @Component({
   tag: 'ds-button',
   styleUrl: 'ds-button.css',
@@ -12,7 +10,10 @@ import { Component, h, Prop } from '@stencil/core';
 })
 export class DsButton {
 
-  /** 根据类型显示按钮的样式 */
+  /** 
+   * 根据类型显示按钮的样式 
+   * @myOtherDocTag someOtherName - some other name
+   */
   @Prop() dsType: 'default' | 'primary' | 'dashed' | 'link' | 'text'
     = 'default';
 
@@ -25,7 +26,7 @@ export class DsButton {
   /** 设置载入状态 */
   @Prop() dsLoadding = false;
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
 
   private btuClick = (e: Event) => {
@@ -46,7 +47,7 @@ export class DsButton {
           }} >
           <slot></slot>
           {
-            this.dsPreviewPrevite ? '测试按钮' : null
+            this.demo ? '测试按钮' : null
           }
         </button >
       </div>

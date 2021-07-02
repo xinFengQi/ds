@@ -11,10 +11,11 @@ import { Direction } from "./components_js/model";
 import { DsTreeData } from "./components/show/ds-tree/ds-tree";
 export namespace Components {
     interface DsBreadcrumb {
+        "demo": boolean;
         "dsData": DsBreadcrumbDataModel[];
-        "dsPreviewPrevite": boolean;
     }
     interface DsButton {
+        "demo": boolean;
         /**
           * 是否是危险样式
          */
@@ -27,9 +28,9 @@ export namespace Components {
           * 设置载入状态
          */
         "dsLoadding": boolean;
-        "dsPreviewPrevite": boolean;
         /**
           * 根据类型显示按钮的样式
+          * @myOtherDocTag someOtherName - some other name
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
@@ -70,11 +71,11 @@ export namespace Components {
         "name": string;
     }
     interface DsDivider {
+        "demo": boolean;
         /**
           * 是否虚线
          */
         "dsDashed": boolean;
-        "dsPreviewPrevite": boolean;
         /**
           * 文本位置
          */
@@ -161,11 +162,11 @@ export namespace Components {
         "checkStatus": boolean;
     }
     interface DsSpace {
+        "demo": boolean;
         /**
           * 内部布局，垂直还是水平
          */
         "dsDirection": 'vertical' | 'horizontal';
-        "dsPreviewPrevite": boolean;
         /**
           * 间距的大小，单位px
          */
@@ -188,11 +189,11 @@ export namespace Components {
     interface DsTab {
     }
     interface DsTabs {
+        "demo": boolean;
         /**
           * 内部布局，垂直还是水平
          */
         "dsDirection": 'vertical' | 'horizontal';
-        "dsPreviewPrevite": boolean;
         /**
           * 间距的大小，单位px
          */
@@ -205,7 +206,7 @@ export namespace Components {
         "data": DsTreeData[];
     }
     interface DsTypography {
-        "dsPreviewPrevite": boolean;
+        "demo": boolean;
         /**
           * 主元素显示的HTml
          */
@@ -384,10 +385,11 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DsBreadcrumb {
+        "demo"?: boolean;
         "dsData"?: DsBreadcrumbDataModel[];
-        "dsPreviewPrevite"?: boolean;
     }
     interface DsButton {
+        "demo"?: boolean;
         /**
           * 是否是危险样式
          */
@@ -400,9 +402,9 @@ declare namespace LocalJSX {
           * 设置载入状态
          */
         "dsLoadding"?: boolean;
-        "dsPreviewPrevite"?: boolean;
         /**
           * 根据类型显示按钮的样式
+          * @myOtherDocTag someOtherName - some other name
          */
         "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
@@ -452,11 +454,11 @@ declare namespace LocalJSX {
         "onDsIsActiveChange"?: (event: CustomEvent<boolean>) => void;
     }
     interface DsDivider {
+        "demo"?: boolean;
         /**
           * 是否虚线
          */
         "dsDashed"?: boolean;
-        "dsPreviewPrevite"?: boolean;
         /**
           * 文本位置
          */
@@ -544,11 +546,11 @@ declare namespace LocalJSX {
         "onCheckStatusChange"?: (event: CustomEvent<boolean>) => void;
     }
     interface DsSpace {
+        "demo"?: boolean;
         /**
           * 内部布局，垂直还是水平
          */
         "dsDirection"?: 'vertical' | 'horizontal';
-        "dsPreviewPrevite"?: boolean;
         /**
           * 间距的大小，单位px
          */
@@ -571,11 +573,11 @@ declare namespace LocalJSX {
     interface DsTab {
     }
     interface DsTabs {
+        "demo"?: boolean;
         /**
           * 内部布局，垂直还是水平
          */
         "dsDirection"?: 'vertical' | 'horizontal';
-        "dsPreviewPrevite"?: boolean;
         /**
           * 间距的大小，单位px
          */
@@ -592,7 +594,7 @@ declare namespace LocalJSX {
         "onClickData"?: (event: CustomEvent<DsTreeData>) => void;
     }
     interface DsTypography {
-        "dsPreviewPrevite"?: boolean;
+        "demo"?: boolean;
         /**
           * 主元素显示的HTml
          */

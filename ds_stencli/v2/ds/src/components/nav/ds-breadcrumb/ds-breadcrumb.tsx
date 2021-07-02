@@ -14,7 +14,7 @@ export interface DsBreadcrumbDataModel {
 })
 export class DsBreadcrumb {
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
   @Prop() dsData: DsBreadcrumbDataModel[] = [{
     name: '第一级',
@@ -33,6 +33,9 @@ export class DsBreadcrumb {
 
   // 加载渲染后，读取子节点
   componentDidRender() {
+    if(!this.hostEl.children.length) {
+      return;
+    }
     this.splitSpan.forEach(el => {
       el.innerHTML = this.hostEl.children[0].innerHTML
     })
@@ -63,7 +66,7 @@ export class DsBreadcrumb {
                 >{da.name}</span>
                 {i !== this.dsData.length - 1 ?
                   <span ref={(el) => this.splitSpan[i] = el as HTMLDivElement}>
-                    {this.dsPreviewPrevite ? [
+                    {this.demo ? [
                       <span>&gt;</span>
                     ] : null}
                   </span> :

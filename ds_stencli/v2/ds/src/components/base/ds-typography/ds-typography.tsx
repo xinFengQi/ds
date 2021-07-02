@@ -15,7 +15,7 @@ export class DsTypography {
     | 'danger' | 'success' | 'disabled' = 'success';
 
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
 
   render() {
@@ -26,7 +26,7 @@ export class DsTypography {
         [this.dsType]: true
       }}>
         <slot></slot>
-        {this.dsPreviewPrevite ?
+        {this.demo ?
           <p>
             成功类型
           </p> : null}

@@ -15,7 +15,7 @@ export class DsTabs {
 
   @Element() hostDiv: HTMLElement;
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
 
   tabs = [];
@@ -81,7 +81,7 @@ export class DsTabs {
               </div>
             ) : null
           }
-          {this.dsPreviewPrevite ? [
+          {this.demo ? [
             <ds-tab slot="tab1">
               tab1
                 </ds-tab>,

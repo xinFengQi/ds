@@ -14,7 +14,7 @@ export class DsSpace {
   /** 内部布局，垂直还是水平 */
   @Prop() dsDirection: 'vertical' | 'horizontal' = 'horizontal';
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
 
   hostDiv!: HTMLDivElement;
@@ -44,7 +44,7 @@ export class DsSpace {
         }}>
         <slot></slot>
         {
-          this.dsPreviewPrevite ? [
+          this.demo ? [
               <ds-space-item>空格</ds-space-item>,
               <ds-space-item>空格</ds-space-item>
            ] : null

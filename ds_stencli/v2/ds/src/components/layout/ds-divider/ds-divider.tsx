@@ -16,7 +16,7 @@ export class DsDivider {
   /** 分割线的类型,水平还是垂直 */
   @Prop() dsType: 'horizontal' | 'vertical' = 'horizontal';
 
-  @Prop() dsPreviewPrevite = false;
+  @Prop() demo = false;
 
 
   render() {
@@ -38,7 +38,7 @@ export class DsDivider {
         }
         <span class={{font_mode:this.dsType === 'vertical' }}>
           <slot></slot>
-          {this.dsPreviewPrevite ?
+          {this.demo ?
           <p>
             虚线
           </p> : null}

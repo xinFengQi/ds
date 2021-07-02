@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { componentJSON } from './mock';
+import './menu-tree.css'
 
 export class MenuTree extends React.Component {
 
@@ -12,14 +13,18 @@ export class MenuTree extends React.Component {
       <div>
         一个下拉框
         一个组件
+        <div className="true_main">
         {
           components.map(value => {
-            return <ds-drag key={value.tag}>
-              <div dangerouslySetInnerHTML={{ __html: `<${value.tag}></${value.tag}` }}></div>
-            </ds-drag>
+            return <div className="true_container" key={value.tag}>
+                <span>图标</span>
+                <span>{value.tag}</span>
+            </div>
 
           })
         }
+        </div>
+
       </div>
     );
   }
