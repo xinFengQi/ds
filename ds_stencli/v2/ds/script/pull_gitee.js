@@ -4,7 +4,7 @@ const request = require('request')
 
 
 // 获取stencli.config.ts的打包位置
-const distPath = './dist';
+const distPath = './dist_gitee';
 
 
 const isExtraDist = fs.existsSync(distPath);

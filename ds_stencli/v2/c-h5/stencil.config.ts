@@ -1,9 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'dsuicomponent',
-  globalScript: 'src/global_js/index.ts',
-  globalStyle: 'src/global_css/index.css',
+  namespace: 'h5UIComponent',
   outputTargets: [
     {
       type: 'dist',
@@ -21,7 +19,6 @@ export const config: Config = {
     {
       type: 'www',
       dir: 'dist/www',
-      copy: [{ src: 'wwwAsserts', dest: 'wwwAsserts' }],
       serviceWorker: null, // disable service workers
     },
 

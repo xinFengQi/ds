@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { componentJSON } from './mock';
+import { componentJSON } from '../mock';
 import './menu-tree.css'
 
 export class MenuTree extends React.Component {

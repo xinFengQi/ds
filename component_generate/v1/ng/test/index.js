@@ -9,7 +9,7 @@ const readline = require('readline');
 // 递归读取需读取的文件数据
 function readDir(dirpath) {
     const fileInfo = fs.statSync(dirpath)
-    if (!fileInfo.isDirectory) {
+    if (!fileInfo.isDirectory()) {
         return;
     }
     const dir = fs.readdirSync(dirpath);

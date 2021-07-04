@@ -8,6 +8,11 @@ node_modules/**
 dist/**
 **/dist/**
 
+dist_gitee/**
+**/dist_gitee/**
+
+
+
 _book/**
 **/_book/**
 
