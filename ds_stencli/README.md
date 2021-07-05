@@ -8,14 +8,11 @@
 
 ## v2
 
-1. ant_react_stencli  
-集成antdesign的设计尝试
-
-2. c-h5
+1. c-h5
 将原生的h5标签进行封装，进行文档描述
 
-3. ds
+2. ds
 自己的设计，从一个按钮开始，模仿antDesign，但是放弃
 
-4. web-design-rt
+3. web-design-rt
 react制作的web页面设计器

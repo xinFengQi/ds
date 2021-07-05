@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'antreactstencli',
+  namespace: 'bootstrap_4_stencli',
   outputTargets: [
     {
       type: 'dist',

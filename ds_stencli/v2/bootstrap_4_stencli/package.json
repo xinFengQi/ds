@@ -1,7 +1,7 @@
 {
-  "name": "antreactstencli",
+  "name": "bootstrap_4_stencli",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "description": "使用bootstrap4构建自己的标准组件",
   "main": "./dist/dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -22,13 +22,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.0.1",
-    "antd": "^4.16.6",
-    "axios": "^0.21.1",
-    "fs-extra": "^10.0.0",
-    "react": "^17.0.2",
-    "request": "^2.88.2",
-    "vue": "^2.6.12"
+    "@stencil/core": "^2.0.1"
   },
   "license": "MIT",
   "devDependencies": {
