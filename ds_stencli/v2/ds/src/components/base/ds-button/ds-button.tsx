@@ -1,7 +1,9 @@
 import { Component, h, Prop } from '@stencil/core';
 
 /**
- * @myOtherDocTag someOtherName - some other name
+ * 基础按钮
+ * @slot default - 在按钮内部使用
+ * @belongTo base - 基础
  */
 @Component({
   tag: 'ds-button',
@@ -12,7 +14,6 @@ export class DsButton {
 
   /** 
    * 根据类型显示按钮的样式 
-   * @myOtherDocTag someOtherName - some other name
    */
   @Prop() dsType: 'default' | 'primary' | 'dashed' | 'link' | 'text'
     = 'default';
@@ -26,6 +27,10 @@ export class DsButton {
   /** 设置载入状态 */
   @Prop() dsLoadding = false;
 
+  /** 
+   * 是否显示demo
+   * @isShow false
+   */
   @Prop() demo = false;
 
 

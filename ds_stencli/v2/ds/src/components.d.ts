@@ -15,6 +15,10 @@ export namespace Components {
         "dsData": DsBreadcrumbDataModel[];
     }
     interface DsButton {
+        /**
+          * 是否显示demo
+          * @isShow false
+         */
         "demo": boolean;
         /**
           * 是否是危险样式
@@ -30,7 +34,6 @@ export namespace Components {
         "dsLoadding": boolean;
         /**
           * 根据类型显示按钮的样式
-          * @myOtherDocTag someOtherName - some other name
          */
         "dsType": 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
@@ -389,6 +392,10 @@ declare namespace LocalJSX {
         "dsData"?: DsBreadcrumbDataModel[];
     }
     interface DsButton {
+        /**
+          * 是否显示demo
+          * @isShow false
+         */
         "demo"?: boolean;
         /**
           * 是否是危险样式
@@ -404,7 +411,6 @@ declare namespace LocalJSX {
         "dsLoadding"?: boolean;
         /**
           * 根据类型显示按钮的样式
-          * @myOtherDocTag someOtherName - some other name
          */
         "dsType"?: 'default' | 'primary' | 'dashed' | 'link' | 'text';
     }
