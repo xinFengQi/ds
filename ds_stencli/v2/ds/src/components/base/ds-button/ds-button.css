@@ -1,7 +1,12 @@
 /**
+ * @prop --primary-0: 主题色
+ * @prop --primary-1: 鼠标点击时颜色.
+ * @prop --primary-3: 鼠标移入时颜色
+ * @prop --danger-0: 危险颜色
+ * @prop --danger-1: 鼠标点击时危险颜色
  * @prop --backgroud-0: 按钮背景色
  * @prop --backgroud-1: 按钮禁用时颜色
- * @prop --backgroud-2:按钮不可选择的颜色
+ * @prop --backgroud-2: 按钮不可选择的颜色
  */
 
 :host {
@@ -75,7 +80,7 @@
 }
 
 .default:disabled {
-  color: rgba(0, 0, 0, .25) !important;
+  color: rgba(0, 0, 0, .85) !important;
   background: var(--backgroud-2) !important;
   border: 1px solid var(--backgroud-1) !important;
   text-shadow: none;

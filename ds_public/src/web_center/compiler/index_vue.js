@@ -1,8 +1,3 @@
-/*
- * @Date: 2021-03-22 09:07:16
- * @LastEditors: dongfb
- * @LastEditTime: 2021-03-22 16:41:04
- */
 const fs = require('fs')
 const nodePath = require('path')
 const beautify = require('js-beautify');
