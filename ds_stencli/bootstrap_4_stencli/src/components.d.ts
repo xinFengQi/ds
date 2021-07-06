@@ -5,8 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { dsMenuTree } from "./components/dsb4-menu/dsb4-menu";
 export namespace Components {
     interface Bootstrap4StencliTest {
+    }
+    interface Dsb4Menu {
+        "menuTree": dsMenuTree[];
     }
 }
 declare global {
@@ -16,15 +20,26 @@ declare global {
         prototype: HTMLBootstrap4StencliTestElement;
         new (): HTMLBootstrap4StencliTestElement;
     };
+    interface HTMLDsb4MenuElement extends Components.Dsb4Menu, HTMLStencilElement {
+    }
+    var HTMLDsb4MenuElement: {
+        prototype: HTMLDsb4MenuElement;
+        new (): HTMLDsb4MenuElement;
+    };
     interface HTMLElementTagNameMap {
         "bootstrap-4-stencli-test": HTMLBootstrap4StencliTestElement;
+        "dsb4-menu": HTMLDsb4MenuElement;
     }
 }
 declare namespace LocalJSX {
     interface Bootstrap4StencliTest {
     }
+    interface Dsb4Menu {
+        "menuTree"?: dsMenuTree[];
+    }
     interface IntrinsicElements {
         "bootstrap-4-stencli-test": Bootstrap4StencliTest;
+        "dsb4-menu": Dsb4Menu;
     }
 }
 export { LocalJSX as JSX };
@@ -32,6 +47,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "bootstrap-4-stencli-test": LocalJSX.Bootstrap4StencliTest & JSXBase.HTMLAttributes<HTMLBootstrap4StencliTestElement>;
+            "dsb4-menu": LocalJSX.Dsb4Menu & JSXBase.HTMLAttributes<HTMLDsb4MenuElement>;
         }
     }
 }
