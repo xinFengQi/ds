@@ -8,6 +8,10 @@ node_modules/**
 dist/**
 **/dist/**
 
+dfb_dist/**
+**/dfb_dist/**
+
+
 dist_gitee/**
 **/dist_gitee/**
 
