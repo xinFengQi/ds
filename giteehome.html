@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档首页</title>
+</head>
+<link rel="stylesheet" href="http://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.css">
+<script type="module" src="http://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.esm.js"></script>
+<link rel="stylesheet" href="http://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.css">
+<script type="module" src="http://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.esm.js"></script>
+
+<body>
+    <dsb4-menu id="dsb4_menu"></dsb4-menu>
+</body>
+
+<script>
+    window.onload = () => {
+        window.ds.axios.get('https://gitee.com/api/v5/repos/dongfubao/ct/git/trees/master?access_token=e9694199cc954120b37d5d449a56a752&recursive=1').then(v => {
+            const treeDatas = v.data.tree.filter(it => it.type === 'blob').map(it => {
+                const pathArr = it.path.split('/');
+                const fileName = pathArr.pop();
+                if (pathArr.length === 0) {
+                    return {
+                        name: it.path,
+                        origin: it
+                    }
+                }
+                return {
+                    name: pathArr.join('/'),
+                    pathArr: pathArr,
+                    childrens: [{
+                        name: fileName,
+                        origin: it
+                    }]
+                }
+            });
+            console.log(treeDatas);
+            const inputDatas = [];
+
+            function getTree(arr, it) {
+                const navName = [...it.pathArr].shift();
+                const index = arr.findIndex(its => its.name === navName);
+                if (index < 0) {
+                    const inData = {};
+                    it.pathArr.reduce((a, b, c) => {
+                        a.name = b;
+                        if (c === it.pathArr.length - 1) {
+                            a.childrens = it.childrens
+                        } else {
+                            a.childrens = [{}]
+                        }
+                        return a.childrens[0]
+                    }, inData);
+                    arr.push(inData);
+                } else {
+                    it.pathArr.shift()
+                    if (it.pathArr.length === 0) {
+                        arr[index].childrens.push(it.childrens[0])
+                    } else {
+                        getTree(arr[index].childrens, it)
+                    }
+                }
+            }
+
+            treeDatas.forEach(it => {
+                if (it.pathArr) {
+                    getTree(inputDatas, it);
+                } else {
+                    inputDatas.push(it)
+                }
+            })
+
+
+            console.log(treeDatas, inputDatas)
+            document.getElementById('dsb4_menu').menuTree = [...inputDatas]
+        });
+    }
+</script>
+
+</html>

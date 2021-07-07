@@ -10,6 +10,9 @@ export namespace Components {
     interface Bootstrap4StencliTest {
     }
     interface Dsb4Menu {
+        /**
+          * 目录树数据
+         */
         "menuTree": dsMenuTree[];
     }
 }
@@ -35,7 +38,14 @@ declare namespace LocalJSX {
     interface Bootstrap4StencliTest {
     }
     interface Dsb4Menu {
+        /**
+          * 目录树数据
+         */
         "menuTree"?: dsMenuTree[];
+        /**
+          * 点击事件
+         */
+        "onClickNav"?: (event: CustomEvent<dsMenuTree>) => void;
     }
     interface IntrinsicElements {
         "bootstrap-4-stencli-test": Bootstrap4StencliTest;
