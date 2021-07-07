@@ -53,8 +53,12 @@ export class Dsb4Menu {
     menu.forEach(nav => {
       outputHtml.push(
         <nav class="navbar flex-column align-items-stretch p-2 pb-0 pt-0">
-          <summary  onClick={e => this.navClick(e, nav)} class="container-fluid ">
-              <i class="bi bi-plus-lg"></i><span  class="navbar-nav">
+          <summary  onClick={e => this.navClick(e, nav)} class="container-fluid container-fluid-center">
+              { !nav.expend && nav.childrens ?<i class="bi bi-folder-plus"></i>: null} 
+              { nav.expend && nav.childrens ?<i class="bi bi-folder-minus"></i>: null} 
+              { !nav.childrens ? <i class="bi bi-file-earmark-text"></i>: null} 
+              
+              <span  class="navbar-nav">
               {nav.name}
             </span>
           </summary>

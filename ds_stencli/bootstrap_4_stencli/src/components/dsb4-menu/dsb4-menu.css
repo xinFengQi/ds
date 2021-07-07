@@ -2,3 +2,12 @@
   display: block;
   width: 100%;
 }
+
+
+.container-fluid-center{
+  justify-content: left !important;
+}
+
+.bi{
+  margin-right: 4px;
+}

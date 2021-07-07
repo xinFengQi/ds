@@ -111,8 +111,16 @@
       console.log(treeDatas, inputDatas)
       const documentEl =  document.getElementById('dsb4_menu');
       documentEl.menuTree = [...inputDatas];
-      documentEl.addEventListener('clickNav', (ev,nav) => {
-        console.log(nav)
+      documentEl.addEventListener('clickNav', (ev) => {
+        const data = ev.detail;
+        if(data.childrens && data.childrens.length > 0) {
+          return;
+        }
+        if(data.origin && data.origin.path) {
+          window.open("http://dongfubao.gitee.io/ct/"+data.origin.path, "_blank");
+        }
+        childrens
+        console.log(ev.detail)
       })
     });
   }
