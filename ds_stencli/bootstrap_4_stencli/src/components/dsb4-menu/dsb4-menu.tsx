@@ -52,9 +52,9 @@ export class Dsb4Menu {
     let outputHtml = [];
     menu.forEach(nav => {
       outputHtml.push(
-        <nav class="navbar navbar-light bg-secondary flex-column align-items-stretch p-2 pb-0 pt-0">
-          <summary class="container-fluid">
-            <span onClick={e => this.navClick(e, nav)} class="navbar-brand">
+        <nav class="navbar flex-column align-items-stretch p-2 pb-0 pt-0">
+          <summary  onClick={e => this.navClick(e, nav)} class="container-fluid ">
+              <i class="bi bi-plus-lg"></i><span  class="navbar-nav">
               {nav.name}
             </span>
           </summary>
