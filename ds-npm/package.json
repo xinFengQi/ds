@@ -1,0 +1,27 @@
+{
+  "name": "dsn",
+  "version": "1.0.0",
+  "description": "dfb的npm辅助工具",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "pack": "npm pack && npm install -g dsn-1.0.0.tgz",
+    "serve": "npm install . -g && npm link"
+  },
+  "bin": {
+    "dsn": "index.js"
+  },
+  "author": "fbdong",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "commander": "^8.0.0",
+    "fs-extra": "^10.0.0",
+    "handlebars": "^4.7.7",
+    "inquirer": "^8.1.1",
+    "log-symbols": "^5.0.0",
+    "marked": "^2.1.3",
+    "ora": "^5.4.1",
+    "request": "^2.88.2"
+  }
+}

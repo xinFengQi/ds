@@ -1,12 +1,14 @@
 ## 依赖
 node_modules/**
 **/node_modules/**
-**/dist_html/**
-**/dist_markdown/**
-**/dist_json/**
+
 
 dist/**
 **/dist/**
+
+**/dist_html/**
+**/dist_markdown/**
+**/dist_json/**
 
 dfb_dist/**
 **/dfb_dist/**

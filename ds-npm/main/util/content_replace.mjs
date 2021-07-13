@@ -6,8 +6,15 @@ function content_replace(paths, reg, cb) {
         const newStr = str.replace(reg, cb)
         fs.writeFileSync(path, newStr)
     })
-
 }
-module.export = {
-    content_replace
+
+// 去除多余空格
+function removeSpace(str) {
+    return str.replace(/( )+/g,' ')
+}
+
+
+export {
+    content_replace,
+    removeSpace
 }
