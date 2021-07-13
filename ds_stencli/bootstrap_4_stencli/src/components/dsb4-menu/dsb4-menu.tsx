@@ -57,7 +57,6 @@ export class Dsb4Menu {
               { !nav.expend && nav.childrens ?<i class="bi bi-folder-plus"></i>: null} 
               { nav.expend && nav.childrens ?<i class="bi bi-folder-minus"></i>: null} 
               { !nav.childrens ? <i class="bi bi-file-earmark-text"></i>: null} 
-              
               <span  class="navbar-nav">
               {nav.name}
             </span>
