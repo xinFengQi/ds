@@ -1,0 +1,22 @@
+{
+  "name": "ct-home",
+  "private": true,
+  "version": "0.0.1",
+  "description": "giteePage的首页",
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@stencil/core": "2.6.0",
+    "@stencil/router": "^1.0.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "http-proxy": "^1.18.1",
+    "http-proxy-middleware": "^2.0.1"
+  }
+}
