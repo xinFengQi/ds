@@ -9,10 +9,10 @@ import { MatchResults } from "@stencil/router";
 export namespace Components {
     interface AppHome {
     }
-    interface AppProfile {
-        "match": MatchResults;
-    }
     interface AppRoot {
+    }
+    interface AppTest {
+        "match": MatchResults;
     }
     interface ComopoentGiteeMenu {
     }
@@ -24,17 +24,17 @@ declare global {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
     };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLAppTestElement extends Components.AppTest, HTMLStencilElement {
+    }
+    var HTMLAppTestElement: {
+        prototype: HTMLAppTestElement;
+        new (): HTMLAppTestElement;
     };
     interface HTMLComopoentGiteeMenuElement extends Components.ComopoentGiteeMenu, HTMLStencilElement {
     }
@@ -44,25 +44,25 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "app-test": HTMLAppTestElement;
         "comopoent-gitee-menu": HTMLComopoentGiteeMenuElement;
     }
 }
 declare namespace LocalJSX {
     interface AppHome {
     }
-    interface AppProfile {
-        "match"?: MatchResults;
-    }
     interface AppRoot {
+    }
+    interface AppTest {
+        "match"?: MatchResults;
     }
     interface ComopoentGiteeMenu {
     }
     interface IntrinsicElements {
         "app-home": AppHome;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
+        "app-test": AppTest;
         "comopoent-gitee-menu": ComopoentGiteeMenu;
     }
 }
@@ -71,8 +71,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-test": LocalJSX.AppTest & JSXBase.HTMLAttributes<HTMLAppTestElement>;
             "comopoent-gitee-menu": LocalJSX.ComopoentGiteeMenu & JSXBase.HTMLAttributes<HTMLComopoentGiteeMenuElement>;
         }
     }

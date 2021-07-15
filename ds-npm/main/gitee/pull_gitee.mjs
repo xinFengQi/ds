@@ -6,7 +6,7 @@ const gitOwner = 'dongfubao'
 const gitRepo = 'ct';
 const access_token = 'e9694199cc954120b37d5d449a56a752';
 
-//distPath 获取stencli.config.ts的打包位置
+//distPath 获取stencil.config.ts的打包位置
 // gitPath 上传的位置
 // deleteGitPath 需要删除的文件， 为空就是全删除
 function giteeDirUpload(distPath, gitPath, deleteGitPath) {

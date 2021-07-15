@@ -12,18 +12,33 @@ export class AppRoot {
     return true;
   }
 
+  gotoBtu = [
+    {
+      name: '首页',
+      url: '/ct',
+    },
+    {
+      name: '测试路由跳转',
+      url: '/ct/test/fbDong',
+    },
+  ];
+
   render() {
     return (
       <div>
-        <header>
-          <h4>普通展示</h4>
-        </header>
+        {this.gotoBtu.map(v => {
+          return (
+            <stencil-route-link url={v.url}>
+              <button>{v.name}</button>
+            </stencil-route-link>
+          );
+        })}
 
         <main>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url="/" component="app-home" exact={true} />
-              <stencil-route url="/profile/:name" component="app-profile" />
+              <stencil-route url="/ct" component="app-home" exact={true} />
+              <stencil-route url="/ct/test/:name" component="app-test" />
             </stencil-route-switch>
           </stencil-router>
         </main>

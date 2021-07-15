@@ -30,4 +30,9 @@ function generateConfigFile() {
 }
 
 
-export { getDsnConfig, generateConfigFile }
+function isUEmpty(str) {
+    return [null, undefined].includes(str)
+}
+
+
+export { getDsnConfig, generateConfigFile, isUEmpty }

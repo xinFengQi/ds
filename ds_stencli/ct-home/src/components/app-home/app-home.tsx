@@ -6,18 +6,13 @@ import { Component, h } from '@stencil/core';
   shadow: false,
 })
 export class AppHome {
+
+
   render() {
     return (
       <div class="app-home">
-        <p>
-          Welcome to the Stencil App Starter. You can use this starter to build entire apps all with web components using Stencil! Check out our docs on{' '}
-          <a href="https://stenciljs.com">stenciljs.com</a> to get started.
-        </p>
+        <h3 class="app_home_h3">gitee中ct仓库的目录</h3>
         <comopoent-gitee-menu></comopoent-gitee-menu>
-
-        <stencil-route-link url="/profile/stencil">
-          <button>Profile page</button>
-        </stencil-route-link>
       </div>
     );
   }

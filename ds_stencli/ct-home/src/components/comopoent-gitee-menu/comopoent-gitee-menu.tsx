@@ -9,25 +9,42 @@ export class ComopoentGiteeMenu {
   @State()
   inputDatas = [];
 
+  // 获取到的目录数据
+  originData = [];
+  // 过滤输入框
+  filterValue = 'index.html';
+
+  filterValueChange(event) {
+    this.filterValue = event.target.value;
+  }
+
   componentWillLoad() {
     this.initData();
   }
 
   initData = () => {
     (window as any).ds.axios.get('https://gitee.com/api/v5/repos/dongfubao/ct/git/trees/master?access_token=e9694199cc954120b37d5d449a56a752&recursive=1').then(v => {
-      const treeDatas = v.data.tree.filter(it => it.type === 'blob').map(it => this.getRecusionOrigin(it));
-      const inputDatas = [];
-      treeDatas.forEach(it => {
-        if (it.pathArr) {
-          this.getTree(inputDatas, it);
-        } else {
-          inputDatas.push(it);
-        }
-      });
-      this.inputDatas = [...inputDatas];
-      console.log(this.inputDatas);
+      this.originData = [...v.data.tree];
+      this.filterClick();
     });
   };
+
+  filterClick() {
+    const treeDatas = this.originData.filter(it => this.getFilterData(it, this.filterValue)).map(it => this.getRecusionOrigin(it));
+    const inputDatas = [];
+    treeDatas.forEach(it => {
+      if (it.pathArr) {
+        this.getTree(inputDatas, it);
+      } else {
+        inputDatas.push(it);
+      }
+    });
+    this.inputDatas = [...inputDatas];
+  }
+
+  private getFilterData(it, str: string) {
+    return it.type === 'blob' && it.path.indexOf(str) > -1;
+  }
 
   private getRecusionOrigin(it) {
     const pathArr = it.path.split('/');
@@ -75,11 +92,23 @@ export class ComopoentGiteeMenu {
     }
   }
 
+  clickNav(ev) {
+    console.log(ev)
+    const data = ev.detail;
+    if (data.childrens && data.childrens.length > 0) {
+      return;
+    }
+    if (data.origin && data.origin.path) {
+      window.open('https://dongfubao.gitee.io/ct/' + data.origin.path, '_blank');
+    }
+  }
+
   render() {
     return (
       <Host>
-        21123123
-        <dsb4-menu id="dsb4_menu" menuTree={this.inputDatas}></dsb4-menu>
+        <input value={this.filterValue} onInput={event => this.filterValueChange(event)} />
+        <button onClick={() => this.filterClick()}>过滤</button>
+        <dsb4-menu id="dsb4_menu" menuTree={this.inputDatas} onClickNav={(ev) => this.clickNav(ev)}></dsb4-menu>
       </Host>
     );
   }

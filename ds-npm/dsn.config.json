@@ -1,5 +1,5 @@
 {
-    "stencli": {
+    "stencil": {
         "_outputGitDist": "需要上传到gitee的文件夹",
         "outputGitDist": "./dist_gitee",
         "_distJsonPath": "组件的json信息",

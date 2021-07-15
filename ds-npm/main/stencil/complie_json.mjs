@@ -5,7 +5,7 @@ import path from 'path'
 import marked from 'marked'
 
 
-function stencliDistComplie(distGiteePath, jsonPath, outputDist) {
+function stencilDistComplie(distGiteePath, jsonPath, outputDist) {
     const distJsonIsExist = fs.existsSync(jsonPath);
     if (!distJsonIsExist) {
         throw "组件json信息未生成"
@@ -17,7 +17,7 @@ function stencliDistComplie(distGiteePath, jsonPath, outputDist) {
     const packageJsonData = JSON.parse(fs.readFileSync(packageJsonPath).toString());
     const name = packageJsonData.name;
     const version = packageJsonData.version;
-    const stencliJsonData = JSON.parse(fs.readFileSync(jsonPath).toString());
+    const stencilJsonData = JSON.parse(fs.readFileSync(jsonPath).toString());
 
 
     // 将一些其他文件复制进入上传文件夹
@@ -39,7 +39,7 @@ if(!window.dsWebComponent.${name}) {
 }
 window.dsWebComponent.${name}['${version}'] = {{components}};
 `;
-    const componentArr = stencliJsonData.components;
+    const componentArr = stencilJsonData.components;
     outputJs = outputJs.replace('{{components}}', JSON.stringify(componentArr));
     fs.writeFileSync(distGiteePath + '/data.js', outputJs)
     console.log('生成data.js')
@@ -68,7 +68,7 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
     </body>
     </html>`
 
-        // 扩展stencli的文档生成功能
+        // 扩展stencil的文档生成功能
         // 1. 读取根文件中的md文件
         fs.readdirSync('./').forEach(dir => {
             if (dir.endsWith('.md')) {
@@ -188,7 +188,7 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
 
 }
 
-export { stencliDistComplie }
+export { stencilDistComplie }
 
 
 

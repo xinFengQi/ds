@@ -9,11 +9,13 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
+      buildDir: 'ctHome',
       // comment the following line to disable service workers in production
       serviceWorker: null
     },
   ],
   devServer: {
+    basePath: '/ct',
     requestListenerPath: './scripts/porxy.js'
   }
 };

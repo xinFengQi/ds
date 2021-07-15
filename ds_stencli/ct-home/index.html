@@ -1,0 +1,10 @@
+<!doctype html><html dir="ltr" lang="en"><head> <meta charset="utf-8"> <title>ct world</title> <meta name="Description" content="fbdong的描述网站"> <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"> <meta name="theme-color" content="#16161d"> <meta name="apple-mobile-web-app-capable" content="yes"> <meta http-equiv="x-ua-compatible" content="IE=Edge"> <!-- 自定义组件 --> <link rel="stylesheet" href="/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.css"> <script type="module" src="/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.esm.js"></script> <link rel="stylesheet" href="/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.css"> <script type="module" src="/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.esm.js"></script> <script type="module" src="/ct/ctHome/build/app.esm.js"></script> <script nomodule="" src="/ct/ctHome/build/app.js"></script> <link href="/ct/ctHome/build/app.css" rel="stylesheet"> <link rel="apple-touch-icon" href="/ct/ctHome/assets/icon/icon.png"> <link rel="icon" type="image/x-icon" href="/ct/ctHome/assets/icon/favicon.ico"> <link rel="manifest" href="/ct/ctHome/manifest.json"> </head> <body> <app-root></app-root> <script>
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  // auto-unregister service worker during dev mode
+  navigator.serviceWorker.getRegistration().then(function(registration) {
+  if (registration) {
+    registration.unregister().then(function() { location.reload(true) });
+  }
+  });
+}
+</script></body></html>

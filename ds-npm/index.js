@@ -8,7 +8,7 @@ import chalk from 'chalk'
 import logSymbols from 'log-symbols'
 import fs from 'fs-extra'
 import path, { parse } from 'path'
-import { initStencliCmd } from './main/stencli/index.mjs'
+import { initstencilCmd } from './main/stencil/index.mjs'
 import  { initGiteeCmd } from './main/gitee/index.mjs';
 import { removeSpace, getDsnConfig, initDsnUtilCmd } from './main/util/index.mjs';
 
@@ -24,7 +24,7 @@ program.command('test')
     })
 
 
-initStencliCmd();
+initstencilCmd();
 initGiteeCmd();
 initDsnUtilCmd();
 
@@ -34,7 +34,7 @@ program.command('list')
         console.log(`
         test 测试一些数据
         list 查看所有命令
-        stencli|scli
+        stencil|scil
             -h|-H 帮助
             -c|-complie 将目标文件移入准备上传到gitee的文件夹
         gitee|ge 
