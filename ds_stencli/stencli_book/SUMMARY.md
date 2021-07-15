@@ -6,15 +6,15 @@
 # Summary
 
 * [文档介绍](README.md)
-* [Stencli翻译文档]
-  * [Stencli介绍]
-    * [为什么使用Stencli](2020/introduction/whyStencli.md)
-    * [Stencli的目标和宗旨](2020/introduction/goalsAndObjectives.md)
+* [stencil翻译文档]
+  * [stencil介绍]
+    * [为什么使用stencil](2020/introduction/whystencil.md)
+    * [stencil的目标和宗旨](2020/introduction/goalsAndObjectives.md)
     * [浏览器支持](2020/introduction/browserSupport.md)
     * [入门](2020/introduction/gettingStarted.md)
     * [我的第一个组件](2020/introduction/myFirstComponent.md)
     * [常见问题](2020/introduction/FAQ.md)
-    * [使用Stencli构建设计系统](2020/introduction/WhatisaDesignSystem.md)
+    * [使用stencil构建设计系统](2020/introduction/WhatisaDesignSystem.md)
     * [什么是设计系统](2020/introduction/StencilforDesignSystems.md)
   * [组件]
     * [组件API](2020/components/API.md)
@@ -67,7 +67,7 @@
     * [本地静态资源文件](2020/Guides/LocalAssets.md)
     * [样式指南](2020/Guides/StyleGuide.md)
     * [Service Workers](2020/Guides/ServiceWorkers.md)
-    * [Stencli状态管理](2020/Guides/StencilStore.md)
+    * [stencil状态管理](2020/Guides/StencilStore.md)
     * [发布](2020/Guides/Publishing.md)
     * [Deno(2020/实验性功能)](2020/Guides/Deno (2020/experimental).md)
   * [测试]

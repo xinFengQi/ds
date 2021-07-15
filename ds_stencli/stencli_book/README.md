@@ -5,8 +5,8 @@
 -->
 # 介绍
 
-闲时根据有道翻译及谷歌翻译"复制"一份Stencli官方文档     
-[Stencli官方文档地址](https://stenciljs.com/docs/introduction)      
+闲时根据有道翻译及谷歌翻译"复制"一份stencil官方文档     
+[stencil官方文档地址](https://stenciljs.com/docs/introduction)      
 [gihup地址](https://github.com/ionic-team/stencil)      
 使用gitbook构建文档
 使用gitee.page发布文档

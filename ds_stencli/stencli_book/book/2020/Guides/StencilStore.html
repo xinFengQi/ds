@@ -1,0 +1,1377 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>stencil状态管理 · damon 文档</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Publishing.html" />
+    
+    
+    <link rel="prev" href="ServiceWorkers.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    文档介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    [stencil翻译文档]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" >
+            
+                <span>
+            
+                    
+                    [stencil介绍]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="../introduction/whystencil.md">
+            
+                <span>
+            
+                    
+                    为什么使用stencil
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="../introduction/goalsAndObjectives.html">
+            
+                <a href="../introduction/goalsAndObjectives.html">
+            
+                    
+                    stencil的目标和宗旨
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../introduction/browserSupport.html">
+            
+                <a href="../introduction/browserSupport.html">
+            
+                    
+                    浏览器支持
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="../introduction/gettingStarted.html">
+            
+                <a href="../introduction/gettingStarted.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="../introduction/myFirstComponent.html">
+            
+                <a href="../introduction/myFirstComponent.html">
+            
+                    
+                    我的第一个组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="../introduction/FAQ.html">
+            
+                <a href="../introduction/FAQ.html">
+            
+                    
+                    常见问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="../introduction/WhatisaDesignSystem.html">
+            
+                <a href="../introduction/WhatisaDesignSystem.html">
+            
+                    
+                    使用stencil构建设计系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="../introduction/StencilforDesignSystems.html">
+            
+                <a href="../introduction/StencilforDesignSystems.html">
+            
+                    
+                    什么是设计系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" >
+            
+                <span>
+            
+                    
+                    [组件]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../components/API.html">
+            
+                <a href="../components/API.html">
+            
+                    
+                    组件API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../components/Component.html">
+            
+                <a href="../components/Component.html">
+            
+                    
+                    组件装饰器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="../components/LifecycleMethods.html">
+            
+                <a href="../components/LifecycleMethods.html">
+            
+                    
+                    组件生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="../components/Properties.html">
+            
+                <a href="../components/Properties.html">
+            
+                    
+                    属性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="../components/InternalState.html">
+            
+                <a href="../components/InternalState.html">
+            
+                    
+                    内部状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="../components/reactiveData.html">
+            
+                <a href="../components/reactiveData.html">
+            
+                    
+                    响应式数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="../components/UsingJSX.html">
+            
+                <a href="../components/UsingJSX.html">
+            
+                    
+                    使用JSX
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="../components/events.html">
+            
+                <a href="../components/events.html">
+            
+                    
+                    事件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="../components/Methods.html">
+            
+                <a href="../components/Methods.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.10" data-path="../components/HostElement.html">
+            
+                <a href="../components/HostElement.html">
+            
+                    
+                    Host 元素
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" >
+            
+                <span>
+            
+                    
+                    [静态网站生成]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../StaticSiteGeneration/Overview.html">
+            
+                <a href="../StaticSiteGeneration/Overview.html">
+            
+                    
+                    总览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../StaticSiteGeneration/PrerenderConfig.html">
+            
+                <a href="../StaticSiteGeneration/PrerenderConfig.html">
+            
+                    
+                    预渲染配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../StaticSiteGeneration/Basics.html">
+            
+                <a href="../StaticSiteGeneration/Basics.html">
+            
+                    
+                    静态网页基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../StaticSiteGeneration/Debugging.html">
+            
+                <a href="../StaticSiteGeneration/Debugging.html">
+            
+                    
+                    静态网页调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../StaticSiteGeneration/Metatags.html">
+            
+                <a href="../StaticSiteGeneration/Metatags.html">
+            
+                    
+                    元标记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="../StaticSiteGeneration/ServerSideRendering.html">
+            
+                <a href="../StaticSiteGeneration/ServerSideRendering.html">
+            
+                    
+                    服务端渲染
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="../StaticSiteGeneration/Deployment.html">
+            
+                <a href="../StaticSiteGeneration/Deployment.html">
+            
+                    
+                    部署方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    [框架整合]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../FrameworkIntegrations/Overview.html">
+            
+                <a href="../FrameworkIntegrations/Overview.html">
+            
+                    
+                    总览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../FrameworkIntegrations/Bindings.html">
+            
+                <a href="../FrameworkIntegrations/Bindings.html">
+            
+                    
+                    绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="../FrameworkIntegrations/Angular.html">
+            
+                <a href="../FrameworkIntegrations/Angular.html">
+            
+                    
+                    Angular
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="../FrameworkIntegrations/React.html">
+            
+                <a href="../FrameworkIntegrations/React.html">
+            
+                    
+                    React
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.5" data-path="../FrameworkIntegrations/Vue.html">
+            
+                <a href="../FrameworkIntegrations/Vue.html">
+            
+                    
+                    Vue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.6" data-path="../FrameworkIntegrations/Ember.html">
+            
+                <a href="../FrameworkIntegrations/Ember.html">
+            
+                    
+                    Ember
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.7" data-path="../FrameworkIntegrations/JavaScript.html">
+            
+                <a href="../FrameworkIntegrations/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" >
+            
+                <span>
+            
+                    
+                    [配置项]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../Config/Overview.html">
+            
+                <a href="../Config/Overview.html">
+            
+                    
+                    总览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../Config/DevServer.html">
+            
+                <a href="../Config/DevServer.html">
+            
+                    
+                    开发服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.3" data-path="../Config/Plugins.html">
+            
+                <a href="../Config/Plugins.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.4" data-path="../Config/Extras.html">
+            
+                <a href="../Config/Extras.html">
+            
+                    
+                    额外功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.5" data-path="../Config/CLI.html">
+            
+                <a href="../Config/CLI.html">
+            
+                    
+                    脚手架
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" >
+            
+                <span>
+            
+                    
+                    [输出目标]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.6.1" data-path="../OutputTargets/Overview.html">
+            
+                <a href="../OutputTargets/Overview.html">
+            
+                    
+                    总览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.2" data-path="../OutputTargets/dist-custom-elements-bundle.html">
+            
+                <a href="../OutputTargets/dist-custom-elements-bundle.html">
+            
+                    
+                    自定义标签
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.3" data-path="../OutputTargets/dist.html">
+            
+                <a href="../OutputTargets/dist.html">
+            
+                    
+                    包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.4" data-path="../OutputTargets/www.html">
+            
+                <a href="../OutputTargets/www.html">
+            
+                    
+                    Web程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.5" data-path="../OutputTargets/docs-readme.html">
+            
+                <a href="../OutputTargets/docs-readme.html">
+            
+                    
+                    组件描述信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.6" data-path="../OutputTargets/docs-json.html">
+            
+                <a href="../OutputTargets/docs-json.html">
+            
+                    
+                    组件json信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.7" data-path="../OutputTargets/docs-custom.html">
+            
+                <a href="../OutputTargets/docs-custom.html">
+            
+                    
+                    自定义文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.8" data-path="../OutputTargets/CopyTasks.html">
+            
+                <a href="../OutputTargets/CopyTasks.html">
+            
+                    
+                    复制参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" >
+            
+                <span>
+            
+                    
+                    [向导]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="WebWorkers.html">
+            
+                <a href="WebWorkers.html">
+            
+                    
+                    Web Workers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="HydrateApp.html">
+            
+                <a href="HydrateApp.html">
+            
+                    
+                    Hydrate App
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="Bundling.html">
+            
+                <a href="Bundling.html">
+            
+                    
+                    打包编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.4" data-path="TypedComponents.html">
+            
+                <a href="TypedComponents.html">
+            
+                    
+                    组件类型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.5" data-path="Forms.html">
+            
+                <a href="Forms.html">
+            
+                    
+                    表单
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.6" data-path="LocalAssets.html">
+            
+                <a href="LocalAssets.html">
+            
+                    
+                    本地静态资源文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.7" data-path="StyleGuide.html">
+            
+                <a href="StyleGuide.html">
+            
+                    
+                    样式指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.8" data-path="ServiceWorkers.html">
+            
+                <a href="ServiceWorkers.html">
+            
+                    
+                    Service Workers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.7.9" data-path="StencilStore.html">
+            
+                <a href="StencilStore.html">
+            
+                    
+                    stencil状态管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.10" data-path="Publishing.html">
+            
+                <a href="Publishing.html">
+            
+                    
+                    发布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.11" data-path="Deno (2020/experimental">
+            
+                <span>
+            
+                    
+                    Deno(2020/实验性功能)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" >
+            
+                <span>
+            
+                    
+                    [测试]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="../Testing/Overview.html">
+            
+                <a href="../Testing/Overview.html">
+            
+                    
+                    总览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="../Testing/Config.html">
+            
+                <a href="../Testing/Config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="../Testing/UnitTesting.html">
+            
+                <a href="../Testing/UnitTesting.html">
+            
+                    
+                    单元测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.4" data-path="../Testing/End-to-endTesting.html">
+            
+                <a href="../Testing/End-to-endTesting.html">
+            
+                    
+                    端到端测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.5" data-path="../Testing/Mocking.html">
+            
+                <a href="../Testing/Mocking.html">
+            
+                    
+                    模拟
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.6" data-path="../Testing/VisualScreenshotDiff.html">
+            
+                <a href="../Testing/VisualScreenshotDiff.html">
+            
+                    
+                    屏幕截图视觉差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.7" data-path="../Testing/ScreenshotConnector.html">
+            
+                <a href="../Testing/ScreenshotConnector.html">
+            
+                    
+                    屏幕截图连接器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" >
+            
+                <span>
+            
+                    
+                    [编译器核心API]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.1" data-path="../CoreCompilerAPI/CompilerAPI.html">
+            
+                <a href="../CoreCompilerAPI/CompilerAPI.html">
+            
+                    
+                    编译器API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.2" data-path="../CoreCompilerAPI/CLIAPI.html">
+            
+                <a href="../CoreCompilerAPI/CLIAPI.html">
+            
+                    
+                    脚手架API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3" data-path="../CoreCompilerAPI/DevServerAPI.html">
+            
+                <a href="../CoreCompilerAPI/DevServerAPI.html">
+            
+                    
+                    开发服务器API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >stencil状态管理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <!--
+ * @Date: 2021-01-21 11:34:39
+ * @LastEditors: dongfb
+ * @LastEditTime: 2021-01-21 11:48:55
+-->
+<h1 id="stencilstore">@stencil/store</h1>
+<p>Store&#x662F;&#x6A21;&#x677F;&#x6838;&#x5FC3;&#x56E2;&#x961F;&#x7684;&#x8F7B;&#x91CF;&#x7EA7;&#x5171;&#x4EAB;&#x72B6;&#x6001;&#x5E93;&#x3002;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x952E;/&#x503C;&#x6620;&#x5C04;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x5FC5;&#x8981;&#x65F6;&#x6709;&#x6548;&#x5730;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x7EC4;&#x4EF6;&#x3002;</p>
+<ol>
+<li>&#x8F7B;&#x91CF;&#x7EA7;</li>
+<li>&#x96F6;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;</li>
+<li>&#x7B80;&#x5355;&#x7684;API&#xFF0C;&#x5982;&#x54CD;&#x5E94;&#x5F0F;&#x6620;&#x5C04;</li>
+<li>&#x6700;&#x4F73;&#x7684;&#x6027;&#x80FD;</li>
+</ol>
+<h2 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h2>
+<pre><code>npm install @stencil/store --save-dev
+</code></pre><h2 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h2>
+<p> store.ts&#xFF1A;</p>
+<pre><code>import { createStore } from &quot;@stencil/store&quot;;
+
+const { state, onChange } = createStore({
+  clicks: 0,
+  seconds: 0,
+  squaredClicks: 0
+});
+
+onChange(&apos;clicks&apos;, value =&gt; {
+  state.squaredClicks = value ** 2;
+});
+
+export default state;
+</code></pre><p>component.tsx&#xFF1A;</p>
+<pre><code>import { Component, h } from &apos;@stencil/core&apos;;
+import state from &apos;../store&apos;;
+
+@Component({
+  tag: &apos;app-profile&apos;,
+})
+export class AppProfile {
+
+  componentWillLoad() {
+    setInterval(() =&gt; state.seconds++, 1000);
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;p&gt;
+          &lt;MyGlobalCounter /&gt;
+          &lt;p&gt;
+            Seconds: {state.seconds}
+            &lt;br /&gt;
+            Squared Clicks: {state.squaredClicks}
+          &lt;/p&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+const MyGlobalCounter = () =&gt; {
+  return (
+    &lt;button onClick={() =&gt; state.clicks++}&gt;
+      {state.clicks}
+    &lt;/button&gt;
+  );
+};
+</code></pre><h2 id="api">API</h2>
+<h3 id="createstoreinitialstate">createStore<t>(initialState)</t></h3>
+<p>&#x4F7F;&#x7528;&#x7ED9;&#x5B9A;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;store&#x3002;&#x8BE5;&#x7C7B;&#x578B;&#x662F;&#x4ECE;initialState&#x63A8;&#x65AD;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x6216;&#x8005;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x6CDB;&#x578B;&#x7C7B;&#x578B;T&#x4F20;&#x9012;&#x3002;</p>
+<p>&#x8FD4;&#x56DE;store&#x662F;&#x5177;&#x6709;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<h3 id="storestate">store.state</h3>
+<p>&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#x662F;&#x4EE3;&#x7406;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#x548C;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;&#xFF0C;&#x5F53;&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#x6539;&#x53D8;&#x65F6;&#xFF0C;Store&#x4F1A;&#x81EA;&#x52A8;&#x5904;&#x7406;&#x7EC4;&#x4EF6;&#x7684;&#x91CD;&#x65B0;&#x5448;&#x73B0;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;IE11&#x4E0D;&#x652F;&#x6301;Proxy&#x5BF9;&#x8C61;&#xFF08;&#x751A;&#x81F3;&#x4E0D;&#x652F;&#x6301;polyfill&#xFF09;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x652F;&#x6301;IE11&#xFF0C;&#x5219;&#x9700;&#x8981;&#x4F7F;&#x7528;API&#x7684;store.get&#x548C;store.set&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="storeonevent-listener">store.on(event, listener)</h3>
+<p>&#x4E3A;&#x67D0;&#x4E2A;&#x64CD;&#x4F5C;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x4EE5;&#x6267;&#x884C;&#x7279;&#x5B9A;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="storeonchangepropname-listener">store.onChange(propName, listener)</h3>
+<p>&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5728;&#x7279;&#x5B9A;&#x5C5E;&#x6027;&#x66F4;&#x6539;&#x65F6;&#x8C03;&#x7528;&#x7684;&#x4FA6;&#x542C;&#x5668;&#x3002;</p>
+<h3 id="storegetpropname">store.get(propName)</h3>
+<p>&#x4ECE;store&#x4E2D;&#x83B7;&#x53D6;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x3002;</p>
+<h3 id="storesetpropname-value">store.set(propName, value)</h3>
+<p>&#x5728;store&#x4E2D;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x3002;</p>
+<h3 id="storereset">store.reset()</h3>
+<p>&#x5C06;store&#x91CD;&#x7F6E;&#x4E3A;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x3002;</p>
+<h3 id="storeusesubscriptions">store.use(...subscriptions)</h3>
+<p>&#x4F7F;&#x7528;store&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x8BA2;&#x9605;&#x3002;&#x8BA2;&#x9605;&#x662F;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5C5E;&#x6027;get&#x3001;set&#x6216;reset&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<h2 id="&#x6D4B;&#x8BD5;">&#x6D4B;&#x8BD5;</h2>
+<p>&#x50CF;&#x4EFB;&#x4F55;&#x5168;&#x5C40;&#x72B6;&#x6001;&#x5E93;&#x4E00;&#x6837;&#xFF0C;&#x5E94;&#x5728;&#x6BCF;&#x4E2A;&#x89C4;&#x8303;&#x6D4B;&#x8BD5;&#x4E4B;&#x95F4;&#x91CD;&#x7F6E;&#x72B6;&#x6001;&#x3002;&#x5728;beforeEach&#x94A9;&#x5B50;&#x4E2D;&#x4F7F;&#x7528;dispose()API &#x3002;</p>
+<pre><code>import store from &apos;../store&apos;;
+
+beforeEach(() =&gt; {
+  store.dispose();
+});
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ServiceWorkers.html" class="navigation navigation-prev " aria-label="Previous page: Service Workers">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Publishing.html" class="navigation navigation-next " aria-label="Next page: 发布">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"stencil状态管理","level":"1.2.7.9","depth":3,"next":{"title":"发布","level":"1.2.7.10","depth":3,"path":"2020/Guides/Publishing.md","ref":"2020/Guides/Publishing.md","articles":[]},"previous":{"title":"Service Workers","level":"1.2.7.8","depth":3,"path":"2020/Guides/ServiceWorkers.md","ref":"2020/Guides/ServiceWorkers.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"expandable-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"damon 文档","language":"zh-hans","gitbook":"*","description":"学习记录的文档仓库。"},"file":{"path":"2020/Guides/StencilStore.md","mtime":"2021-03-15T06:28:59.328Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-15T02:37:19.228Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

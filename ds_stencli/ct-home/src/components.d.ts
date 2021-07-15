@@ -14,6 +14,8 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface ComopoentGiteeMenu {
+    }
 }
 declare global {
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
@@ -34,10 +36,17 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLComopoentGiteeMenuElement extends Components.ComopoentGiteeMenu, HTMLStencilElement {
+    }
+    var HTMLComopoentGiteeMenuElement: {
+        prototype: HTMLComopoentGiteeMenuElement;
+        new (): HTMLComopoentGiteeMenuElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "comopoent-gitee-menu": HTMLComopoentGiteeMenuElement;
     }
 }
 declare namespace LocalJSX {
@@ -48,10 +57,13 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface ComopoentGiteeMenu {
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "comopoent-gitee-menu": ComopoentGiteeMenu;
     }
 }
 export { LocalJSX as JSX };
@@ -61,6 +73,7 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "comopoent-gitee-menu": LocalJSX.ComopoentGiteeMenu & JSXBase.HTMLAttributes<HTMLComopoentGiteeMenuElement>;
         }
     }
 }
