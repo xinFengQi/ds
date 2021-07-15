@@ -15,11 +15,11 @@ export class AppRoot {
   gotoBtu = [
     {
       name: '首页',
-      url: '/ct',
+      url: '/',
     },
     {
       name: '测试路由跳转',
-      url: '/ct/test/fbDong',
+      url: '/test/fbDong',
     },
   ];
 
@@ -35,10 +35,10 @@ export class AppRoot {
         })}
 
         <main>
-          <stencil-router>
+          <stencil-router root="/ct/">
             <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url="/ct" component="app-home" exact={true} />
-              <stencil-route url="/ct/test/:name" component="app-test" />
+              <stencil-route url="/" component="app-home" exact={true} />
+              <stencil-route url="/test/:name" component="app-test" />
             </stencil-route-switch>
           </stencil-router>
         </main>

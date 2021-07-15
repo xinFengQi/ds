@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文档首页</title>
 </head>
-<link rel="stylesheet" href="https://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.css">
-<script type="module" src="https://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.esm.js"></script>
-<link rel="stylesheet" href="https://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.css">
-<script type="module" src="https://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.esm.js"></script>
+<link rel="stylesheet"
+    href="https://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.css">
+<script type="module"
+    src="https://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.esm.js"></script>
+<link rel="stylesheet"
+    href="https://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.css">
+<script type="module"
+    src="https://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.esm.js"></script>
 
 <body>
     <dsb4-menu id="dsb4_menu"></dsb4-menu>
@@ -75,6 +79,15 @@
 
             console.log(treeDatas, inputDatas)
             document.getElementById('dsb4_menu').menuTree = [...inputDatas]
+            document.getElementById('dsb4_menu').addEventListener('clickNav', (ev) => {
+                const data = ev.detail;
+                if (data.childrens && data.childrens.length > 0) {
+                    return;
+                }
+                if (data.origin && data.origin.path) {
+                    window.open('https://dongfubao.gitee.io/ct/' + data.origin.path, '_blank');
+                }
+            })
         });
     }
 </script>

@@ -24,10 +24,25 @@ export class ComopoentGiteeMenu {
 
   initData = () => {
     (window as any).ds.axios.get('https://gitee.com/api/v5/repos/dongfubao/ct/git/trees/master?access_token=e9694199cc954120b37d5d449a56a752&recursive=1').then(v => {
-      this.originData = [...v.data.tree];
+      this.originData = [...this.sortTree(v.data.tree)];
       this.filterClick();
     });
   };
+
+  private sortTree(data: any) {
+    const treeData = [];
+    const fileTree = [];
+    data.forEach(v => {
+      if (v.type === 'tree') {
+        treeData.push(v);
+      } else {
+        fileTree.push(v);
+      }
+    });
+    return [...treeData, ...fileTree].sort((a, b) => {
+      return b.path.split('/').length - a.path.split('/').length;
+    });
+  }
 
   filterClick() {
     const treeDatas = this.originData.filter(it => this.getFilterData(it, this.filterValue)).map(it => this.getRecusionOrigin(it));
@@ -93,7 +108,6 @@ export class ComopoentGiteeMenu {
   }
 
   clickNav(ev) {
-    console.log(ev)
     const data = ev.detail;
     if (data.childrens && data.childrens.length > 0) {
       return;
@@ -108,7 +122,7 @@ export class ComopoentGiteeMenu {
       <Host>
         <input value={this.filterValue} onInput={event => this.filterValueChange(event)} />
         <button onClick={() => this.filterClick()}>过滤</button>
-        <dsb4-menu id="dsb4_menu" menuTree={this.inputDatas} onClickNav={(ev) => this.clickNav(ev)}></dsb4-menu>
+        <dsb4-menu id="dsb4_menu" menuTree={this.inputDatas} onClickNav={ev => this.clickNav(ev)}></dsb4-menu>
       </Host>
     );
   }

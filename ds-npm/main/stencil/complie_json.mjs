@@ -60,6 +60,8 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{Document}}</title>
+   
+    <link rel="stylesheet" href="http://dongfubao.gitee.io/ct/css_md/purple/purple.css">
     <link rel="stylesheet" href="{{script}}component/${name}.css">
     <script type="module" src="{{script}}component/${name}.esm.js"></script>
     </head>
@@ -144,6 +146,12 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>文档</title>
             </head>
+            <!-- 自定义组件 -->
+            <link rel="stylesheet" href="http://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.css">
+            <script type="module" src="http://dongfubao.gitee.io/ct/component/js_util_stencli/0.0.1/component/js_util_stencli.esm.js"></script>
+            <link rel="stylesheet" href="http://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.css">
+            <script type="module" src="http://dongfubao.gitee.io/ct/component/bootstrap_4_stencli/0.0.1/component/bootstrap_4_stencli.esm.js"></script>
+
             <link rel="stylesheet" href="../component/${name}.css">
             <script type="module" src="../component/${name}.esm.js"></script>
             <style>
@@ -152,10 +160,12 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
                 height: 100%;
             }
             .menu {
-                width: 400px;
+
+                width: 300px;
                 height: 100%;
                 min-height: 400px;
                 margin-right: 30px;
+                margin-top: 30px;
             }
             .nav {
                 margin: 4px;
@@ -164,23 +174,42 @@ window.dsWebComponent.${name}['${version}'] = {{components}};
                 flex: 1;
                 border: 0;
                 overflow: auto;
+                margin: 20px;
             }
             </style>
             <body style="height: 100%;">
             <div class="main">
                 <div class="menu">
-                    {{content}}
+                    <dsb4-menu id="dsb4_menu"></dsb4-menu>
                 </div>
                <iframe id="aaa" class="ifram_main" src=""></iframe>
             </div>
             </body>
-            <script>function show(src) {document.getElementById("aaa").src = src;}</script>
+            <script>
+                window.onload = () => {
+                    document.getElementById('dsb4_menu').menuTree = {{content}};
+                    document.getElementById('dsb4_menu').addEventListener('clickNav', (ev) => {
+                        console.log(ev)
+                        const data = ev.detail;
+                        if (data.childrens && data.childrens.length > 0) {
+                            return;
+                        }
+                        if (data && data.path) {
+                            document.getElementById("aaa").src =  data.path;
+                        }
+                    })
+                }
+            </script>
             </html>`
+        const reContent = [];
+        allMdPath.forEach(v => {
+            const names = v.replace('./', '').split('/');
+            const index = names.findIndex(n => n === 'components');
+            const name = names.slice(index + 1, names.length);
+            reContent.push({ name: name.join('/'), path: v })
+        })
         fs.writeFileSync(distGiteePath + '/docs/index.html',
-            indexTemplate.replace('{{content}}', allMdPath.map(v => {
-                return `<div class="nav" onclick="show('${v}')">${v}</div>`
-            }).join('')
-            )
+            indexTemplate.replace('{{content}}', JSON.stringify(reContent))
         )
         console.log('组件的readme.html生成完毕')
     }
