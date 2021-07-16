@@ -26,7 +26,7 @@
 	{
 		"page": "html/background.html"
 	},
-    "web_accessible_resources": ["js/global.js"],
+    "web_accessible_resources": ["node_modules/web-vitals/dist/web-vitals.umd.js", "js/global.js"],
     "homepage_url": "https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html",
     "chrome_url_overrides":
 	{

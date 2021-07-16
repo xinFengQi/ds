@@ -1,0 +1,28 @@
+{
+  "name": "h5-extend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/index.js",
+  "scripts": {
+    "show": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^6.0.0",
+    "html-webpack-plugin": "^5.3.2",
+    "less": "^4.1.1",
+    "mini-css-extract-plugin": "^2.1.0",
+    "postcss-loader": "^6.1.1",
+    "style-loader": "^3.1.0",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2",
+    "less-loader": "^10.0.1"
+  },
+  "dependencies": {
+    "ant-design-vue": "^1.7.6",
+    "vue": "^2.6.14"
+  }
+}

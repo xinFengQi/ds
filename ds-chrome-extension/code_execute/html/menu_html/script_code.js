@@ -37,6 +37,94 @@ var initCode = [
             }
         }
         portalLogin_trrt()`
+    },
+    {
+        idtime: '2',
+        name: "click_admin",
+        content: `function portalLogin_trrt() {
+            const valueMap = {
+                enterpriseId: 'aliyun-test0',
+                username: 'admin',   // 管理员账号
+                cno: '',             // 坐席账号
+                password: 'Aa123456',
+                captcha: '1234'
+            }
+            if(valueMap.cno && valueMap.cno.length > 0) {
+                const agentTab = document.getElementById('agentTab');
+                agentTab.click()
+            }
+            if(valueMap.username && valueMap.username.length > 0) {
+                const consoleTab = document.getElementById('consoleTab');
+                consoleTab.click()
+            }
+            var ev = new Event('input', { bubbles: true });
+            ev.simulated = true;
+            const enterpriseId = document.getElementById('enterpriseId')
+            const password = document.getElementById('password')
+            const cno = document.getElementById('cno')
+            const username = document.getElementById('username')
+            enterpriseId.value = valueMap.enterpriseId;
+            enterpriseId.dispatchEvent(ev);
+            password.value = valueMap.password;
+            password.dispatchEvent(ev);
+            if (cno) {
+                cno.value = valueMap.cno;
+                cno.dispatchEvent(ev);
+            }
+            if (username) {
+                username.value = valueMap.username;
+                username.dispatchEvent(ev);
+            }
+            const submitBtu = document.getElementById('loginBtn')
+            if (submitBtu) {
+                submitBtu.click()
+            }
+        }
+        portalLogin_trrt()`
+    },
+    {
+        idtime: '3',
+        name: "click_5201",
+        content: `function portalLogin_trrt() {
+            const valueMap = {
+                enterpriseId: 'aliyun-test0',
+                username: '',   // 管理员账号
+                cno: '5201',             // 坐席账号
+                password: 'Aa123456',
+                captcha: '1234'
+            }
+            if(valueMap.cno && valueMap.cno.length > 0) {
+                const agentTab = document.getElementById('agentTab');
+                agentTab.click()
+            }
+            if(valueMap.username && valueMap.username.length > 0) {
+                const consoleTab = document.getElementById('consoleTab');
+                consoleTab.click()
+            }
+            var ev = new Event('input', { bubbles: true });
+            ev.simulated = true;
+            const enterpriseId = document.getElementById('enterpriseId')
+            const password = document.getElementById('password')
+            const cno = document.getElementById('cno')
+            const username = document.getElementById('username')
+            enterpriseId.value = valueMap.enterpriseId;
+            enterpriseId.dispatchEvent(ev);
+            password.value = valueMap.password;
+            password.dispatchEvent(ev);
+            if (cno) {
+                cno.value = valueMap.cno;
+                cno.dispatchEvent(ev);
+            }
+            if (username) {
+                username.value = valueMap.username;
+                username.dispatchEvent(ev);
+            }
+            const submitBtu = document.getElementById('loginBtn')
+            if (submitBtu) {
+                submitBtu.click()
+            }
+        }
+        portalLogin_trrt()`
     }
 ]
 
