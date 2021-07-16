@@ -8,9 +8,9 @@ import chalk from 'chalk'
 import logSymbols from 'log-symbols'
 import fs from 'fs-extra'
 import path, { parse } from 'path'
-import { initstencilCmd } from './main/stencil/index.mjs'
-import  { initGiteeCmd } from './main/gitee/index.mjs';
-import { removeSpace, getDsnConfig, initDsnUtilCmd } from './main/util/index.mjs';
+import { initstencilCmd } from './src/stencil/index.mjs'
+import  { initGiteeCmd } from './src/gitee/index.mjs';
+import { removeSpace, getDsnConfig, initDsnUtilCmd } from './src/util/index.mjs';
 
 // dsn -V|--version
 program.version('1.0.0');

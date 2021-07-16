@@ -1,5 +1,0 @@
-if(!window.$VUE_DATA) {
-    window.$VUE_DATA = {}
-}
-// component appComponentNavData
-window.$VUE_DATA.{{{globalName}}} = [{{{componentInfo}}}]
