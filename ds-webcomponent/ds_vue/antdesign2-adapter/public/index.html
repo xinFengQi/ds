@@ -12,16 +12,16 @@
 </head>
 
 <body>
-
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
   </noscript>
 
-  <!-- <vue2-ant __name="a-button"></vue2-ant>
+
+  <vue2-ant __name="a-button"></vue2-ant>
 
   <vue2-ant id="test" __name="a-button" type="primary" click="show">
-  </vue2-ant> -->
+  </vue2-ant>
 
 
   <div>
@@ -42,46 +42,30 @@
   </div>
 
 
-  <!-- <vue2-ant __name="a-input" placeholder="Basic usage" > </vue2-ant>
+  <vue2-ant __name="a-input" placeholder="Basic usage"> </vue2-ant>
 
-  <vue2-ant id="picker_test" __name="a-time-picker" use12-hours></vue2-ant> -->
-  <vue2-ant __name="a-switch" checked="true" un-checked-children="a123" checked-children="a"> </vue2-ant>
+  <vue2-ant id="picker_test" __name="a-time-picker" use12-hours></vue2-ant>
+
+
+  <vue2-ant __name="a-switch" un-checked-children="a123" checked-children="a" size="small"> </vue2-ant>
 
 
   <button onclick="showId()">增加节点</button>
   <button onclick="hideId()">删除节点</button>
 
+
 </body>
 
 <script>
-
-  var aa = null
-
-  function showId() {
-    console.log([aa])
-    document.body.appendChild(aa)
-
-  }
-
-  function hideId() {
-    aa.parentNode.removeChild(aa);
-
-  }
-
   window.onload = () => {
+    document.getElementById('picker_test').vueEmit.openChange = () => {
+      console.log('打开')
+    }
 
-    /**
-     * 1. 事件没问题了，方法需要调整: 方法也做了适配
-     * 2. 在初始化后新增(删除)适配器节点，事件调用问题
-     * 3. slot 的显示问题 
-     */
-
-
-
-
-
+    document.getElementById('picker_test').vueEmit.focus = () => {
+      console.log('聚焦')
+    }
   }
-
 </script>
 
 </html>
