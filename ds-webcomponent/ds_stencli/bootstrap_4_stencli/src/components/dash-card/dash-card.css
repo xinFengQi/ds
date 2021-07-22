@@ -1,0 +1,8 @@
+.dash_card_main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dash_card_{
+  margin: 10px;
+}

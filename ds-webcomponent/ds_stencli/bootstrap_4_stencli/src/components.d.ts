@@ -5,9 +5,16 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { dsCardData } from "./components/dash-card/dash-card";
 import { dsMenuTree } from "./components/dsb4-menu/dsb4-menu";
 export namespace Components {
     interface Bootstrap4StencliTest {
+    }
+    interface DashCard {
+        /**
+          * 卡片数据数组
+         */
+        "cardData": dsCardData[];
     }
     interface Dsb4Menu {
         /**
@@ -23,6 +30,12 @@ declare global {
         prototype: HTMLBootstrap4StencliTestElement;
         new (): HTMLBootstrap4StencliTestElement;
     };
+    interface HTMLDashCardElement extends Components.DashCard, HTMLStencilElement {
+    }
+    var HTMLDashCardElement: {
+        prototype: HTMLDashCardElement;
+        new (): HTMLDashCardElement;
+    };
     interface HTMLDsb4MenuElement extends Components.Dsb4Menu, HTMLStencilElement {
     }
     var HTMLDsb4MenuElement: {
@@ -31,11 +44,18 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "bootstrap-4-stencli-test": HTMLBootstrap4StencliTestElement;
+        "dash-card": HTMLDashCardElement;
         "dsb4-menu": HTMLDsb4MenuElement;
     }
 }
 declare namespace LocalJSX {
     interface Bootstrap4StencliTest {
+    }
+    interface DashCard {
+        /**
+          * 卡片数据数组
+         */
+        "cardData"?: dsCardData[];
     }
     interface Dsb4Menu {
         /**
@@ -49,6 +69,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "bootstrap-4-stencli-test": Bootstrap4StencliTest;
+        "dash-card": DashCard;
         "dsb4-menu": Dsb4Menu;
     }
 }
@@ -57,6 +78,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "bootstrap-4-stencli-test": LocalJSX.Bootstrap4StencliTest & JSXBase.HTMLAttributes<HTMLBootstrap4StencliTestElement>;
+            "dash-card": LocalJSX.DashCard & JSXBase.HTMLAttributes<HTMLDashCardElement>;
             "dsb4-menu": LocalJSX.Dsb4Menu & JSXBase.HTMLAttributes<HTMLDsb4MenuElement>;
         }
     }
