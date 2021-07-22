@@ -18,6 +18,13 @@ export default {
 
             // 将el_Dom元素回调给webComponent
             if (this.$refs[reKey] && this.$refs[reKey].$el) {
+                const slotDefalult = this.componentMap[reKey].slot.default || []
+                for (let i = 0; i < slotDefalult.length; i++) {
+                    const el = slotDefalult[i];
+                    if (this.$refs[reKey].$el.nodeType === 1) {
+                        this.$refs[reKey].$el.appendChild(el);
+                    }
+                }
                 const elArr = [];
                 this.getEl(this.$refs[reKey].$el, elArr);
                 Vue2EmitAdapter.emit(`vueComponentCreate_${reKey}`, elArr);
@@ -54,7 +61,6 @@ export default {
                     if (!this.componentMap[key]) {
                         return;
                     }
-                    console.log(this.componentMap[key]);
                     delete this.componentMap[key];
                     this.componentMap = { ...this.componentMap };
                 }
@@ -98,22 +104,49 @@ export default {
                 arr.push(el);
             }
         },
+        getChildNode(c) {
+            const nodes = [];
+            for (let i = 0; i < this.componentMap[c].childresNode.length; i++) {
+                const el = this.componentMap[c].childresNode.item(i);
+                console.log(el)
+                nodes.push(['span', '112123']);
+            }
+            return nodes;
+        },
     },
+
     render() {
+
         return (
             <div>
                 {
-                    Object.keys(this.componentMap).map(c =>
-                        h(
+                    Object.keys(this.componentMap).map(c => {
+                        if (!this.componentMap[c].key) {
+                            return;
+                        }
+                        console.log(this.componentMap[c], '开始渲染---------------------------------------')
+                        return h(
                             this.componentMap[c].name,
                             {
                                 ref: c,
                                 key: c,
-                                prop: {...this.componentMap[c].prop},
-                                on: {...this.componentMap[c].emit},
-
-                            }
+                                prop: { ...this.componentMap[c].prop },
+                                attrs: {
+                                    ...this.componentMap[c].prop
+                                },
+                                on: { ...this.componentMap[c].emit },
+                                slot: 'default',
+                                scopedSlots: {
+                                    default: () =>  this.getChildNode(c).map(v => {
+                                        console.log(v, '-----------------------------')
+                                        return h.apply(h, [...v])
+                                    })
+                                },
+                            },
+                           
                         )
+                    }
+
                     )
                 }
             </div>

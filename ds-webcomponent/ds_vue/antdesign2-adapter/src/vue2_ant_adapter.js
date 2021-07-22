@@ -7,8 +7,9 @@ class Vue2AntAdapter extends HTMLElement {
     key = 'vue2_ant_' + iKey++;
     tagName = null;
     prop = {};
-    propIn = ['__name', 'id'];
+    propIn = ['__name', 'id', '__children'];
     componentData = null;
+    componentOrigin = null;
     constructor() {
         super();
         keys.push(this.key);
@@ -18,7 +19,16 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('创建--------------------------------', this.key)
+        console.log([this],this, '--------------------')
+        if(this.hasAttribute('__parent')) {
+            return;
+        }
+        this.componentOrigin = this.cloneNode(true);
+        console.log('创建--------------------------------', this.key);
+        // 初始化slot
+        const slotMap = this.initSlotData();
+        const childresNode = this.childNodes;
+
         this.tagName = this.attributes.__name.value;
         this.attributes.forEach(v => {
             if (!this.propIn.includes(v.name)) {
@@ -31,6 +41,8 @@ class Vue2AntAdapter extends HTMLElement {
             name: this.tagName,
             prop: this.prop,
             emit: this.vueEmit,
+            slot: slotMap,
+            childresNode: childresNode,
             elOn: null
         };
         Vue2EmitAdapter.emit(`componentCreate_${this.key}`, this.componentData);
@@ -41,7 +53,7 @@ class Vue2AntAdapter extends HTMLElement {
 
         // 监听后来vue组件创建之后
         this.componentData.elOn = Vue2EmitAdapter.on(`vueComponentCreate_${this.key}`, (data) => {
-            console.log(data, '-----------------------------')
+            console.log('vue返回的元素:', data)
             if (!data) {
                 return;
             }
@@ -52,13 +64,47 @@ class Vue2AntAdapter extends HTMLElement {
                     this.removeChild(document.getElementById(keyStr))
                 }
                 da.id = keyStr;
-                this.appendChild(da)
+                console.log([this], '------------44444444444444444444444444444--------------------')
+                if (this.hasAttribute('__children') && this.attributes.__children.value === '1') {
+                    this.parentNode.insertBefore(da, this)
+                } else {
+                    this.appendChild(da)
+                }
+
             })
         })
     }
 
+    initSlotData() {
+        const slotMap = {};
+        const childrenNodesNoName = [];
+        if (!this.childNodes || !this.childNodes.length === 0) {
+            return;
+        }
+        this.childNodes.forEach(no => {
+            if (!no) {
+                return;
+            }
+            let cloneChild = no;
+            if (no.nodeName === 'VUE2-ANT') {
+                cloneChild.cloneNode(true);
+                cloneChild.setAttribute('__children', '1');
+            }
+
+            if (cloneChild.getAttribute && cloneChild.getAttribute('slot')) {
+                slotMap[cloneChild.getAttribute('slot').value] = cloneChild;
+            } else {
+                childrenNodesNoName.push(cloneChild);
+            }
+        })
+        slotMap.default = childrenNodesNoName;
+        return slotMap;
+    }
+
     disconnectedCallback() {
-        console.log('销毁--------------------------------', this.key)
+        if(this.hasAttribute('__parent')) {
+            return;
+        }
         Vue2EmitAdapter.destory(this.componentData.elOn);
         Vue2EmitAdapter.emit(`componentDestory_${this.key}`, this.key);
 

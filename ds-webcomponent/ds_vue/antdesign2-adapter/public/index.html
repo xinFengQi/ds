@@ -18,28 +18,37 @@
   </noscript>
 
 
-  <vue2-ant __name="a-button"></vue2-ant>
-
-  <vue2-ant id="test" __name="a-button" type="primary" click="show">
+  <vue2-ant __name="a-button">
+    按钮1
   </vue2-ant>
 
+  <vue2-ant id="test" __name="a-button" type="primary" click="show">
+    按钮2
+  </vue2-ant>
 
+  <vue2-ant __name="a-menu-item"   key="3">
+    Option 3
+  </vue2-ant>
+
+  <vue2-ant __name="a-icon" type="mail" ></vue2-ant>
   <div>
-    <!-- <vue2-ant __name="a-menu" style="width: 256px"  mode="inline" >
-      <vue2-ant __name="a-sub-menu" key="sub1">
+    <vue2-ant __name="a-menu" style="width: 256px"  mode="inline" >
+      <a-sub-menu key="sub1" >
         <span slot="title">
-          <vue2-ant __name=" a-icon" type="mail" />
+          <vue2-ant __name="a-icon" type="mail" />
           <span>这啥</span>
         </span>
-        <vue2-ant __name="a-menu-item-group" key="g2" title="Item 2">
-          <vue2-ant __name="a-menu-item" key="3">
+        <a-menu-item-group key="g2" title="Item 2">
+          <a-menu-item  key="3">
             Option 3
-          </vue2-ant>
-        </vue2-ant>
-      </vue2-ant>
-    </vue2-ant> -->
+          </a-menu-item>
+        </a-menu-item-group>
+      </a-sub-menu>
+    </vue2-ant>
 
   </div>
+
+ 
 
 
   <vue2-ant __name="a-input" placeholder="Basic usage"> </vue2-ant>
