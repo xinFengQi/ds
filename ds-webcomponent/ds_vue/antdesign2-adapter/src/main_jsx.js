@@ -130,53 +130,52 @@ export default {
             })
             return returnMap
         },
-        getDefaultSlots(h, c) {
-            return c.map(co => {
-                return h(
-                    co.localName,
-                    {
-                        domProps: {
-                            innerHTML: co.innerHTML
-                        },
-                    }
-                );
-            })
-        },
         getOtherSlot(h, c) {
-            console.log(this.componentMap)
-            console.log(h, [c], 'slot转义');
-            c.removeAttribute('slot')
-            const slot = h(
-                c.localName,
-            );
-            console.log(slot, '===============================');
+            let slot = null;
+            if (c.nodeType === 1) {
+                c.removeAttribute('slot');
+                slot = h(
+                    c.localName,
+                )
+            } else {
+                var element = document.createTextNode(c.nodeValue)
+                slot = element.nodeValue;
+            }
             setTimeout(() => {
-                if (slot.elm.parentNode && slot.elm.parentNode.replaceChild) {
-                    slot.elm.parentNode.replaceChild(c, slot.elm)
+                if (c.nodeType === 1) {
+                    if (slot.elm.parentNode && slot.elm.parentNode.replaceChild) {
+                        slot.elm.parentNode.replaceChild(c, slot.elm)
+                    }
                 }
             })
             return slot;
         },
-        getVueChildrens(h, childrenMap) {
+        getVueChildrens(h, childrenMap, childrens) {
             console.log('存在vue组件得数据', this.componentMap, childrenMap)
-            if (!childrenMap) {
-                return [];
-            }
-            return Object.keys(childrenMap).map(key => {
-                return h(
-                    childrenMap[key].name,
-                    {
-                        key: key,
-                        prop: { ...childrenMap[key].prop },
-                        attrs: {
-                            ...childrenMap[key].prop
-                        },
-                        on: { ...childrenMap[key].emit },
-                        scopedSlots: this.getScopedSlots(h, childrenMap[key].slot),
-                    },
-                    this.getVueChildrens(h, childrenMap[key].childrens)
-                );
+
+            const childrenNodes = [];
+            childrens.forEach(c => {
+                childrenNodes.push(this.getOtherSlot(h, c))
             })
+            if (childrenMap) {
+                Object.keys(childrenMap).map(key => {
+                    const a = h(
+                        childrenMap[key].name,
+                        {
+                            key: key,
+                            prop: { ...childrenMap[key].prop },
+                            attrs: {
+                                ...childrenMap[key].prop
+                            },
+                            on: { ...childrenMap[key].emit },
+                            scopedSlots: this.getScopedSlots(h, childrenMap[key].slot),
+                        },
+                        this.getVueChildrens(h, childrenMap[key].childrens, childrenMap[key].slot.default)
+                    );
+                    childrenNodes.push(a);
+                })
+            }
+            return childrenNodes;
         }
     },
 
@@ -188,7 +187,7 @@ export default {
                         if (!this.componentMap[c].key || this.componentMap[c].isChildren) {
                             return;
                         }
-                        console.log(this.componentMap, this.componentMap[c], '开始渲染---------------------------------------')
+                        console.log('开始渲染', this.componentMap, this.componentMap[c])
                         return h(
                             this.componentMap[c].name,
                             {
@@ -201,7 +200,7 @@ export default {
                                 on: { ...this.componentMap[c].emit },
                                 scopedSlots: this.getScopedSlots(h, this.componentMap[c].slot),
                             },
-                            this.getVueChildrens(h, this.componentMap[c].childrens)
+                            this.getVueChildrens(h, this.componentMap[c].childrens, this.componentMap[c].slot.default)
                         )
                     }
                     )

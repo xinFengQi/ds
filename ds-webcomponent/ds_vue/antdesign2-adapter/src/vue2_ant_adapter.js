@@ -115,6 +115,9 @@ class Vue2AntAdapter extends HTMLElement {
             if (no.nodeName === 'VUE2-ANT') {
                 return;
             }
+            if(no.nodeName === '#text' && no.nodeValue.replace(/\n/g, '').replace(/ /g, '').length === 0) {
+                return;
+            }
             if (no.getAttribute && no.getAttribute('slot')) {
                 slotMap[no.getAttribute('slot')] = no;
             } else {
