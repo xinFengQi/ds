@@ -8,29 +8,6 @@ export default {
             componentMap: {},
         }
     },
-    updated() {
-        Object.keys(this.componentMap).forEach((reKey) => {
-            if (!this.componentMap[reKey] || this.componentMap[reKey].isEl) {
-                return;
-            }
-            this.componentMap[reKey].el = this.$refs[reKey];
-            this.componentMap[reKey].isEl = true;
-
-            // 将el_Dom元素回调给webComponent
-            if (this.$refs[reKey] && this.$refs[reKey].$el) {
-                const slotDefalult = this.componentMap[reKey].slot.default || []
-                for (let i = 0; i < slotDefalult.length; i++) {
-                    const el = slotDefalult[i];
-                    if (this.$refs[reKey].$el.nodeType === 1) {
-                        this.$refs[reKey].$el.appendChild(el);
-                    }
-                }
-                const elArr = [];
-                this.getEl(this.$refs[reKey].$el, elArr);
-                Vue2EmitAdapter.emit(`vueComponentCreate_${reKey}`, elArr);
-            }
-        });
-    },
     mounted() {
         Vue2EmitAdapter.atOnceHandler("keys", (data) => {
             console.log("已生成keys:", data);
@@ -44,6 +21,32 @@ export default {
             console.log("新生成key:", data);
             if (data) {
                 this.initComponentToKey(data);
+            }
+        });
+    },
+    updated() {
+        Object.keys(this.componentMap).forEach((reKey) => {
+            if (!this.$refs[reKey] || !this.componentMap[reKey] || this.componentMap[reKey].isEl) {
+                return;
+            }
+            this.componentMap[reKey].el = this.$refs[reKey];
+            this.componentMap[reKey].isEl = true;
+
+            // 将el_Dom元素回调给webComponent
+            if (this.$refs[reKey] && this.$refs[reKey].$el) {
+                console.log('节点被渲染了', this.$refs[reKey], this.$refs)
+                // 强行增加子节点 尽量不用
+                const slotDefalult = this.componentMap[reKey].slot.default || []
+                for (let i = 0; i < slotDefalult.length; i++) {
+                    const el = slotDefalult[i];
+                    if (this.$refs[reKey].$el.nodeType === 1) {
+                        this.$refs[reKey].$el.appendChild(el);
+                    }
+                }
+                const elArr = [];
+                this.getEl(this.$refs[reKey].$el, elArr);
+                Vue2EmitAdapter.emit(`vueComponentCreate_${reKey}`, elArr);
+                Vue2EmitAdapter.emit(`vueComponentDataChange_${reKey}`, this.componentMap[reKey]);
             }
         });
     },
@@ -76,6 +79,7 @@ export default {
                     this.componentMap = { ...this.componentMap };
                 }
             );
+            // 监听emit事件
             this.componentMap[key].OnComponentEmitChange = Vue2EmitAdapter.atOn(
                 `componentEmitChange_${key}`,
                 (data) => {
@@ -85,6 +89,7 @@ export default {
                     this.componentMap[key].emit = data;
                 }
             );
+            // 监听prop事件
             this.componentMap[key].OnComponentPropChange = Vue2EmitAdapter.atOn(
                 `componentPropChange_${key}`,
                 (data) => {
@@ -94,6 +99,18 @@ export default {
                     this.componentMap[key].prop = data;
                 }
             );
+            // 监听子节点是vue组件得节点
+            this.componentMap[key].OnComponentChildrenChange = Vue2EmitAdapter.atOn(
+                `componentChildrenChange_${key}`,
+                (data) => {
+                    if (!data || !this.componentMap[key]) {
+                        return;
+                    }
+                    this.componentMap[key].childrens = data;
+                    Vue2EmitAdapter.emit(`vueComponentDataChange_${key}`, this.componentMap[key]);
+                }
+            );
+
         },
         // 节点形成数组或者节点
         getEl: function (el, arr) {
@@ -104,27 +121,74 @@ export default {
                 arr.push(el);
             }
         },
-        getChildNode(c) {
-            const nodes = [];
-            for (let i = 0; i < this.componentMap[c].childresNode.length; i++) {
-                const el = this.componentMap[c].childresNode.item(i);
-                console.log(el)
-                nodes.push(['span', '112123']);
-            }
-            return nodes;
+        getScopedSlots(h, slotMap) {
+            const returnMap = {};
+            Object.keys(slotMap).forEach(slotKey => {
+                if (slotKey !== 'default') {
+                    returnMap[slotKey] = () => this.getOtherSlot(h, slotMap[slotKey]);
+                }
+            })
+            return returnMap
         },
+        getDefaultSlots(h, c) {
+            return c.map(co => {
+                return h(
+                    co.localName,
+                    {
+                        domProps: {
+                            innerHTML: co.innerHTML
+                        },
+                    }
+                );
+            })
+        },
+        getOtherSlot(h, c) {
+            console.log(this.componentMap)
+            console.log(h, [c], 'slot转义');
+            c.removeAttribute('slot')
+            const slot = h(
+                c.localName,
+            );
+            console.log(slot, '===============================');
+            setTimeout(() => {
+                if (slot.elm.parentNode && slot.elm.parentNode.replaceChild) {
+                    slot.elm.parentNode.replaceChild(c, slot.elm)
+                }
+            })
+            return slot;
+        },
+        getVueChildrens(h, childrenMap) {
+            console.log('存在vue组件得数据', this.componentMap, childrenMap)
+            if (!childrenMap) {
+                return [];
+            }
+            return Object.keys(childrenMap).map(key => {
+                return h(
+                    childrenMap[key].name,
+                    {
+                        key: key,
+                        prop: { ...childrenMap[key].prop },
+                        attrs: {
+                            ...childrenMap[key].prop
+                        },
+                        on: { ...childrenMap[key].emit },
+                        scopedSlots: this.getScopedSlots(h, childrenMap[key].slot),
+                    },
+                    this.getVueChildrens(h, childrenMap[key].childrens)
+                );
+            })
+        }
     },
 
     render() {
-
         return (
             <div>
                 {
                     Object.keys(this.componentMap).map(c => {
-                        if (!this.componentMap[c].key) {
+                        if (!this.componentMap[c].key || this.componentMap[c].isChildren) {
                             return;
                         }
-                        console.log(this.componentMap[c], '开始渲染---------------------------------------')
+                        console.log(this.componentMap, this.componentMap[c], '开始渲染---------------------------------------')
                         return h(
                             this.componentMap[c].name,
                             {
@@ -135,18 +199,11 @@ export default {
                                     ...this.componentMap[c].prop
                                 },
                                 on: { ...this.componentMap[c].emit },
-                                slot: 'default',
-                                scopedSlots: {
-                                    default: () =>  this.getChildNode(c).map(v => {
-                                        console.log(v, '-----------------------------')
-                                        return h.apply(h, [...v])
-                                    })
-                                },
+                                scopedSlots: this.getScopedSlots(h, this.componentMap[c].slot),
                             },
-                           
+                            this.getVueChildrens(h, this.componentMap[c].childrens)
                         )
                     }
-
                     )
                 }
             </div>

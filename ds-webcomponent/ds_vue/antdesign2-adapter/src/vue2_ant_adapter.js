@@ -9,22 +9,29 @@ class Vue2AntAdapter extends HTMLElement {
     prop = {};
     propIn = ['__name', 'id', '__children'];
     componentData = null;
-    componentOrigin = null;
     constructor() {
         super();
         keys.push(this.key);
         Vue2EmitAdapter.emit(`keys`, [...keys]);
         Vue2EmitAdapter.emit(`key`, this.key);
         this.vueEmit = {};
+        this.vueChildren = {};
+
+    }
+
+    isChildren() {
+        return this.parentNode && this.parentNode.nodeName === 'VUE2-ANT' && this.nodeName === 'VUE2-ANT';
+    }
+
+    isSlot() {
+        return this.parentNode && this.parentNode.hasAttribute('slot')
     }
 
     connectedCallback() {
-        console.log([this],this, '--------------------')
-        if(this.hasAttribute('__parent')) {
+        if (this.isSlot()) {
             return;
         }
-        this.componentOrigin = this.cloneNode(true);
-        console.log('创建--------------------------------', this.key);
+        console.log('创建适配器组件:', this.key);
         // 初始化slot
         const slotMap = this.initSlotData();
         const childresNode = this.childNodes;
@@ -43,13 +50,24 @@ class Vue2AntAdapter extends HTMLElement {
             emit: this.vueEmit,
             slot: slotMap,
             childresNode: childresNode,
-            elOn: null
+            elOn: null,
+            isChildren: this.isChildren()
         };
-        Vue2EmitAdapter.emit(`componentCreate_${this.key}`, this.componentData);
+
 
         // 监听元素属性, 事件, 方法的变化
         this.listeningAttrbutes();
         this.listeningVueEmit();
+        // 监听vue得回调事件
+        this.initEmit();
+
+        Vue2EmitAdapter.emit(`componentCreate_${this.key}`, this.componentData);
+
+        if (this.isChildren()) {
+            console.log(this.parentNode, this.parentNode.vueChildren)
+            this.parentNode.vueChildren[this.key] = this.componentData;
+            return;
+        }
 
         // 监听后来vue组件创建之后
         this.componentData.elOn = Vue2EmitAdapter.on(`vueComponentCreate_${this.key}`, (data) => {
@@ -64,16 +82,25 @@ class Vue2AntAdapter extends HTMLElement {
                     this.removeChild(document.getElementById(keyStr))
                 }
                 da.id = keyStr;
-                console.log([this], '------------44444444444444444444444444444--------------------')
-                if (this.hasAttribute('__children') && this.attributes.__children.value === '1') {
-                    this.parentNode.insertBefore(da, this)
-                } else {
-                    this.appendChild(da)
-                }
-
+                this.appendChild(da)
             })
         })
     }
+
+
+    initEmit() {
+        this.componentData.dataChangeOn = Vue2EmitAdapter.on(`vueComponentDataChange_${this.key}`, (data) => {
+            if (!data) {
+                return;
+            }
+            this.componentData = { ...this.componentData, ...data };
+            if (this.isChildren()) {
+                this.parentNode.vueChildren[this.key] = this.componentData;
+            }
+        })
+
+    }
+
 
     initSlotData() {
         const slotMap = {};
@@ -85,16 +112,13 @@ class Vue2AntAdapter extends HTMLElement {
             if (!no) {
                 return;
             }
-            let cloneChild = no;
             if (no.nodeName === 'VUE2-ANT') {
-                cloneChild.cloneNode(true);
-                cloneChild.setAttribute('__children', '1');
+                return;
             }
-
-            if (cloneChild.getAttribute && cloneChild.getAttribute('slot')) {
-                slotMap[cloneChild.getAttribute('slot').value] = cloneChild;
+            if (no.getAttribute && no.getAttribute('slot')) {
+                slotMap[no.getAttribute('slot')] = no;
             } else {
-                childrenNodesNoName.push(cloneChild);
+                childrenNodesNoName.push(no);
             }
         })
         slotMap.default = childrenNodesNoName;
@@ -102,7 +126,11 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     disconnectedCallback() {
-        if(this.hasAttribute('__parent')) {
+        if(!this.componentData) {
+            return;
+        }
+        if (this.isChildren()) {
+            delete this.parentNode.vueChildren[this.key];
             return;
         }
         Vue2EmitAdapter.destory(this.componentData.elOn);
@@ -129,16 +157,30 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     listeningVueEmit() {
-        const p = new Proxy(this.vueEmit, {
+        const vueEmit = new Proxy(this.vueEmit, {
             set: (target, key, value) => {
                 target[key] = value;
                 Vue2EmitAdapter.emit(`componentEmitChange_${this.key}`, { ...target });
+                return true;
             },
             get(target, key) {
                 return target[key]
             },
         })
-        this.vueEmit = p;
+        this.vueEmit = vueEmit;
+
+        const vueChildren = new Proxy(this.vueChildren, {
+            set: (target, key, value) => {
+                target[key] = value;
+                Vue2EmitAdapter.emit(`componentChildrenChange_${this.key}`, { ...target });
+                return true;
+            },
+            get(target, key) {
+                return target[key]
+            },
+        })
+        this.vueChildren = vueChildren;
+
     }
 
 }
