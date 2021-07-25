@@ -17,18 +17,17 @@
         Please enable it to continue.</strong>
   </noscript>
 
-  <!-- 
   <vue2-ant __name="a-button">
     按钮1
   </vue2-ant>
 
   <vue2-ant id="test" __name="a-button" type="primary" click="show">
     按钮2
-  </vue2-ant> -->
+  </vue2-ant>
 
 
 
-  <!-- <vue2-ant __name="a-icon" type="mail"></vue2-ant> -->
+  <vue2-ant __name="a-icon" type="mail"></vue2-ant>
 
   <vue2-ant __name="a-menu" style="width: 256px" mode="inline">
     <vue2-ant __name="a-sub-menu" key="sub1">
@@ -45,8 +44,6 @@
   </vue2-ant>
 
 
-  <!-- 
-
   <vue2-ant __name="a-input" placeholder="Basic usage"> </vue2-ant>
 
   <vue2-ant id="picker_test" __name="a-time-picker" use12-hours></vue2-ant>
@@ -56,20 +53,20 @@
 
 
   <button onclick="showId()">增加节点</button>
-  <button onclick="hideId()">删除节点</button> -->
+  <button onclick="hideId()">删除节点</button> 
 
 
 </body>
 
 <script>
   window.onload = () => {
-    // document.getElementById('picker_test').vueEmit.openChange = () => {
-    //   console.log('打开')
-    // }
+    document.getElementById('picker_test').vueEmit.openChange = () => {
+      console.log('打开')
+    }
 
-    // document.getElementById('picker_test').vueEmit.focus = () => {
-    //   console.log('聚焦')
-    // }
+    document.getElementById('picker_test').vueEmit.focus = () => {
+      console.log('聚焦')
+    }
   }
 </script>
 

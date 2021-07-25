@@ -51,7 +51,6 @@ function emit() {
     const allArgs = [].slice.call(arguments, 0);
     const eventName = allArgs[0];
     const args = allArgs.slice(1);
-    console.log('emit:',eventName, '发送参数:', args);
     onDataArgsEmit[eventName] = [...args];
     if (onDataEmit[eventName]) {
         onDataEmit[eventName].forEach(obj => {
@@ -62,7 +61,6 @@ function emit() {
 }
 
 function destory(key) {
-    console.log('删除', key)
     if(!key) {
         return;
     }

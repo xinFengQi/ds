@@ -10,7 +10,6 @@ export default {
     },
     mounted() {
         Vue2EmitAdapter.atOnceHandler("keys", (data) => {
-            console.log("已生成keys:", data);
             if (data && Array.isArray(data)) {
                 data.forEach((da) => {
                     this.initComponentToKey(da);
@@ -18,7 +17,6 @@ export default {
             }
         });
         Vue2EmitAdapter.on("key", (data) => {
-            console.log("新生成key:", data);
             if (data) {
                 this.initComponentToKey(data);
             }
@@ -34,15 +32,6 @@ export default {
 
             // 将el_Dom元素回调给webComponent
             if (this.$refs[reKey] && this.$refs[reKey].$el) {
-                console.log('节点被渲染了', this.$refs[reKey], this.$refs)
-                // 强行增加子节点 尽量不用
-                const slotDefalult = this.componentMap[reKey].slot.default || []
-                for (let i = 0; i < slotDefalult.length; i++) {
-                    const el = slotDefalult[i];
-                    if (this.$refs[reKey].$el.nodeType === 1) {
-                        this.$refs[reKey].$el.appendChild(el);
-                    }
-                }
                 const elArr = [];
                 this.getEl(this.$refs[reKey].$el, elArr);
                 Vue2EmitAdapter.emit(`vueComponentCreate_${reKey}`, elArr);
@@ -51,6 +40,14 @@ export default {
         });
     },
     methods: {
+        // 删除节点下面的所有子节点
+        closeAllNode(node) {
+            console.log(node)
+            // while (node.hasChildNodes()) //当div下还存在子节点时 循环继续
+            // {
+            //     node.removeChild(node.firstChild);
+            // }
+        },
         // key 数据初始化
         initComponentToKey(key) {
             this.componentMap[key] = {
@@ -60,8 +57,7 @@ export default {
             this.componentMap[key].OnComponentDestory = Vue2EmitAdapter.atOn(
                 `componentDestory_${key}`,
                 (key) => {
-                    console.log("vue监听到销毁事件", key, this.componentMap[key]);
-                    if (!this.componentMap[key]) {
+                    if (!this.componentMap || !this.componentMap[key]) {
                         return;
                     }
                     delete this.componentMap[key];
@@ -71,7 +67,13 @@ export default {
             this.componentMap[key].OnComponentCreate = Vue2EmitAdapter.atOn(
                 `componentCreate_${key}`,
                 (data) => {
-                    console.log("vue监听到创建事件", key, this.componentMap[key]);
+                    if (data.prop) {
+                        Object.keys(data.prop).forEach(ke => {
+                            if (ke.startsWith('v-')) {
+                                data.prop[ke.replace('v-', '')] = data.prop[ke];
+                            }
+                        })
+                    }
                     this.componentMap[key] = {
                         ...this.componentMap[key],
                         ...data,
@@ -96,6 +98,11 @@ export default {
                     if (!data || !this.componentMap[key]) {
                         return;
                     }
+                    Object.keys(data).forEach(ke => {
+                        if (ke.startsWith('v-')) {
+                            data[ke.replace('v-', '')] = data[ke];
+                        }
+                    })
                     this.componentMap[key].prop = data;
                 }
             );
@@ -131,6 +138,7 @@ export default {
             return returnMap
         },
         getOtherSlot(h, c) {
+            console.log([c], 'slot或者子节点')
             let slot = null;
             if (c.nodeType === 1) {
                 c.removeAttribute('slot');
@@ -138,22 +146,32 @@ export default {
                     c.localName,
                 )
             } else {
-                var element = document.createTextNode(c.nodeValue)
-                slot = element.nodeValue;
+                if (!c.parentNode || (c.parentNode && c.parentNode.nodeName === "VUE2-ANT")) {
+                    slot = c.nodeValue;
+                }
             }
             setTimeout(() => {
                 if (c.nodeType === 1) {
-                    if (slot.elm.parentNode && slot.elm.parentNode.replaceChild) {
-                        slot.elm.parentNode.replaceChild(c, slot.elm)
+                    if (slot.elm && slot.elm.parentNode && slot.elm.parentNode.replaceChild) {
+                        if (!c.contains(slot.elm.parentNode)) {
+                            slot.elm.parentNode.replaceChild(c, slot.elm)
+                        }
+                    }
+                } else {
+                    if (c.parentNode && c.parentNode.nodeName === "VUE2-ANT") {
+                        c.parentNode.innerText = '';
                     }
                 }
             })
             return slot;
         },
         getVueChildrens(h, childrenMap, childrens) {
-            console.log('存在vue组件得数据', this.componentMap, childrenMap)
-
             const childrenNodes = [];
+            const filterChildrens = childrens.find(v => v.parentNode);
+            if (filterChildrens) {
+                const parentNode = filterChildrens.parentNode;
+                this.closeAllNode(parentNode);
+            }
             childrens.forEach(c => {
                 childrenNodes.push(this.getOtherSlot(h, c))
             })
@@ -175,7 +193,7 @@ export default {
                     childrenNodes.push(a);
                 })
             }
-            return childrenNodes;
+            return childrenNodes.length ? childrenNodes: null;
         }
     },
 
@@ -187,7 +205,7 @@ export default {
                         if (!this.componentMap[c].key || this.componentMap[c].isChildren) {
                             return;
                         }
-                        console.log('开始渲染', this.componentMap, this.componentMap[c])
+                        console.log('开始渲染:', this.componentMap, c)
                         return h(
                             this.componentMap[c].name,
                             {

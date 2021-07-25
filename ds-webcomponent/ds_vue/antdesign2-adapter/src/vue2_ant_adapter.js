@@ -9,6 +9,10 @@ class Vue2AntAdapter extends HTMLElement {
     prop = {};
     propIn = ['__name', 'id', '__children'];
     componentData = null;
+
+    // 第一次加载
+    isFirst = false;
+
     constructor() {
         super();
         keys.push(this.key);
@@ -28,32 +32,31 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     connectedCallback() {
+        console.log('构建适配器组件', [this], this.getAttribute('__name'), this.key)
         if (this.isSlot()) {
             return;
         }
-        console.log('创建适配器组件:', this.key);
-        // 初始化slot
-        const slotMap = this.initSlotData();
-        const childresNode = this.childNodes;
 
-        this.tagName = this.attributes.__name.value;
-        this.attributes.forEach(v => {
-            if (!this.propIn.includes(v.name)) {
-                this.prop[v.name] = v.value;
-            }
-        })
+         // 初始化slot
+         const slotMap = this.initSlotData();
+         const childresNode = this.childNodes;
 
-        this.componentData = {
-            key: this.key,
-            name: this.tagName,
-            prop: this.prop,
-            emit: this.vueEmit,
-            slot: slotMap,
-            childresNode: childresNode,
-            elOn: null,
-            isChildren: this.isChildren()
-        };
-
+         this.tagName = this.attributes.__name.value;
+         this.attributes.forEach(v => {
+             if (!this.propIn.includes(v.name)) {
+                 this.prop[v.name] = v.value;
+             }
+         })
+         this.componentData = {
+             key: this.key,
+             name: this.tagName,
+             prop: this.prop,
+             emit: this.vueEmit,
+             slot: slotMap,
+             childresNode: childresNode,
+             elOn: null,
+             isChildren: this.isChildren()
+         };
 
         // 监听元素属性, 事件, 方法的变化
         this.listeningAttrbutes();
@@ -62,29 +65,28 @@ class Vue2AntAdapter extends HTMLElement {
         this.initEmit();
 
         Vue2EmitAdapter.emit(`componentCreate_${this.key}`, this.componentData);
-
         if (this.isChildren()) {
-            console.log(this.parentNode, this.parentNode.vueChildren)
             this.parentNode.vueChildren[this.key] = this.componentData;
             return;
         }
 
         // 监听后来vue组件创建之后
         this.componentData.elOn = Vue2EmitAdapter.on(`vueComponentCreate_${this.key}`, (data) => {
-            console.log('vue返回的元素:', data)
             if (!data) {
                 return;
             }
             data.forEach((da, i) => {
                 const keyStr = this.key + '_' + i;
                 if (document.getElementById(keyStr)) {
-                    console.log('删除id:', keyStr)
                     this.removeChild(document.getElementById(keyStr))
                 }
                 da.id = keyStr;
+                da.setAttribute('__vueOrigin', '1')
                 this.appendChild(da)
             })
         })
+
+        this.isFirst = true;
     }
 
 
@@ -108,6 +110,7 @@ class Vue2AntAdapter extends HTMLElement {
         if (!this.childNodes || !this.childNodes.length === 0) {
             return;
         }
+        this.normalize()
         this.childNodes.forEach(no => {
             if (!no) {
                 return;
@@ -115,7 +118,12 @@ class Vue2AntAdapter extends HTMLElement {
             if (no.nodeName === 'VUE2-ANT') {
                 return;
             }
-            if(no.nodeName === '#text' && no.nodeValue.replace(/\n/g, '').replace(/ /g, '').length === 0) {
+           
+            if (no.nodeName === '#text' && no.nodeValue.replace(/\n/g, '').replace(/ /g, '').length === 0) {
+                return;
+            }
+            if(no.nodeType === 1 &&  no.hasAttribute('__vueorigin')) {
+                // this.removeChild(no);
                 return;
             }
             if (no.getAttribute && no.getAttribute('slot')) {
@@ -129,30 +137,36 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     disconnectedCallback() {
-        if(!this.componentData) {
+        if (!this.componentData) {
             return;
         }
         if (this.isChildren()) {
             delete this.parentNode.vueChildren[this.key];
             return;
         }
+        console.log('组件销毁', this.key)
         Vue2EmitAdapter.destory(this.componentData.elOn);
+        Vue2EmitAdapter.destory(this.componentData.dataChangeOn);
         Vue2EmitAdapter.emit(`componentDestory_${this.key}`, this.key);
-
+        this.componentData = null;
     }
 
     // 监听属性发生变化
     listeningAttrbutes() {
+        if(this.isFirst ) {
+            return;
+        }
         const MutationObserver = window.MutationObserver ||
             window.WebKitMutationObserver || window.MozMutationObserver; //浏览器兼容
         const config = { attributes: true, childList: true } //配置对象
         const observer = new MutationObserver((mutations) => {//构造函数回调
-            mutations.forEach(function (record) {
+            mutations.forEach((record) => {
                 if (record.type == "attributes") {//监听属性
                     console.log('change');
                 }
                 if (record.type == 'childList') {//监听结构发生变化
                     //do any code
+                    console.log('childList');
                 }
             });
         })
