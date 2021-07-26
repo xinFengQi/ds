@@ -20,7 +20,6 @@ class Vue2AntAdapter extends HTMLElement {
         Vue2EmitAdapter.emit(`key`, this.key);
         this.vueEmit = {};
         this.vueChildren = {};
-
     }
 
     isChildren() {
@@ -32,31 +31,31 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('构建适配器组件', [this], this.getAttribute('__name'), this.key)
+        // console.log('构建适配器组件', [this], this.getAttribute('__name'), this.key)
         if (this.isSlot()) {
             return;
         }
 
-         // 初始化slot
-         const slotMap = this.initSlotData();
-         const childresNode = this.childNodes;
+        // 初始化slot
+        const slotMap = this.initSlotData();
+        const childresNode = this.childNodes;
 
-         this.tagName = this.attributes.__name.value;
-         this.attributes.forEach(v => {
-             if (!this.propIn.includes(v.name)) {
-                 this.prop[v.name] = v.value;
-             }
-         })
-         this.componentData = {
-             key: this.key,
-             name: this.tagName,
-             prop: this.prop,
-             emit: this.vueEmit,
-             slot: slotMap,
-             childresNode: childresNode,
-             elOn: null,
-             isChildren: this.isChildren()
-         };
+        this.tagName = this.attributes.__name.value;
+        this.attributes.forEach(v => {
+            if (!this.propIn.includes(v.name)) {
+                this.prop[v.name] = v.value;
+            }
+        })
+        this.componentData = {
+            key: this.key,
+            name: this.tagName,
+            prop: this.prop,
+            emit: this.vueEmit,
+            slot: slotMap,
+            childresNode: childresNode,
+            elOn: null,
+            isChildren: this.isChildren()
+        };
 
         // 监听元素属性, 事件, 方法的变化
         this.listeningAttrbutes();
@@ -90,6 +89,19 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
 
+    setProp(key, value) {
+        this[key] = value;
+        this.prop[key] = value;
+        Vue2EmitAdapter.emit(`componentPropChange_${this.key}`, { ...this.prop });
+    }
+
+    setEmit(key, value) {
+        this[key] = value;
+        this.vueEmit[key] = value;
+        Vue2EmitAdapter.emit(`componentChildrenChange_${this.key}`, { ...this.vueEmit });
+    }
+
+
     initEmit() {
         this.componentData.dataChangeOn = Vue2EmitAdapter.on(`vueComponentDataChange_${this.key}`, (data) => {
             if (!data) {
@@ -118,11 +130,11 @@ class Vue2AntAdapter extends HTMLElement {
             if (no.nodeName === 'VUE2-ANT') {
                 return;
             }
-           
+
             if (no.nodeName === '#text' && no.nodeValue.replace(/\n/g, '').replace(/ /g, '').length === 0) {
                 return;
             }
-            if(no.nodeType === 1 &&  no.hasAttribute('__vueorigin')) {
+            if (no.nodeType === 1 && no.hasAttribute('__vueorigin')) {
                 // this.removeChild(no);
                 return;
             }
@@ -144,7 +156,7 @@ class Vue2AntAdapter extends HTMLElement {
             delete this.parentNode.vueChildren[this.key];
             return;
         }
-        console.log('组件销毁', this.key)
+        // console.log('组件销毁', this.key)
         Vue2EmitAdapter.destory(this.componentData.elOn);
         Vue2EmitAdapter.destory(this.componentData.dataChangeOn);
         Vue2EmitAdapter.emit(`componentDestory_${this.key}`, this.key);
@@ -153,7 +165,7 @@ class Vue2AntAdapter extends HTMLElement {
 
     // 监听属性发生变化
     listeningAttrbutes() {
-        if(this.isFirst ) {
+        if (this.isFirst) {
             return;
         }
         const MutationObserver = window.MutationObserver ||
@@ -176,6 +188,7 @@ class Vue2AntAdapter extends HTMLElement {
     listeningVueEmit() {
         const vueEmit = new Proxy(this.vueEmit, {
             set: (target, key, value) => {
+                this[key] = value;
                 target[key] = value;
                 Vue2EmitAdapter.emit(`componentEmitChange_${this.key}`, { ...target });
                 return true;
@@ -197,7 +210,6 @@ class Vue2AntAdapter extends HTMLElement {
             },
         })
         this.vueChildren = vueChildren;
-
     }
 
 }

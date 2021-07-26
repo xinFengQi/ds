@@ -8,9 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface Ant2designHome {
     }
-    interface Ant2vueButton {
-    }
-    interface Ant2vueIcon {
+    interface Antdesign2Preview {
     }
     interface AppHome {
     }
@@ -26,17 +24,11 @@ declare global {
         prototype: HTMLAnt2designHomeElement;
         new (): HTMLAnt2designHomeElement;
     };
-    interface HTMLAnt2vueButtonElement extends Components.Ant2vueButton, HTMLStencilElement {
+    interface HTMLAntdesign2PreviewElement extends Components.Antdesign2Preview, HTMLStencilElement {
     }
-    var HTMLAnt2vueButtonElement: {
-        prototype: HTMLAnt2vueButtonElement;
-        new (): HTMLAnt2vueButtonElement;
-    };
-    interface HTMLAnt2vueIconElement extends Components.Ant2vueIcon, HTMLStencilElement {
-    }
-    var HTMLAnt2vueIconElement: {
-        prototype: HTMLAnt2vueIconElement;
-        new (): HTMLAnt2vueIconElement;
+    var HTMLAntdesign2PreviewElement: {
+        prototype: HTMLAntdesign2PreviewElement;
+        new (): HTMLAntdesign2PreviewElement;
     };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
@@ -58,8 +50,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "ant2design-home": HTMLAnt2designHomeElement;
-        "ant2vue-button": HTMLAnt2vueButtonElement;
-        "ant2vue-icon": HTMLAnt2vueIconElement;
+        "antdesign2-preview": HTMLAntdesign2PreviewElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "code-show": HTMLCodeShowElement;
@@ -68,9 +59,7 @@ declare global {
 declare namespace LocalJSX {
     interface Ant2designHome {
     }
-    interface Ant2vueButton {
-    }
-    interface Ant2vueIcon {
+    interface Antdesign2Preview {
     }
     interface AppHome {
     }
@@ -81,8 +70,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "ant2design-home": Ant2designHome;
-        "ant2vue-button": Ant2vueButton;
-        "ant2vue-icon": Ant2vueIcon;
+        "antdesign2-preview": Antdesign2Preview;
         "app-home": AppHome;
         "app-root": AppRoot;
         "code-show": CodeShow;
@@ -93,8 +81,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ant2design-home": LocalJSX.Ant2designHome & JSXBase.HTMLAttributes<HTMLAnt2designHomeElement>;
-            "ant2vue-button": LocalJSX.Ant2vueButton & JSXBase.HTMLAttributes<HTMLAnt2vueButtonElement>;
-            "ant2vue-icon": LocalJSX.Ant2vueIcon & JSXBase.HTMLAttributes<HTMLAnt2vueIconElement>;
+            "antdesign2-preview": LocalJSX.Antdesign2Preview & JSXBase.HTMLAttributes<HTMLAntdesign2PreviewElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "code-show": LocalJSX.CodeShow & JSXBase.HTMLAttributes<HTMLCodeShowElement>;

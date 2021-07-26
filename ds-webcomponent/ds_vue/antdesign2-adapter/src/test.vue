@@ -1,33 +1,189 @@
 <template>
   <div>
-    <a-menu style="width: 256px" mode="inline">
-      <a-sub-menu key="sub1">
-        <span slot="title">
-          <vue2-ant __name=" a-icon" type="mail" />
-          <span>这啥</span>
-        </span>
-        <a-menu-item-group key="g2" title="Item 2">
-          <a-menu-item key="3"> Option 3 </a-menu-item>
-        </a-menu-item-group>
-      </a-sub-menu>
-    </a-menu>
+    <a-affix ref="affix" :offset-top="top">
+      <a-button type="primary" @click="showRef()"> Affix top </a-button>
+    </a-affix>
+
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
+    wqe<br />
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-    
+      top: 100,
+      affix: null,
     };
   },
   mounted() {
-  
+    console.log("---------------------------------", this.$refs);
+    setTimeout(() => {
+      console.log("---------------------------------", this.$refs);
+    });
+  },
+  updated() {
+    console.log(this.$refs);
   },
   methods: {
- 
-  }
+    showRef: function () {
+      console.log(this.$ref);
+    },
+  },
 };
 </script>
 

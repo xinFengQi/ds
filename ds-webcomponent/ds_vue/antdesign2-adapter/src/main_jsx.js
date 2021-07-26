@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             componentMap: {},
+            key: 0,
         }
     },
     mounted() {
@@ -40,13 +41,23 @@ export default {
         });
     },
     methods: {
+        // prop处理方法
+        propHandler(data) {
+            Object.keys(data).forEach(ke => {
+                if (ke.startsWith('v-')) {
+                    data[ke.replace('v-', '')] = data[ke];
+                }
+                if (ke.startsWith('number-')) {
+                    data[ke.replace('number-', '')] = Number(data[ke]);
+                }
+            })
+        },
         // 删除节点下面的所有子节点
         closeAllNode(node) {
-            console.log(node)
-            // while (node.hasChildNodes()) //当div下还存在子节点时 循环继续
-            // {
-            //     node.removeChild(node.firstChild);
-            // }
+            while (node.hasChildNodes()) //当div下还存在子节点时 循环继续
+            {
+                node.removeChild(node.firstChild);
+            }
         },
         // key 数据初始化
         initComponentToKey(key) {
@@ -68,11 +79,7 @@ export default {
                 `componentCreate_${key}`,
                 (data) => {
                     if (data.prop) {
-                        Object.keys(data.prop).forEach(ke => {
-                            if (ke.startsWith('v-')) {
-                                data.prop[ke.replace('v-', '')] = data.prop[ke];
-                            }
-                        })
+                        this.propHandler(data.prop);
                     }
                     this.componentMap[key] = {
                         ...this.componentMap[key],
@@ -98,11 +105,7 @@ export default {
                     if (!data || !this.componentMap[key]) {
                         return;
                     }
-                    Object.keys(data).forEach(ke => {
-                        if (ke.startsWith('v-')) {
-                            data[ke.replace('v-', '')] = data[ke];
-                        }
-                    })
+                    this.propHandler(data);
                     this.componentMap[key].prop = data;
                 }
             );
@@ -138,7 +141,7 @@ export default {
             return returnMap
         },
         getOtherSlot(h, c) {
-            console.log([c], 'slot或者子节点')
+            // console.log([c], 'slot或者子节点')
             let slot = null;
             if (c.nodeType === 1) {
                 c.removeAttribute('slot');
@@ -169,8 +172,8 @@ export default {
             const childrenNodes = [];
             const filterChildrens = childrens.find(v => v.parentNode);
             if (filterChildrens) {
-                const parentNode = filterChildrens.parentNode;
-                this.closeAllNode(parentNode);
+                // const parentNode = filterChildrens.parentNode;
+                // this.closeAllNode(parentNode);
             }
             childrens.forEach(c => {
                 childrenNodes.push(this.getOtherSlot(h, c))
@@ -180,7 +183,7 @@ export default {
                     const a = h(
                         childrenMap[key].name,
                         {
-                            key: key,
+                            // key: key,
                             prop: { ...childrenMap[key].prop },
                             attrs: {
                                 ...childrenMap[key].prop
@@ -193,37 +196,47 @@ export default {
                     childrenNodes.push(a);
                 })
             }
-            return childrenNodes.length ? childrenNodes: null;
+            return childrenNodes.length ? childrenNodes : null;
         }
     },
 
     render() {
         return (
-            <div>
+            <template>
                 {
-                    Object.keys(this.componentMap).map(c => {
+                    Object.keys(this.componentMap).map((c) => {
                         if (!this.componentMap[c].key || this.componentMap[c].isChildren) {
                             return;
                         }
-                        console.log('开始渲染:', this.componentMap, c)
+                        // console.log('开始渲染:', this.componentMap, c)
                         return h(
-                            this.componentMap[c].name,
+                            'div',
                             {
-                                ref: c,
-                                key: c,
-                                prop: { ...this.componentMap[c].prop },
-                                attrs: {
-                                    ...this.componentMap[c].prop
-                                },
-                                on: { ...this.componentMap[c].emit },
-                                scopedSlots: this.getScopedSlots(h, this.componentMap[c].slot),
+                                ref: c + this.componentMap[c].name,
+                                key: c + this.componentMap[c].name,
                             },
-                            this.getVueChildrens(h, this.componentMap[c].childrens, this.componentMap[c].slot.default)
+                            [
+                                h(
+                                    this.componentMap[c].name,
+                                    {
+                                        ref: c,
+                                        key: c,
+                                        prop: { ...this.componentMap[c].prop },
+                                        attrs: {
+                                            ...this.componentMap[c].prop
+                                        },
+                                        on: { ...this.componentMap[c].emit },
+                                        scopedSlots: this.getScopedSlots(h, this.componentMap[c].slot),
+                                    },
+                                    this.getVueChildrens(h, this.componentMap[c].childrens, this.componentMap[c].slot.default)
+                                )
+                            ]
+
                         )
                     }
                     )
                 }
-            </div>
+            </template>
         )
     }
 }

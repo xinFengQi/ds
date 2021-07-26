@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'app-home',
@@ -10,7 +10,7 @@ export class AppHome {
     return (
       <div class="app-home">
         <stencil-route-link url="ant2vue">
-          <button>ant design for vue 展示</button>
+          <button class="ion-button">ant design for vue 展示</button>
         </stencil-route-link>
       </div>
     );
