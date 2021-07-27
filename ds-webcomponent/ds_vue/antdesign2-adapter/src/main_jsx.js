@@ -71,7 +71,7 @@ export default {
                     if (!this.componentMap || !this.componentMap[key]) {
                         return;
                     }
-                    delete this.componentMap[key];
+                    // delete this.componentMap[key];
                     this.componentMap = { ...this.componentMap };
                 }
             );
@@ -144,9 +144,14 @@ export default {
             // console.log([c], 'slot或者子节点')
             let slot = null;
             if (c.nodeType === 1) {
-                c.removeAttribute('slot');
+                // c.removeAttribute('slot');
                 slot = h(
                     c.localName,
+                    {
+                        domProps: {
+                            innerHTML: c.outerHTML
+                        },
+                    }
                 )
             } else {
                 if (!c.parentNode || (c.parentNode && c.parentNode.nodeName === "VUE2-ANT")) {
@@ -179,16 +184,17 @@ export default {
                 childrenNodes.push(this.getOtherSlot(h, c))
             })
             if (childrenMap) {
-                Object.keys(childrenMap).map(key => {
+                Object.keys(childrenMap).forEach(key => {
                     const a = h(
                         childrenMap[key].name,
                         {
-                            // key: key,
+                            key: key,
                             prop: { ...childrenMap[key].prop },
                             attrs: {
                                 ...childrenMap[key].prop
                             },
                             on: { ...childrenMap[key].emit },
+                            slot: childrenMap[key].prop.slot,
                             scopedSlots: this.getScopedSlots(h, childrenMap[key].slot),
                         },
                         this.getVueChildrens(h, childrenMap[key].childrens, childrenMap[key].slot.default)
@@ -202,7 +208,7 @@ export default {
 
     render() {
         return (
-            <template>
+            <template key="">
                 {
                     Object.keys(this.componentMap).map((c) => {
                         if (!this.componentMap[c].key || this.componentMap[c].isChildren) {
@@ -214,6 +220,7 @@ export default {
                             {
                                 ref: c + this.componentMap[c].name,
                                 key: c + this.componentMap[c].name,
+                                on: {...this.componentMap[c].emit},
                             },
                             [
                                 h(
@@ -225,7 +232,7 @@ export default {
                                         attrs: {
                                             ...this.componentMap[c].prop
                                         },
-                                        on: { ...this.componentMap[c].emit },
+                                        on: {...this.componentMap[c].emit},
                                         scopedSlots: this.getScopedSlots(h, this.componentMap[c].slot),
                                     },
                                     this.getVueChildrens(h, this.componentMap[c].childrens, this.componentMap[c].slot.default)

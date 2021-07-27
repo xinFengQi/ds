@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
 
 @Component({
   tag: 'ant2design-home',
@@ -6,46 +6,25 @@ import { Component, Host, h } from '@stencil/core';
   shadow: false,
 })
 export class Ant2designHome {
+  @State()
+  isShoe = false;
+
+  pageHeaDerRef = null;
+  pageHeaDerRef1 = null;
+
+  componentDidLoad() {
+    console.log('增加emit', this.pageHeaDerRef)
+    this.pageHeaDerRef.vueEmit.back = function(){
+      console.log('点击返回2');
+    };
+    // this.pageHeaDerRef1.vueEmit.back = () => {
+    //   console.log('点击返回2');
+    // };
+  }
+
   render() {
     return (
       <Host>
-        <vue2-ant __name="a-breadcrumb" v-separator="34">
-          <vue2-ant __name="a-breadcrumb-item">
-            <span>首页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item" href="/#">
-            <span>第二页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item" href="/#">
-            <span>第三页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item">
-            <span>第四页</span>
-          </vue2-ant>
-        </vue2-ant>
-
-        <code-show>
-          
-          <div style={{ margin: '5px' }}>
-            <vue2-ant __name="a-breadcrumb" v-separator="34">
-              <vue2-ant __name="a-breadcrumb-item">
-                <span>首页</span>
-              </vue2-ant>
-              <vue2-ant __name="a-breadcrumb-item" href="/#">
-                <span>第二页</span>
-              </vue2-ant>
-              <vue2-ant __name="a-breadcrumb-item" href="/#">
-                <span>第三页</span>
-              </vue2-ant>
-              <vue2-ant __name="a-breadcrumb-item">
-                <span>第四页</span>
-              </vue2-ant>
-            </vue2-ant>
-
-         
-          </div>
-        </code-show>
-
         <antdesign2-preview></antdesign2-preview>
       </Host>
     );

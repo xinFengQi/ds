@@ -564,28 +564,12 @@ export class Antdesign2Preview {
           )}
         </code-show>
 
-        <h2>Breadcrumb 面包屑(存在问题)</h2>
+        <h2>Breadcrumb 面包屑</h2>
 
         <h3>代码演示</h3>
 
-        <vue2-ant __name="a-breadcrumb" v-separator=">">
-          <vue2-ant __name="a-breadcrumb-item">
-            <span>首页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item" href="/#">
-            <span>第二页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item" href="/#">
-            <span>第三页</span>
-          </vue2-ant>
-          <vue2-ant __name="a-breadcrumb-item">
-            <span>第四页</span>
-          </vue2-ant>
-        </vue2-ant>
-
         <code-show onExpendChange={() => (this.expend7 = !this.expend7)}>
           <div style={{ margin: '5px' }}>
-
             <vue2-ant __name="a-breadcrumb" v-separator="34">
               <vue2-ant __name="a-breadcrumb-item">
                 <span>首页</span>
@@ -633,8 +617,8 @@ export class Antdesign2Preview {
         <code-show onExpendChange={() => (this.expend8 = !this.expend8)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-dropdown-button">
-              下拉菜单
-              <vue2-ant slot="overlay" __name="a-menu">
+              <span>下拉菜单</span>
+              <vue2-ant __slot="overlay" __name="a-menu">
                 <vue2-ant key="1" __name="a-menu-item">
                   <vue2-ant __name="a-icon" type="user"></vue2-ant>
                   菜单1
@@ -651,8 +635,8 @@ export class Antdesign2Preview {
             </vue2-ant>
 
             <vue2-ant __name="a-dropdown-button">
-              下拉菜单
-              <vue2-ant slot="overlay" __name="a-menu">
+              <span>下拉菜单</span>
+              <vue2-ant __slot="overlay" __name="a-menu">
                 <vue2-ant key="1" __name="a-menu-item">
                   <vue2-ant __name="a-icon" type="user"></vue2-ant>
                   菜单1
@@ -670,8 +654,8 @@ export class Antdesign2Preview {
             </vue2-ant>
 
             <vue2-ant __name="a-dropdown-button" disabled>
-              下拉菜单
-              <vue2-ant slot="overlay" __name="a-menu">
+              <span>下拉菜单</span>
+              <vue2-ant __slot="overlay" __name="a-menu">
                 <vue2-ant key="1" __name="a-menu-item">
                   <vue2-ant __name="a-icon" type="user"></vue2-ant>
                   菜单1
@@ -689,7 +673,7 @@ export class Antdesign2Preview {
             </vue2-ant>
 
             <vue2-ant __name="a-dropdown-button">
-              <vue2-ant slot="overlay" __name="a-menu">
+              <vue2-ant __slot="overlay" __name="a-menu">
                 <vue2-ant key="1" __name="a-menu-item">
                   <vue2-ant __name="a-icon" type="user"></vue2-ant>
                   菜单1
@@ -765,7 +749,7 @@ export class Antdesign2Preview {
                   <vue2-ant __name="a-icon" type="mail"></vue2-ant>
                   <span>这啥</span>
                 </span>
-                <vue2-ant __name="a-menu-item-group" key="g2" title="Item 2">
+                <vue2-ant __name="a-menu-item-group" key="g2" v-title="Item 2">
                   <vue2-ant id="2222222" __name="a-menu-item" key="3">
                     Option 3
                   </vue2-ant>
@@ -819,7 +803,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
 
-        <h2>PageHeader 页头(存在问题)</h2>
+        <h2>PageHeader 页头</h2>
 
         <h3>代码演示</h3>
 
@@ -845,7 +829,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
 
-        <h2>pagination 分页(存在问题)</h2>
+        <h2>pagination 分页</h2>
 
         <h3>代码演示</h3>
 
@@ -864,7 +848,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
 
-        <h2>Steps 步骤条(存在问题)</h2>
+        <h2>Steps 步骤条</h2>
 
         <h3>代码演示</h3>
 
