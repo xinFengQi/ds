@@ -23,7 +23,7 @@ export class Antdesign2Button {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <h2>Button 按钮</h2>
         <code-show onExpendChange={() => (this.expend1 = !this.expend1 )}>
           <div style={{ margin: '5px' }}>
@@ -74,7 +74,7 @@ export class Antdesign2Button {
             </pre>
           ) : null}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

@@ -3,14 +3,14 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-checkbox',
   styleUrl: 'antdesign2-checkbox.css',
-  scoped: true,
+  
 })
 export class Antdesign2Checkbox {
   @State()
   expend1 = false;
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-checkbox">
@@ -30,7 +30,7 @@ export class Antdesign2Checkbox {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

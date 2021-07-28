@@ -13,9 +13,9 @@ export class Antdesign2Select {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <slot></slot>
-      </Host>
+      </div>
     );
   }
 

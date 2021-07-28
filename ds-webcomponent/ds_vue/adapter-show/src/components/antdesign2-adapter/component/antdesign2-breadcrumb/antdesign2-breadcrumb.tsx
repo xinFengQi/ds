@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-breadcrumb',
   styleUrl: 'antdesign2-breadcrumb.css',
-  scoped: true,
+  
 })
 export class Antdesign2Breadcrumb {
   @State()
@@ -11,7 +11,7 @@ export class Antdesign2Breadcrumb {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-breadcrumb" v-separator="34">
@@ -80,7 +80,7 @@ export class Antdesign2Breadcrumb {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

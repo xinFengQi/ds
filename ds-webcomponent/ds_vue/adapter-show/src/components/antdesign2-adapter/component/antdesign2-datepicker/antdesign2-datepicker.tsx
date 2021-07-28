@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-datepicker',
   styleUrl: 'antdesign2-datepicker.css',
-  scoped: true,
+  
 })
 export class Antdesign2Datepicker {
   @State()
@@ -11,7 +11,7 @@ export class Antdesign2Datepicker {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-date-picker"></vue2-ant>
@@ -33,7 +33,7 @@ export class Antdesign2Datepicker {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

@@ -10,7 +10,7 @@ export class Antdesign2Space {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend5 = !this.expend5)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-space">
@@ -62,7 +62,7 @@ export class Antdesign2Space {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

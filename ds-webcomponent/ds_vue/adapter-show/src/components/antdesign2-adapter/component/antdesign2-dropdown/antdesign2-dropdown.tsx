@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-dropdown',
   styleUrl: 'antdesign2-dropdown.css',
-  scoped: true,
+  
 })
 export class Antdesign2Dropdown {
   @State()
@@ -11,7 +11,7 @@ export class Antdesign2Dropdown {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-dropdown-button">
@@ -177,7 +177,7 @@ export class Antdesign2Dropdown {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

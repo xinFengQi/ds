@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-icon',
   styleUrl: 'antdesign2-icon.css',
-  scoped: true,
+  
 })
 export class Antdesign2Icon {
 
@@ -12,7 +12,7 @@ export class Antdesign2Icon {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-icon" v-type="step-backward" style={{ 'font-size': '30px' }}></vue2-ant>
@@ -44,7 +44,7 @@ export class Antdesign2Icon {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

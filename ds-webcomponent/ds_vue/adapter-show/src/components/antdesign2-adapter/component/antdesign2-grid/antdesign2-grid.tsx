@@ -10,7 +10,7 @@ export class Antdesign2Grid {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-row">
@@ -89,7 +89,7 @@ export class Antdesign2Grid {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

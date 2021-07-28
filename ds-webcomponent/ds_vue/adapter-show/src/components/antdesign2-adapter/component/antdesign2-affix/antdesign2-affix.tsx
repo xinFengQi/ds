@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-affix',
   styleUrl: 'antdesign2-affix.css',
-  scoped: true,
+  
 })
 export class Antdesign2Affix {
 
@@ -20,7 +20,7 @@ export class Antdesign2Affix {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
          <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant ref={el => (this.affixEl = el)} __name="a-affix" number-offset-top={this.affixNum} v-target={this.affixEl}>
@@ -43,7 +43,7 @@ export class Antdesign2Affix {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 

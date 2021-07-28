@@ -5,14 +5,13 @@ import { Component, Host, h, State } from '@stencil/core';
   styleUrl: 'antdesign2-layout.css',
 })
 export class Antdesign2Layout {
-
   @State()
   expend4 = false;
 
   render() {
     return (
-      <Host>
-      <code-show onExpendChange={() => (this.expend4 = !this.expend4)}>
+      <div class="show_main_content">
+        <code-show onExpendChange={() => (this.expend4 = !this.expend4)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-layout">
               <vue2-ant __name="a-layout-header">
@@ -116,8 +115,7 @@ export class Antdesign2Layout {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
-
 }

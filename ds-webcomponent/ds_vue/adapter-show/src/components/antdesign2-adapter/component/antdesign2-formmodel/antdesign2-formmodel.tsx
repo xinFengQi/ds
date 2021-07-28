@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-formmodel',
   styleUrl: 'antdesign2-formmodel.css',
-  scoped: true,
+  
 })
 export class Antdesign2Formmodel {
 
@@ -12,9 +12,9 @@ export class Antdesign2Formmodel {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <slot></slot>
-      </Host>
+      </div>
     );
   }
 

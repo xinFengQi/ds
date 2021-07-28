@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Prop } from '@stencil/core';
-import { MatchResults } from '@stencil/router';
+import { MatchResults, RouterHistory } from '@stencil/router';
 
 @Component({
   tag: 'ant2design-home',
@@ -16,7 +16,7 @@ export class Ant2designHome {
       title: 'Button 按钮',
       href: 'button',
       reader: () => {
-        return <antdesign2-button></antdesign2-button>;
+        return <antdesign2-button style={{ flex: '1' }}></antdesign2-button>;
       },
     },
     {
@@ -24,7 +24,7 @@ export class Ant2designHome {
       title: 'Icon 图标',
       href: 'icon',
       reader: () => {
-        return <antdesign2-icon></antdesign2-icon>;
+        return <antdesign2-icon style={{ flex: '1' }}></antdesign2-icon>;
       },
     },
     {
@@ -32,7 +32,7 @@ export class Ant2designHome {
       title: 'Grid 栅格',
       href: 'grid',
       reader: () => {
-        return <antdesign2-grid></antdesign2-grid>;
+        return <antdesign2-grid style={{ flex: '1' }}></antdesign2-grid>;
       },
     },
     {
@@ -40,7 +40,7 @@ export class Ant2designHome {
       title: 'Layout 布局',
       href: 'layout',
       reader: () => {
-        return <antdesign2-layout></antdesign2-layout>;
+        return <antdesign2-layout style={{ flex: '1' }}></antdesign2-layout>;
       },
     },
     {
@@ -48,7 +48,7 @@ export class Ant2designHome {
       title: 'Space 间距',
       href: 'Space',
       reader: () => {
-        return <antdesign2-space></antdesign2-space>;
+        return <antdesign2-space style={{ flex: '1' }}></antdesign2-space>;
       },
     },
     {
@@ -56,7 +56,7 @@ export class Ant2designHome {
       title: 'Affix 固钉',
       href: 'Affix',
       reader: () => {
-        return <antdesign2-affix></antdesign2-affix>;
+        return <antdesign2-affix style={{ flex: '1' }}></antdesign2-affix>;
       },
     },
     {
@@ -64,7 +64,7 @@ export class Ant2designHome {
       title: 'Breadcrumb面包屑',
       href: 'Breadcrumb',
       reader: () => {
-        return <antdesign2-breadcrumb></antdesign2-breadcrumb>;
+        return <antdesign2-breadcrumb style={{ flex: '1' }}></antdesign2-breadcrumb>;
       },
     },
     {
@@ -72,7 +72,7 @@ export class Ant2designHome {
       title: 'dropdown 下拉菜单',
       href: 'dropdown',
       reader: () => {
-        return <antdesign2-dropdown></antdesign2-dropdown>;
+        return <antdesign2-dropdown style={{ flex: '1' }}></antdesign2-dropdown>;
       },
     },
     {
@@ -80,7 +80,7 @@ export class Ant2designHome {
       title: 'Menu 导航菜单',
       href: '导航菜单',
       reader: () => {
-        return <antdesign2-menu></antdesign2-menu>;
+        return <antdesign2-menu style={{ flex: '1' }}></antdesign2-menu>;
       },
     },
     {
@@ -88,7 +88,7 @@ export class Ant2designHome {
       title: 'PageHeader 页头',
       href: 'PageHeader',
       reader: () => {
-        return <antdesign2-pageheader></antdesign2-pageheader>;
+        return <antdesign2-pageheader style={{ flex: '1' }}></antdesign2-pageheader>;
       },
     },
     {
@@ -96,7 +96,7 @@ export class Ant2designHome {
       title: 'Pagination 分页',
       href: 'Pagination',
       reader: () => {
-        return <antdesign2-pagination></antdesign2-pagination>;
+        return <antdesign2-pagination style={{ flex: '1' }}></antdesign2-pagination>;
       },
     },
     {
@@ -104,7 +104,7 @@ export class Ant2designHome {
       title: 'Steps 步骤条',
       href: 'Steps',
       reader: () => {
-        return <antdesign2-steps></antdesign2-steps>;
+        return <antdesign2-steps style={{ flex: '1' }}></antdesign2-steps>;
       },
     },
     {
@@ -112,7 +112,7 @@ export class Ant2designHome {
       title: 'AutoComplete 自动完成',
       href: 'AutoComplete',
       reader: () => {
-        return <antdesign2-autocomplete></antdesign2-autocomplete>;
+        return <antdesign2-autocomplete style={{ flex: '1' }}></antdesign2-autocomplete>;
       },
     },
     {
@@ -120,7 +120,7 @@ export class Ant2designHome {
       title: 'Cascader 级联选择',
       href: 'Cascader',
       reader: () => {
-        return <antdesign2-cascader></antdesign2-cascader>;
+        return <antdesign2-cascader style={{ flex: '1' }}></antdesign2-cascader>;
       },
     },
     {
@@ -128,7 +128,7 @@ export class Ant2designHome {
       title: 'Checkbox多选框',
       href: 'Checkbox',
       reader: () => {
-        return <antdesign2-checkbox></antdesign2-checkbox>;
+        return <antdesign2-checkbox style={{ flex: '1' }}></antdesign2-checkbox>;
       },
     },
     {
@@ -136,7 +136,7 @@ export class Ant2designHome {
       title: 'DatePicker 日期选择框',
       href: 'DatePicker',
       reader: () => {
-        return <antdesign2-datepicker></antdesign2-datepicker>;
+        return <antdesign2-datepicker style={{ flex: '1' }}></antdesign2-datepicker>;
       },
     },
     {
@@ -144,7 +144,7 @@ export class Ant2designHome {
       title: 'Form 表单',
       href: 'Form',
       reader: () => {
-        return <antdesign2-form></antdesign2-form>;
+        return <antdesign2-form style={{ flex: '1' }}></antdesign2-form>;
       },
     },
     {
@@ -152,7 +152,7 @@ export class Ant2designHome {
       title: 'FormModel 表单',
       href: 'FormModel',
       reader: () => {
-        return <antdesign2-formmodel></antdesign2-formmodel>;
+        return <antdesign2-formmodel style={{ flex: '1' }}></antdesign2-formmodel>;
       },
     },
     {
@@ -160,7 +160,7 @@ export class Ant2designHome {
       title: 'Input 输入框',
       href: 'Input',
       reader: () => {
-        return <antdesign2-input></antdesign2-input>;
+        return <antdesign2-input style={{ flex: '1' }}></antdesign2-input>;
       },
     },
     {
@@ -168,7 +168,7 @@ export class Ant2designHome {
       title: 'InputNumber 数字输入框',
       href: 'InputNumber',
       reader: () => {
-        return <antdesign2-inputnumber></antdesign2-inputnumber>;
+        return <antdesign2-inputnumber style={{ flex: '1' }}></antdesign2-inputnumber>;
       },
     },
     {
@@ -176,7 +176,7 @@ export class Ant2designHome {
       title: 'Mentions 提及',
       href: 'Mentions',
       reader: () => {
-        return <antdesign2-mentions></antdesign2-mentions>;
+        return <antdesign2-mentions style={{ flex: '1' }}></antdesign2-mentions>;
       },
     },
     {
@@ -184,7 +184,7 @@ export class Ant2designHome {
       title: 'Radio 单选框',
       href: 'Radio',
       reader: () => {
-        return <antdesign2-radio></antdesign2-radio>;
+        return <antdesign2-radio style={{ flex: '1' }}></antdesign2-radio>;
       },
     },
     {
@@ -192,7 +192,7 @@ export class Ant2designHome {
       title: 'Rate 评分',
       href: 'Rate',
       reader: () => {
-        return <antdesign2-rate></antdesign2-rate>;
+        return <antdesign2-rate style={{ flex: '1' }}></antdesign2-rate>;
       },
     },
     {
@@ -200,7 +200,7 @@ export class Ant2designHome {
       title: 'Select 选择器',
       href: 'Select',
       reader: () => {
-        return <antdesign2-select></antdesign2-select>;
+        return <antdesign2-select style={{ flex: '1' }}></antdesign2-select>;
       },
     },
     {
@@ -208,7 +208,7 @@ export class Ant2designHome {
       title: 'Slider 滑动输入条',
       href: 'Slider',
       reader: () => {
-        return <antdesign2-slider></antdesign2-slider>;
+        return <antdesign2-slider style={{ flex: '1' }}></antdesign2-slider>;
       },
     },
     {
@@ -216,7 +216,7 @@ export class Ant2designHome {
       title: 'Switch 开关',
       href: 'Switch',
       reader: () => {
-        return <antdesign2-switch></antdesign2-switch>;
+        return <antdesign2-switch style={{ flex: '1' }}></antdesign2-switch>;
       },
     },
     {
@@ -224,7 +224,7 @@ export class Ant2designHome {
       title: 'TimePicker 时间选择框',
       href: 'TimePicker',
       reader: () => {
-        return <antdesign2-timepicker></antdesign2-timepicker>;
+        return <antdesign2-timepicker style={{ flex: '1' }}></antdesign2-timepicker>;
       },
     },
     {
@@ -232,7 +232,7 @@ export class Ant2designHome {
       title: 'transfer 穿梭框',
       href: 'transfer',
       reader: () => {
-        return <antdesign2-transfer></antdesign2-transfer>;
+        return <antdesign2-transfer style={{ flex: '1' }}></antdesign2-transfer>;
       },
     },
     {
@@ -424,6 +424,8 @@ export class Ant2designHome {
 
   @Prop() match: MatchResults;
 
+  @Prop() history: RouterHistory;
+
   getComponent(name) {
     const com = this.anchorLinkArr.find(v => v.href === name);
     if (com.reader) {
@@ -434,6 +436,11 @@ export class Ant2designHome {
 
   componentDidLoad() {}
 
+
+  goShow(href) {
+    this.history.push(`${href}`)
+  }
+
   render() {
     if (this.match && this.match.params.name) {
       return (
@@ -443,12 +450,12 @@ export class Ant2designHome {
               {this.anchorLinkArr.map(v => {
                 return (
                   <vue2-ant __name="a-menu-item" key={v.href}>
-                    <stencil-route-link url={`ant2vue/${v.href}`}>{v.name}</stencil-route-link>
+                    <div onClick={() => this.goShow(v.href)} style={{width: '100%', height: '100%'}}>{v.name}</div>
                   </vue2-ant>
                 );
               })}
             </vue2-ant>
-            <div>{this.getComponent(this.match.params.name)}</div>
+            {this.getComponent(this.match.params.name)}
 
             {/* <div class="antdesign2_adapter_anchor">
               <vue2-ant __name="a-anchor">

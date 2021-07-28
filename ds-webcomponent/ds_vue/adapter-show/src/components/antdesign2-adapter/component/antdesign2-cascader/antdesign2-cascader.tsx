@@ -3,7 +3,7 @@ import { Component, Host, h, State } from '@stencil/core';
 @Component({
   tag: 'antdesign2-cascader',
   styleUrl: 'antdesign2-cascader.css',
-  scoped: true,
+  
 })
 export class Antdesign2Cascader {
   @State()
@@ -52,7 +52,7 @@ export class Antdesign2Cascader {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant ref={el => (this.cascaderRef = el)} __name="a-cascader" placeholder="请选择"></vue2-ant>
@@ -67,7 +67,7 @@ export class Antdesign2Cascader {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

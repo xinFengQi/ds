@@ -21,15 +21,14 @@ export class Antdesign2Autocomplete {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant ref={el => (this.autoCompleteRef = el)} __name="a-auto-complete"></vue2-ant>
           </div>
           {this.expend1 ? (
             <pre slot="code">
-              {
-`
+              {`
 ts
 componentDidLoad() {
   if (this.autoCompleteRef) {
@@ -47,8 +46,7 @@ html
             ''
           )}
         </code-show>
-        <h2>Cascader 级联选择</h2>
-      </Host>
+      </div>
     );
   }
 }

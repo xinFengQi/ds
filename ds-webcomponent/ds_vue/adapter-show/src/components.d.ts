@@ -5,9 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MatchResults } from "@stencil/router";
+import { MatchResults, RouterHistory } from "@stencil/router";
 export namespace Components {
     interface Ant2designHome {
+        "history": RouterHistory;
         "match": MatchResults;
     }
     interface Antdesign2Affix {
@@ -312,6 +313,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface Ant2designHome {
+        "history"?: RouterHistory;
         "match"?: MatchResults;
     }
     interface Antdesign2Affix {

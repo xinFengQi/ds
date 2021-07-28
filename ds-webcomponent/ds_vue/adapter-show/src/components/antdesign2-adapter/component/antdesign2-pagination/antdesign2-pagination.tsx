@@ -12,9 +12,9 @@ export class Antdesign2Pagination {
 
   render() {
     return (
-      <Host>
+      <div class="show_main_content">
         <slot></slot>
-      </Host>
+      </div>
     );
   }
 
