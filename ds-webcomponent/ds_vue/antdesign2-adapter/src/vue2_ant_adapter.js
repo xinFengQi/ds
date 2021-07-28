@@ -51,7 +51,7 @@ class Vue2AntAdapter extends HTMLElement {
 
         this.cloneNodeOrigin = this.cloneNode(true);
 
-        console.log('构建适配器组件', [this], this.getAttribute('__name'), this.key, this.vueEmit)
+        // console.log('构建适配器组件', [this], this.getAttribute('__name'), this.key, this.vueEmit)
         if (this.isSlot()) {
             return;
         }
@@ -105,7 +105,7 @@ class Vue2AntAdapter extends HTMLElement {
                     this.removeChild(document.getElementById(keyStr))
                 }
                 da.id = keyStr;
-                da.setAttribute('__vueOrigin', '1')
+                da.setAttribute ? da.setAttribute('__vueOrigin', '1') : null;
                 this.appendChild(da)
             })
         })
@@ -114,16 +114,16 @@ class Vue2AntAdapter extends HTMLElement {
     }
 
 
-    setProp(key, value) {
+    setProp = (key, value) => {
         this[key] = value;
         this.prop[key] = value;
         Vue2EmitAdapter.emit(`componentPropChange_${this.key}`, { ...this.prop });
     }
 
-    setEmit(key, value) {
+    setEmit = (key, value) => {
         this[key] = value;
         this.vueEmit[key] = value;
-        Vue2EmitAdapter.emit(`componentChildrenChange_${this.key}`, { ...this.vueEmit });
+        Vue2EmitAdapter.emit(`componentEmitChange_${this.key}`, { ...this.vueEmit });
     }
 
 
@@ -182,7 +182,7 @@ class Vue2AntAdapter extends HTMLElement {
             delete this.parentNode.vueChildren[this.key];
             return;
         }
-        console.log('组件销毁', this.key)
+        // console.log('组件销毁', this.key)
         Vue2EmitAdapter.destory(this.componentData.elOn);
         Vue2EmitAdapter.destory(this.componentData.dataChangeOn);
         Vue2EmitAdapter.emit(`componentDestory_${this.key}`, this.key);

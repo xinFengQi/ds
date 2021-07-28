@@ -5,10 +5,68 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { MatchResults } from "@stencil/router";
 export namespace Components {
     interface Ant2designHome {
+        "match": MatchResults;
+    }
+    interface Antdesign2Affix {
+    }
+    interface Antdesign2Autocomplete {
+    }
+    interface Antdesign2Breadcrumb {
+    }
+    interface Antdesign2Button {
+    }
+    interface Antdesign2Cascader {
+    }
+    interface Antdesign2Checkbox {
+    }
+    interface Antdesign2Datepicker {
+    }
+    interface Antdesign2Dropdown {
+    }
+    interface Antdesign2Form {
+    }
+    interface Antdesign2Formmodel {
+    }
+    interface Antdesign2Grid {
+    }
+    interface Antdesign2Icon {
+    }
+    interface Antdesign2Input {
+    }
+    interface Antdesign2Inputnumber {
+    }
+    interface Antdesign2Layout {
+    }
+    interface Antdesign2Mentions {
+    }
+    interface Antdesign2Menu {
+    }
+    interface Antdesign2Pageheader {
+    }
+    interface Antdesign2Pagination {
     }
     interface Antdesign2Preview {
+    }
+    interface Antdesign2Radio {
+    }
+    interface Antdesign2Rate {
+    }
+    interface Antdesign2Select {
+    }
+    interface Antdesign2Slider {
+    }
+    interface Antdesign2Space {
+    }
+    interface Antdesign2Steps {
+    }
+    interface Antdesign2Switch {
+    }
+    interface Antdesign2Timepicker {
+    }
+    interface Antdesign2Transfer {
     }
     interface AppHome {
     }
@@ -24,11 +82,179 @@ declare global {
         prototype: HTMLAnt2designHomeElement;
         new (): HTMLAnt2designHomeElement;
     };
+    interface HTMLAntdesign2AffixElement extends Components.Antdesign2Affix, HTMLStencilElement {
+    }
+    var HTMLAntdesign2AffixElement: {
+        prototype: HTMLAntdesign2AffixElement;
+        new (): HTMLAntdesign2AffixElement;
+    };
+    interface HTMLAntdesign2AutocompleteElement extends Components.Antdesign2Autocomplete, HTMLStencilElement {
+    }
+    var HTMLAntdesign2AutocompleteElement: {
+        prototype: HTMLAntdesign2AutocompleteElement;
+        new (): HTMLAntdesign2AutocompleteElement;
+    };
+    interface HTMLAntdesign2BreadcrumbElement extends Components.Antdesign2Breadcrumb, HTMLStencilElement {
+    }
+    var HTMLAntdesign2BreadcrumbElement: {
+        prototype: HTMLAntdesign2BreadcrumbElement;
+        new (): HTMLAntdesign2BreadcrumbElement;
+    };
+    interface HTMLAntdesign2ButtonElement extends Components.Antdesign2Button, HTMLStencilElement {
+    }
+    var HTMLAntdesign2ButtonElement: {
+        prototype: HTMLAntdesign2ButtonElement;
+        new (): HTMLAntdesign2ButtonElement;
+    };
+    interface HTMLAntdesign2CascaderElement extends Components.Antdesign2Cascader, HTMLStencilElement {
+    }
+    var HTMLAntdesign2CascaderElement: {
+        prototype: HTMLAntdesign2CascaderElement;
+        new (): HTMLAntdesign2CascaderElement;
+    };
+    interface HTMLAntdesign2CheckboxElement extends Components.Antdesign2Checkbox, HTMLStencilElement {
+    }
+    var HTMLAntdesign2CheckboxElement: {
+        prototype: HTMLAntdesign2CheckboxElement;
+        new (): HTMLAntdesign2CheckboxElement;
+    };
+    interface HTMLAntdesign2DatepickerElement extends Components.Antdesign2Datepicker, HTMLStencilElement {
+    }
+    var HTMLAntdesign2DatepickerElement: {
+        prototype: HTMLAntdesign2DatepickerElement;
+        new (): HTMLAntdesign2DatepickerElement;
+    };
+    interface HTMLAntdesign2DropdownElement extends Components.Antdesign2Dropdown, HTMLStencilElement {
+    }
+    var HTMLAntdesign2DropdownElement: {
+        prototype: HTMLAntdesign2DropdownElement;
+        new (): HTMLAntdesign2DropdownElement;
+    };
+    interface HTMLAntdesign2FormElement extends Components.Antdesign2Form, HTMLStencilElement {
+    }
+    var HTMLAntdesign2FormElement: {
+        prototype: HTMLAntdesign2FormElement;
+        new (): HTMLAntdesign2FormElement;
+    };
+    interface HTMLAntdesign2FormmodelElement extends Components.Antdesign2Formmodel, HTMLStencilElement {
+    }
+    var HTMLAntdesign2FormmodelElement: {
+        prototype: HTMLAntdesign2FormmodelElement;
+        new (): HTMLAntdesign2FormmodelElement;
+    };
+    interface HTMLAntdesign2GridElement extends Components.Antdesign2Grid, HTMLStencilElement {
+    }
+    var HTMLAntdesign2GridElement: {
+        prototype: HTMLAntdesign2GridElement;
+        new (): HTMLAntdesign2GridElement;
+    };
+    interface HTMLAntdesign2IconElement extends Components.Antdesign2Icon, HTMLStencilElement {
+    }
+    var HTMLAntdesign2IconElement: {
+        prototype: HTMLAntdesign2IconElement;
+        new (): HTMLAntdesign2IconElement;
+    };
+    interface HTMLAntdesign2InputElement extends Components.Antdesign2Input, HTMLStencilElement {
+    }
+    var HTMLAntdesign2InputElement: {
+        prototype: HTMLAntdesign2InputElement;
+        new (): HTMLAntdesign2InputElement;
+    };
+    interface HTMLAntdesign2InputnumberElement extends Components.Antdesign2Inputnumber, HTMLStencilElement {
+    }
+    var HTMLAntdesign2InputnumberElement: {
+        prototype: HTMLAntdesign2InputnumberElement;
+        new (): HTMLAntdesign2InputnumberElement;
+    };
+    interface HTMLAntdesign2LayoutElement extends Components.Antdesign2Layout, HTMLStencilElement {
+    }
+    var HTMLAntdesign2LayoutElement: {
+        prototype: HTMLAntdesign2LayoutElement;
+        new (): HTMLAntdesign2LayoutElement;
+    };
+    interface HTMLAntdesign2MentionsElement extends Components.Antdesign2Mentions, HTMLStencilElement {
+    }
+    var HTMLAntdesign2MentionsElement: {
+        prototype: HTMLAntdesign2MentionsElement;
+        new (): HTMLAntdesign2MentionsElement;
+    };
+    interface HTMLAntdesign2MenuElement extends Components.Antdesign2Menu, HTMLStencilElement {
+    }
+    var HTMLAntdesign2MenuElement: {
+        prototype: HTMLAntdesign2MenuElement;
+        new (): HTMLAntdesign2MenuElement;
+    };
+    interface HTMLAntdesign2PageheaderElement extends Components.Antdesign2Pageheader, HTMLStencilElement {
+    }
+    var HTMLAntdesign2PageheaderElement: {
+        prototype: HTMLAntdesign2PageheaderElement;
+        new (): HTMLAntdesign2PageheaderElement;
+    };
+    interface HTMLAntdesign2PaginationElement extends Components.Antdesign2Pagination, HTMLStencilElement {
+    }
+    var HTMLAntdesign2PaginationElement: {
+        prototype: HTMLAntdesign2PaginationElement;
+        new (): HTMLAntdesign2PaginationElement;
+    };
     interface HTMLAntdesign2PreviewElement extends Components.Antdesign2Preview, HTMLStencilElement {
     }
     var HTMLAntdesign2PreviewElement: {
         prototype: HTMLAntdesign2PreviewElement;
         new (): HTMLAntdesign2PreviewElement;
+    };
+    interface HTMLAntdesign2RadioElement extends Components.Antdesign2Radio, HTMLStencilElement {
+    }
+    var HTMLAntdesign2RadioElement: {
+        prototype: HTMLAntdesign2RadioElement;
+        new (): HTMLAntdesign2RadioElement;
+    };
+    interface HTMLAntdesign2RateElement extends Components.Antdesign2Rate, HTMLStencilElement {
+    }
+    var HTMLAntdesign2RateElement: {
+        prototype: HTMLAntdesign2RateElement;
+        new (): HTMLAntdesign2RateElement;
+    };
+    interface HTMLAntdesign2SelectElement extends Components.Antdesign2Select, HTMLStencilElement {
+    }
+    var HTMLAntdesign2SelectElement: {
+        prototype: HTMLAntdesign2SelectElement;
+        new (): HTMLAntdesign2SelectElement;
+    };
+    interface HTMLAntdesign2SliderElement extends Components.Antdesign2Slider, HTMLStencilElement {
+    }
+    var HTMLAntdesign2SliderElement: {
+        prototype: HTMLAntdesign2SliderElement;
+        new (): HTMLAntdesign2SliderElement;
+    };
+    interface HTMLAntdesign2SpaceElement extends Components.Antdesign2Space, HTMLStencilElement {
+    }
+    var HTMLAntdesign2SpaceElement: {
+        prototype: HTMLAntdesign2SpaceElement;
+        new (): HTMLAntdesign2SpaceElement;
+    };
+    interface HTMLAntdesign2StepsElement extends Components.Antdesign2Steps, HTMLStencilElement {
+    }
+    var HTMLAntdesign2StepsElement: {
+        prototype: HTMLAntdesign2StepsElement;
+        new (): HTMLAntdesign2StepsElement;
+    };
+    interface HTMLAntdesign2SwitchElement extends Components.Antdesign2Switch, HTMLStencilElement {
+    }
+    var HTMLAntdesign2SwitchElement: {
+        prototype: HTMLAntdesign2SwitchElement;
+        new (): HTMLAntdesign2SwitchElement;
+    };
+    interface HTMLAntdesign2TimepickerElement extends Components.Antdesign2Timepicker, HTMLStencilElement {
+    }
+    var HTMLAntdesign2TimepickerElement: {
+        prototype: HTMLAntdesign2TimepickerElement;
+        new (): HTMLAntdesign2TimepickerElement;
+    };
+    interface HTMLAntdesign2TransferElement extends Components.Antdesign2Transfer, HTMLStencilElement {
+    }
+    var HTMLAntdesign2TransferElement: {
+        prototype: HTMLAntdesign2TransferElement;
+        new (): HTMLAntdesign2TransferElement;
     };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
@@ -50,7 +276,35 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "ant2design-home": HTMLAnt2designHomeElement;
+        "antdesign2-affix": HTMLAntdesign2AffixElement;
+        "antdesign2-autocomplete": HTMLAntdesign2AutocompleteElement;
+        "antdesign2-breadcrumb": HTMLAntdesign2BreadcrumbElement;
+        "antdesign2-button": HTMLAntdesign2ButtonElement;
+        "antdesign2-cascader": HTMLAntdesign2CascaderElement;
+        "antdesign2-checkbox": HTMLAntdesign2CheckboxElement;
+        "antdesign2-datepicker": HTMLAntdesign2DatepickerElement;
+        "antdesign2-dropdown": HTMLAntdesign2DropdownElement;
+        "antdesign2-form": HTMLAntdesign2FormElement;
+        "antdesign2-formmodel": HTMLAntdesign2FormmodelElement;
+        "antdesign2-grid": HTMLAntdesign2GridElement;
+        "antdesign2-icon": HTMLAntdesign2IconElement;
+        "antdesign2-input": HTMLAntdesign2InputElement;
+        "antdesign2-inputnumber": HTMLAntdesign2InputnumberElement;
+        "antdesign2-layout": HTMLAntdesign2LayoutElement;
+        "antdesign2-mentions": HTMLAntdesign2MentionsElement;
+        "antdesign2-menu": HTMLAntdesign2MenuElement;
+        "antdesign2-pageheader": HTMLAntdesign2PageheaderElement;
+        "antdesign2-pagination": HTMLAntdesign2PaginationElement;
         "antdesign2-preview": HTMLAntdesign2PreviewElement;
+        "antdesign2-radio": HTMLAntdesign2RadioElement;
+        "antdesign2-rate": HTMLAntdesign2RateElement;
+        "antdesign2-select": HTMLAntdesign2SelectElement;
+        "antdesign2-slider": HTMLAntdesign2SliderElement;
+        "antdesign2-space": HTMLAntdesign2SpaceElement;
+        "antdesign2-steps": HTMLAntdesign2StepsElement;
+        "antdesign2-switch": HTMLAntdesign2SwitchElement;
+        "antdesign2-timepicker": HTMLAntdesign2TimepickerElement;
+        "antdesign2-transfer": HTMLAntdesign2TransferElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "code-show": HTMLCodeShowElement;
@@ -58,8 +312,65 @@ declare global {
 }
 declare namespace LocalJSX {
     interface Ant2designHome {
+        "match"?: MatchResults;
+    }
+    interface Antdesign2Affix {
+    }
+    interface Antdesign2Autocomplete {
+    }
+    interface Antdesign2Breadcrumb {
+    }
+    interface Antdesign2Button {
+    }
+    interface Antdesign2Cascader {
+    }
+    interface Antdesign2Checkbox {
+    }
+    interface Antdesign2Datepicker {
+    }
+    interface Antdesign2Dropdown {
+    }
+    interface Antdesign2Form {
+    }
+    interface Antdesign2Formmodel {
+    }
+    interface Antdesign2Grid {
+    }
+    interface Antdesign2Icon {
+    }
+    interface Antdesign2Input {
+    }
+    interface Antdesign2Inputnumber {
+    }
+    interface Antdesign2Layout {
+    }
+    interface Antdesign2Mentions {
+    }
+    interface Antdesign2Menu {
+    }
+    interface Antdesign2Pageheader {
+    }
+    interface Antdesign2Pagination {
     }
     interface Antdesign2Preview {
+    }
+    interface Antdesign2Radio {
+    }
+    interface Antdesign2Rate {
+    }
+    interface Antdesign2Select {
+    }
+    interface Antdesign2Slider {
+    }
+    interface Antdesign2Space {
+    }
+    interface Antdesign2Steps {
+    }
+    interface Antdesign2Switch {
+    }
+    interface Antdesign2Timepicker {
+    }
+    interface Antdesign2Transfer {
     }
     interface AppHome {
     }
@@ -70,7 +381,35 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "ant2design-home": Ant2designHome;
+        "antdesign2-affix": Antdesign2Affix;
+        "antdesign2-autocomplete": Antdesign2Autocomplete;
+        "antdesign2-breadcrumb": Antdesign2Breadcrumb;
+        "antdesign2-button": Antdesign2Button;
+        "antdesign2-cascader": Antdesign2Cascader;
+        "antdesign2-checkbox": Antdesign2Checkbox;
+        "antdesign2-datepicker": Antdesign2Datepicker;
+        "antdesign2-dropdown": Antdesign2Dropdown;
+        "antdesign2-form": Antdesign2Form;
+        "antdesign2-formmodel": Antdesign2Formmodel;
+        "antdesign2-grid": Antdesign2Grid;
+        "antdesign2-icon": Antdesign2Icon;
+        "antdesign2-input": Antdesign2Input;
+        "antdesign2-inputnumber": Antdesign2Inputnumber;
+        "antdesign2-layout": Antdesign2Layout;
+        "antdesign2-mentions": Antdesign2Mentions;
+        "antdesign2-menu": Antdesign2Menu;
+        "antdesign2-pageheader": Antdesign2Pageheader;
+        "antdesign2-pagination": Antdesign2Pagination;
         "antdesign2-preview": Antdesign2Preview;
+        "antdesign2-radio": Antdesign2Radio;
+        "antdesign2-rate": Antdesign2Rate;
+        "antdesign2-select": Antdesign2Select;
+        "antdesign2-slider": Antdesign2Slider;
+        "antdesign2-space": Antdesign2Space;
+        "antdesign2-steps": Antdesign2Steps;
+        "antdesign2-switch": Antdesign2Switch;
+        "antdesign2-timepicker": Antdesign2Timepicker;
+        "antdesign2-transfer": Antdesign2Transfer;
         "app-home": AppHome;
         "app-root": AppRoot;
         "code-show": CodeShow;
@@ -81,7 +420,35 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ant2design-home": LocalJSX.Ant2designHome & JSXBase.HTMLAttributes<HTMLAnt2designHomeElement>;
+            "antdesign2-affix": LocalJSX.Antdesign2Affix & JSXBase.HTMLAttributes<HTMLAntdesign2AffixElement>;
+            "antdesign2-autocomplete": LocalJSX.Antdesign2Autocomplete & JSXBase.HTMLAttributes<HTMLAntdesign2AutocompleteElement>;
+            "antdesign2-breadcrumb": LocalJSX.Antdesign2Breadcrumb & JSXBase.HTMLAttributes<HTMLAntdesign2BreadcrumbElement>;
+            "antdesign2-button": LocalJSX.Antdesign2Button & JSXBase.HTMLAttributes<HTMLAntdesign2ButtonElement>;
+            "antdesign2-cascader": LocalJSX.Antdesign2Cascader & JSXBase.HTMLAttributes<HTMLAntdesign2CascaderElement>;
+            "antdesign2-checkbox": LocalJSX.Antdesign2Checkbox & JSXBase.HTMLAttributes<HTMLAntdesign2CheckboxElement>;
+            "antdesign2-datepicker": LocalJSX.Antdesign2Datepicker & JSXBase.HTMLAttributes<HTMLAntdesign2DatepickerElement>;
+            "antdesign2-dropdown": LocalJSX.Antdesign2Dropdown & JSXBase.HTMLAttributes<HTMLAntdesign2DropdownElement>;
+            "antdesign2-form": LocalJSX.Antdesign2Form & JSXBase.HTMLAttributes<HTMLAntdesign2FormElement>;
+            "antdesign2-formmodel": LocalJSX.Antdesign2Formmodel & JSXBase.HTMLAttributes<HTMLAntdesign2FormmodelElement>;
+            "antdesign2-grid": LocalJSX.Antdesign2Grid & JSXBase.HTMLAttributes<HTMLAntdesign2GridElement>;
+            "antdesign2-icon": LocalJSX.Antdesign2Icon & JSXBase.HTMLAttributes<HTMLAntdesign2IconElement>;
+            "antdesign2-input": LocalJSX.Antdesign2Input & JSXBase.HTMLAttributes<HTMLAntdesign2InputElement>;
+            "antdesign2-inputnumber": LocalJSX.Antdesign2Inputnumber & JSXBase.HTMLAttributes<HTMLAntdesign2InputnumberElement>;
+            "antdesign2-layout": LocalJSX.Antdesign2Layout & JSXBase.HTMLAttributes<HTMLAntdesign2LayoutElement>;
+            "antdesign2-mentions": LocalJSX.Antdesign2Mentions & JSXBase.HTMLAttributes<HTMLAntdesign2MentionsElement>;
+            "antdesign2-menu": LocalJSX.Antdesign2Menu & JSXBase.HTMLAttributes<HTMLAntdesign2MenuElement>;
+            "antdesign2-pageheader": LocalJSX.Antdesign2Pageheader & JSXBase.HTMLAttributes<HTMLAntdesign2PageheaderElement>;
+            "antdesign2-pagination": LocalJSX.Antdesign2Pagination & JSXBase.HTMLAttributes<HTMLAntdesign2PaginationElement>;
             "antdesign2-preview": LocalJSX.Antdesign2Preview & JSXBase.HTMLAttributes<HTMLAntdesign2PreviewElement>;
+            "antdesign2-radio": LocalJSX.Antdesign2Radio & JSXBase.HTMLAttributes<HTMLAntdesign2RadioElement>;
+            "antdesign2-rate": LocalJSX.Antdesign2Rate & JSXBase.HTMLAttributes<HTMLAntdesign2RateElement>;
+            "antdesign2-select": LocalJSX.Antdesign2Select & JSXBase.HTMLAttributes<HTMLAntdesign2SelectElement>;
+            "antdesign2-slider": LocalJSX.Antdesign2Slider & JSXBase.HTMLAttributes<HTMLAntdesign2SliderElement>;
+            "antdesign2-space": LocalJSX.Antdesign2Space & JSXBase.HTMLAttributes<HTMLAntdesign2SpaceElement>;
+            "antdesign2-steps": LocalJSX.Antdesign2Steps & JSXBase.HTMLAttributes<HTMLAntdesign2StepsElement>;
+            "antdesign2-switch": LocalJSX.Antdesign2Switch & JSXBase.HTMLAttributes<HTMLAntdesign2SwitchElement>;
+            "antdesign2-timepicker": LocalJSX.Antdesign2Timepicker & JSXBase.HTMLAttributes<HTMLAntdesign2TimepickerElement>;
+            "antdesign2-transfer": LocalJSX.Antdesign2Transfer & JSXBase.HTMLAttributes<HTMLAntdesign2TransferElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "code-show": LocalJSX.CodeShow & JSXBase.HTMLAttributes<HTMLCodeShowElement>;

@@ -6,6 +6,8 @@ import { Component, h, State, Host } from '@stencil/core';
   shadow: false,
 })
 export class Antdesign2Preview {
+
+
   @State()
   expend1 = false;
   @State()
@@ -137,10 +139,13 @@ export class Antdesign2Preview {
   clickBtuEl = null;
   pageHeaDerRef = null;
   affixEl = null;
+  autoCompleteRef = null;
+  cascaderRef = null;
+  rateRef = null;
+  sliderRef = null;
+  transferRef = null;
 
   affixNum = 100;
-
-  dataSource = ['1', '11', '1111'];
 
   options = [
     {
@@ -187,11 +192,44 @@ export class Antdesign2Preview {
   };
 
   componentDidLoad() {
+    const mockData = [];
+    for (let i = 0; i < 20; i++) {
+      mockData.push({
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+      });
+    }
+    const targetKeys = [];
+    const selectedKeys = [];
+
     if (this.clickBtuEl) {
       this.clickBtuEl.vueEmit.click = this.clickEmit.click;
       this.pageHeaDerRef.vueEmit.back = this.clickEmit.back;
-      console.log('---------------------==================', this);
-      console.log([this.affixEl]);
+      this.autoCompleteRef.vueEmit.search = value => {
+        this.autoCompleteRef.setProp('data-source', !value ? [] : [value, value.repeat(2), value.repeat(3)]);
+      };
+      this.cascaderRef.setProp('options', this.options);
+      this.rateRef.setProp('tooltips', ['terrible', 'bad', 'normal', 'good', 'wonderful']);
+      this.sliderRef.setProp('default-value', [20, 50]);
+      this.transferRef.setProp('data-source', mockData);
+      this.transferRef.setProp('titles', ['Source', 'Target']);
+      this.transferRef.setProp('target-keys', targetKeys);
+      this.transferRef.setProp('selected-keys', selectedKeys);
+      this.transferRef.setProp('render', item => item.title);
+
+      this.transferRef.setEmit('change', (nextTargetKeys, direction, moveKeys) => {
+        this.transferRef.setProp('target-keys', nextTargetKeys);
+        console.log('targetKeys: ', nextTargetKeys);
+        console.log('direction: ', direction);
+        console.log('moveKeys: ', moveKeys);
+      });
+
+      this.transferRef.setEmit('change', (sourceSelectedKeys, targetSelectedKeys) => {
+        this.transferRef.setProp('selected-keys', [...sourceSelectedKeys, ...targetSelectedKeys]);
+        console.log('sourceSelectedKeys: ', sourceSelectedKeys);
+        console.log('targetSelectedKeys: ', targetSelectedKeys);
+      });
     }
   }
 
@@ -199,10 +237,10 @@ export class Antdesign2Preview {
     console.log('渲染两次');
     return (
       <Host>
+        <h2>写法注意事项</h2>
+        1. 针对单独的文本节点，最好使用span标签包裹起来，不然不好解析
         <h2>Button 按钮</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend1 = !this.expend1)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-button" type="primary">
@@ -252,11 +290,8 @@ export class Antdesign2Preview {
             </pre>
           ) : null}
         </code-show>
-
         <h2>Icon 图标</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend2 = !this.expend2)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-icon" v-type="step-backward" style={{ 'font-size': '30px' }}></vue2-ant>
@@ -288,11 +323,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Grid 栅格</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend3 = !this.expend3)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-row">
@@ -371,11 +403,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Layout 布局</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend4 = !this.expend4)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-layout">
@@ -480,11 +509,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Space 间距(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend5 = !this.expend5)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-space">
@@ -536,11 +562,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Affix 固钉</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend6 = !this.expend6)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant ref={el => (this.affixEl = el)} __name="a-affix" number-offset-top={this.affixNum} v-target={this.affixEl}>
@@ -563,11 +586,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Breadcrumb 面包屑</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend7 = !this.expend7)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-breadcrumb" v-separator="34">
@@ -609,11 +629,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Dropdown 下拉菜单(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend8 = !this.expend8)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-dropdown-button">
@@ -703,11 +720,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Menu 导航菜单(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend9 = !this.expend9)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-menu" mode="horizontal">
@@ -802,11 +816,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>PageHeader 页头</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend10 = !this.expend10)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant
@@ -828,11 +839,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>pagination 分页</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend11 = !this.expend11)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-pagination" number-total="50" show-less-items></vue2-ant>
@@ -847,11 +855,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Steps 步骤条</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend12 = !this.expend12)}>
           <div style={{ margin: '5px' }}>
             <vue2-ant __name="a-steps" number-current="1" status="error">
@@ -880,14 +885,11 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>AutoComplete 自动完成(存在问题)</h2>
-
+        <h2>AutoComplete 自动完成</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend13 = !this.expend13)}>
           <div style={{ margin: '5px' }}>
-            <vue2-ant __name="a-auto-complete" data-source={this.dataSource}></vue2-ant>
+            <vue2-ant ref={el => (this.autoCompleteRef = el)} __name="a-auto-complete"></vue2-ant>
           </div>
           {this.expend13 ? (
             <pre slot="code">
@@ -899,14 +901,11 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>Cascader 级联选择(存在问题)</h2>
-
+        <h2>Cascader 级联选择</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend14 = !this.expend14)}>
           <div style={{ margin: '5px' }}>
-            <vue2-ant __name="a-cascader" options={this.options} placeholder="Please select"></vue2-ant>
+            <vue2-ant ref={el => (this.cascaderRef = el)} __name="a-cascader" placeholder="请选择"></vue2-ant>
           </div>
           {this.expend14 ? (
             <pre slot="code">
@@ -918,13 +917,14 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>Checkbox 多选框(存在问题)</h2>
-
+        <h2>Checkbox 多选框</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend15 = !this.expend15)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-checkbox">
+              <span>多选框</span>
+            </vue2-ant>
+          </div>
           {this.expend15 ? (
             <pre slot="code">
               {`
@@ -935,13 +935,15 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>DatePicker 日期选择框(存在问题)</h2>
-
+        <h2>DatePicker 日期选择框</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend16 = !this.expend16)}>
-          <div style={{ margin: '5px' }}>{/*   <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-date-picker"></vue2-ant>
+            <vue2-ant __name="a-month-picker" placeholder="选择月份"></vue2-ant>
+            <vue2-ant __name="a-range-picker"></vue2-ant>
+            <vue2-ant __name="a-week-picker" placeholder="选择周"></vue2-ant>
+          </div>
           {this.expend16 ? (
             <pre slot="code">
               {`
@@ -952,11 +954,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Form 表单(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend17 = !this.expend17)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend17 ? (
@@ -969,11 +968,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>FormModel 表单(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend18 = !this.expend18)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend18 ? (
@@ -986,13 +982,20 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Input 输入框(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend19 = !this.expend19)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant style={{ width: '140px' }} __name="a-input" placeholder="基础输入">
+              <vue2-ant __name="a-icon" __slot="prefix" type="user"></vue2-ant>
+              <vue2-ant __name="a-tooltip" __slot="suffix" title="Extra information">
+                <vue2-ant __name="a-icon" type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }}></vue2-ant>
+              </vue2-ant>
+            </vue2-ant>
+            <br></br>
+
+            <vue2-ant __name="a-input-search" placeholder="输入显示加载显示" loading enter-button></vue2-ant>
+          </div>
           {this.expend19 ? (
             <pre slot="code">
               {`
@@ -1003,13 +1006,12 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>InputNumber 数字输入框(存在问题)</h2>
-
+        <h2>InputNumber 数字输入框</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend20 = !this.expend20)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-input-number" number-min="1" number-max="10"></vue2-ant>
+          </div>
           {this.expend20 ? (
             <pre slot="code">
               {`
@@ -1020,13 +1022,22 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>Mentions 提及(存在问题)</h2>
-
+        <h2>Mentions 提及</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend21 = !this.expend21)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-mentions">
+              <vue2-ant __name="a-mentions-option" value="afc163">
+                afc163
+              </vue2-ant>
+              <vue2-ant __name="a-mentions-option" value="zombieJ">
+                zombieJ
+              </vue2-ant>
+              <vue2-ant __name="a-mentions-option" value="zombieJ">
+                zombieJ
+              </vue2-ant>
+            </vue2-ant>
+          </div>
           {this.expend21 ? (
             <pre slot="code">
               {`
@@ -1037,13 +1048,37 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>Radio 单选框(存在问题)</h2>
-
+        <h2>Radio 单选框</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend22 = !this.expend22)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-radio-group">
+              <vue2-ant __name="a-radio" value="a">
+                <span>单选框</span>
+              </vue2-ant>
+              <vue2-ant __name="a-radio" value="b">
+                <span>单选框</span>
+              </vue2-ant>
+              <vue2-ant __name="a-radio" value="c">
+                <span>单选框</span>
+              </vue2-ant>
+            </vue2-ant>
+
+            <vue2-ant __name="a-radio-group">
+              <vue2-ant __name="a-radio-button" value="a">
+                Hangzhou
+              </vue2-ant>
+              <vue2-ant __name="a-radio-button" value="b">
+                Shanghai
+              </vue2-ant>
+              <vue2-ant __name="a-radio-button" value="c">
+                Beijing
+              </vue2-ant>
+              <vue2-ant __name="a-radio-button" value="d">
+                Chengdu
+              </vue2-ant>
+            </vue2-ant>
+          </div>
           {this.expend22 ? (
             <pre slot="code">
               {`
@@ -1054,12 +1089,12 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-        <h2>Rate 评分(存在问题)</h2>
-
+        <h2>Rate 评分</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend23 = !this.expend23)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant ref={el => (this.rateRef = el)} __name="a-rate"></vue2-ant>
+          </div>
           {this.expend23 ? (
             <pre slot="code">
               {`
@@ -1071,11 +1106,34 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Select 选择器(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend24 = !this.expend24)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            {/* <vue2-ant __name="a-select" default-value="lucy" style={{ width: '120px' }}>
+              <vue2-ant __name="a-select-option" value="jack">
+                Jack
+              </vue2-ant>
+              <vue2-ant __name="a-select-option" value="lucy">
+                lucy
+              </vue2-ant>
+              <vue2-ant __name="a-select-option" value="disabled" disabled>
+                disabled
+              </vue2-ant>
+              <vue2-ant __name="a-select-option" value="disabled">
+                disabled
+              </vue2-ant>
+            </vue2-ant> */}
+            {/* <vue2-ant __name="a-select" mode="tags" style={{ width: '120px' }} placeholder="Tags Mode">
+              {Array.from(Array(100), (v,k) =>k).map(i => {
+                  return (
+                    <vue2-ant __name="a-select-option" value={(i + 9).toString(36) + i}>
+                      {(i + 9).toString(36) + i}
+                    </vue2-ant>
+                  );
+                })}
+            </vue2-ant> */}
+          </div>
+
           {this.expend24 ? (
             <pre slot="code">
               {`
@@ -1086,12 +1144,13 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-        <h2>Slider 滑动输入条(存在问题)</h2>
-
+        <h2>Slider 滑动输入条</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend25 = !this.expend25)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-slider" number-default-value="30"></vue2-ant>
+            <vue2-ant range ref={el => (this.sliderRef = el)} __name="a-slider"></vue2-ant>
+          </div>
           {this.expend25 ? (
             <pre slot="code">
               {`
@@ -1102,12 +1161,19 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-        <h2>Switch 开关(存在问题)</h2>
-
+        <h2>Switch 开关</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend26 = !this.expend26)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-switch" checked-children="开" un-checked-children="关" default-checked></vue2-ant>
+            <br />
+            <vue2-ant __name="a-switch" checked-children="1" un-checked-children="0"></vue2-ant>
+            <br />
+            <vue2-ant __name="a-switch">
+              <vue2-ant __name="a-icon" __slot="checkedChildren" type="check"></vue2-ant>
+              <vue2-ant __name="a-icon" __slot="unCheckedChildren" type="close"></vue2-ant>
+            </vue2-ant>
+          </div>
           {this.expend26 ? (
             <pre slot="code">
               {`
@@ -1118,12 +1184,16 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-        <h2>TimePicker 时间选择框(存在问题)</h2>
-
+        <h2>TimePicker 时间选择框</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend27 = !this.expend27)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant use12-hours __name="a-time-picker" format="h:mm a">
+              <vue2-ant __name="span" __slot="addon">
+                底部
+              </vue2-ant>
+            </vue2-ant>
+          </div>
           {this.expend27 ? (
             <pre slot="code">
               {`
@@ -1135,11 +1205,11 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Tranfer 穿梭框(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend28 = !this.expend28)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-transfer" ref={el => (this.transferRef = el)}></vue2-ant>
+          </div>
           {this.expend28 ? (
             <pre slot="code">
               {`
@@ -1151,9 +1221,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>TreeSelect 树型选择控件(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend29 = !this.expend29)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend29 ? (
@@ -1167,9 +1235,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Upload 上传(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend30 = !this.expend30)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend30 ? (
@@ -1183,9 +1249,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Avatar 头像(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend31 = !this.expend31)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend31 ? (
@@ -1199,9 +1263,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Badge 徽标数(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend32 = !this.expend32)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend32 ? (
@@ -1215,9 +1277,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Calendar 日历(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend33 = !this.expend33)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend33 ? (
@@ -1231,9 +1291,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Card 卡片(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend34 = !this.expend34)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend34 ? (
@@ -1247,9 +1305,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Carousel 走马灯(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend35 = !this.expend35)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend35 ? (
@@ -1263,9 +1319,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Collapse 折叠面板(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend36 = !this.expend36)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend36 ? (
@@ -1279,9 +1333,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Comment 评论(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend37 = !this.expend37)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend37 ? (
@@ -1295,9 +1347,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Descriptions 描述列表(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend38 = !this.expend38)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend38 ? (
@@ -1311,9 +1361,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Empty 空状态(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend39 = !this.expend39)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend39 ? (
@@ -1327,9 +1375,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>List 列表(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend40 = !this.expend40)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend40 ? (
@@ -1343,9 +1389,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Popover 气泡卡片(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend41 = !this.expend41)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend41 ? (
@@ -1359,9 +1403,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Statistic 统计数值(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend42 = !this.expend42)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend42 ? (
@@ -1375,9 +1417,7 @@ export class Antdesign2Preview {
           )}
         </code-show>
         <h2>Table 表格(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1390,11 +1430,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Tabs 标签页(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1407,11 +1444,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Tag 标签(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1424,11 +1458,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Timeline 时间轴(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1441,11 +1472,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Tooltip 文字提示(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1458,11 +1486,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Tree 树形控件(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1475,11 +1500,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Alert 警告提示(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1492,11 +1514,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Drawer 抽屉(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1509,11 +1528,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Message 全局提示(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1526,11 +1542,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Modal 对话框(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1543,11 +1556,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Notification 通知提醒框(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1560,11 +1570,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>opconfirm 气泡确认框(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1577,11 +1584,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Progress 进度条(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1594,11 +1598,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Result 结果(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1611,11 +1612,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Skeleton 骨架屏(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1628,11 +1626,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Spin 加载中(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (
@@ -1645,13 +1640,21 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>Anchor 锚点(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-anchor">
+              <vue2-ant __name="a-anchor-link" href="#components-anchor-demo-basic1" v-title="Basic demo"></vue2-ant>
+              <vue2-ant __name="a-anchor-link" href="#components-anchor-demo-static" v-title="Static demo"></vue2-ant>
+              <vue2-ant __name="a-anchor-link" href="#components-anchor-demo-basic2" v-title="Basic demo with Target" target="_blank"></vue2-ant>
+              <vue2-ant __name="a-anchor-link" href="#components-anchor-demo-basic3" v-title="Basic demo"></vue2-ant>
+              <vue2-ant __name="a-anchor-link" href="#API" v-title="API">
+                <vue2-ant __name="a-anchor-link" href="#Anchor-Props" v-title="Anchor Props"></vue2-ant>
+                <vue2-ant __name="a-anchor-link" href="#Link-Props" v-title="Link Props"></vue2-ant>
+              </vue2-ant>
+            </vue2-ant>
+          </div>
           {this.expend43 ? (
             <pre slot="code">
               {`
@@ -1662,13 +1665,16 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
-        <h2>BackTop 回到顶部(存在问题)</h2>
-
+        <h2>BackTop 回到顶部</h2>
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
-          <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
+          <div style={{ margin: '5px' }}>
+            <vue2-ant __name="a-back-top">
+              <div class="ant-back-top-inner">
+                <span>UP</span>
+              </div>
+            </vue2-ant>
+          </div>
           {this.expend43 ? (
             <pre slot="code">
               {`
@@ -1679,11 +1685,8 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-
         <h2>ConfigProvider 全局化配置(存在问题)</h2>
-
         <h3>代码演示</h3>
-
         <code-show onExpendChange={() => (this.expend43 = !this.expend43)}>
           <div style={{ margin: '5px' }}>{/* <vue2-ant __name="a-affix"></vue2-ant> */}</div>
           {this.expend43 ? (

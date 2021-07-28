@@ -194,7 +194,7 @@ export default {
                                 ...childrenMap[key].prop
                             },
                             on: { ...childrenMap[key].emit },
-                            slot: childrenMap[key].prop.slot,
+                            slot: childrenMap[key].prop ? childrenMap[key].prop.slot:'',
                             scopedSlots: this.getScopedSlots(h, childrenMap[key].slot),
                         },
                         this.getVueChildrens(h, childrenMap[key].childrens, childrenMap[key].slot.default)

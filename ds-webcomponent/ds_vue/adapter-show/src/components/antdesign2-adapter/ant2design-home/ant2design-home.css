@@ -1,3 +1,13 @@
 :host {
   display: block;
 }
+
+
+.antdesign2_adapter_main{
+  display: flex;
+  
+}
+
+.antdesign2_adapter_anchor{
+  padding: 30px;
+}
