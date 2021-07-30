@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 @Component({
   tag: 'antdesign2-formmodel',
@@ -7,10 +7,11 @@ import { Component, Host, h, State } from '@stencil/core';
 })
 export class Antdesign2Formmodel {
 
-  @State()
-  expend1 = false;
+ 
 
-  render() {
+@State()
+expend1 = false; 
+ render() {
     return (
       <div class="show_main_content">
         <slot></slot>

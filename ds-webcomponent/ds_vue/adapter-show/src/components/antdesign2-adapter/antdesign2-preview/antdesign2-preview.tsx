@@ -1,4 +1,4 @@
-import { Component, h, State, Host } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 @Component({
   tag: 'antdesign2-preview',
@@ -236,7 +236,7 @@ export class Antdesign2Preview {
   render(): any {
     console.log('渲染两次');
     return (
-      <Host>
+      <div class="show_main_content">
         <h2>写法注意事项</h2>
         1. 针对单独的文本节点，最好使用span标签包裹起来，不然不好解析
         <h2>Button 按钮</h2>
@@ -1699,7 +1699,7 @@ export class Antdesign2Preview {
             ''
           )}
         </code-show>
-      </Host>
+      </div>
     );
   }
 }

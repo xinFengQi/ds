@@ -1,9 +1,9 @@
-import { Component, Host, h, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 @Component({
   tag: 'antdesign2-autocomplete',
   styleUrl: 'antdesign2-autocomplete.css',
-  shadow: true,
+  
 })
 export class Antdesign2Autocomplete {
   @State()
