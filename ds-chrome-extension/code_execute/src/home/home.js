@@ -1,8 +1,29 @@
-chrome.bookmarks.getTree(markNodes => {
-    console.log(markNodes)
-    let str = traverseBoookMarksDs(markNodes, 0)
-    document.getElementById('content').innerHTML = str
-});
+window.onload = () => {
+    if (!window.ds.axios) {
+        alert('不存在axios')
+    }
+    messageUtil.getData({ '__bookMarkDataGit': '' }).then(v => {
+        chrome.bookmarks.getTree(markNodes => {
+            console.log(markNodes)
+            let data = [markNodes[0]];
+    
+            window.ds.axios.get(`https://gitee.com/api/v5/repos/dongfubao/ct/contents/chrome_bookMark%2F${v.__bookMarkDataGit}.json?access_token=e9694199cc954120b37d5d449a56a752`).then(v => {
+                console.log('文件是否存在', v)
+                if (v.data && ((Array.isArray(v.data) && v.data.length > 0) || !Array.isArray(v.data))) {
+                    const oldContent = JSON.parse(decodeURIComponent(atob(v.data.content))).filter(de => de.dateAdded !== markNodes[0].dateAdded);
+                    console.log('内容是', oldContent)
+                    data = [markNodes[0], ...oldContent]
+                }
+                let str = traverseBoookMarksDs(data, 0)
+                document.getElementById('content').innerHTML = str
+            })
+    
+    
+        });
+    })
+   
+}
+
 
 // 没有使用ds组件的
 function traverseBoookMarks(bookmarks, levelParams) {

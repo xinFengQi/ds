@@ -8,7 +8,7 @@
         "48": "img/icon.png",
         "128": "img/icon.png"
     },
-    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io 'unsafe-inline'; style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",      
+    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",      
     "browser_action": {
         "default_icon": "img/icon.png",
         "default_title": "__MSG_extensionName__",
