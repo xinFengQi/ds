@@ -10,11 +10,6 @@
           v-model:value="value"
           placeholder="搜索书签"
         />
-         <a-input
-          class="input_search"
-          v-model:value="value"
-          placeholder="搜索百度"
-        />
       </div>
       <HomeContent style="overflow: auto;flex: 1"
         v-if="showContentData && showContentData.length"

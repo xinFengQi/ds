@@ -10,9 +10,26 @@
  * 而且它可以无限制跨域，也就是可以跨域访问任何网站而无需要求对方设置CORS。
  */
 
+// 脚本管理
 export default {
   name: "page1",
   components: {},
+  created() {
+    console.log("创建菜单");
+    const scriptCodeSrc = window.chrome.extension.getURL("src/home.html");
+    window.chrome.contextMenus.create({
+      title: "扩展设置页面",
+      onclick: function () {
+        window.chrome.tabs.create({ url: scriptCodeSrc });
+      },
+    });
+    // 菜单分割线
+    window.chrome.contextMenus.create({
+      type: "separator",
+      title: "可执行脚本",
+      onclick: function () {},
+    });
+  },
 };
 </script>
 

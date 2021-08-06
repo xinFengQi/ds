@@ -13,7 +13,8 @@
           v-for="da in getNoChildren"
           :key="da.dateAdded + ''"
           type="link"
-          >{{ da.title }}</a-button
+          >
+         <a :href="da.url" target="_blank">{{ da.title }}</a></a-button
         >
       </div>
     </a-collapse>
