@@ -1,5 +1,5 @@
 <template>
-  <div>page1页面</div>
+  <div>弹出页面</div>
 </template>
 
 <script>

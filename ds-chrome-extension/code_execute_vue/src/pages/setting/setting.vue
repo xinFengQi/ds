@@ -1,5 +1,5 @@
 <template>
-  <div>page1页面</div>
+  <div>设置页面</div>
 </template>
 
 <script>

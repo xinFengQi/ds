@@ -1,4 +1,4 @@
 import { createApp } from 'vue'
-import App from './backgroud.vue'
+import App from './homepage.vue'
 
 createApp(App).mount('#app')

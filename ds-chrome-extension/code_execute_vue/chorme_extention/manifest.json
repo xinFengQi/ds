@@ -1,0 +1,52 @@
+{
+    "manifest_version": 2,
+    "name": "ds_扩展工具_vue",
+    "version": "1.0.0",
+    "description": "ds_扩展工具_vue",
+    "icons": {
+        "16": "src/img/logo.png",
+        "48": "src/img/logo.png",
+        "128": "src/img/logo.png"
+    },
+    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",      
+    "browser_action": {
+        "default_icon": "src/img/logo.png",
+        "default_title": "ds_扩展工具_vue",
+        "default_popup": "src/popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/js/index.js"],
+            "css": [],
+            "run_at": "document_start"
+        }
+    ],
+    "background":
+	{
+		"page": "src/background.html"
+	},
+    "web_accessible_resources": [],
+    "homepage_url": "https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html",
+    "chrome_url_overrides":
+	{
+		"newtab": "src/home.html"
+    },
+    "options_ui":
+	{
+		"page": "src/setting.html"
+    },
+    "devtools_page": "src/devtools.html",
+    "permissions": [
+        "background",
+        "contextMenus",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "bookmarks",
+        "http://*/*",
+        "https://*/*"
+    ]
+}

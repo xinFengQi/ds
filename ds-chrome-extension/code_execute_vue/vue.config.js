@@ -1,12 +1,15 @@
 module.exports = {
+    outputDir: 'chorme_extention/src',
+    publicPath: './',
+    filenameHashing: false,
     pages: {
         index: {
             entry: 'src/main.js',
             template: 'public/index.html'
         },
-        backgroud: {
-            entry: 'src/pages/backgroud/main.js',
-            template: 'public/backgroud.html'
+        background: {
+            entry: 'src/pages/background/main.js',
+            template: 'public/background.html'
         },
         devtools: {
             entry: 'src/pages/devtools/main.js',
@@ -23,6 +26,10 @@ module.exports = {
         setting: {
             entry: 'src/pages/setting/main.js',
             template: 'public/setting.html'
+        },
+        homepage: {
+            entry: 'src/pages/homepage/main.js',
+            template: 'public/homepage.html'
         }
     } 
 }
