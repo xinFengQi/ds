@@ -11,17 +11,25 @@
         @click="getClickMenu(item)"
       >
         <span>{{ item.title }}</span>
+        <span class="opate" v-if="edit">
+          <DeleteOutlined @click="deleteMenu($event, item)"></DeleteOutlined>
+        </span>
       </a-menu-item>
     </a-menu>
   </div>
 </template>
 
 <script>
-import chromeUtil from "../../chrome_lib/chrome_util";
-import axios from "axios";
-
+import chromeGiteeUtil from "../../chrome_lib/chrome_gitee_util";
+import { DeleteOutlined } from "@ant-design/icons-vue";
 export default {
   name: "homeMenu",
+  props: {
+    edit: Boolean,
+  },
+  components: {
+    DeleteOutlined,
+  },
   data() {
     return {
       selectedKeys: [],
@@ -29,83 +37,32 @@ export default {
     };
   },
   mounted() {
-    // 先去获取本地书签
-    const getBook = chromeUtil.getBookmarks();
-    const getDsFlag = chromeUtil.getLocalVariable("__gitee_ds_flag");
-    const getGiteeAccess = chromeUtil.getLocalVariable("__gitee_access_token");
-    const getGiteeOwner = chromeUtil.getLocalVariable("__gitee_owner");
-    const getGiteeRepo = chromeUtil.getLocalVariable("__gitee_repo");
-
-    Promise.all([
-      getBook,
-      getDsFlag,
-      getGiteeAccess,
-      getGiteeOwner,
-      getGiteeRepo,
-    ]).then((v) => {
-      console.log(v, "========================");
-      v[1] = "dongfubao";
-      v[2] = "e9694199cc954120b37d5d449a56a752";
-      v[3] = "dongfubao";
-      v[4] = "ct";
-      if (v[1] && v[2] && v[3] && v[4]) {
-        const getMatkBookUrl = `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_bookMark%2F${v[1]}.json?access_token=${v[2]}`;
-        axios.get(getMatkBookUrl).then((httpV) => {
-          if (
-            httpV.data &&
-            ((Array.isArray(httpV.data) && httpV.data.length > 0) ||
-              !Array.isArray(httpV.data))
-          ) {
-            let oldContent = JSON.parse(
-              decodeURIComponent(atob(httpV.data.content))
-            ).map((olDa) => {
-              return {
-                ...olDa,
-                title: olDa.title || olDa.dateAdded,
-                dateAdded: olDa.dateAdded,
-              };
-            });
-            if (v[0]) {
-              oldContent = oldContent.filter(
-                (de) => (de.dateAdded !== v[0].dateAdded && de.children[0].dateAdded !== v[0].children[0].dateAdded)
-              );
-              this.machineMenu = [
-                {
-                  ...v[0],
-                  title: "本地书签",
-                  dateAdded: v[0].dateAdded,
-                },
-                ...oldContent,
-              ];
-            } else {
-              this.machineMenu = [...oldContent];
-            }
-            console.log("内容是", this.machineMenu);
-            this.$emit("getShowMenu", this.machineMenu[0]);
-            this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
-          }
-        });
-      } else {
-        if (v[0]) {
-          this.machineMenu = [
-            {
-              ...v[0],
-              title: "本地书签",
-              dateAdded: v[0].dateAdded,
-            },
-          ];
-          this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
-        }
-      }
-    });
+    chromeGiteeUtil
+      .getBookMarks(this.edit)
+      .then((v) => {
+        this.machineMenu = v;
+        this.$emit("getShowMenu", this.machineMenu[0]);
+        this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
+      })
+      .catch((err) => {
+        console.log("获取书签出错:", err);
+      });
   },
   methods: {
     getClickMenu(data) {
       this.$emit("getShowMenu", data);
+    },
+    deleteMenu(ev, item) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      console.log("删除导航", item);
     },
   },
 };
 </script>
 
 <style scope>
+.opate {
+  margin-left: 5px;
+}
 </style>

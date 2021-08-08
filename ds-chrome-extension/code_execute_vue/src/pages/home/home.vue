@@ -1,17 +1,19 @@
 <template>
   <div class="home_main">
     <div>
-      <HomeMenu @getShowMenu="getShowMenu($event)"></HomeMenu>
+      <HomeMenu @getShowMenu="getShowMenu($event)" :edit="edit"></HomeMenu>
     </div>
     <div class="home_content">
-      <div class="home_tool">
+      <div class="home_tool" v-if="!edit">
         <a-input
           class="input_search"
           v-model:value="value"
           placeholder="搜索书签"
         />
       </div>
-      <HomeContent style="overflow: auto;flex: 1"
+      <HomeContent
+        :edit="edit"
+        style="overflow: auto; flex: 1"
         v-if="showContentData && showContentData.length"
         :showContentData="showContentData"
       ></HomeContent>
@@ -28,10 +30,13 @@ export default {
     HomeMenu,
     HomeContent,
   },
+  props: {
+    edit: Boolean,
+  },
   data() {
     return {
       showContentData: [],
-      value: ""
+      value: "",
     };
   },
   methods: {
@@ -63,7 +68,6 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  
 }
 .home_tool {
   display: flex;

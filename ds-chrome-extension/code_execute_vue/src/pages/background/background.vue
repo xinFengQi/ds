@@ -16,7 +16,7 @@ export default {
   components: {},
   created() {
     console.log("创建菜单");
-    const scriptCodeSrc = window.chrome.extension.getURL("src/home.html");
+    const scriptCodeSrc = window.chrome.extension.getURL("src/homepage.html");
     window.chrome.contextMenus.create({
       title: "扩展设置页面",
       onclick: function () {

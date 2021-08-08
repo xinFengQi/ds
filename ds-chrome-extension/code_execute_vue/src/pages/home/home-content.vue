@@ -4,28 +4,42 @@
       <a-collapse-panel
         v-for="da in getIsChildren"
         :key="da.dateAdded + ''"
-        :header="da.title"
       >
-        <HomeContent :showContentData="da.children"></HomeContent>
+      <template #header>
+        {{da.title}}
+         <span class="opate" v-if="edit">
+            <DeleteOutlined @click="deleteMenu($event, da)"></DeleteOutlined>
+          </span>
+      </template>
+        <HomeContent :showContentData="da.children" :edit="edit"></HomeContent>
       </a-collapse-panel>
       <div class="show_contain">
         <a-button
           v-for="da in getNoChildren"
           :key="da.dateAdded + ''"
           type="link"
-          >
-         <a :href="da.url" target="_blank">{{ da.title }}</a></a-button
         >
+          <a :href="da.url" target="_blank">{{ da.title }}</a>
+          <span class="opate" v-if="edit">
+            <DeleteOutlined @click="deleteMenu($event, da)"></DeleteOutlined>
+          </span>
+        </a-button>
       </div>
     </a-collapse>
   </div>
 </template>
 
 <script>
+import { DeleteOutlined } from "@ant-design/icons-vue";
+
 export default {
   name: "homeContent",
+  components: {
+    DeleteOutlined,
+  },
   props: {
     showContentData: [],
+    edit: Boolean,
   },
   data() {
     return {
@@ -58,11 +72,17 @@ export default {
     },
   },
   mounted() {
-       this.activeKeys = this.showContentData
-        .filter((v) => v.children && v.children.length)
-        .map((v) => v.dateAdded + "");
+    this.activeKeys = this.showContentData
+      .filter((v) => v.children && v.children.length)
+      .map((v) => v.dateAdded + "");
   },
-  methods: {},
+  methods: {
+    deleteMenu(ev, item) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      console.log("删除导航", item);
+    },
+  },
 };
 </script>
 
@@ -85,7 +105,7 @@ export default {
   display: flex;
 }
 
-.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   padding: 6px 40px !important;
 }
 </style>
