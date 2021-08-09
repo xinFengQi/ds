@@ -42,6 +42,7 @@ export default {
       .then((v) => {
         this.machineMenu = v;
         this.$emit("getShowMenu", this.machineMenu[0]);
+        this.$emit("getAllMenu",  this.machineMenu );
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
       })
       .catch((err) => {
@@ -56,6 +57,13 @@ export default {
       ev.stopPropagation();
       ev.preventDefault();
       console.log("删除导航", item);
+      this.machineMenu = this.machineMenu.filter(
+        (v) => v.dateAdded !== item.dateAdded
+      );
+      if (this.selectedKeys.includes(item.dateAdded + "")) {
+        this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
+        this.getClickMenu(this.machineMenu[0]);
+      }
     },
   },
 };

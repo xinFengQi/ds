@@ -1,25 +1,34 @@
 <template>
-    <a-layout class="main_layout">
-      <a-layout-sider>
-        <layoutSider class="layout_sider" @selectMenuKey="selectMenuKey($event)"></layoutSider>
-      </a-layout-sider>
-      <a-layout>
-        <a-layout-content class="layout_content">
-            <bookmarksSetting v-if="currentKey === 'bookmarks'"></bookmarksSetting>
-            <bookmarksManager v-if="currentKey === 'bookmarks_manager'"></bookmarksManager>
-            <codeSetting v-if="currentKey === 'code_setting'"></codeSetting>
-            <codeManager v-if="currentKey === 'code_manager'"></codeManager>
-        </a-layout-content>
-      </a-layout>
+  <a-layout class="main_layout">
+    <a-layout-sider>
+      <layoutSider
+        class="layout_sider"
+        @selectMenuKey="selectMenuKey($event)"
+      ></layoutSider>
+    </a-layout-sider>
+    <a-layout>
+      <a-layout-content class="layout_content">
+        <bookmarksSetting v-if="currentKey === 'bookmarks'"></bookmarksSetting>
+        <bookmarksManager
+          v-if="currentKey === 'bookmarks_manager'"
+        ></bookmarksManager>
+        <codeSetting v-if="currentKey === 'code_setting'"></codeSetting>
+        <codeManager v-if="currentKey === 'code_manager'"></codeManager>
+        <developPreface
+          v-if="currentKey === 'develop_preface'"
+        ></developPreface>
+      </a-layout-content>
     </a-layout>
+  </a-layout>
 </template>
 
 <script>
-import layoutSider from './layout_sider.vue';
-import bookmarksSetting from './bookmarks_setting.vue';
-import bookmarksManager from './bookmarks_manager.vue'
-import codeSetting from './code_setting.vue';
-import codeManager from './code_manager.vue';
+import layoutSider from "./layout_sider.vue";
+import bookmarksSetting from "./bookmarks_setting.vue";
+import bookmarksManager from "./bookmarks_manager.vue";
+import codeSetting from "./code_setting.vue";
+import codeManager from "./code_manager.vue";
+import developPreface from "./develop_preface.vue";
 
 export default {
   name: "homepage",
@@ -28,17 +37,18 @@ export default {
     bookmarksSetting,
     bookmarksManager,
     codeSetting,
-    codeManager
+    codeManager,
+    developPreface,
   },
   data() {
     return {
-      currentKey: null
-    }
+      currentKey: null,
+    };
   },
   methods: {
-    selectMenuKey: function(key) {
+    selectMenuKey: function (key) {
       this.currentKey = key;
-    }
+    },
   },
 };
 </script>
@@ -51,22 +61,24 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  overflow: hidden;
 }
-.main_layout{
+.main_layout {
   height: 100%;
+  overflow: hidden;
 }
-.layout_sider{
+.layout_sider {
   width: 200px !important;
   height: 100%;
 }
 
-.layout_content{
+.layout_content {
   margin-left: 4px;
   padding: 10px;
   width: 100%;
   height: 100%;
   overflow-y: auto;
   background-color: #fff;
+  overflow-x: hidden;
 }
-
 </style>

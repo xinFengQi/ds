@@ -1,17 +1,18 @@
 <template>
   <div>
     <a-collapse v-model:activeKey="activeKeys">
-      <a-collapse-panel
-        v-for="da in getIsChildren"
-        :key="da.dateAdded + ''"
-      >
-      <template #header>
-        {{da.title}}
-         <span class="opate" v-if="edit">
+      <a-collapse-panel v-for="da in getIsChildren" :key="da.dateAdded + ''">
+        <template #header>
+          {{ da.title }}
+          <span class="opate" v-if="edit">
             <DeleteOutlined @click="deleteMenu($event, da)"></DeleteOutlined>
           </span>
-      </template>
-        <HomeContent :showContentData="da.children" :edit="edit"></HomeContent>
+        </template>
+        <HomeContent
+          :showContentData="da.children"
+          @deleteItem="deleteItem($event, da)"
+          :edit="edit"
+        ></HomeContent>
       </a-collapse-panel>
       <div class="show_contain">
         <a-button
@@ -81,6 +82,11 @@ export default {
       ev.stopPropagation();
       ev.preventDefault();
       console.log("删除导航", item);
+      item.isDelete = true;
+      this.$emit("deleteItem", item.dateAdded);
+    },
+    deleteItem(ev, da) {
+      da.children = da.children.filter((v) => v.dateAdded !== ev);
     },
   },
 };

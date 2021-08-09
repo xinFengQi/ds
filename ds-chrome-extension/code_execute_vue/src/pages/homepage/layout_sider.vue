@@ -22,8 +22,13 @@ export default {
   },
   data() {
     return {
-      defaultSelectedKeys: ["bookmarks"],
+      defaultSelectedKeys: ["develop_preface"],
       menuTree: [
+        {
+          key: "develop_preface",
+          label: "开发者序言",
+          icon: SnippetsTwoTone,
+        },
         {
           key: "bookmarks",
           label: "书签设置",

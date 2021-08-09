@@ -1,10 +1,12 @@
 <template>
   <div class="home_main">
     <div>
-      <HomeMenu @getShowMenu="getShowMenu($event)" :edit="edit"></HomeMenu>
+      <HomeMenu @getShowMenu="getShowMenu($event)" @getAllMenu="getAllMenu($event)" :edit="edit"></HomeMenu>
     </div>
     <div class="home_content">
+      <button @click="show">展示</button>
       <div class="home_tool" v-if="!edit">
+        
         <a-input
           class="input_search"
           v-model:value="value"
@@ -16,6 +18,7 @@
         style="overflow: auto; flex: 1"
         v-if="showContentData && showContentData.length"
         :showContentData="showContentData"
+        @deleteItem="deleteItem($event)"
       ></HomeContent>
     </div>
   </div>
@@ -36,14 +39,24 @@ export default {
   data() {
     return {
       showContentData: [],
+      allData: [],
       value: "",
     };
   },
   methods: {
+    show: function() {
+      console.log( this.allData, '========================')
+    },
+    getAllMenu(data) {
+      this.allData = data;
+    },
     getShowMenu(data) {
       console.log(data, "会展示的菜单");
       this.showContentData = data.children;
     },
+    deleteItem(ev) {
+      this.showContentData = this.showContentData.filter((v) => v.dateAdded !== ev);
+    }
   },
 };
 </script>

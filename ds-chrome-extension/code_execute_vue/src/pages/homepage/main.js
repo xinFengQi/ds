@@ -17,6 +17,10 @@ import pageHeader from 'ant-design-vue/lib/page-header'
 import 'ant-design-vue/lib/page-header/style/css'; 
 import typography from 'ant-design-vue/lib/typography';
 import 'ant-design-vue/lib/typography/style/css'; 
+import form from 'ant-design-vue/lib/form';
+import 'ant-design-vue/lib/form/style/css'; 
+import tooltip from 'ant-design-vue/lib/tooltip';
+import 'ant-design-vue/lib/tooltip/style/css'; 
 
 const app = createApp(App)
 
@@ -27,6 +31,11 @@ app.use(collapse);
 app.use(input);
 app.use(pageHeader);
 app.use(typography);
+app.use(form);
+app.use(tooltip);
+
+
+
 
 
 

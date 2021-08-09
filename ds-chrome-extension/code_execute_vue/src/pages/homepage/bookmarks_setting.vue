@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="setting_tool">
-      <a-button type="primary" @click="uploadBookMarks">根据下面内容上传本地书签</a-button>
+      <a-button type="primary" @click="uploadBookMarks"
+        >根据下面内容上传本地书签</a-button
+      >
     </div>
     <a-page-header
       class="page_header"
@@ -64,7 +66,7 @@
       </div>
     </div>
 
-        <a-page-header
+    <a-page-header
       class="page_header"
       title="公共唯一标识"
       sub-title="根据此标识去gitee读取文件和存储数据，公共标识会将书签内容加入个人书签显示"
@@ -88,7 +90,7 @@
 <script>
 import { HighlightTwoTone } from "@ant-design/icons-vue";
 import chromeUtil from "../../chrome_lib/chrome_util";
-import chrome_gitee_util from '../../chrome_lib/chrome_gitee_util';
+import chrome_gitee_util from "../../chrome_lib/chrome_gitee_util";
 
 export default {
   name: "bookmarksSetting",
@@ -101,21 +103,24 @@ export default {
       getGiteeAccess: "",
       getGiteeOwner: "",
       getGiteeRepo: "",
-      giteeDsPublicFlag: ""
+      giteeDsPublicFlag: "",
     };
   },
   mounted() {
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
-      this.giteeDsFlag = v || "dongfubao";
+      this.giteeDsFlag = v;
     });
     chromeUtil.getLocalVariable("__gitee_access_token").then((v) => {
-      this.getGiteeAccess = v || "e9694199cc954120b37d5d449a56a752";
+      this.getGiteeAccess = v;
     });
     chromeUtil.getLocalVariable("__gitee_owner").then((v) => {
-      this.getGiteeOwner = v || "dongfubao";
+      this.getGiteeOwner = v ;
     });
     chromeUtil.getLocalVariable("__gitee_repo").then((v) => {
-      this.getGiteeRepo = v || "ct";
+      this.getGiteeRepo = v ;
+    });
+    chromeUtil.getLocalVariable("__gitee_ds_pubilc_flag").then((v) => {
+      this.giteeDsPublicFlag = v;
     });
   },
   watch: {
@@ -147,21 +152,28 @@ export default {
       console.log("存在变化", newV, oldV);
       chromeUtil.setLocalVariable("__gitee_repo", newV);
     },
+    giteeDsPublicFlag: function (newV, oldV) {
+      if (newV === oldV) {
+        return;
+      }
+      console.log("存在变化", newV, oldV);
+      chromeUtil.setLocalVariable("__gitee_ds_pubilc_flag", newV);
+    },
   },
   methods: {
-    uploadBookMarks: function() {
-      chrome_gitee_util.uploadBookMarks().then(v => {
-        if(v) {
-          alert('更新成功')
+    uploadBookMarks: function () {
+      chrome_gitee_util.uploadBookMarks().then((v) => {
+        if (v) {
+          alert("更新成功");
         }
-      })
-    }
+      });
+    },
   },
 };
 </script>
 
 <style scope>
-.setting_tool{
+.setting_tool {
   display: flex;
   margin-left: 24px;
 }
