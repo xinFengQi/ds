@@ -11,68 +11,84 @@ function getBookMarks(edit = false) {
         const getGiteeOwner = chromeUtil.getLocalVariable("__gitee_owner");
         const getGiteeRepo = chromeUtil.getLocalVariable("__gitee_repo");
 
-        Promise.all([
-            getBook,
-            getDsFlag,
-            getGiteeAccess,
-            getGiteeOwner,
-            getGiteeRepo,
-        ]).then((v) => {
-            let machineMenu = [];
-            if (v[1] && v[2] && v[3] && v[4]) {
-                const getMatkBookUrl = `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_bookMark%2F${v[1]}.json?access_token=${v[2]}`;
-                axios.get(getMatkBookUrl).then((httpV) => {
-                    if (
-                        httpV.data &&
-                        ((Array.isArray(httpV.data) && httpV.data.length > 0) ||
-                            !Array.isArray(httpV.data))
-                    ) {
-                        let oldContent = JSON.parse(
-                            decodeURIComponent(atob(httpV.data.content))
-                        ).map((olDa) => {
-                            return {
-                                ...olDa,
-                                title: olDa.title || olDa.dateAdded,
-                                dateAdded: olDa.dateAdded,
-                            };
-                        });
-                        if (v[0] && !edit) {
-                            oldContent = oldContent.filter(
-                                (de) => (de.dateAdded !== v[0].dateAdded && de.children[0].dateAdded !== v[0].children[0].dateAdded)
-                            );
-                            machineMenu = [
-                                {
-                                    ...v[0],
-                                    title: "本地书签",
-                                    dateAdded: v[0].dateAdded,
-                                },
-                                ...oldContent,
-                            ];
-                        } else {
-                            machineMenu = [...oldContent];
-                        }
-                        console.log("内容是", this.machineMenu);
-                        resolve(machineMenu)
-                    } else {
-                        reject({ msg: 'gitee的数据获取错误' })
-                    }
-                });
+        // 判断是否读取远程书签权限
+        const getGiteeisReader = chromeUtil.getLocalVariable("__giteeMarks_private_open");
+
+        getGiteeisReader.then(isReader => {
+            if (isReader) {
+                getMarks([
+                    getBook,
+                    getDsFlag,
+                    getGiteeAccess,
+                    getGiteeOwner,
+                    getGiteeRepo,
+                ], resolve, reject, edit)
             } else {
-                if (v[0]) {
-                    machineMenu = [
-                        {
-                            ...v[0],
-                            title: "本地书签",
-                            dateAdded: v[0].dateAdded,
-                        },
-                    ];
+                getMarks([
+                    getBook,
+                ], resolve, reject, edit)
+            }
+        })
+    })
+}
+
+
+function getMarks(arr, resolve, reject, edit) {
+    Promise.all(arr).then((v) => {
+        let machineMenu = [];
+        if (v[1] && v[2] && v[3] && v[4]) {
+            const getMatkBookUrl = `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_bookMark%2F${v[1]}.json?access_token=${v[2]}`;
+            axios.get(getMatkBookUrl).then((httpV) => {
+                if (
+                    httpV.data &&
+                    ((Array.isArray(httpV.data) && httpV.data.length > 0) ||
+                        !Array.isArray(httpV.data))
+                ) {
+                    let oldContent = JSON.parse(
+                        decodeURIComponent(atob(httpV.data.content))
+                    ).map((olDa) => {
+                        return {
+                            ...olDa,
+                            title: olDa.title || olDa.dateAdded,
+                            dateAdded: olDa.dateAdded,
+                        };
+                    });
+                    if (v[0] && !edit) {
+                        oldContent = oldContent.filter(
+                            (de) => (de.dateAdded !== v[0].dateAdded && de.children[0].dateAdded !== v[0].children[0].dateAdded)
+                        );
+                        machineMenu = [
+                            {
+                                ...v[0],
+                                title: "本地书签",
+                                dateAdded: v[0].dateAdded,
+                            },
+                            ...oldContent,
+                        ];
+                    } else {
+                        machineMenu = [...oldContent];
+                    }
+                    console.log("内容是", machineMenu);
                     resolve(machineMenu)
                 } else {
-                    reject({ msg: '本地书签未获取到' })
+                    reject({ msg: 'gitee的数据获取错误' })
                 }
+            });
+        } else {
+            if (v[0]) {
+                machineMenu = [
+                    {
+                        ...v[0],
+                        title: "本地书签",
+                        dateAdded: v[0].dateAdded,
+                    },
+                ];
+                resolve(machineMenu)
+            } else {
+                reject({ msg: '本地书签未获取到' })
             }
-        });
-    })
+        }
+    });
 }
 
 function uploadBookMarks() {

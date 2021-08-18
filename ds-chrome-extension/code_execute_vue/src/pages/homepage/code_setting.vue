@@ -7,81 +7,111 @@
     </div>
     <a-page-header
       class="page_header"
-      title="个人唯一标识"
-      sub-title="根据此标识去gitee读取文件和存储数据，所以标识一样会数据通用"
+      title="是否启动个人gitee远程数据储存"
+      sub-title="使用gitee远程数据存储后，可以在远程读取或者存储书签数据"
     />
     <div class="writer_content">
-      <div class="input_conlone">
-        <label>设置标识:</label>
-        <span class="input_value">
-          <a-typography-paragraph v-model:content="giteeDsFlag" editable>
-            <template v-slot:editableIcon>
-              <HighlightTwoTone />
-            </template>
-            <template v-slot:editableTooltip>点击编辑文本</template>
-          </a-typography-paragraph>
-        </span>
+      <a-switch
+        v-model:checked="giteeCodes_private_open"
+        @change="giteePrivateOpenChange($event)"
+      />
+    </div>
+    <div v-if="giteeCodes_private_open">
+      <a-page-header
+        class="page_header"
+        title="个人唯一标识"
+        sub-title="根据此标识去gitee读取文件和存储数据，所以标识一样会数据通用"
+      />
+      <div class="writer_content">
+        <div class="input_conlone">
+          <label>设置标识:</label>
+          <span class="input_value">
+            <a-typography-paragraph v-model:content="giteeDsFlag" editable>
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+      </div>
+
+      <a-page-header
+        class="page_header"
+        title="gitee设置"
+        sub-title="脚本的数据存储使用的是gitee,接口使用的是gitee的公开api"
+      />
+
+      <div class="writer_content">
+        <div class="input_conlone">
+          <label>用户授权码[access_token]:</label>
+          <span class="input_value">
+            <a-typography-paragraph v-model:content="getGiteeAccess" editable>
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+        <div class="input_conlone">
+          <label>仓库所属空间地址(企业、组织或个人的地址path)[owner]:</label>
+          <span class="input_value">
+            <a-typography-paragraph v-model:content="getGiteeOwner" editable>
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+        <div class="input_conlone">
+          <label>仓库路径(path)[repo]:</label>
+          <span class="input_value">
+            <a-typography-paragraph v-model:content="getGiteeRepo" editable>
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
       </div>
     </div>
 
     <a-page-header
       class="page_header"
-      title="gitee设置"
-      sub-title="脚本的数据存储使用的是gitee,接口使用的是gitee的公开api"
+      title="是否启动公共gitee远程数据储存"
+      sub-title="使用gitee远程数据存储后，可以在远程读取或者存储书签数据"
     />
-
     <div class="writer_content">
-      <div class="input_conlone">
-        <label>用户授权码[access_token]:</label>
-        <span class="input_value">
-          <a-typography-paragraph v-model:content="getGiteeAccess" editable>
-            <template v-slot:editableIcon>
-              <HighlightTwoTone />
-            </template>
-            <template v-slot:editableTooltip>点击编辑文本</template>
-          </a-typography-paragraph>
-        </span>
-      </div>
-      <div class="input_conlone">
-        <label>仓库所属空间地址(企业、组织或个人的地址path)[owner]:</label>
-        <span class="input_value">
-          <a-typography-paragraph v-model:content="getGiteeOwner" editable>
-            <template v-slot:editableIcon>
-              <HighlightTwoTone />
-            </template>
-            <template v-slot:editableTooltip>点击编辑文本</template>
-          </a-typography-paragraph>
-        </span>
-      </div>
-      <div class="input_conlone">
-        <label>仓库路径(path)[repo]:</label>
-        <span class="input_value">
-          <a-typography-paragraph v-model:content="getGiteeRepo" editable>
-            <template v-slot:editableIcon>
-              <HighlightTwoTone />
-            </template>
-            <template v-slot:editableTooltip>点击编辑文本</template>
-          </a-typography-paragraph>
-        </span>
-      </div>
+      <a-switch
+        v-model:checked="giteeCodes_public_open"
+        @change="giteePublicOpenChange($event)"
+      />
     </div>
 
-    <a-page-header
-      class="page_header"
-      title="公共唯一标识"
-      sub-title="根据此标识去gitee读取文件和存储数据，公共标识会将脚本内容加入个人脚本显示"
-    />
-    <div class="writer_content">
-      <div class="input_conlone">
-        <label>设置标识:</label>
-        <span class="input_value">
-          <a-typography-paragraph v-model:content="giteeDsPublicFlag" editable>
-            <template v-slot:editableIcon>
-              <HighlightTwoTone />
-            </template>
-            <template v-slot:editableTooltip>点击编辑文本</template>
-          </a-typography-paragraph>
-        </span>
+    <div v-if="giteeCodes_public_open">
+      <a-page-header
+        class="page_header"
+        title="公共唯一标识"
+        sub-title="根据此标识去gitee读取文件和存储数据，公共标识会将脚本内容加入个人脚本显示"
+      />
+      <div class="writer_content">
+        <div class="input_conlone">
+          <label>设置标识:</label>
+          <span class="input_value">
+            <a-typography-paragraph
+              v-model:content="giteeDsPublicFlag"
+              editable
+            >
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -99,6 +129,8 @@ export default {
   },
   data() {
     return {
+      giteeCodes_private_open: false,
+      giteeCodes_public_open: false,
       giteeDsFlag: "",
       getGiteeAccess: "",
       getGiteeOwner: "",
@@ -167,6 +199,13 @@ export default {
           alert("更新成功");
         }
       });
+    },
+    giteePrivateOpenChange: function (ev) {
+      chromeUtil.setLocalVariable("__giteeCodes_private_open", ev);
+
+    },
+    giteePublicOpenChange: function (ev) {
+      chromeUtil.setLocalVariable("__giteeCodes_public_open", ev);
     },
   },
 };
