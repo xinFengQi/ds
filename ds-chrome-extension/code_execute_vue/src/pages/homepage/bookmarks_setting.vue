@@ -121,16 +121,22 @@
 import { HighlightTwoTone } from "@ant-design/icons-vue";
 import chromeUtil from "../../chrome_lib/chrome_util";
 import chrome_gitee_util from "../../chrome_lib/chrome_gitee_util";
-
+import { reactive, toRefs } from "vue";
 export default {
   name: "bookmarksSetting",
   components: {
     HighlightTwoTone,
   },
+  setup() {
+    const state = reactive({
+      giteeMarks_private_open: false,
+      giteeMarks_public_open: false,
+    });
+
+    return { ...toRefs(state) };
+  },
   data() {
     return {
-      giteeMarks_private_open: true,
-      giteeMarks_public_open: false,
       giteeDsFlag: "",
       getGiteeAccess: "",
       getGiteeOwner: "",
@@ -140,12 +146,10 @@ export default {
   },
   mounted() {
     chromeUtil.getLocalVariable("__giteeMarks_private_open").then((isShow) => {
-      this.giteeMarks_private_open = isShow;
-      this.$forceUpdate();
+      this.giteeMarks_private_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
     });
     chromeUtil.getLocalVariable("__giteeMarks_public_open").then((isShow) => {
-      this.giteeMarks_public_open = isShow;
-      this.$forceUpdate();
+      this.giteeMarks_public_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
     });
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
       this.giteeDsFlag = v;

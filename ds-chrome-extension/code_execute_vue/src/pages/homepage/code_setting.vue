@@ -139,6 +139,12 @@ export default {
     };
   },
   mounted() {
+     chromeUtil.getLocalVariable("__giteeCodes_private_open").then((isShow) => {
+      this.giteeCodes_private_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+    });
+    chromeUtil.getLocalVariable("__giteeCodes_public_open").then((isShow) => {
+      this.giteeCodes_public_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+    });
     chromeUtil.getLocalVariable("__gitee_code_ds_flag").then((v) => {
       this.giteeDsFlag = v;
     });
