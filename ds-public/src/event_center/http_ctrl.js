@@ -25,7 +25,7 @@ class eventCenterHttp {
                 field: 'type',
                 dec: '类型',
                 require: true,
-                type: 'string', // global system modules department personal  topic
+                type: 'string', // global fixation_topic topic
                 default: 'global'
             },
             {
@@ -38,7 +38,7 @@ class eventCenterHttp {
     })
     async add(req, res) {
         const data = await getRequestData.getPostData(req);
-        if(!data.eventName || !data.type) {
+        if (!data.eventName || !data.type) {
             res.json(returnJSON.error({ message: '参数缺少' }))
             return;
         }
@@ -68,7 +68,7 @@ class eventCenterHttp {
                 field: 'type',
                 dec: '类型',
                 require: true,
-                type: 'string', // global system modules department personal  topic
+                type: 'string', //  global fixation_topic topic
                 default: 'global'
             },
             {
@@ -81,7 +81,7 @@ class eventCenterHttp {
     })
     async update(req, res) {
         const data = await getRequestData.getPostData(req);
-        if(!data.eventName || !data.type) {
+        if (!data.eventName || !data.type) {
             res.json(returnJSON.error({ message: '参数缺少' }))
             return;
         }
@@ -195,7 +195,8 @@ class eventCenterHttp {
         if (eventData) {
             eventData.forEach(v => {
                 if (v.type === 'global') {
-                    v.isSelf ? io['in'](data.id).emit(data.eventName, data.data) : io['to'](data.id).emit(data.eventName, data.data)
+                    v.isSelf ? io['in'](data.id).emit(data.eventName, data.data)
+                        : io['to'](data.id).emit(data.eventName, data.data)
                 } else {
                     v.isSelf ? broadcast('in', data.id, data.eventName, data.data)
                         : broadcast('to', data.id, data.eventName, data.data)

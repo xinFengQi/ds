@@ -13,7 +13,6 @@ fs.readdirSync(__dirname).forEach(file => {
     }
 })
 
-
 function getDB(name, key) {
     return db[name][key]
 }

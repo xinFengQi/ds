@@ -1,29 +1,19 @@
 {
     "data": [
         {
-            "eventName": "test1",
+            "eventName": "global",
+            "describe": "测试全局事件",
             "type": "global"
         },
         {
-            "eventName": "test2",
-            "type": "system"
-        },
-        {
-            "eventName": "test3",
-            "type": "modules",
+            "eventName": "fixation_topic",
+            "type": "fixation_topic",
             "isSelf": true
         },
         {
-            "eventName": "test4",
-            "type": "department"
-        },
-        {
-            "eventName": "test5",
-            "type": "personal"
-        },
-        {
-            "eventName": "test6",
-            "type": "topic"
+            "eventName": "topic",
+            "type": "topic",
+            "isSelf": true
         }
     ]
 }
