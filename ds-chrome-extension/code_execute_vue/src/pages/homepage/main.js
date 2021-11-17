@@ -21,6 +21,8 @@ import form from 'ant-design-vue/lib/form';
 import 'ant-design-vue/lib/form/style/css'; 
 import tooltip from 'ant-design-vue/lib/tooltip';
 import 'ant-design-vue/lib/tooltip/style/css'; 
+import Switch from 'ant-design-vue/lib';
+import 'ant-design-vue/lib/switch/style/css'; 
 
 const app = createApp(App)
 
@@ -33,6 +35,9 @@ app.use(pageHeader);
 app.use(typography);
 app.use(form);
 app.use(tooltip);
+app.use(Switch);
+
+
 
 
 
