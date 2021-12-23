@@ -1,0 +1,10 @@
+{
+  "name": "hotdeploy_server",
+  "dec": "热部署的后端项目",
+  "type": "node_server_front",
+  "buildinstall": "npm i",
+  "buildcmd": "npm run pm2",
+  "buildReloadcmd":"npm run pm2_reload",
+  "buildname": "node_pm2",
+  "isOnlyShow": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "hotdeploy_client",
+  "dec": "热部署的前端项目",
+  "type": "client_front",
+  "buildpath": "./dist",
+  "buildname": "nginx",
+  "version": {
+    "1.0.0": {
+      "dec": "简单的前端，node端部署"
+    } 
+  }
+}
