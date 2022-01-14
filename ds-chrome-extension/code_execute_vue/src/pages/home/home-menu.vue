@@ -65,9 +65,12 @@ export default {
       this.machineMenu = this.machineMenu.filter(
         (v) => v.dateAdded !== item.dateAdded
       );
-      if (this.selectedKeys.includes(item.dateAdded + "")) {
+      
+      if (this.machineMenu.length && this.selectedKeys.includes(item.dateAdded + "")) {
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
         this.getClickMenu(this.machineMenu[0]);
+      } else {
+         this.getClickMenu(null);
       }
       this.$emit("deleteItem", item);
 
