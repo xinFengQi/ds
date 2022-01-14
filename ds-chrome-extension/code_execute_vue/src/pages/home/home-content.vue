@@ -81,12 +81,12 @@ export default {
     deleteMenu(ev, item) {
       ev.stopPropagation();
       ev.preventDefault();
-      console.log("删除导航", item);
       item.isDelete = true;
-      this.$emit("deleteItem", item.dateAdded);
+      this.$emit("deleteItem", item);
     },
     deleteItem(ev, da) {
-      da.children = da.children.filter((v) => v.dateAdded !== ev);
+      da.children = da.children.filter((v) => v.dateAdded !== ev.dateAdded && v.title !== ev.title);
+      this.$emit("deleteItem", ev);
     },
   },
 };

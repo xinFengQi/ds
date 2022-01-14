@@ -1,17 +1,24 @@
 <template>
   <div class="home_main">
     <div>
-      <HomeMenu @getShowMenu="getShowMenu($event)" @getAllMenu="getAllMenu($event)" :edit="edit"></HomeMenu>
+      <HomeMenu
+        @getShowMenu="getShowMenu($event)"
+        @getAllMenu="getAllMenu($event)"
+        @deleteItem="deleteItem($event)"
+        :edit="edit"
+      ></HomeMenu>
     </div>
     <div class="home_content">
-      <button @click="show">展示</button>
-      <div class="home_tool" v-if="!edit">
-        
+      <div class="home_tool">
         <a-input
+          v-if="!edit"
           class="input_search"
           v-model:value="value"
           placeholder="搜索书签"
         />
+        <a-button v-if="edit" type="primary" @click="saveUpdate"
+          >保存此次数据更新，不会影响本地书签内容</a-button
+        >
       </div>
       <HomeContent
         :edit="edit"
@@ -41,11 +48,16 @@ export default {
       showContentData: [],
       allData: [],
       value: "",
+      deleteMarkData: [],
     };
   },
   methods: {
-    show: function() {
-      console.log( this.allData, '========================')
+    saveUpdate: function () {
+      console.log(
+        this.allData,
+        this.deleteMarkData,
+        "保存所有更新========================"
+      );
     },
     getAllMenu(data) {
       this.allData = data;
@@ -55,8 +67,11 @@ export default {
       this.showContentData = data.children;
     },
     deleteItem(ev) {
-      this.showContentData = this.showContentData.filter((v) => v.dateAdded !== ev);
-    }
+      this.deleteMarkData.push(ev);
+      this.showContentData = this.showContentData.filter(
+        (v) => v.dateAdded !== ev
+      );
+    },
   },
 };
 </script>
