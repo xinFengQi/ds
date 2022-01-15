@@ -2,6 +2,7 @@
 import chromeUtil from "./chrome_util";
 import axios from "axios";
 
+// 获取书签
 function getBookMarks(edit = false) {
     return new Promise((resolve, reject) => {
         // 先去获取本地书签
@@ -32,7 +33,7 @@ function getBookMarks(edit = false) {
     })
 }
 
-
+// 获取书签的具体请求逻辑
 function getMarks(arr, resolve, reject, edit) {
     Promise.all(arr).then((v) => {
         let machineMenu = [];
@@ -91,6 +92,7 @@ function getMarks(arr, resolve, reject, edit) {
     });
 }
 
+// 更新书签
 function uploadBookMarks() {
     return new Promise((resolve) => {
 
@@ -165,8 +167,9 @@ function uploadBookMarks() {
 }
 
 
+// 获取代码
 function getCode() {
-    // 先去获取本地书签
+    // 获取个人信息
     const getDsFlag = chromeUtil.getLocalVariable("__gitee_code_ds_flag");
     const getDsPublicFlag = chromeUtil.getLocalVariable("__gitee_code_ds_pubilc_flag");
     const getGiteeAccess = chromeUtil.getLocalVariable("__gitee_code_access_token");
@@ -208,8 +211,9 @@ function getCode() {
 
 }
 
+// 更新代码
 function uploadCode(codeList) {
-    // 先去获取本地书签
+    // 获取个人信息
     const getDsFlag = chromeUtil.getLocalVariable("__gitee_code_ds_flag");
     const getGiteeAccess = chromeUtil.getLocalVariable("__gitee_code_access_token");
     const getGiteeOwner = chromeUtil.getLocalVariable("__gitee_code_owner");
