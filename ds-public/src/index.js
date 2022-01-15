@@ -8,8 +8,8 @@ app.use(express.static('./static'))
 require('./util/getway_express');
 
 require('./event_center/index');
-require('./file_center/index');
-require('./method_center/index');
+// require('./file_center/index');
+// require('./method_center/index');
 
 
 

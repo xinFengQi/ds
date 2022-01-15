@@ -93,7 +93,7 @@ function getMarks(arr, resolve, reject, edit) {
 }
 
 // 更新书签
-function uploadBookMarks() {
+function uploadBookMarks(newMarkLists = null) {
     return new Promise((resolve) => {
 
 
@@ -122,20 +122,24 @@ function uploadBookMarks() {
                     let data = new FormData();
                     data.append('access_token', v[2]);
                     const markNodes = v[0];
-                    if (!markNodes) {
+                    if (!markNodes && !newMarkLists) {
                         alert('本地没有书签');
                         return;
                     }
                     if (vFile.data && ((Array.isArray(vFile.data) && vFile.data.length > 0) || !Array.isArray(vFile.data))) {
-                        const oldContent = JSON.parse(decodeURIComponent(atob(vFile.data.content)));
-                        console.log('内容是', oldContent)
-                        const index = oldContent.findIndex(vs => (vs.dateAdded === markNodes.dateAdded || vs.children[0].dateAdded !== markNodes.children[0].dateAdded))
-                        if (index < 0) {
-                            oldContent.push(markNodes)
+                        if (newMarkLists) {
+                            data.append('content', btoa(encodeURIComponent(JSON.stringify(newMarkLists))));
                         } else {
-                            oldContent[index] = markNodes;
+                            const oldContent = JSON.parse(decodeURIComponent(atob(vFile.data.content)));
+                            console.log('内容是', oldContent)
+                            const index = oldContent.findIndex(vs => (vs.dateAdded === markNodes.dateAdded || vs.children[0].dateAdded !== markNodes.children[0].dateAdded))
+                            if (index < 0) {
+                                oldContent.push(markNodes)
+                            } else {
+                                oldContent[index] = markNodes;
+                            }
+                            data.append('content', btoa(encodeURIComponent(JSON.stringify(oldContent))));
                         }
-                        data.append('content', btoa(encodeURIComponent(JSON.stringify(oldContent))));
                         data.append('message', v[1] + '更新书签');
                         data.append('sha', vFile.data.sha);
                         axios.put(`https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/`

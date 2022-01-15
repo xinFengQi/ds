@@ -11,6 +11,7 @@
         @click="getClickMenu(item)"
       >
         <span>{{ item.title }}</span>
+        <span>({{getDate(item.dateAdded)}})</span>
         <span class="opate" v-if="edit">
           <DeleteOutlined @click="deleteMenu($event, item)"></DeleteOutlined>
         </span>
@@ -22,6 +23,7 @@
 <script>
 import chromeGiteeUtil from "../../chrome_lib/chrome_gitee_util";
 import { DeleteOutlined } from "@ant-design/icons-vue";
+import { format } from '../../util/date'
 export default {
   name: "homeMenu",
   props: {
@@ -50,6 +52,9 @@ export default {
       });
   },
   methods: {
+    getDate(date) {
+      return format(new Date(date))
+    },
     getClickMenu(data) {
       this.$emit("getShowMenu", data);
     },
@@ -60,10 +65,15 @@ export default {
       this.machineMenu = this.machineMenu.filter(
         (v) => v.dateAdded !== item.dateAdded
       );
-      if (this.selectedKeys.includes(item.dateAdded + "")) {
+      
+      if (this.machineMenu.length && this.selectedKeys.includes(item.dateAdded + "")) {
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
         this.getClickMenu(this.machineMenu[0]);
+      } else {
+         this.getClickMenu(null);
       }
+      this.$emit("deleteItem", item);
+
     },
   },
 };

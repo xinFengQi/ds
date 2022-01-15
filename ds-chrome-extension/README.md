@@ -4,6 +4,7 @@ chrom扩展开发，主要是为了提升工作及开发效率
 
 ## 文件夹记录
 1. code_execute: js代码快捷执行
+2. code_execute_vue vue版本，增加管理项，增加gitee存取
 
 
 ## 学习笔记
