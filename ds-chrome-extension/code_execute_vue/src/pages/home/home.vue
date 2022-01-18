@@ -66,12 +66,16 @@
         :showContentData="showPublicContentData"
       ></HomeContent>
     </div>
+    <div v-if="!edit" class="home_task_list">
+      <HomeTaskList></HomeTaskList>
+    </div>
   </div>
 </template>
 
 <script>
 import HomeMenu from "./home-menu.vue";
 import HomeContent from "./home-content.vue";
+import HomeTaskList from "./home-tasklist.vue";
 import chrome_gitee_util from "../../chrome_lib/chrome_gitee_util";
 import { format } from "../../util/date";
 
@@ -80,6 +84,7 @@ export default {
   components: {
     HomeMenu,
     HomeContent,
+    HomeTaskList,
   },
   props: {
     edit: Boolean,
@@ -229,4 +234,11 @@ export default {
   width: 200px !important;
   height: 40px;
 }
+.home_task_list {
+  text-align: left;
+  padding-right: 20px;
+  width: 300px;
+  height: 100%;
+}
+
 </style>
