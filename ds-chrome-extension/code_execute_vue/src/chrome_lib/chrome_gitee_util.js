@@ -5,7 +5,6 @@ import axios from 'axios';
 function getPublicBookMarks() {
     return new Promise((resolve, reject) => {
         // 先去获取本地书签
-        const getBook = chromeUtil.getBookmarks();
         const getDsFlag = chromeUtil.getLocalVariable(
             '__gitee_code_ds_pubilc_flag'
         );
@@ -17,14 +16,13 @@ function getPublicBookMarks() {
 
         // 判断是否读取远程书签权限
         const getGiteeisReader = chromeUtil.getLocalVariable(
-            '__giteeCodes_public_open'
+            '__giteeMarks_public_open'
         );
-
         getGiteeisReader.then((isReader) => {
             if (isReader) {
                 getMarks(
                     [
-                        getBook,
+                        null,
                         getDsFlag,
                         getGiteeAccess,
                         getGiteeOwner,

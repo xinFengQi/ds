@@ -50,6 +50,8 @@ export default {
       .getBookMarks(this.edit)
       .then((v) => {
         this.machineMenu = v;
+          console.log('个人的',  this.machineMenu)
+
         this.$emit("getShowMenu", this.machineMenu[0]);
         this.$emit("getAllMenu", this.machineMenu);
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
@@ -62,6 +64,7 @@ export default {
       .then((v) => {
         if (!this.edit) {
           this.pubilcMachineMenu = v;
+          console.log('公共的',  this.pubilcMachineMenu)
         }
       })
       .catch((err) => {
