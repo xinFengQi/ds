@@ -10,12 +10,13 @@
         v-model:checked="giteeMarks_private_open"
         @change="giteePrivateOpenChange($event)"
       />
+      <div class="setting_tool" v-if="giteeMarks_private_open">
+        <a-button type="primary" @click="uploadBookMarks"
+          >根据下面内容上传本地书签</a-button
+        >
+      </div>
     </div>
-    <div class="setting_tool" v-if="giteeMarks_private_open">
-      <a-button type="primary" @click="uploadBookMarks"
-        >根据下面内容上传本地书签</a-button
-      >
-    </div>
+
     <div v-if="giteeMarks_private_open">
       <a-page-header
         class="page_header"
@@ -36,47 +37,7 @@
         </div>
       </div>
 
-      <a-page-header
-        class="page_header"
-        title="gitee设置"
-        sub-title="书签的数据存储使用的是gitee,接口使用的是gitee的公开api"
-      />
-
-      <div class="writer_content">
-        <div class="input_conlone">
-          <label>用户授权码[access_token]:</label>
-          <span class="input_value">
-            <a-typography-paragraph v-model:content="getGiteeAccess" editable>
-              <template v-slot:editableIcon>
-                <HighlightTwoTone />
-              </template>
-              <template v-slot:editableTooltip>点击编辑文本</template>
-            </a-typography-paragraph>
-          </span>
-        </div>
-        <div class="input_conlone">
-          <label>仓库所属空间地址(企业、组织或个人的地址path)[owner]:</label>
-          <span class="input_value">
-            <a-typography-paragraph v-model:content="getGiteeOwner" editable>
-              <template v-slot:editableIcon>
-                <HighlightTwoTone />
-              </template>
-              <template v-slot:editableTooltip>点击编辑文本</template>
-            </a-typography-paragraph>
-          </span>
-        </div>
-        <div class="input_conlone">
-          <label>仓库路径(path)[repo]:</label>
-          <span class="input_value">
-            <a-typography-paragraph v-model:content="getGiteeRepo" editable>
-              <template v-slot:editableIcon>
-                <HighlightTwoTone />
-              </template>
-              <template v-slot:editableTooltip>点击编辑文本</template>
-            </a-typography-paragraph>
-          </span>
-        </div>
-      </div>
+      <GiteeSettingForm :giteeData="giteeData"></GiteeSettingForm>
     </div>
 
     <a-page-header
@@ -101,10 +62,7 @@
         <div class="input_conlone">
           <label>设置标识:</label>
           <span class="input_value">
-            <a-typography-paragraph
-              v-model:content="giteeDsPublicFlag"
-              editable
-            >
+            <a-typography-paragraph v-model:content="giteeDsPublicFlag" editable>
               <template v-slot:editableIcon>
                 <HighlightTwoTone />
               </template>
@@ -113,6 +71,8 @@
           </span>
         </div>
       </div>
+
+      <GiteeSettingForm :giteeData="giteePublicData"></GiteeSettingForm>
     </div>
   </div>
 </template>
@@ -122,10 +82,12 @@ import { HighlightTwoTone } from "@ant-design/icons-vue";
 import chromeUtil from "../../chrome_lib/chrome_util";
 import chrome_gitee_util from "../../chrome_lib/chrome_gitee_util";
 import { reactive, toRefs } from "vue";
+import GiteeSettingForm from "../../components/GiteeSettingForm.vue";
 export default {
   name: "bookmarksSetting",
   components: {
     HighlightTwoTone,
+    GiteeSettingForm,
   },
   setup() {
     const state = reactive({
@@ -138,30 +100,41 @@ export default {
   data() {
     return {
       giteeDsFlag: "",
-      getGiteeAccess: "",
-      getGiteeOwner: "",
-      getGiteeRepo: "",
+      giteeData: {
+        accessToken: {
+          varName: "__gitee_access_token",
+        },
+        owner: {
+          varName: "__gitee_owner",
+        },
+        repo: {
+          varName: "__gitee_repo",
+        },
+      },
       giteeDsPublicFlag: "",
+      giteePublicData: {
+        accessToken: {
+          varName: "__gitee_public_access_token",
+        },
+        owner: {
+          varName: "__gitee_public_owner",
+        },
+        repo: {
+          varName: "__gitee_public_repo",
+        },
+      },
     };
   },
   mounted() {
     chromeUtil.getLocalVariable("__giteeMarks_private_open").then((isShow) => {
-      this.giteeMarks_private_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+      this.giteeMarks_private_open =
+        typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__giteeMarks_public_open").then((isShow) => {
-      this.giteeMarks_public_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+      this.giteeMarks_public_open = typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
       this.giteeDsFlag = v;
-    });
-    chromeUtil.getLocalVariable("__gitee_access_token").then((v) => {
-      this.getGiteeAccess = v;
-    });
-    chromeUtil.getLocalVariable("__gitee_owner").then((v) => {
-      this.getGiteeOwner = v;
-    });
-    chromeUtil.getLocalVariable("__gitee_repo").then((v) => {
-      this.getGiteeRepo = v;
     });
     chromeUtil.getLocalVariable("__gitee_ds_pubilc_flag").then((v) => {
       this.giteeDsPublicFlag = v;
@@ -174,27 +147,6 @@ export default {
       }
       console.log("存在变化", newV, oldV);
       chromeUtil.setLocalVariable("__gitee_ds_flag", newV);
-    },
-    getGiteeAccess: function (newV, oldV) {
-      if (newV === oldV) {
-        return;
-      }
-      console.log("存在变化", newV, oldV);
-      chromeUtil.setLocalVariable("__gitee_access_token", newV);
-    },
-    getGiteeOwner: function (newV, oldV) {
-      if (newV === oldV) {
-        return;
-      }
-      console.log("存在变化", newV, oldV);
-      chromeUtil.setLocalVariable("__gitee_owner", newV);
-    },
-    getGiteeRepo: function (newV, oldV) {
-      if (newV === oldV) {
-        return;
-      }
-      console.log("存在变化", newV, oldV);
-      chromeUtil.setLocalVariable("__gitee_repo", newV);
     },
     giteeDsPublicFlag: function (newV, oldV) {
       if (newV === oldV) {
@@ -213,11 +165,9 @@ export default {
       });
     },
     giteePrivateOpenChange: function (ev) {
-      // todo 差了联动代码
       chromeUtil.setLocalVariable("__giteeMarks_private_open", ev);
     },
     giteePublicOpenChange: function (ev) {
-      // todo 差了联动代码
       chromeUtil.setLocalVariable("__giteeMarks_public_open", ev);
     },
   },
@@ -240,6 +190,7 @@ export default {
   margin-left: 24px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 .input_conlone {
   display: flex;
