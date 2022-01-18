@@ -12,6 +12,8 @@ function webLocalStorgeValue(value) {
         return value + ''
     } else if (typeof value === 'object') {
         return JSON.stringify(value)
+    } else if(!value) {
+        value = '';
     }
     return value;
 }
@@ -43,13 +45,8 @@ function setLocalVariable(key, value) {
                 resolve(true);
             })
         } else if (environment === 'web') {
-            if (value) {
-                localStorage.setItem(key, webLocalStorgeValue(value));
-                resolve(true);
-            } else {
-                resolve(null);
-            }
-
+            localStorage.setItem(key, webLocalStorgeValue(value));
+            resolve(true);
         } {
             resolve(null);
         }

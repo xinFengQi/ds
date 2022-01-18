@@ -10,12 +10,13 @@
         v-model:checked="giteeMarks_private_open"
         @change="giteePrivateOpenChange($event)"
       />
+      <div class="setting_tool" v-if="giteeMarks_private_open">
+        <a-button type="primary" @click="uploadBookMarks"
+          >根据下面内容上传本地书签</a-button
+        >
+      </div>
     </div>
-    <div class="setting_tool" v-if="giteeMarks_private_open">
-      <a-button type="primary" @click="uploadBookMarks"
-        >根据下面内容上传本地书签</a-button
-      >
-    </div>
+
     <div v-if="giteeMarks_private_open">
       <a-page-header
         class="page_header"
@@ -113,6 +114,57 @@
           </span>
         </div>
       </div>
+
+      <a-page-header
+        class="page_header"
+        title="gitee设置"
+        sub-title="书签的数据存储使用的是gitee,接口使用的是gitee的公开api"
+      />
+
+      <div class="writer_content">
+        <div class="input_conlone">
+          <label>用户授权码[access_token]:</label>
+          <span class="input_value">
+            <a-typography-paragraph
+              v-model:content="getPublicGiteeAccess"
+              editable
+            >
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+        <div class="input_conlone">
+          <label>仓库所属空间地址(企业、组织或个人的地址path)[owner]:</label>
+          <span class="input_value">
+            <a-typography-paragraph
+              v-model:content="getPublicGiteeOwner"
+              editable
+            >
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+        <div class="input_conlone">
+          <label>仓库路径(path)[repo]:</label>
+          <span class="input_value">
+            <a-typography-paragraph
+              v-model:content="getPublicGiteeRepo"
+              editable
+            >
+              <template v-slot:editableIcon>
+                <HighlightTwoTone />
+              </template>
+              <template v-slot:editableTooltip>点击编辑文本</template>
+            </a-typography-paragraph>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -141,15 +193,20 @@ export default {
       getGiteeAccess: "",
       getGiteeOwner: "",
       getGiteeRepo: "",
+      getPublicGiteeAccess: "",
+      getPublicGiteeOwner: "",
+      getPublicGiteeRepo: "",
       giteeDsPublicFlag: "",
     };
   },
   mounted() {
     chromeUtil.getLocalVariable("__giteeMarks_private_open").then((isShow) => {
-      this.giteeMarks_private_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+      this.giteeMarks_private_open =
+        typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__giteeMarks_public_open").then((isShow) => {
-      this.giteeMarks_public_open = typeof isShow === 'string'?  Boolean(isShow): isShow;
+      this.giteeMarks_public_open =
+        typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
       this.giteeDsFlag = v;
@@ -162,6 +219,15 @@ export default {
     });
     chromeUtil.getLocalVariable("__gitee_repo").then((v) => {
       this.getGiteeRepo = v;
+    });
+    chromeUtil.getLocalVariable("__gitee_public_access_token").then((v) => {
+      this.getPublicGiteeAccess = v;
+    });
+    chromeUtil.getLocalVariable("__gitee_public_owner").then((v) => {
+      this.getPublicGiteeOwner = v;
+    });
+    chromeUtil.getLocalVariable("__gitee_public_repo").then((v) => {
+      this.getPublicGiteeRepo = v;
     });
     chromeUtil.getLocalVariable("__gitee_ds_pubilc_flag").then((v) => {
       this.giteeDsPublicFlag = v;
@@ -203,6 +269,27 @@ export default {
       console.log("存在变化", newV, oldV);
       chromeUtil.setLocalVariable("__gitee_ds_pubilc_flag", newV);
     },
+    getPublicGiteeAccess: function (newV, oldV) {
+      if (newV === oldV) {
+        return;
+      }
+      console.log("存在变化", newV, oldV);
+      chromeUtil.setLocalVariable("__gitee_public_access_token", newV);
+    },
+    getPublicGiteeOwner: function (newV, oldV) {
+      if (newV === oldV) {
+        return;
+      }
+      console.log("存在变化", newV, oldV);
+      chromeUtil.setLocalVariable("__gitee_public_owner", newV);
+    },
+    getPublicGiteeRepo: function (newV, oldV) {
+      if (newV === oldV) {
+        return;
+      }
+      console.log("存在变化", newV, oldV);
+      chromeUtil.setLocalVariable("__gitee_public_repo", newV);
+    },
   },
   methods: {
     uploadBookMarks: function () {
@@ -240,6 +327,7 @@ export default {
   margin-left: 24px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 .input_conlone {
   display: flex;

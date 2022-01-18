@@ -55,7 +55,7 @@ export default {
           key: "code_manager",
           label: "脚本管理",
           icon: SnippetsTwoTone,
-          isShow: true,
+          isShow: false,
         },
       ],
     };
@@ -66,6 +66,10 @@ export default {
     // 判断是否读取远程书签权限   todo 差了联动代码
     chrome_util.getLocalVariable("__giteeMarks_private_open").then((isShow) => {
       this.menuTree[2].isShow = isShow;
+    });
+     // 判断是否读取远程书签权限   todo 差了联动代码
+    chrome_util.getLocalVariable("__giteeCodes_private_open").then((isShow) => {
+      this.menuTree[4].isShow = isShow;
     });
   },
   methods: {
