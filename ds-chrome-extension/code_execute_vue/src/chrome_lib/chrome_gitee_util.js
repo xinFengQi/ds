@@ -275,6 +275,12 @@ function getCode() {
     const getDsPublicFlag = chromeUtil.getLocalVariable(
         '__gitee_code_ds_pubilc_flag'
     );
+
+    const getDsOpen = chromeUtil.getLocalVariable('__giteeCodes_private_open');
+    const getDsPublicOpen = chromeUtil.getLocalVariable(
+        '__giteeCodes_public_open'
+    );
+
     const getGiteeAccess = chromeUtil.getLocalVariable(
         '__gitee_code_access_token'
     );
@@ -298,14 +304,16 @@ function getCode() {
             getGiteeRepo,
             getPublicGiteeAccess,
             getPublicGiteeOwner,
-            getPublicGiteeRepo
+            getPublicGiteeRepo,
+            getDsOpen,
+            getDsPublicOpen
         ]).then((v) => {
-            if (!v[0] && (!v[2] || !v[3] || !v[4])) {
+            if (v[8] && v[0] && (!v[2] || !v[3] || !v[4])) {
                 console.log('存在配置为空');
                 resolve(false);
                 return;
             }
-            if (!v[1] && (!v[5] || !v[6] || !v[7])) {
+            if (v[9] && v[1] && (!v[5] || !v[6] || !v[7])) {
                 console.log('存在配置为空');
                 resolve(false);
                 return;
@@ -316,7 +324,7 @@ function getCode() {
             const getPublicCode = axios.get(
                 `https://gitee.com/api/v5/repos/${v[6]}/${v[7]}/contents/chrome_codeScript%2F${v[1]}.json?access_token=${v[5]}`
             );
-            Promise.all([v[0] ? getPrivateCode : null, v[1] ? getPublicCode : null]).then(
+            Promise.all([(v[8] && v[0]) ? getPrivateCode : null, (v[9] && v[1]) ? getPublicCode : null]).then(
                 (code) => {
                     const privateCode = code[0].data,
                         publicCode = code[1] && code[1].data;

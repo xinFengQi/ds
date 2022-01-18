@@ -6,13 +6,16 @@ if (document.location.href.startsWith('chrome-extension')) {
     environment = 'chrome-extension'
 }
 
+// 订阅数据监听的代码
+let subIndex = 0;
+let subs = [];
 
 function webLocalStorgeValue(value) {
     if (typeof value === 'number') {
         return value + ''
     } else if (typeof value === 'object') {
         return JSON.stringify(value)
-    } else if(!value) {
+    } else if (!value) {
         value = '';
     }
     return value;
@@ -36,20 +39,25 @@ function getWebLocalStorgeValue(value) {
  */
 function setLocalVariable(key, value) {
     return new Promise((resolve) => {
+        let newvalue = value;
         if (environment === 'chrome-extension') {
             if (!chromeApi || !chromeApi.storage) {
                 resolve(null);
                 return;
             }
-            chromeApi.storage.sync.set({ [key]: value }, () => {
+            chromeApi.storage.sync.set({ [key]: newvalue }, () => {
                 resolve(true);
             })
         } else if (environment === 'web') {
-            localStorage.setItem(key, webLocalStorgeValue(value));
+            newvalue = webLocalStorgeValue(value);
+            localStorage.setItem(key, newvalue);
             resolve(true);
         } {
             resolve(null);
         }
+        subs.filter(v => v.key === key).forEach(v => {
+            v.fn.apply(this, [value])
+        })
     })
 
 }
@@ -77,8 +85,22 @@ async function getLocalVariable(key) {
             resolve(null);
         }
     })
-
 }
+
+
+async function getLocalVariableSub(key, cb) {
+    const subI = subIndex + 1;
+    const data = await getLocalVariable(key);
+    cb(data);
+    subs.push({ id: subI, key, fn: cb });
+    return subI;
+}
+
+function deleteLocalVariableSub(subI) {
+    this.subs = this.subs.filter(v => v.id !== subI);
+}
+
+
 
 
 // 获取书签
@@ -192,6 +214,8 @@ function onMessage(eventName, responseData, cb) {
 export default {
     getBookmarks,
     getLocalVariable,
+    getLocalVariableSub,
+    deleteLocalVariableSub,
     setLocalVariable,
     addLinkMenu,
     addSeparatorMenu,

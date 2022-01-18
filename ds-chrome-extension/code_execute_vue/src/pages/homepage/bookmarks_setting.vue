@@ -62,10 +62,7 @@
         <div class="input_conlone">
           <label>设置标识:</label>
           <span class="input_value">
-            <a-typography-paragraph
-              v-model:content="giteeDsPublicFlag"
-              editable
-            >
+            <a-typography-paragraph v-model:content="giteeDsPublicFlag" editable>
               <template v-slot:editableIcon>
                 <HighlightTwoTone />
               </template>
@@ -134,8 +131,7 @@ export default {
         typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__giteeMarks_public_open").then((isShow) => {
-      this.giteeMarks_public_open =
-        typeof isShow === "string" ? Boolean(isShow) : isShow;
+      this.giteeMarks_public_open = typeof isShow === "string" ? Boolean(isShow) : isShow;
     });
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
       this.giteeDsFlag = v;
@@ -169,11 +165,9 @@ export default {
       });
     },
     giteePrivateOpenChange: function (ev) {
-      // todo 差了联动代码
       chromeUtil.setLocalVariable("__giteeMarks_private_open", ev);
     },
     giteePublicOpenChange: function (ev) {
-      // todo 差了联动代码
       chromeUtil.setLocalVariable("__giteeMarks_public_open", ev);
     },
   },
