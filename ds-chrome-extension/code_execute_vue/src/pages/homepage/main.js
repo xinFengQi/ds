@@ -21,7 +21,7 @@ import form from 'ant-design-vue/lib/form';
 import 'ant-design-vue/lib/form/style/css'; 
 import tooltip from 'ant-design-vue/lib/tooltip';
 import 'ant-design-vue/lib/tooltip/style/css'; 
-import Switch from 'ant-design-vue/lib';
+import Switch from 'ant-design-vue/lib/switch';
 import 'ant-design-vue/lib/switch/style/css'; 
 
 const app = createApp(App)

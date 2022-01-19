@@ -4,13 +4,13 @@
     "version": "1.0.0",
     "description": "ds_扩展工具_vue",
     "icons": {
-        "16": "src/img/logo.png",
-        "48": "src/img/logo.png",
-        "128": "src/img/logo.png"
+        "16": "src/img/logo.ico",
+        "48": "src/img/logo.ico",
+        "128": "src/img/logo.ico"
     },
     "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",      
     "browser_action": {
-        "default_icon": "src/img/logo.png",
+        "default_icon": "src/img/logo.ico",
         "default_title": "ds_扩展工具_vue",
         "default_popup": "src/popup.html"
     },

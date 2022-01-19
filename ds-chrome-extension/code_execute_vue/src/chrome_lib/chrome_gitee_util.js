@@ -6,7 +6,7 @@ function getPublicBookMarks() {
     return new Promise((resolve, reject) => {
         // 先去获取本地书签
         const getDsFlag = chromeUtil.getLocalVariable(
-            '__gitee_code_ds_pubilc_flag'
+            '__gitee_ds_public_flag'
         );
         const getGiteeAccess = chromeUtil.getLocalVariable(
             '__gitee_public_access_token'
@@ -318,13 +318,19 @@ function getCode() {
                 resolve(false);
                 return;
             }
-            const getPrivateCode = axios.get(
-                `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_codeScript%2F${v[0]}.json?access_token=${v[2]}`
-            );
-            const getPublicCode = axios.get(
-                `https://gitee.com/api/v5/repos/${v[6]}/${v[7]}/contents/chrome_codeScript%2F${v[1]}.json?access_token=${v[5]}`
-            );
-            Promise.all([(v[8] && v[0]) ? getPrivateCode : null, (v[9] && v[1]) ? getPublicCode : null]).then(
+            let getPrivateCode = null;
+            if (v[8] && v[0]) {
+                getPrivateCode = axios.get(
+                    `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_codeScript%2F${v[0]}.json?access_token=${v[2]}`
+                );
+            }
+            let getPublicCode = null;
+            if (v[9] && v[1]) {
+                getPublicCode = axios.get(
+                    `https://gitee.com/api/v5/repos/${v[6]}/${v[7]}/contents/chrome_codeScript%2F${v[1]}.json?access_token=${v[5]}`
+                );
+            }
+            Promise.all([getPrivateCode, getPublicCode]).then(
                 (code) => {
                     const privateCode = code[0].data,
                         publicCode = code[1] && code[1].data;
@@ -397,7 +403,7 @@ function uploadCode(codeList) {
                             'content',
                             btoa(encodeURIComponent(JSON.stringify(codeList)))
                         );
-                        data.append('message', v[1] + '更新书签');
+                        data.append('message', v[1] + '更新执行代码');
                         data.append('sha', vFile.data.sha);
                         axios
                             .put(
@@ -418,7 +424,7 @@ function uploadCode(codeList) {
                             'content',
                             btoa(encodeURIComponent(JSON.stringify(codeList)))
                         );
-                        data.append('message', v[1] + '新增书签');
+                        data.append('message', v[1] + '新增执行代码');
                         axios
                             .post(
                                 `https://gitee.com/api/v5/repos/${v[2]}/${v[3]}/` +
@@ -439,10 +445,201 @@ function uploadCode(codeList) {
     });
 }
 
+
+// 获取任务列表
+function getTasklist() {
+    // 获取个人信息
+    const getDsFlag = chromeUtil.getLocalVariable('__gitee_tasklist_ds_flag');
+    const getDsPublicFlag = chromeUtil.getLocalVariable(
+        '__gitee_tasklist_ds_pubilc_flag'
+    );
+
+    const getDsOpen = chromeUtil.getLocalVariable('__gitee_tasklist_private_open');
+    const getDsPublicOpen = chromeUtil.getLocalVariable(
+        '__gitee_tasklist_public_open'
+    );
+
+    const getGiteeAccess = chromeUtil.getLocalVariable(
+        '__gitee_tasklist_access_token'
+    );
+    const getGiteeOwner = chromeUtil.getLocalVariable('__gitee_tasklist_owner');
+    const getGiteeRepo = chromeUtil.getLocalVariable('__gitee_tasklist_repo');
+
+    const getPublicGiteeAccess = chromeUtil.getLocalVariable(
+        '__gitee_tasklist_public_access_token'
+    );
+    const getPublicGiteeOwner = chromeUtil.getLocalVariable('__gitee_tasklist_public_owner');
+    const getPublicGiteeRepo = chromeUtil.getLocalVariable('__gitee_tasklist_public_repo');
+
+
+
+    return new Promise((resolve) => {
+        Promise.all([
+            getDsFlag,
+            getDsPublicFlag,
+            getGiteeAccess,
+            getGiteeOwner,
+            getGiteeRepo,
+            getPublicGiteeAccess,
+            getPublicGiteeOwner,
+            getPublicGiteeRepo,
+            getDsOpen,
+            getDsPublicOpen
+        ]).then((v) => {
+            if (v[8] && v[0] && (!v[2] || !v[3] || !v[4])) {
+                console.log('存在配置为空');
+                resolve(false);
+                return;
+            }
+            if (v[9] && v[1] && (!v[5] || !v[6] || !v[7])) {
+                console.log('存在配置为空');
+                resolve(false);
+                return;
+            }
+            let getPrivateCode = null;
+            if (v[8] && v[0]) {
+                getPrivateCode = axios.get(
+                    `https://gitee.com/api/v5/repos/${v[3]}/${v[4]}/contents/chrome_taskList%2F${v[0]}.json?access_token=${v[2]}`
+                );
+            }
+            let getPublicCode = null;
+            if (v[9] && v[1]) {
+                getPublicCode = axios.get(
+                    `https://gitee.com/api/v5/repos/${v[6]}/${v[7]}/contents/chrome_taskList%2F${v[1]}.json?access_token=${v[5]}`
+                );
+            }
+            Promise.all([getPrivateCode, getPublicCode]).then(
+                (code) => {
+                    const privateCode = code[0].data,
+                        publicCode = code[1] && code[1].data;
+                    const retuObj = {};
+                    if (
+                        privateCode &&
+                        ((Array.isArray(privateCode) &&
+                            privateCode.length > 0) ||
+                            !Array.isArray(privateCode))
+                    ) {
+                        console.log('存在私人任务');
+                        retuObj.privateCode = JSON.parse(
+                            decodeURIComponent(atob(privateCode.content))
+                        );
+                    }
+                    if (
+                        publicCode &&
+                        ((Array.isArray(publicCode) && publicCode.length > 0) ||
+                            !Array.isArray(publicCode))
+                    ) {
+                        console.log('存在公共任务');
+                        retuObj.publicCode = JSON.parse(
+                            decodeURIComponent(atob(publicCode.content))
+                        );
+                    }
+                    resolve(retuObj);
+                }
+            );
+        });
+    });
+}
+
+// 更新代码
+function uploadTaskList(tasklist) {
+    // 获取个人信息
+    const getDsFlag = chromeUtil.getLocalVariable('__gitee_tasklist_ds_flag');
+    const getGiteeAccess = chromeUtil.getLocalVariable(
+        '__gitee_tasklist_access_token'
+    );
+    const getGiteeOwner = chromeUtil.getLocalVariable('__gitee_tasklist_owner');
+    const getGiteeRepo = chromeUtil.getLocalVariable('__gitee_tasklist_repo');
+    console.log(tasklist);
+    const newTaskList = tasklist.map(v => {
+        return {
+            title: v.title,
+            time: v.time,
+            content: v.content,
+        }
+    })
+    return new Promise((resolve) => {
+        Promise.all([
+            getDsFlag,
+            getGiteeAccess,
+            getGiteeOwner,
+            getGiteeRepo,
+        ]).then((v) => {
+            if (!v[0] || !v[1] || !v[2] || !v[3]) {
+                console.log('存在配置为空');
+                resolve(false);
+                return;
+            }
+            axios
+                .get(
+                    `https://gitee.com/api/v5/repos/${v[2]}/${v[3]}/contents/chrome_taskList%2F${v[0]}.json?access_token` +
+                    `=${v[1]}`
+                )
+                .then((vFile) => {
+                    console.log('文件是否存在', vFile);
+                    let data = new FormData();
+                    data.append('access_token', v[1]);
+                    if (
+                        vFile.data &&
+                        ((Array.isArray(vFile.data) && vFile.data.length > 0) ||
+                            !Array.isArray(vFile.data))
+                    ) {
+                        data.append(
+                            'content',
+                            btoa(encodeURIComponent(JSON.stringify(newTaskList)))
+                        );
+                        data.append('message', v[1] + '更新执行任务');
+                        data.append('sha', vFile.data.sha);
+                        axios
+                            .put(
+                                `https://gitee.com/api/v5/repos/${v[2]}/${v[3]}/contents/` +
+                                `chrome_taskList%2F${v[0]}.json`,
+                                data
+                            )
+                            .then((vUpdate) => {
+                                if (vUpdate) {
+                                    console.log('远程更新任务列表', vUpdate);
+                                    resolve(true);
+                                } else {
+                                    alert('更新失败');
+                                }
+                            });
+                    } else {
+                        data.append(
+                            'content',
+                            btoa(encodeURIComponent(JSON.stringify(newTaskList)))
+                        );
+                        data.append('message', v[1] + '新增任务列表');
+                        axios
+                            .post(
+                                `https://gitee.com/api/v5/repos/${v[2]}/${v[3]}/` +
+                                `contents/chrome_taskList%2F${v[0]}.json`,
+                                data
+                            )
+                            .then((vAdd) => {
+                                if (vAdd) {
+                                    console.log('远程新建任务列表', vAdd);
+                                    resolve(true);
+                                } else {
+                                    alert('新增失败');
+                                }
+                            });
+                    }
+                });
+        });
+    });
+}
+
+
+
+
+
 export default {
     getPublicBookMarks,
     getBookMarks,
     uploadBookMarks,
     getCode,
     uploadCode,
+    getTasklist,
+    uploadTaskList
 };

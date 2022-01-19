@@ -16,19 +16,11 @@
     </div>
     <div class="home_content">
       <div class="home_tool" v-if="!edit">
-        <a-input
-          class="input_search"
-          v-model:value="value"
-          placeholder="搜索书签"
-        />
+        <a-input class="input_search" v-model:value="value" placeholder="搜索书签" />
       </div>
       <div
         v-if="
-          edit &&
-          !isShowPublic &&
-          !value &&
-          showContentData &&
-          showContentData.length
+          edit && !isShowPublic && !value && showContentData && showContentData.length
         "
         class="data_show_tool"
       >
@@ -46,9 +38,7 @@
       <HomeContent
         :edit="edit"
         style="overflow: auto; flex: 1"
-        v-if="
-          !isShowPublic && !value && showContentData && showContentData.length
-        "
+        v-if="!isShowPublic && !value && showContentData && showContentData.length"
         :showContentData="showContentData"
         @deleteItem="deleteItem($event)"
       ></HomeContent>
@@ -58,10 +48,7 @@
         :edit="false"
         style="overflow: auto; flex: 1"
         v-if="
-          isShowPublic &&
-          !value &&
-          showPublicContentData &&
-          showPublicContentData.length
+          isShowPublic && !value && showPublicContentData && showPublicContentData.length
         "
         :showContentData="showPublicContentData"
       ></HomeContent>
@@ -141,9 +128,7 @@ export default {
         return [];
       }
       const outputData = marks.filter((v) =>
-        deleteArr.includes(
-          (dV) => v.dateAdded !== dV.dateAdded && v.title !== dV.title
-        )
+        deleteArr.includes((dV) => v.dateAdded !== dV.dateAdded && v.title !== dV.title)
       );
       if (outputData && outputData.length) {
         outputData.forEach((v) => {
@@ -187,15 +172,11 @@ export default {
       } else {
         this.showPublicContentData = data.children;
       }
-      this.showPublicContentDataStr = JSON.stringify(
-        this.showPublicContentData
-      );
+      this.showPublicContentDataStr = JSON.stringify(this.showPublicContentData);
     },
     deleteItem(ev) {
       this.deleteMarkData.push(ev);
-      this.showContentData = this.showContentData.filter(
-        (v) => v.dateAdded !== ev
-      );
+      this.showContentData = this.showContentData.filter((v) => v.dateAdded !== ev);
     },
   },
 };
@@ -237,8 +218,20 @@ export default {
 .home_task_list {
   text-align: left;
   padding-right: 20px;
+  padding-left: 10px;
   width: 300px;
   height: 100%;
+  overflow-y: auto;
 }
 
+/* antDesign 样式重写 */
+.ant-card-head {
+  min-height: auto !important;
+}
+.ant-card-extra {
+  padding: 8px 0px !important;
+}
+.ant-card-head-title {
+  padding: 8px 0px !important;
+}
 </style>

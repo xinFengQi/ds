@@ -19,7 +19,10 @@ import 'ant-design-vue/lib/modal/style/css'; // 或者 ant-design-vue/lib/button
 import DataPicker from 'ant-design-vue/lib/date-picker'
 import 'ant-design-vue/lib/date-picker/style/css'; // 或者 ant-design-vue/lib/button/style/css 加载 css 文件
 import moment from 'moment';
-
+import message from 'ant-design-vue/lib/message';
+import 'ant-design-vue/lib/message/style/css'; 
+import tag from 'ant-design-vue/lib/tag';
+import 'ant-design-vue/lib/tag/style/css'; 
 moment.locale('zh-cn')
 
 const app = createApp(App)
@@ -31,6 +34,9 @@ app.use(input);
 app.use(card);
 app.use(modal);
 app.use(DataPicker);
+app.use(message)
+app.use(tag)
+
 
 
 

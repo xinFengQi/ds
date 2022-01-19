@@ -9,14 +9,11 @@
     <a-layout>
       <a-layout-content class="layout_content">
         <bookmarksSetting v-if="currentKey === 'bookmarks'"></bookmarksSetting>
-        <bookmarksManager
-          v-if="currentKey === 'bookmarks_manager'"
-        ></bookmarksManager>
+        <bookmarksManager v-if="currentKey === 'bookmarks_manager'"></bookmarksManager>
         <codeSetting v-if="currentKey === 'code_setting'"></codeSetting>
         <codeManager v-if="currentKey === 'code_manager'"></codeManager>
-        <developPreface
-          v-if="currentKey === 'develop_preface'"
-        ></developPreface>
+        <developPreface v-if="currentKey === 'develop_preface'"></developPreface>
+        <TaskListSetting v-if="currentKey === 'tasklist_setting'"></TaskListSetting>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -29,6 +26,7 @@ import bookmarksManager from "./bookmarks_manager.vue";
 import codeSetting from "./code_setting.vue";
 import codeManager from "./code_manager.vue";
 import developPreface from "./develop_preface.vue";
+import TaskListSetting from "./tasklist_setting.vue";
 
 export default {
   name: "homepage",
@@ -39,6 +37,7 @@ export default {
     codeSetting,
     codeManager,
     developPreface,
+    TaskListSetting,
   },
   data() {
     return {

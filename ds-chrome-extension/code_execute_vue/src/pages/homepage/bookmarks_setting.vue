@@ -136,7 +136,7 @@ export default {
     chromeUtil.getLocalVariable("__gitee_ds_flag").then((v) => {
       this.giteeDsFlag = v;
     });
-    chromeUtil.getLocalVariable("__gitee_ds_pubilc_flag").then((v) => {
+    chromeUtil.getLocalVariable("__gitee_ds_public_flag").then((v) => {
       this.giteeDsPublicFlag = v;
     });
   },
@@ -153,7 +153,7 @@ export default {
         return;
       }
       console.log("存在变化", newV, oldV);
-      chromeUtil.setLocalVariable("__gitee_ds_pubilc_flag", newV);
+      chromeUtil.setLocalVariable("__gitee_ds_public_flag", newV);
     },
   },
   methods: {

@@ -131,7 +131,7 @@ export default {
     };
     Object.keys(datas).forEach((key) => {
       chromeUtil.getLocalVariable(key).then((v) => {
-        if(v && v !== 'null') {
+        if (v && v !== "null") {
           this[datas[key]] = v;
         }
       });
@@ -172,28 +172,39 @@ export default {
   methods: {
     quickSetting: function () {
       console.log("一键设置");
-      const dsFlags = ["__gitee_ds_flag", "__gitee_code_ds_flag"];
+      const dsFlags = [
+        "__gitee_ds_flag",
+        "__gitee_code_ds_flag",
+        "__gitee_tasklist_ds_flag",
+      ];
       const dsPublicFlags = [
-        "__gitee_ds_pubilc_flag",
+        "__gitee_ds_public_flag",
         "__gitee_code_ds_pubilc_flag",
+        "__gitee_tasklist_ds_pubilc_flag",
       ];
       const dsAccessTokens = [
         "__gitee_access_token",
         "__gitee_public_access_token",
         "__gitee_code_access_token",
         "__gitee_code_public_access_token",
+        "__gitee_tasklist_access_token",
+        "__gitee_tasklist_public_access_token",
       ];
       const dsOwners = [
         "__gitee_owner",
         "__gitee_public_owner",
         "__gitee_code_owner",
         "__gitee_code_public_owner",
+        "__gitee_tasklist_owner",
+        "__gitee_tasklist_public_owner",
       ];
       const dsRepos = [
         "__gitee_repo",
         "__gitee_public_repo",
         "__gitee_code_repo",
         "__gitee_code_public_repo",
+        "__gitee_tasklist_repo",
+        "__gitee_tasklist_public_repo",
       ];
 
       dsFlags.forEach((v) => {
@@ -216,7 +227,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .developPrefaceMain {

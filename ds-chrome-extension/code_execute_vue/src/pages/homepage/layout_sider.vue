@@ -57,6 +57,12 @@ export default {
           icon: SnippetsTwoTone,
           isShow: false,
         },
+        {
+          key: "tasklist_setting",
+          label: "任务列表设置",
+          icon: SnippetsTwoTone,
+          isShow: true,
+        },
       ],
     };
   },
