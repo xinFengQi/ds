@@ -199,9 +199,16 @@ function sendMessage(eventName, data, cb) {
     if (!extensionApi || !extensionApi.runtime) {
         return null;
     }
-    extensionApi.runtime.sendMessage({ name: eventName, data: data }, function (response) {
-        cb(response)
-    });
+    if (environment === 'chrome-extension') {
+        extensionApi.runtime.sendMessage({ name: eventName, data: data }, function (response) {
+            cb(response)
+        });
+    } else if (environment === 'firefox-extension') {
+        extensionApi.runtime.sendMessage({ name: eventName, data: data }).then((response) => {
+            cb(response)
+        })
+    }
+
 }
 
 // 监听消息

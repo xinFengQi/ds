@@ -40,21 +40,16 @@ export default {
   },
   methods: {
     getAllCodeMenu: function () {
-      chrome_util
-        .getLocalVariable("__execute_codeScriptArr")
-        .then((codeArr) => {
-          if (codeArr) {
-            this.idArr = [];
-            console.log("读取到脚本:", codeArr);
-            codeArr.forEach((element) => {
-              const id = chrome_util.addExtrueCodeMenu(
-                element.name,
-                element.code
-              );
-              this.idArr.push(id);
-            });
-          }
-        });
+      chrome_util.getLocalVariable("__execute_codeScriptArr").then((codeArr) => {
+        if (codeArr) {
+          this.idArr = [];
+          console.log("读取到脚本:", codeArr);
+          codeArr.forEach((element) => {
+            const id = chrome_util.addExtrueCodeMenu(element.name, element.code);
+            this.idArr.push(id);
+          });
+        }
+      });
     },
   },
 };

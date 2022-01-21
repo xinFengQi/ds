@@ -53,7 +53,7 @@
         :showContentData="showPublicContentData"
       ></HomeContent>
     </div>
-    <div v-if="!edit" class="home_task_list">
+    <div v-if="!edit && (isHomeTaskList || isHomeTaskListPublic)" class="home_task_list">
       <HomeTaskList></HomeTaskList>
     </div>
   </div>
@@ -64,6 +64,7 @@ import HomeMenu from "./home-menu.vue";
 import HomeContent from "./home-content.vue";
 import HomeTaskList from "./home-tasklist.vue";
 import chrome_gitee_util from "../../chrome_lib/chrome_gitee_util";
+import chromeUtil from "../../chrome_lib/chrome_util";
 import { format } from "../../util/date";
 
 export default {
@@ -87,6 +88,8 @@ export default {
       allData: [],
       value: "",
       deleteMarkData: [],
+      isHomeTaskList: false,
+      isHomeTaskListPublic: false,
     };
   },
   watch: {
@@ -99,7 +102,14 @@ export default {
       );
     },
   },
-  mounted() {},
+  mounted() {
+    chromeUtil.getLocalVariable("__gitee_tasklist_private_open").then((v) => {
+      this.isHomeTaskList = v;
+    });
+    chromeUtil.getLocalVariable("__gitee_tasklist_public_open").then((v) => {
+      this.isHomeTaskListPublic = v;
+    });
+  },
   methods: {
     getDate(date) {
       return format(new Date(date));

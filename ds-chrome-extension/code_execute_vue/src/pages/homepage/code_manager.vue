@@ -21,10 +21,8 @@
         <a-menu-item style="margin: 0" v-for="code in codeList" :key="code.key">
           {{ code.name }}
           <span class="opate">
-            <a-tooltip title="删除"  v-if="!code.publicCode">
-              <DeleteOutlined
-                @click="deleteMenu($event, code)"
-              ></DeleteOutlined>
+            <a-tooltip title="删除" v-if="!code.publicCode">
+              <DeleteOutlined @click="deleteMenu($event, code)"></DeleteOutlined>
             </a-tooltip>
             <a-tooltip title="启用" v-if="!code.isOpen">
               <CheckCircleOutlined @click="openCode($event, code)" />
@@ -102,9 +100,7 @@ export default {
     };
   },
   mounted() {
-    const localOpenCode = chrome_util.getLocalVariable(
-      "__execute_codeScriptArr"
-    );
+    const localOpenCode = chrome_util.getLocalVariable("__execute_codeScriptArr");
     const allCode = chrome_gitee_util.getCode();
     Promise.all([allCode, localOpenCode]).then((data) => {
       if (!data[0].privateCode) {
@@ -161,18 +157,18 @@ export default {
       this.selectData = this.codeList[0];
     },
     autoSave: function () {
-      const index = this.codeList.findIndex(
-        (v) => v.key === this.selectData.key
-      );
+      const index = this.codeList.findIndex((v) => v.key === this.selectData.key);
       this.codeList[index] = this.selectData;
       this.codeList = [...this.codeList];
     },
     saveAll: function () {
-      chrome_gitee_util.uploadCode(this.codeList.filter(co => !co.publicCode)).then((data) => {
-        if (data) {
-          alert("操作成功");
-        }
-      });
+      chrome_gitee_util
+        .uploadCode(this.codeList.filter((co) => !co.publicCode))
+        .then((data) => {
+          if (data) {
+            alert("操作成功");
+          }
+        });
     },
     deleteMenu(ev, item) {
       ev.stopPropagation();
@@ -204,10 +200,11 @@ export default {
     },
     openSync: function () {
       const isOpenData = this.codeList.filter((v) => v.isOpen);
-      chrome_util.setLocalVariable("__execute_codeScriptArr", isOpenData);
+      const isOpemDataClone = JSON.parse(JSON.stringify(isOpenData));
+      chrome_util.setLocalVariable("__execute_codeScriptArr", isOpemDataClone);
       chrome_util.sendMessage(
         "__execute_codeScriptArr_reload",
-        isOpenData,
+        isOpemDataClone,
         (data) => {
           console.log(data);
         }
