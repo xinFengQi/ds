@@ -332,6 +332,9 @@ function getCode() {
             }
             Promise.all([getPrivateCode, getPublicCode]).then(
                 (code) => {
+                    if(!code) {
+                        resolve({})
+                    }
                     const privateCode = code[0].data,
                         publicCode = code[1] && code[1].data;
                     const retuObj = {};

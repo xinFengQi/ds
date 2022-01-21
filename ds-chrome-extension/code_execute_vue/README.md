@@ -1,24 +1,12 @@
 # code_execute_vue
 
-## Project setup
+## 运行
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
-
-### Compiles and minifies for production
-```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 问题
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. 存储没有使用storage.sync 所以以后需要注意

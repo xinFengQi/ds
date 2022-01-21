@@ -1,10 +1,20 @@
-const chromeApi = window.chrome;
+let extensionApi = window.chrome;
 
 let environment = 'web';
-if (document.location.href.startsWith('chrome-extension')) {
+
+var explorer = navigator.userAgent;
+if (explorer.indexOf("Chrome") >= 0 && explorer.indexOf("Safari") >= 0) {
     // 在chrome环境
     environment = 'chrome-extension'
+    extensionApi = window.chrome;
+
+} else if (explorer.indexOf("Firefox") >= 0) {
+    // 在火狐环境中
+    environment = 'firefox-extension'
+    extensionApi = window.browser;
 }
+
+const extennsions = ['chrome-extension', 'firefox-extension'];
 
 // 订阅数据监听的代码
 let subIndex = 0;
@@ -40,12 +50,12 @@ function getWebLocalStorgeValue(value) {
 function setLocalVariable(key, value) {
     return new Promise((resolve) => {
         let newvalue = value;
-        if (environment === 'chrome-extension') {
-            if (!chromeApi || !chromeApi.storage) {
+        if (extennsions.includes(environment)) {
+            if (!extensionApi || !extensionApi.storage) {
                 resolve(null);
                 return;
             }
-            chromeApi.storage.sync.set({ [key]: newvalue }, () => {
+            extensionApi.storage.local.set({ [key]: newvalue }, () => {
                 resolve(true);
             })
         } else if (environment === 'web') {
@@ -64,14 +74,14 @@ function setLocalVariable(key, value) {
 
 
 // 获取变量
-async function getLocalVariable(key) {
+function getLocalVariable(key) {
     return new Promise((resolve) => {
-        if (environment === 'chrome-extension') {
-            if (!chromeApi || !chromeApi.storage) {
+        if (extennsions.includes(environment)) {
+            if (!extensionApi || !extensionApi.storage) {
                 resolve(null);
                 return;
             }
-            chromeApi.storage.sync.get({ [key]: null }, (item) => {
+            extensionApi.storage.local.get({ [key]: null }, (item) => {
                 resolve(item[key])
             })
         } else if (environment === 'web') {
@@ -106,9 +116,8 @@ function deleteLocalVariableSub(subI) {
 // 获取书签
 async function getBookmarks() {
     return new Promise((resolve) => {
-
-        if (chromeApi && chromeApi.bookmarks) {
-            chromeApi.bookmarks.getTree(markNodes => {
+        if (extensionApi && extensionApi.bookmarks) {
+            extensionApi.bookmarks.getTree(markNodes => {
                 resolve(markNodes[0])
             });
         } else {
@@ -120,21 +129,21 @@ async function getBookmarks() {
 
 // 新建带链接的菜单显示
 function addLinkMenu(title, src) {
-    if (!chromeApi || !chromeApi.extension || !chromeApi.contextMenus || !chromeApi.tabs) {
+    if (!extensionApi || !extensionApi.extension || !extensionApi.contextMenus || !extensionApi.tabs) {
         return null;
     }
-    const scriptCodeSrc = chromeApi.extension.getURL(src);
-    chromeApi.contextMenus.create({
+    const scriptCodeSrc = extensionApi.extension.getURL(src);
+    extensionApi.contextMenus.create({
         title: title,
         onclick: function () {
-            chromeApi.tabs.create({ url: scriptCodeSrc });
+            extensionApi.tabs.create({ url: scriptCodeSrc });
         },
     });
 }
 
 // 新建分割线菜单显示
 function addSeparatorMenu(title) {
-    if (!chromeApi || !chromeApi.contextMenus) {
+    if (!extensionApi || !extensionApi.contextMenus) {
         return null;
     }
     // 菜单分割线
@@ -147,14 +156,13 @@ function addSeparatorMenu(title) {
 
 // 新建执行代码的菜单展示
 function addExtrueCodeMenu(title, code) {
-    if (!chromeApi || !chromeApi.contextMenus || !chromeApi.tabs) {
+    if (!extensionApi || !extensionApi.contextMenus || !extensionApi.tabs) {
         return null;
     }
-    const id = chromeApi.contextMenus.create({
+    const id = extensionApi.contextMenus.create({
         title: title,
         onclick: function () {
-            chromeApi.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                console.log(tabs,)
+            extensionApi.tabs.query({ active: true, currentWindow: true }, function (tabs) {
                 if (!tabs.length) {
                     return null;
                 }
@@ -163,7 +171,7 @@ function addExtrueCodeMenu(title, code) {
                     return null;
                 }
                 const tabId = tabs[0].id;
-                chromeApi.tabs.executeScript(tabId, { code: code });
+                extensionApi.tabs.executeScript(tabId, { code: code });
             });
         }
     });
@@ -172,10 +180,10 @@ function addExtrueCodeMenu(title, code) {
 
 // 根据id删除菜单
 function deleteMenu(id) {
-    if (!chromeApi || !chromeApi.contextMenus) {
+    if (!extensionApi || !extensionApi.contextMenus) {
         return null;
     }
-    chromeApi.contextMenus.remove(id);
+    extensionApi.contextMenus.remove(id);
 }
 
 
@@ -188,20 +196,20 @@ function deleteMenu(id) {
  * @return {*} 
  */
 function sendMessage(eventName, data, cb) {
-    if (!chromeApi || !chromeApi.runtime) {
+    if (!extensionApi || !extensionApi.runtime) {
         return null;
     }
-    chromeApi.runtime.sendMessage({ name: eventName, data: data }, function (response) {
+    extensionApi.runtime.sendMessage({ name: eventName, data: data }, function (response) {
         cb(response)
     });
 }
 
 // 监听消息
 function onMessage(eventName, responseData, cb) {
-    if (!chromeApi || !chromeApi.runtime) {
+    if (!extensionApi || !extensionApi.runtime) {
         return null;
     }
-    chromeApi.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    extensionApi.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.name === eventName) {
             cb(request.data)
         }

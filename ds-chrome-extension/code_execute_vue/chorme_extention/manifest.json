@@ -8,7 +8,7 @@
         "48": "src/img/logo.ico",
         "128": "src/img/logo.ico"
     },
-    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",      
+    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",
     "browser_action": {
         "default_icon": "src/img/logo.ico",
         "default_title": "ds_扩展工具_vue",
@@ -16,25 +16,26 @@
     },
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
-            "js": ["src/js/index.js"],
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "src/js/index.js"
+            ],
             "css": [],
             "run_at": "document_start"
         }
     ],
-    "background":
-	{
-		"page": "src/background.html"
-	},
+    "background": {
+        "page": "src/background.html"
+    },
     "web_accessible_resources": [],
     "homepage_url": "https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html",
-    "chrome_url_overrides":
-	{
-		"newtab": "src/home.html"
+    "chrome_url_overrides": {
+        "newtab": "src/home.html"
     },
-    "options_ui":
-	{
-		"page": "src/setting.html"
+    "options_ui": {
+        "page": "src/setting.html"
     },
     "devtools_page": "src/devtools.html",
     "permissions": [

@@ -13,7 +13,7 @@ const { fileToZip } = require('./util_zip');
 const uuid = require('uuid');
 
 
-@apiMenu({ name: 'templateOperate', dec: '事件中心的http服务' })
+@apiMenu({ name: 'templateOperate', dec: '模板中心的http服务' })
 class templateOperateHttp {
 
     // 获取样板内容

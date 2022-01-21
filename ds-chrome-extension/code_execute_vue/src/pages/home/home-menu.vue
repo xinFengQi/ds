@@ -50,7 +50,7 @@ export default {
       .getBookMarks(this.edit)
       .then((v) => {
         this.machineMenu = v;
-          console.log('个人的',  this.machineMenu)
+        console.log("个人的", this.machineMenu);
 
         this.$emit("getShowMenu", this.machineMenu[0]);
         this.$emit("getAllMenu", this.machineMenu);
@@ -64,7 +64,7 @@ export default {
       .then((v) => {
         if (!this.edit) {
           this.pubilcMachineMenu = v;
-          console.log('公共的',  this.pubilcMachineMenu)
+          console.log("公共的", this.pubilcMachineMenu);
         }
       })
       .catch((err) => {
@@ -82,14 +82,9 @@ export default {
       ev.stopPropagation();
       ev.preventDefault();
       console.log("删除导航", item);
-      this.machineMenu = this.machineMenu.filter(
-        (v) => v.dateAdded !== item.dateAdded
-      );
+      this.machineMenu = this.machineMenu.filter((v) => v.dateAdded !== item.dateAdded);
 
-      if (
-        this.machineMenu.length &&
-        this.selectedKeys.includes(item.dateAdded + "")
-      ) {
+      if (this.machineMenu.length && this.selectedKeys.includes(item.dateAdded + "")) {
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
         this.getClickMenu(this.machineMenu[0]);
       } else {

@@ -91,7 +91,6 @@ export default {
   },
   watch: {
     value(newValue) {
-      console.log("数据变更", newValue, "==============");
       this.searchContentData = this.loopSearchMarks(
         this.isShowPublic
           ? JSON.parse(this.showPublicContentDataStr)
@@ -100,6 +99,7 @@ export default {
       );
     },
   },
+  mounted() {},
   methods: {
     getDate(date) {
       return format(new Date(date));
