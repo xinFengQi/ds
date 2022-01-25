@@ -10,16 +10,61 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:vscode-extensio-test1.helloWorld"
+		"*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"menus": {
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "command": "vscode-extensio-test1.getCurrentFilePath",
+                    "group": "navigation"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "vscode-extensio-test1.getCurrentFilePath",
+                    "group": "navigation"
+                }
+            ]
+        },
 		"commands": [
 			{
 				"command": "vscode-extensio-test1.helloWorld",
-				"title": "Hello World"
+				"title": "ds/vscode插件.hellowWorld"
+			},
+			{
+				"command": "vscode-extensio-test1.showWelcome",
+				"title": "ds/vscode插件.主页"
+			},
+			{
+				"command": "vscode-extensio-test1.getCurrentFilePath",
+				"title": "ds/vscode插件.getCurrentFilePath"
 			}
-		]
+		],
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./snippets/javascript.json"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "ds/vscode插件测试",
+			"properties": {
+				"vscodePluginDemo.yourName": {
+					"type": "string",
+					"default": "guest",
+					"description": "你的名字"
+				},
+				"vscodePluginDemo.showTip": {
+					"type": "boolean",
+					"default": true,
+					"description": "启动时显示自定义欢迎页"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

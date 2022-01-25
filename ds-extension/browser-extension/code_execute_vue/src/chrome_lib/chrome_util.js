@@ -3,17 +3,22 @@ let extensionApi = window.chrome;
 let environment = 'web';
 
 var explorer = navigator.userAgent;
-if (explorer.indexOf("Chrome") >= 0 && explorer.indexOf("Safari") >= 0) {
+if (!window.vscode && explorer.indexOf("Chrome") >= 0 && explorer.indexOf("Safari") >= 0) {
     // 在chrome环境
     environment = 'chrome-extension'
     extensionApi = window.chrome;
 
-} else if (explorer.indexOf("Firefox") >= 0) {
+}
+if (explorer.indexOf("Firefox") >= 0) {
     // 在火狐环境中
     environment = 'firefox-extension'
     extensionApi = window.browser;
 }
-
+if (location.protocol === 'vscode-webview:') {
+    environment = 'web'
+    extensionApi = window.chrome;
+}
+console.log('=============================================', window, window.vscode, environment)
 const extennsions = ['chrome-extension', 'firefox-extension'];
 
 // 订阅数据监听的代码
