@@ -6,6 +6,18 @@
 @import '~ant-design-vue/lib/layout/style/index.less';
 @import '~ant-design-vue/lib/menu/style/index.less';
 
+@import '~ant-design-vue/lib/collapse/style/index.less';
+@import '~ant-design-vue/lib/input/style/index.less';
+@import '~ant-design-vue/lib/card/style/index.less';
+@import '~ant-design-vue/lib/modal/style/index.less';
+@import '~ant-design-vue/lib/date-picker/style/index.less';
+@import '~ant-design-vue/lib/message/style/index.less';
+@import '~ant-design-vue/lib/tag/style/index.less';
+@import '~ant-design-vue/lib/page-header/style/index.less';
+@import '~ant-design-vue/lib/typography/style/index.less';
+@import '~ant-design-vue/lib/form/style/index.less';
+@import '~ant-design-vue/lib/tooltip/style/index.less';
+@import '~ant-design-vue/lib/Switch/style/index.less';
 
 
 @primary-color: #1890ff; // 全局主色
@@ -23,7 +35,13 @@
 @box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15); // 浮层阴影
 
 
-body{
+
+html, body{
     margin: 0px;
     padding: 0px;
+    height: 100%;
+}
+
+#app{
+    height: auto !important;
 }

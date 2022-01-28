@@ -2,7 +2,7 @@ const environment = ['web'];
 let extensionApi: any = null;
 
 const explorer = navigator.userAgent;
-if (explorer.indexOf('Chrome') >= 0 && explorer.indexOf('Safari') >= 0) {
+if (location.protocol === 'chrome-extension:') {
     // 在chrome环境
     environment.push('chrome-extension');
 }
@@ -14,10 +14,7 @@ if (location.protocol === 'vscode-webview:') {
     environment.push('vscode-extension');
 }
 
-if (
-    environment.includes('chrome-extension') &&
-    !environment.includes('vscode-extension')
-) {
+if (environment.includes('chrome-extension')) {
     extensionApi = (window as any).chrome;
 }
 
@@ -30,15 +27,11 @@ export function isVsCode() {
 }
 
 export function isChrome() {
-    return (
-        environment.includes('chrome-extension')
-    );
+    return environment.includes('chrome-extension');
 }
 
 export function isFirefox() {
-    return (
-        environment.includes('firefox-extension')
-    );
+    return environment.includes('firefox-extension');
 }
 
 export function isBrowserExtebsion() {

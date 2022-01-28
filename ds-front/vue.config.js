@@ -12,6 +12,10 @@ module.exports = {
             entry: 'src/pages/extension-home/main.ts',
             template: 'public/html/extension-home.html'
         },
+        'extension-setting': {
+            entry: 'src/pages/extension-setting/main.ts',
+            template: 'public/html/extension-setting.html'
+        },
     },
     css: {
         loaderOptions: {

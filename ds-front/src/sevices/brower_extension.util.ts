@@ -1,7 +1,7 @@
 import { getExtensionApi, isChrome, isFirefox } from './environment';
 
 // 获取书签
-export function getBookmarks() {
+function getBookmarks() {
     return new Promise((resolve) => {
         if (getExtensionApi() && getExtensionApi().bookmarks) {
             getExtensionApi().bookmarks.getTree((markNodes: any[]) => {
@@ -14,7 +14,7 @@ export function getBookmarks() {
 }
 
 // 新建带链接的菜单显示
-export function addLinkMenu(title: string, src: string) {
+function addLinkMenu(title: string, src: string) {
     if (
         !getExtensionApi() ||
         !getExtensionApi().extension ||
@@ -33,7 +33,7 @@ export function addLinkMenu(title: string, src: string) {
 }
 
 // 新建分割线菜单显示
-export function addSeparatorMenu(title: string) {
+function addSeparatorMenu(title: string) {
     if (!getExtensionApi() || !getExtensionApi().contextMenus) {
         return null;
     }
@@ -47,7 +47,7 @@ export function addSeparatorMenu(title: string) {
 }
 
 // 新建执行代码的菜单展示
-export function addExtrueCodeMenu(title: string, code: string) {
+function addExtrueCodeMenu(title: string, code: string) {
     if (
         !getExtensionApi() ||
         !getExtensionApi().contextMenus ||
@@ -78,7 +78,7 @@ export function addExtrueCodeMenu(title: string, code: string) {
 }
 
 // 根据id删除菜单
-export function deleteMenu(id: number) {
+function deleteMenu(id: number) {
     if (!getExtensionApi() || !getExtensionApi().contextMenus) {
         return null;
     }
@@ -93,7 +93,7 @@ export function deleteMenu(id: number) {
  * @param {*} cb  发送被接收后的回调
  * @return {*}
  */
-export function sendMessage(eventName: string, data: any, cb: any) {
+function sendMessage(eventName: string, data: any, cb: any) {
     if (!getExtensionApi() || !getExtensionApi().runtime) {
         return null;
     }
@@ -114,7 +114,7 @@ export function sendMessage(eventName: string, data: any, cb: any) {
 }
 
 // 监听消息
-export function onMessage(eventName: string, responseData: any, cb: any) {
+function onMessage(eventName: string, responseData: any, cb: any) {
     if (!getExtensionApi() || !getExtensionApi().runtime) {
         return null;
     }
@@ -127,3 +127,13 @@ export function onMessage(eventName: string, responseData: any, cb: any) {
         }
     );
 }
+
+export default {
+    addSeparatorMenu,
+    addExtrueCodeMenu,
+    sendMessage,
+    deleteMenu,
+    onMessage,
+    getBookmarks,
+    addLinkMenu,
+};

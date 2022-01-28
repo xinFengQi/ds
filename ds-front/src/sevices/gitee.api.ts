@@ -1,4 +1,68 @@
 import * as axios from 'axios';
+import localStorgeData from './localStorge.data';
+
+export function getGiteeKey(key1: string, key2: string) {
+    return `__gitee_${key1}_${key2}`;
+}
+
+export function getGiteeObjectKey(key1: string, key2: 'public' | 'private') {
+    return {
+        accessToken: {
+            varName: getGiteeKey(key1, key2 + '_access_token'),
+        },
+        owner: {
+            varName: getGiteeKey(key1, key2 + '_owner'),
+        },
+        repo: {
+            varName: getGiteeKey(key1, key2 + '_repo'),
+        },
+    };
+}
+
+export function getGiteeArrKey(key1: string, key2: 'public' | 'private') {
+    return [
+        getGiteeKey(key1, key2 + '_access_token'),
+        getGiteeKey(key1, key2 + '_owner'),
+        getGiteeKey(key1, key2 + '_repo'),
+    ];
+}
+
+export function getGiteeLocalStoreData(
+    key: string,
+    key2: 'public' | 'private'
+) {
+    return new Promise((resolve, reject) => {
+        const getDsFlag = localStorgeData.getLocalVariable(
+            `__gitee_${key}_${key2}_flag`
+        );
+        const getGiteeAccess = localStorgeData.getLocalVariable(
+            `__gitee_${key}_${key2}_access_token`
+        );
+        const getGiteeOwner = localStorgeData.getLocalVariable(
+            `__gitee_${key}_${key2}_owner`
+        );
+        const getGiteeRepo = localStorgeData.getLocalVariable(
+            `__gitee_${key}_${key2}_repo`
+        );
+        Promise.all([getDsFlag, getGiteeAccess, getGiteeOwner, getGiteeRepo])
+            .then((v) => {
+                const data = {
+                    flag: v[0],
+                    access: v[1],
+                    owner: v[2],
+                    repo: v[3],
+                };
+                if (v[0] && v[1] && v[2] && v[3]) {
+                    resolve(data);
+                } else {
+                    reject({ msg: '存在值为空', data });
+                }
+            })
+            .catch((err) => {
+                reject({ msg: err });
+            });
+    });
+}
 
 // 查
 export function getAll(
@@ -15,11 +79,14 @@ export function getAll(
         axios.default
             .get(url)
             .then((httpV) => {
-                relove(httpV.data);
+                if (httpV.data) {
+                    relove(httpV.data);
+                } else {
+                    reject({ msg: 'gitee的数据不存在' });
+                }
             })
             .catch((err) => {
                 reject({ msg: 'gitee的数据获取错误', err });
-                reject(err);
             });
     });
 }
@@ -42,6 +109,7 @@ function add(
         'content',
         btoa(encodeURIComponent(JSON.stringify([data])))
     );
+    formData.append('message', key + path + '新增任务列表');
     return new Promise((relove, reject) => {
         axios.default
             .post(url, formData)
@@ -62,7 +130,8 @@ function update(
     giteeRepo: string,
     key: string,
     path: string,
-    data: object
+    data: object,
+    sha: string
 ) {
     const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/_data_${key}%2F${decodeURI(
         path
@@ -73,6 +142,8 @@ function update(
         'content',
         btoa(encodeURIComponent(JSON.stringify([data])))
     );
+    formData.append('sha', sha);
+
     return new Promise((relove, reject) => {
         axios.default
             .put(url, formData)
@@ -97,9 +168,17 @@ export function addOrUpdateData(
 ) {
     return new Promise((relove, reject) => {
         getAll(accessToken, giteeOwner, giteeRepo, key, path)
-            .then((vFile) => {
+            .then((vFile: any) => {
                 if (vFile) {
-                    update(accessToken, giteeOwner, giteeRepo, key, path, data)
+                    update(
+                        accessToken,
+                        giteeOwner,
+                        giteeRepo,
+                        key,
+                        path,
+                        data,
+                        vFile.sha
+                    )
                         .then((v) => {
                             relove(v);
                         })

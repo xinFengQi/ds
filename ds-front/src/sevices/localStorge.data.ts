@@ -15,6 +15,9 @@ function setWebLocalStorgeValue(value: any) {
 }
 
 function getWebLocalStorgeValue(value: any) {
+    if(value === 'null') {
+        return '';
+    }
     if (!isNaN(Number(value))) {
         return Number(value);
     } else if (value.startsWith('[') && value.endsWith(']')) {
@@ -24,7 +27,7 @@ function getWebLocalStorgeValue(value: any) {
 }
 
 // 设置变量
-export function setLocalVariable(key: string, value: any) {
+function setLocalVariable(key: string, value: any) {
     return new Promise((resolve) => {
         if (isBrowserExtebsion()) {
             if (!getExtensionApi() || !getExtensionApi().storage) {
@@ -45,7 +48,7 @@ export function setLocalVariable(key: string, value: any) {
 }
 
 // 获取变量
-export function getLocalVariable(key: string) {
+function getLocalVariable(key: string) {
     return new Promise((resolve) => {
         if (isBrowserExtebsion()) {
             if (!getExtensionApi() || !getExtensionApi().storage) {
@@ -62,14 +65,14 @@ export function getLocalVariable(key: string) {
         }
         const data = localStorage.getItem(key);
         if (data) {
-            resolve(getWebLocalStorgeValue(data));
+            resolve(getWebLocalStorgeValue(data)) ;
         } else {
             resolve(null);
         }
     });
 }
 
-export function getLocalVariableSub(key: string, cb: Function) {
+function getLocalVariableSub(key: string, cb: Function) {
     subIndex = subIndex + 1;
     getLocalVariable(key).then((data) => {
         cb(data);
@@ -78,6 +81,15 @@ export function getLocalVariableSub(key: string, cb: Function) {
     return subIndex;
 }
 
-export function deleteLocalVariableSub(subI: number) {
+function deleteLocalVariableSub(subI: number) {
     subs = subs.filter((v) => v.id !== subI);
+}
+
+
+
+export default {
+    deleteLocalVariableSub,
+    getLocalVariableSub,
+    getLocalVariable,
+    setLocalVariable
 }
