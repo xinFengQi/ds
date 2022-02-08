@@ -1,0 +1,36 @@
+{
+    "logo": "./imgs/logo.jpg",
+    "title": "DemonStrate",
+    "secondTitle": "ds-个人系列",
+    "describe": {
+        "title": "欢迎",
+        "des": "ds-个人系列小站,前端个人集合体，文章展示地"
+    },
+    "nav": [
+        {
+            "title": "博客",
+            "tab": [
+                {
+                    "title": "近期发布"
+                },
+                {
+                    "title": "分类"
+                }
+            ]
+        },
+        {
+            "title": "项目",
+            "tab": [
+                {
+                    "title": "所有项目"
+                },
+                {
+                    "title": "前端"
+                }
+            ]
+        },
+        {
+            "title": "更多"
+        }
+    ]
+}

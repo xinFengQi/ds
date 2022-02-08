@@ -5,6 +5,10 @@ module.exports = {
     filenameHashing: false,
     pages: {
         index: {
+            entry: 'src/pages/blog/main.ts',
+            template: 'public/html/blog.html'
+        },
+        test: {
             entry: 'src/pages/index/main.ts',
             template: 'public/html/index.html'
         },

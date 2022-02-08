@@ -1,6 +1,11 @@
 import * as axios from 'axios';
 import localStorgeData from './localStorge.data';
 
+
+export function getConfigData(url: string) {
+    return axios.default.get(url);
+}
+
 export function getGiteeKey(key1: string, key2: string) {
     return `__gitee_${key1}_${key2}`;
 }
