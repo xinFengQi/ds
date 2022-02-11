@@ -1,7 +1,6 @@
 import * as axios from 'axios';
 import localStorgeData from './localStorge.data';
 
-
 export function getConfigData(url: string) {
     return axios.default.get(url);
 }
@@ -34,7 +33,8 @@ export function getGiteeArrKey(key1: string, key2: 'public' | 'private') {
 
 export function getGiteeLocalStoreData(
     key: string,
-    key2: 'public' | 'private'
+    key2: 'public' | 'private',
+    isGitee?: boolean
 ) {
     return new Promise((resolve, reject) => {
         const getDsFlag = localStorgeData.getLocalVariable(
@@ -57,7 +57,7 @@ export function getGiteeLocalStoreData(
                     owner: v[2],
                     repo: v[3],
                 };
-                if (v[0] && v[1] && v[2] && v[3]) {
+                if (((v[0] && !isGitee) || isGitee) && v[1] && v[2] && v[3]) {
                     resolve(data);
                 } else {
                     reject({ msg: '存在值为空', data });
@@ -80,6 +80,32 @@ export function getAll(
     const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/_data_${key}%2F${decodeURI(
         path
     )}.json?access_token=${accessToken}`;
+    return new Promise((relove, reject) => {
+        axios.default
+            .get(url)
+            .then((httpV) => {
+                if (httpV.data) {
+                    relove(httpV.data);
+                } else {
+                    reject({ msg: 'gitee的数据不存在' });
+                }
+            })
+            .catch((err) => {
+                reject({ msg: 'gitee的数据获取错误', err });
+            });
+    });
+}
+
+// 查
+export function getFileData(
+    accessToken: string,
+    giteeOwner: string,
+    giteeRepo: string,
+    path: string
+) {
+    const url =
+        `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/` +
+        `${path}?access_token=${accessToken}`;
     return new Promise((relove, reject) => {
         axios.default
             .get(url)
@@ -157,7 +183,6 @@ function update(
             })
             .catch((err) => {
                 reject({ msg: 'gitee覆盖数据错误', err });
-                reject(err);
             });
     });
 }
@@ -202,6 +227,70 @@ export function addOrUpdateData(
             })
             .catch((err) => {
                 reject(err);
+            });
+    });
+}
+
+export function deleteFile(
+    accessToken: string,
+    giteeOwner: string,
+    giteeRepo: string,
+    path: string,
+    sha: string,
+    message: string
+) {
+    const url =
+        ` https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/` +
+        `${path}?access_token=${accessToken}&sha=${sha}&message=${message}`;
+    return new Promise((relove, reject) => {
+        axios.default
+            .delete(url)
+            .then((httpV) => {
+                relove(httpV.data);
+            })
+            .catch((err) => {
+                reject({ msg: '删除文件错误', err });
+            });
+    });
+}
+
+// 查询目录
+export function getAllTree(
+    accessToken: string,
+    giteeOwner: string,
+    giteeRepo: string,
+    sha?: string
+) {
+    if (!sha) {
+        sha = 'master';
+    }
+    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/git/trees/${sha}?access_token=${accessToken}&recursive=1`;
+    return new Promise((relove, reject) => {
+        axios.default
+            .get(url)
+            .then((httpV) => {
+                relove(httpV.data);
+            })
+            .catch((err) => {
+                reject({ msg: '获取目录树错误', err });
+            });
+    });
+}
+
+// 获取md渲染文本
+export function getMdHtml(accessToken: string, text: string) {
+    const url = `https://gitee.com/api/v5/markdown`;
+    const formData = new FormData();
+    formData.append('access_token', accessToken);
+    formData.append('text', text);
+    return new Promise((relove, reject) => {
+        axios.default
+            .post(url, formData)
+            .then((httpV) => {
+                relove(httpV.data);
+            })
+            .catch((err) => {
+                reject({ msg: '获取md渲染html错误', err });
             });
     });
 }

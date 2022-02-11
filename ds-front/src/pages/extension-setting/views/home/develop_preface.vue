@@ -32,7 +32,7 @@
               <a-typography-paragraph
                 v-model:content="giteeDsAccessToken"
                 editable
-                :copyable="{ text: giteeDsFlag }"
+                :copyable="{ text: giteeDsAccessToken }"
               >
                 <template v-slot:editableIcon>
                   <HighlightTwoTone />

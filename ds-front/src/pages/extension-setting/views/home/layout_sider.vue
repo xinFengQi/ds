@@ -64,6 +64,12 @@ export default {
           icon: SnippetsTwoTone,
           isShow: true,
         },
+         {
+          key: "resource_manager",
+          label: "资源管理",
+          icon: SnippetsTwoTone,
+          isShow: true,
+        },
       ],
     };
   },

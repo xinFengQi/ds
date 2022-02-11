@@ -14,6 +14,7 @@
         <codeManager v-if="currentKey === 'code_manager'"></codeManager>
         <developPreface v-if="currentKey === 'develop_preface'"></developPreface>
         <TaskListSetting v-if="currentKey === 'tasklist_setting'"></TaskListSetting>
+        <ResourceManager v-if="currentKey === 'resource_manager'"></ResourceManager>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -27,7 +28,7 @@ import codeSetting from "./code_setting.vue";
 import codeManager from "./code_manager.vue";
 import developPreface from "./develop_preface.vue";
 import TaskListSetting from "./tasklist_setting.vue";
-
+import ResourceManager from "./resource_manager.vue";
 export default {
   name: "Home",
   components: {
@@ -38,6 +39,7 @@ export default {
     codeManager,
     developPreface,
     TaskListSetting,
+    ResourceManager
   },
   data() {
     return {
@@ -54,15 +56,6 @@ export default {
 
 <style>
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100%;
-  overflow: hidden;
-}
 .main_layout {
   height: 100%;
   overflow: hidden;
