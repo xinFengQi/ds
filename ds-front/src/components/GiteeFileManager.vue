@@ -93,7 +93,7 @@
     :footer="null"
     :maskClosable="false"
   >
-    <GiteeUpload></GiteeUpload>
+    <GiteeUpload :giteeData="giteeData" :basePath="getBasePath"></GiteeUpload>
   </a-modal>
 </template>
 
@@ -155,6 +155,9 @@ export default {
   },
   watch: {},
   methods: {
+    getBasePath() {
+      return '';
+    },
     uploadFile() {
       this.isUplodaVisible = true;
     },

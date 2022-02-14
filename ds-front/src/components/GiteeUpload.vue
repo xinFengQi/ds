@@ -11,11 +11,13 @@
 </template>
 
 <script>
+import { addOrUpdateData } from "@/sevices/gitee.api";
 export default {
   components: {},
   name: "GiteeUpload",
   props: {
     giteeData: Object,
+    basePath: String
   },
   data() {
     return {
@@ -57,7 +59,7 @@ export default {
       console.log(this.singles, this.multiples);
       const allarr = [...this.singles, ...this.multiples];
       this.allFile = allarr.length;
-      loopUpload(allarr);
+      this.loopUpload(allarr);
     },
     // 递归上传文件
     loopUpload(arr) {
@@ -65,8 +67,20 @@ export default {
         return;
       }
       const { file, content } = arr.shift();
-      //   allSuccessFile: 0,
-      //   allFailFile: 0,
+      addOrUpdateData(
+        this.giteeData.access,
+        this.giteeData.owner,
+        this.giteeData.repo,
+        null,
+        this.basePath + '/' + file.name,
+        content
+      ).then(v =>  {
+        this.allSuccessFile++
+      }).catch(err =>  {
+        this.allFailFile++
+      }).finally( () => {
+        this.loopUpload(arr);
+      });
     },
   },
 };

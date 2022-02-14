@@ -74,12 +74,16 @@ export function getAll(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
-    key: string,
+    key: string | null,
     path: string
 ) {
-    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/_data_${key}%2F${decodeURI(
+    let keyPath = path;
+    if (key) {
+        keyPath = `_data_${key}/${path}.json`;
+    }
+    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${decodeURI(
         path
-    )}.json?access_token=${accessToken}`;
+    )}?access_token=${accessToken}`;
     return new Promise((relove, reject) => {
         axios.default
             .get(url)
@@ -127,20 +131,22 @@ function add(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
-    key: string,
     path: string,
-    data: object
+    data: any
 ) {
-    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/_data_${key}%2F${decodeURI(
+    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${decodeURI(
         path
-    )}.json?access_token=${accessToken}`;
+    )}?access_token=${accessToken}`;
     const formData = new FormData();
     formData.append('access_token', accessToken);
-    formData.append(
-        'content',
-        btoa(encodeURIComponent(JSON.stringify([data])))
-    );
-    formData.append('message', key + path + '新增任务列表');
+    let inputData = '';
+    if (data.startsWith('data') && data.indexOf(';base64,')) {
+        inputData = data;
+    } else {
+        inputData = btoa(encodeURIComponent(JSON.stringify([data])));
+    }
+    formData.append('content', inputData);
+    formData.append('message', path + '新增数据');
     return new Promise((relove, reject) => {
         axios.default
             .post(url, formData)
@@ -159,20 +165,22 @@ function update(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
-    key: string,
     path: string,
-    data: object,
+    data: any,
     sha: string
 ) {
-    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/_data_${key}%2F${decodeURI(
+    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${decodeURI(
         path
-    )}.json?access_token=${accessToken}`;
+    )}?access_token=${accessToken}`;
     const formData = new FormData();
     formData.append('access_token', accessToken);
-    formData.append(
-        'content',
-        btoa(encodeURIComponent(JSON.stringify([data])))
-    );
+    let inputData = '';
+    if (data.startsWith('data') && data.indexOf(';base64,')) {
+        inputData = data;
+    } else {
+        inputData = btoa(encodeURIComponent(JSON.stringify([data])));
+    }
+    formData.append('content', inputData);
     formData.append('sha', sha);
 
     return new Promise((relove, reject) => {
@@ -192,20 +200,23 @@ export function addOrUpdateData(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
-    key: string,
+    key: string | null,
     path: string,
     data: object
 ) {
     return new Promise((relove, reject) => {
         getAll(accessToken, giteeOwner, giteeRepo, key, path)
             .then((vFile: any) => {
+                let keyPath = path;
+                if (key) {
+                    keyPath = `_data_${key}/${path}.json`;
+                }
                 if (vFile) {
                     update(
                         accessToken,
                         giteeOwner,
                         giteeRepo,
-                        key,
-                        path,
+                        keyPath,
                         data,
                         vFile.sha
                     )
@@ -217,7 +228,7 @@ export function addOrUpdateData(
                         });
                     return;
                 }
-                add(accessToken, giteeOwner, giteeRepo, key, path, data)
+                add(accessToken, giteeOwner, giteeRepo, keyPath, data)
                     .then((v) => {
                         relove(v);
                     })
