@@ -82,7 +82,7 @@ export function getAll(
         keyPath = `_data_${key}/${path}.json`;
     }
     const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${decodeURI(
-        path
+        keyPath
     )}?access_token=${accessToken}`;
     return new Promise((relove, reject) => {
         axios.default
@@ -141,11 +141,11 @@ function add(
     formData.append('access_token', accessToken);
     let inputData = '';
     if (data.startsWith('data') && data.indexOf(';base64,')) {
-        inputData = data;
+        inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
     }
-    formData.append('content', inputData);
+    formData.append('content', inputData ? inputData : '');
     formData.append('message', path + '新增数据');
     return new Promise((relove, reject) => {
         axios.default
@@ -176,13 +176,13 @@ function update(
     formData.append('access_token', accessToken);
     let inputData = '';
     if (data.startsWith('data') && data.indexOf(';base64,')) {
-        inputData = data;
+        inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
     }
-    formData.append('content', inputData);
+    formData.append('content', inputData ? inputData : '');
     formData.append('sha', sha);
-
+    formData.append('message', path + '更新数据');
     return new Promise((relove, reject) => {
         axios.default
             .put(url, formData)
@@ -205,13 +205,16 @@ export function addOrUpdateData(
     data: object
 ) {
     return new Promise((relove, reject) => {
+        if (path.startsWith('/')) {
+            path = path.replace('/', '');
+        }
         getAll(accessToken, giteeOwner, giteeRepo, key, path)
             .then((vFile: any) => {
                 let keyPath = path;
                 if (key) {
                     keyPath = `_data_${key}/${path}.json`;
                 }
-                if (vFile) {
+                if ((vFile && vFile.length > 0) || vFile.sha) {
                     update(
                         accessToken,
                         giteeOwner,
@@ -302,6 +305,24 @@ export function getMdHtml(accessToken: string, text: string) {
             })
             .catch((err) => {
                 reject({ msg: '获取md渲染html错误', err });
+            });
+    });
+}
+
+
+// pages构建，pages付费用户才能用
+export function buildPages(accessToken: string, owner: string, repo: string) {
+    const url = ` https://gitee.com/api/v5/repos/${owner}/${repo}/pages/builds`;
+    const formData = new FormData();
+    formData.append('access_token', accessToken);
+    return new Promise((relove, reject) => {
+        axios.default
+            .post(url, formData)
+            .then((httpV) => {
+                relove(httpV.data);
+            })
+            .catch((err) => {
+                reject({ msg: '构建pages报错', err });
             });
     });
 }

@@ -15,11 +15,10 @@ import {
     Switch,
     Breadcrumb,
     Table,
-    Divider
+    Divider,
 } from 'ant-design-vue';
 import { App } from 'vue';
 import moment from 'moment';
-import {  } from 'ant-design-vue/lib/menu';
 
 moment.locale('zh-cn');
 
@@ -41,6 +40,5 @@ export function importAnt(app: App<Element>) {
     app.use(Breadcrumb);
     app.use(Table);
     app.use(Divider);
-
 
 }

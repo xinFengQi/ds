@@ -16,7 +16,9 @@
         </a-breadcrumb-item>
       </a-breadcrumb>
       <div class="right_btu">
-        <a-button v-if="!getLastIsFile()" @click="uploadFile" type="primary">新增文件</a-button>
+        <a-button v-if="!getLastIsFile()" @click="uploadFile" type="primary"
+          >新增文件</a-button
+        >
       </div>
     </div>
 
@@ -93,7 +95,12 @@
     :footer="null"
     :maskClosable="false"
   >
-    <GiteeUpload :giteeData="giteeData" :basePath="getBasePath"></GiteeUpload>
+    <GiteeUpload
+      v-if="isUplodaVisible"
+      :giteeData="giteeData"
+      :basePath="getBasePath()"
+      @success="fileUploadSuccess"
+    ></GiteeUpload>
   </a-modal>
 </template>
 
@@ -107,7 +114,7 @@ export default {
     FileOutlined,
     FolderOutlined,
     FileShowData,
-    GiteeUpload
+    GiteeUpload,
   },
   name: "GiteeFileManager",
   props: {
@@ -155,8 +162,18 @@ export default {
   },
   watch: {},
   methods: {
+    // 文件上传成功
+    fileUploadSuccess(ev) {
+      if (ev) {
+        this.isUplodaVisible = false;
+        this.releadData();
+      }
+    },
     getBasePath() {
-      return '';
+      return this.historyData
+        .slice(1, this.historyData.length)
+        .map((v) => v.name)
+        .join("/");
     },
     uploadFile() {
       this.isUplodaVisible = true;
@@ -190,6 +207,18 @@ export default {
             return v;
           }),
         ];
+        this.lopoGotoFolder();
+      });
+    },
+    // 数据重启后递归进行文件夹点击
+    lopoGotoFolder() {
+      const copyHistoryData = [...this.historyData];
+      copyHistoryData.forEach((v) => {
+        const index = this.showList.findIndex((id) => id.name === v.name);
+        if (index < 0) {
+          return;
+        }
+        this.showFolderDetail(this.showList[index], true);
       });
     },
     handleDeleteOk: function () {

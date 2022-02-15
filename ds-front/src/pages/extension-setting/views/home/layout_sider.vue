@@ -64,9 +64,15 @@ export default {
           icon: SnippetsTwoTone,
           isShow: true,
         },
-         {
+        {
           key: "resource_manager",
           label: "资源管理",
+          icon: SnippetsTwoTone,
+          isShow: true,
+        },
+        {
+          key: "blog_manager",
+          label: "博客管理",
           icon: SnippetsTwoTone,
           isShow: true,
         },

@@ -4,8 +4,15 @@
     <input type="file" @change="inputChangeSingle" />
     <p>上传文件夹:</p>
     <input type="file" @change="inputChangeMultiple" webkitdirectory />
+    <div v-if="confirmUploadLoading">
+      需要上传文件数：{{ allFile }},
+      上传成功数：{{allSuccessFile}}，
+      上传失败数：{{ allFailFile }}
+    </div>
     <div class="btu_tool">
-      <a-button @click="ok" type="primary">确定</a-button>
+      <a-button @click="ok" :loading="confirmUploadLoading" type="primary"
+        >确定</a-button
+      >
     </div>
   </div>
 </template>
@@ -17,7 +24,7 @@ export default {
   name: "GiteeUpload",
   props: {
     giteeData: Object,
-    basePath: String
+    basePath: String,
   },
   data() {
     return {
@@ -26,6 +33,7 @@ export default {
       allFile: 0,
       allSuccessFile: 0,
       allFailFile: 0,
+      confirmUploadLoading: false,
     };
   },
   mounted() {},
@@ -59,11 +67,16 @@ export default {
       console.log(this.singles, this.multiples);
       const allarr = [...this.singles, ...this.multiples];
       this.allFile = allarr.length;
+      this.confirmUploadLoading = true;
       this.loopUpload(allarr);
     },
     // 递归上传文件
     loopUpload(arr) {
       if (!arr.length) {
+        if (this.allFailFile === 0 || this.allFile === this.allSuccessFile) {
+          this.$emit("success", true);
+        }
+        this.confirmUploadLoading = false;
         return;
       }
       const { file, content } = arr.shift();
@@ -72,15 +85,18 @@ export default {
         this.giteeData.owner,
         this.giteeData.repo,
         null,
-        this.basePath + '/' + file.name,
+        file.webkitRelativePath ? (this.basePath + "/" + file.webkitRelativePath) :  (this.basePath + "/" + file.name),
         content
-      ).then(v =>  {
-        this.allSuccessFile++
-      }).catch(err =>  {
-        this.allFailFile++
-      }).finally( () => {
-        this.loopUpload(arr);
-      });
+      )
+        .then((v) => {
+          this.allSuccessFile++;
+        })
+        .catch((err) => {
+          this.allFailFile++;
+        })
+        .finally(() => {
+          this.loopUpload(arr);
+        });
     },
   },
 };
