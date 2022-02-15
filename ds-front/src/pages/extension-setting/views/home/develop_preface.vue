@@ -172,7 +172,9 @@ export default {
   methods: {
     quickSetting: function () {
       const dsFlags = ["booksMarks", "codes", "tasklist"];
-      const dsGiteeFlags = ["booksMarks", "codes", "tasklist"];
+      const dsGiteePublicFlags = ["booksMarks", "codes", "tasklist", "resource", "blog_manager"];
+      const dsGiteePrivateFlags = ["booksMarks", "codes", "tasklist"];
+
       const dsPublicFlags = ["booksMarks", "codes", "tasklist"];
 
       console.log("一键设置");
@@ -197,12 +199,12 @@ export default {
         .forEach((v) => {
           localStorgeData.setLocalVariable(v, this.giteeDsPublicFlag);
         });
-      dsGiteeFlags
+      dsGiteePrivateFlags
         .map((v) => getGiteeArrKey(v, "private"))
         .forEach((v) => {
           setGiteeFlag(v);
         });
-      dsGiteeFlags
+      dsGiteePublicFlags
         .map((v) => getGiteeArrKey(v, "public"))
         .forEach((v) => {
           setGiteeFlag(v);
