@@ -12,6 +12,25 @@
       <a-form-item label="标题">
         <a-input v-model:value="formState.title" />
       </a-form-item>
+      <a-form-item label="分类">
+        <a-select
+          v-model:value="formState.classify"
+          style="width: 100%"
+          placeholder="请选择分类"
+          :options="classifyTags"
+        >
+        </a-select>
+      </a-form-item>
+      <a-form-item label="标签">
+        <a-select
+          v-model:value="formState.tags"
+          mode="multiple"
+          style="width: 100%"
+          placeholder="请选择标签"
+          :options="tagTags"
+        >
+        </a-select>
+      </a-form-item>
       <a-form-item label="序言">
         <a-textarea v-model:value="formState.preface" :auto-size="true" />
       </a-form-item>
@@ -28,21 +47,93 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRaw, UnwrapRef } from "vue";
+import { getAll, addOrUpdateData } from "@/sevices/gitee.api";
+import moment from "moment";
+import { message } from "ant-design-vue";
+
 interface FormState {
   title: string;
   preface: string;
   fullText: string;
+  classify: string;
+  tags: string[];
 }
 export default defineComponent({
-  setup() {
+  props: {
+    giteeData: Object,
+  },
+  data() {
+    return {
+      classifyTags: [],
+      tagTags: [],
+    };
+  },
+  setup(props: any, context) {
+    const newDate = moment().format("YYYY_MM_DD HH:mm");
     const formState: UnwrapRef<FormState> = reactive({
       title: "",
       preface: "",
       fullText: "",
+      classify: "",
+      tags: [],
     });
     const onSubmit = () => {
+      const { classify, tags, title, fullText, preface } = toRaw(formState);
+      const fileName = `${newDate}_$_${classify}_$_${title}_$_${tags.join(
+        ";"
+      )}`;
       console.log("submit!", toRaw(formState));
+      getAll(
+        props.giteeData.access,
+        props.giteeData.owner,
+        props.giteeData.repo,
+        "blog",
+        "blog_list"
+      ).then((v: any) => {
+        let blogList = [];
+        if (v.content) {
+          blogList = JSON.parse(decodeURIComponent(atob(v.content)))[0];
+        }
+        const index = blogList.findIndex((bg: any) => bg.fileName === fileName);
+        if (index > -1) {
+          message.error("存在同名博客");
+          return;
+        }
+        const inputData = {
+          fileName,
+          title,
+          tags,
+          preface,
+        };
+        blogList = [inputData, ...blogList];
+        saveBlog(blogList, { ...toRaw(formState), fileName });
+      });
     };
+
+    function saveBlog(blogList: any[], inputData: any) {
+      addOrUpdateData(
+        props.giteeData.access,
+        props.giteeData.owner,
+        props.giteeData.repo,
+        "blog",
+        "blog_list",
+        blogList
+      ).then((v: any) => {
+        console.log("新增结果", v);
+        message.success("目录新增成功");
+        addOrUpdateData(
+          props.giteeData.access,
+          props.giteeData.owner,
+          props.giteeData.repo,
+          "blog",
+          inputData.fileName,
+          inputData
+        ).then((v: any) => {
+          console.log("新增结果", v);
+          message.success("内容新增成功");
+        });
+      });
+    }
 
     function handlerUpload(ev: any) {
       // 对编码的字符串转化base64
@@ -80,6 +171,34 @@ export default defineComponent({
       onSubmit,
       inputChangeSingle,
     };
+  },
+  mounted() {
+    if (!this.giteeData) {
+      throw "BlogManagerAdd组件的giteeData参数错误";
+    }
+    let getGiteeData: any = {};
+    getAll(
+      this.giteeData.access,
+      this.giteeData.owner,
+      this.giteeData.repo,
+      "blog",
+      "blog_setting"
+    ).then((v: any) => {
+      if (v.content) {
+        getGiteeData = JSON.parse(decodeURIComponent(atob(v.content)))[0];
+        if (getGiteeData.classifyTags) {
+          this.classifyTags = [...getGiteeData.classifyTags].map((v) => {
+            return { value: v };
+          }) as any;
+        }
+        if (getGiteeData.tagTags) {
+          this.tagTags = [...getGiteeData.tagTags].map((v) => {
+            return { value: v };
+          }) as any;
+        }
+      }
+      console.log(v, getGiteeData, "博客设置");
+    });
   },
   methods: {},
 });

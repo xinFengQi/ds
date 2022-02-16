@@ -6,7 +6,25 @@
         重新加载
       </a-button>
     </div>
-    <BlogManagerAdd></BlogManagerAdd>
+    <div class="setting_tool left">
+       <a-button class="mr-8" type="primary" @click="gotoPage('list')">
+        列表页
+      </a-button>
+      <a-button class="mr-8" type="primary" @click="gotoPage('setting')">
+        设置页
+      </a-button>
+      <a-button class="mr-8" type="primary" @click="gotoPage('add')">
+        新增页
+      </a-button>
+    </div>
+    <BlogManagerAdd
+      v-if="giteeFileData && currentPage === 'add'"
+      :giteeData="giteeFileData"
+    ></BlogManagerAdd>
+    <BlogManagerSetting
+      v-if="giteeFileData && currentPage === 'setting'"
+      :giteeData="giteeFileData"
+    ></BlogManagerSetting>
   </div>
 </template>
 
@@ -14,16 +32,19 @@
 import GiteeSettingForm from "@/components/GiteeSettingForm.vue";
 import { getGiteeLocalStoreData, getGiteeObjectKey } from "@/sevices/gitee.api";
 import BlogManagerAdd from "./blog_manager_add.vue";
+import BlogManagerSetting from "./blog_manager_setting.vue";
 export default {
   name: "BlogManager",
   components: {
     GiteeSettingForm,
     BlogManagerAdd,
+    BlogManagerSetting,
   },
   data() {
     return {
       giteePublicData: getGiteeObjectKey("blog_manager", "public"),
       giteeFileData: null,
+      currentPage: 'list'
     };
   },
   mounted() {
@@ -33,6 +54,9 @@ export default {
     });
   },
   methods: {
+    gotoPage: function(page) {
+      this.currentPage = page;
+    },
     reload: function () {
       this.giteeFileData = null;
       setTimeout(() => {
@@ -47,5 +71,11 @@ export default {
 
 <style scoped>
 .blog_manager_main {
+}
+.setting_tool {
+  display: flex;
+}
+.left {
+  justify-content: flex-end;
 }
 </style>>

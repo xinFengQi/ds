@@ -140,7 +140,7 @@ function add(
     const formData = new FormData();
     formData.append('access_token', accessToken);
     let inputData = '';
-    if (data.startsWith('data') && data.indexOf(';base64,')) {
+    if (typeof data === 'string' && data.startsWith('data') && data.indexOf(';base64,')) {
         inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
@@ -175,7 +175,7 @@ function update(
     const formData = new FormData();
     formData.append('access_token', accessToken);
     let inputData = '';
-    if (data.startsWith('data') && data.indexOf(';base64,')) {
+    if (typeof data === 'string' && data.startsWith('data') && data.indexOf(';base64,')) {
         inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
