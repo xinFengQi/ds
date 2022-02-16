@@ -140,7 +140,11 @@ function add(
     const formData = new FormData();
     formData.append('access_token', accessToken);
     let inputData = '';
-    if (typeof data === 'string' && data.startsWith('data') && data.indexOf(';base64,')) {
+    if (
+        typeof data === 'string' &&
+        data.startsWith('data') &&
+        data.indexOf(';base64,')
+    ) {
         inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
@@ -175,7 +179,11 @@ function update(
     const formData = new FormData();
     formData.append('access_token', accessToken);
     let inputData = '';
-    if (typeof data === 'string' && data.startsWith('data') && data.indexOf(';base64,')) {
+    if (
+        typeof data === 'string' &&
+        data.startsWith('data') &&
+        data.indexOf(';base64,')
+    ) {
         inputData = data.split(';base64,')[1];
     } else {
         inputData = btoa(encodeURIComponent(JSON.stringify([data])));
@@ -250,21 +258,50 @@ export function deleteFile(
     giteeOwner: string,
     giteeRepo: string,
     path: string,
-    sha: string,
-    message: string
+    sha?: string,
+    message?: string
 ) {
-    const url =
-        ` https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/` +
-        `${path}?access_token=${accessToken}&sha=${sha}&message=${message}`;
+    if (!message) {
+        message = path + '删除文件';
+    }
+    if (sha) {
+        const url =
+            ` https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/` +
+            `${path}?access_token=${accessToken}&sha=${sha}&message=${message}`;
+        return new Promise((relove, reject) => {
+            axios.default
+                .delete(url)
+                .then((httpV) => {
+                    relove(httpV.data);
+                })
+                .catch((err) => {
+                    reject({ msg: '删除文件错误', err });
+                });
+        });
+    }
     return new Promise((relove, reject) => {
-        axios.default
-            .delete(url)
-            .then((httpV) => {
-                relove(httpV.data);
-            })
-            .catch((err) => {
-                reject({ msg: '删除文件错误', err });
-            });
+        getAll(accessToken, giteeOwner, giteeRepo, null, path).then(
+            (fileData: any) => {
+                if (fileData.sha) {
+                    deleteFile(
+                        accessToken,
+                        giteeOwner,
+                        giteeRepo,
+                        path,
+                        fileData.sha,
+                        message
+                    )
+                        .then((deleteda) => {
+                            relove(deleteda);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                    return;
+                }
+                reject({ message: '文件不存在，删除失败' });
+            }
+        );
     });
 }
 
@@ -273,12 +310,16 @@ export function getAllTree(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
-    sha?: string
+    sha?: string,
+    recursive?: number
 ) {
     if (!sha) {
         sha = 'master';
     }
-    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/git/trees/${sha}?access_token=${accessToken}&recursive=1`;
+    if (!recursive) {
+        recursive = 1;
+    }
+    const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/git/trees/${sha}?access_token=${accessToken}&recursive=${recursive}`;
     return new Promise((relove, reject) => {
         axios.default
             .get(url)
@@ -308,7 +349,6 @@ export function getMdHtml(accessToken: string, text: string) {
             });
     });
 }
-
 
 // pages构建，pages付费用户才能用
 export function buildPages(accessToken: string, owner: string, repo: string) {

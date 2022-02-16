@@ -95,17 +95,17 @@ export default defineComponent({
           blogList = JSON.parse(decodeURIComponent(atob(v.content)))[0];
         }
         const index = blogList.findIndex((bg: any) => bg.fileName === fileName);
-        if (index > -1) {
-          message.error("存在同名博客");
-          return;
-        }
         const inputData = {
           fileName,
           title,
           tags,
           preface,
         };
-        blogList = [inputData, ...blogList];
+        if (index > -1) {
+          blogList[index] = inputData;
+        } else {
+          blogList = [inputData, ...blogList];
+        }
         saveBlog(blogList, { ...toRaw(formState), fileName });
       });
     };
@@ -131,6 +131,7 @@ export default defineComponent({
         ).then((v: any) => {
           console.log("新增结果", v);
           message.success("内容新增成功");
+          context.emit("success", true);
         });
       });
     }

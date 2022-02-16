@@ -7,7 +7,7 @@
       </a-button>
     </div>
     <div class="setting_tool left">
-       <a-button class="mr-8" type="primary" @click="gotoPage('list')">
+      <a-button class="mr-8" type="primary" @click="gotoPage('list')">
         列表页
       </a-button>
       <a-button class="mr-8" type="primary" @click="gotoPage('setting')">
@@ -17,9 +17,14 @@
         新增页
       </a-button>
     </div>
+    <BlogManagerList
+      v-if="giteeFileData && currentPage === 'list'"
+      :giteeData="giteeFileData"
+    ></BlogManagerList>
     <BlogManagerAdd
       v-if="giteeFileData && currentPage === 'add'"
       :giteeData="giteeFileData"
+      @success="addSuccess"
     ></BlogManagerAdd>
     <BlogManagerSetting
       v-if="giteeFileData && currentPage === 'setting'"
@@ -33,18 +38,21 @@ import GiteeSettingForm from "@/components/GiteeSettingForm.vue";
 import { getGiteeLocalStoreData, getGiteeObjectKey } from "@/sevices/gitee.api";
 import BlogManagerAdd from "./blog_manager_add.vue";
 import BlogManagerSetting from "./blog_manager_setting.vue";
+import BlogManagerList from "./blog_manager_list.vue";
+
 export default {
   name: "BlogManager",
   components: {
     GiteeSettingForm,
     BlogManagerAdd,
     BlogManagerSetting,
+    BlogManagerList
   },
   data() {
     return {
       giteePublicData: getGiteeObjectKey("blog_manager", "public"),
       giteeFileData: null,
-      currentPage: 'list'
+      currentPage: "list",
     };
   },
   mounted() {
@@ -54,8 +62,11 @@ export default {
     });
   },
   methods: {
-    gotoPage: function(page) {
+    gotoPage: function (page) {
       this.currentPage = page;
+    },
+    addSuccess: function () {
+      this.currentPage = "list";
     },
     reload: function () {
       this.giteeFileData = null;

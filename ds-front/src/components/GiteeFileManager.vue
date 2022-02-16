@@ -43,7 +43,8 @@
               type="link"
               @click="showFolderDetail(record)"
             >
-              <FolderOutlined />{{ record.name }}
+              <FolderOutlined />{{ record.name }} 
+              
             </a-button>
             <a-button v-if="!record.childrens.length" type="text">
               <FolderOutlined />{{ record.name }}
