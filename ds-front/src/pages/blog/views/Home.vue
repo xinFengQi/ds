@@ -28,6 +28,7 @@
           selectCurrentNav.tab.length > 1
         "
         :tabData="selectCurrentNav.tab"
+        @selectTab="selectTab"
       ></Tab>
     </div>
   </div>
@@ -47,16 +48,34 @@ import store from "../store";
 })
 export default class Home extends Vue {
   selectCurrentNav = null;
+  selectCurrentTab = null;
+
 
   mounted() {}
+
   get layoutData() {
     return store.getters.getLayoutData;
   }
   get mobleSiderStatus() {
     return store.getters.getMobleSiderStatus;
   }
+
+  get blogDataList() {
+    return store.getters.blogDataList;
+  }
+
+  get projectDataList() {
+    return store.getters.projectDataList;
+  }
+
   selectNav(nav: any) {
     this.selectCurrentNav = nav;
+    console.log('选择的nav', this.selectCurrentNav);
+  }
+  selectTab(tab: any) {
+    this.selectCurrentTab = tab;
+    console.log('选择的tab', this.selectCurrentTab);
+
   }
 }
 </script>

@@ -39,7 +39,7 @@ export default class Tab extends Vue {
   }
 
   emitSelectTab() {
-    this.$emit("selectNav", this.selectCurrentTab);
+    this.$emit("selectTab", this.selectCurrentTab);
   }
 }
 </script>

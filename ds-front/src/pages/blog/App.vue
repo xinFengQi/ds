@@ -36,6 +36,7 @@ export default class Home extends Vue {
           const blogList = JSON.parse(
             decodeURIComponent(atob(data.content))
           )[0];
+          store.dispatch("setBlogDataList", blogList);
           console.log("博客", blogList);
         }
       });
@@ -45,6 +46,7 @@ export default class Home extends Vue {
             const projectList = JSON.parse(
               decodeURIComponent(atob(data.content))
             )[0];
+            store.dispatch("setProjectDataList", projectList);
             console.log("项目", projectList);
           }
         }
