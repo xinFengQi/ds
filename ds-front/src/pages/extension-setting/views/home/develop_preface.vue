@@ -105,7 +105,7 @@
 <script>
 import { HighlightTwoTone } from "@ant-design/icons-vue";
 import localStorgeData from "@/sevices/localStorge.data";
-import  { getGiteeKey, getGiteeArrKey   } from "@/sevices/gitee.api"
+import { getGiteeKey, getGiteeArrKey } from "@/sevices/gitee.api";
 export default {
   name: "developPreface",
   props: {},
@@ -172,10 +172,19 @@ export default {
   methods: {
     quickSetting: function () {
       const dsFlags = ["booksMarks", "codes", "tasklist"];
-      const dsGiteePublicFlags = ["booksMarks", "codes", "tasklist", "resource", "blog_manager"];
+      const dsGiteePublicFlags = [
+        "booksMarks",
+        "codes",
+        "tasklist",
+        "resource",
+        "blog_manager",
+      ];
       const dsGiteePrivateFlags = ["booksMarks", "codes", "tasklist"];
 
       const dsPublicFlags = ["booksMarks", "codes", "tasklist"];
+
+      const dsPublicOpen = ["booksMarks", "codes", "tasklist"];
+      const dsPrivateOpen = ["booksMarks", "codes", "tasklist"];
 
       console.log("一键设置");
 
@@ -189,6 +198,18 @@ export default {
           localStorgeData.setLocalVariable(ar, mapData[index]);
         });
       };
+
+      dsPublicOpen
+        .map((v) => getGiteeKey(v, "public_open"))
+        .forEach((v) => {
+          localStorgeData.setLocalVariable(v, true);
+        });
+      dsPrivateOpen
+        .map((v) => getGiteeKey(v, "private_open"))
+        .forEach((v) => {
+          localStorgeData.setLocalVariable(v, true);
+        });
+
       dsFlags
         .map((v) => getGiteeKey(v, "private_flag"))
         .forEach((v) => {
