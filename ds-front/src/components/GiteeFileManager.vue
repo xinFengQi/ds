@@ -33,32 +33,49 @@
       <div class="folder_table_content" v-for="(record, i) in showList">
         <div class="folder_table_col">
           <div class="w100" v-if="record.origin">
-            <a-button class="w100" type="text"
-              ><FileOutlined />{{ record.name }}</a-button
-            >
+            <a-button class="w100 display_show display_aicenter" type="text">
+              <FileOutlined />
+              <a-typography-paragraph copyable>
+                <span class="mr-8 ml-8">{{ record.name }}</span>
+              </a-typography-paragraph>
+            </a-button>
           </div>
           <div v-if="record.childrens">
             <a-button
+              class="display_show display_aicenter"
               v-if="record.childrens.length"
               type="link"
-              @click="showFolderDetail(record)"
             >
-              <FolderOutlined />{{ record.name }} 
-              
+              <FolderOutlined />
+              <a-typography-paragraph copyable>
+                <span
+                  class="mr-8 ml-8 link"
+                  @click="showFolderDetail(record)"
+                  >{{ record.name }}</span
+                >
+              </a-typography-paragraph>
             </a-button>
             <a-button v-if="!record.childrens.length" type="text">
-              <FolderOutlined />{{ record.name }}
+              <FolderOutlined />
+              <a-typography-paragraph copyable>
+                <span class="mr-8 ml-8">{{ record.name }}</span>
+              </a-typography-paragraph>
             </a-button>
           </div>
         </div>
         <div class="folder_table_col">
           <a-button
             v-if="!record.childrens"
+            @click="downFile(record)"
+            type="link"
+            >下载</a-button
+          >
+          <a-button
+            v-if="!record.childrens"
             @click="showFile(record)"
             type="link"
             >查看</a-button
           >
-          <a-divider v-if="!record.childrens" type="vertical" />
           <a-button type="link" @click="deleteFile(record)">删除</a-button>
         </div>
       </div>
@@ -107,15 +124,22 @@
 
 <script>
 import { getAllTree, deleteFile } from "@/sevices/gitee.api";
-import { FileOutlined, FolderOutlined } from "@ant-design/icons-vue";
+import { getData } from "@/sevices/axios.api";
+import {
+  FileOutlined,
+  FolderOutlined,
+  CopyOutlined,
+} from "@ant-design/icons-vue";
 import FileShowData from "./FileShowData.vue";
 import GiteeUpload from "./GiteeUpload.vue";
+import { message } from "ant-design-vue";
 export default {
   components: {
     FileOutlined,
     FolderOutlined,
     FileShowData,
     GiteeUpload,
+    CopyOutlined,
   },
   name: "GiteeFileManager",
   props: {
@@ -163,6 +187,37 @@ export default {
   },
   watch: {},
   methods: {
+    downFile(item) {
+      if (!item.origin && !item.origin.url) {
+        return;
+      }
+      getData(item.origin.url).then((data) => {
+        console.log(data, "===============");
+        if (!data.content) {
+          return;
+        }
+        const bstr = decodeURIComponent(decodeURIComponent(escape(atob(data.content))));
+        console.log(bstr, '=============')
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        // 乱码问题
+        const blob = new Blob([u8arr],  {type:"*/*;charset=utf-8"});
+        var myUrl = URL.createObjectURL(blob);
+        console.log(blob, myUrl);
+        var a = document.createElement("a");
+        a.setAttribute("href", myUrl);
+        a.setAttribute("download", item.name);
+        a.setAttribute("target", "_blank");
+        let clickEvent = document.createEvent("MouseEvents");
+        clickEvent.initEvent("click", true, true);
+        a.dispatchEvent(clickEvent);
+      });
+      console.log(item, "下载数据");
+    },
+
     // 文件上传成功
     fileUploadSuccess(ev) {
       if (ev) {
@@ -348,13 +403,15 @@ export default {
           type: "folder",
         });
       }
-
-      this.showList = [
-        ...record.childrens.map((v, index) => {
-          v.key = index + "";
-          return v;
-        }),
-      ];
+      this.showList = [];
+      setTimeout(() => {
+        this.showList = [
+          ...record.childrens.map((v, index) => {
+            v.key = index + "";
+            return v;
+          }),
+        ];
+      });
     },
     sortTree: function (data) {
       const treeData = [];

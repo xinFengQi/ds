@@ -16,7 +16,6 @@
       </div>
       <div class="folder_table_col">
         <a-button @click="showFile(item)" type="link">查看</a-button>
-        <a-divider type="vertical" />
         <a-button type="link" @click="deleteFile(item)">删除</a-button>
       </div>
     </div>
@@ -50,6 +49,7 @@ export default {
   },
   props: {
     giteeData: Object,
+    belongTo: String
   },
   data() {
     return {
@@ -70,7 +70,7 @@ export default {
       this.giteeData.owner,
       this.giteeData.repo,
       "blog",
-      "blog_list"
+      this.belongTo === '博客' ? "blog_list" : "blog_project_list"
     ).then((v) => {
       if (v.content) {
         this.originList = JSON.parse(decodeURIComponent(atob(v.content)))[0];
@@ -80,14 +80,16 @@ export default {
     });
   },
   methods: {
+    // 处理数据，获取表格list
     handlerData() {
       this.flieData = this.originList.map((da) => {
         const fileNames = da.fileName.split("_$_");
         return {
-          time: fileNames[0].replaceAll("_", "/"),
-          classify: fileNames[1],
-          title: fileNames[2],
-          tags: fileNames[3].split(";"),
+          belongTo: fileNames[0],
+          time: fileNames[1].replaceAll("_", "/"),
+          classify: fileNames[2],
+          title: fileNames[3],
+          tags: fileNames[4].split(";"),
           ...da,
         };
       });
@@ -147,7 +149,7 @@ export default {
 }
 .folder_table_header {
   display: flex;
-  padding: 8px 8px;
+  padding: 8px 0px;
   border-bottom: 1px solid #f0f0f0;
   background: #fafafa;
   color: rgba(0, 0, 0, 0.85);
@@ -158,6 +160,7 @@ export default {
   margin-left: 16px;
 }
 .folder_table_col {
+  padding: 4px 0;
   flex: 1;
 }
 .folder_table_content {

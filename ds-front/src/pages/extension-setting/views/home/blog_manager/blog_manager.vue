@@ -7,8 +7,11 @@
       </a-button>
     </div>
     <div class="setting_tool left">
-      <a-button class="mr-8" type="primary" @click="gotoPage('list')">
-        列表页
+      <a-button class="mr-8" type="primary" @click="gotoPage('list', '博客')">
+        博客列表页
+      </a-button>
+      <a-button class="mr-8" type="primary" @click="gotoPage('list', '项目')">
+        项目列表页
       </a-button>
       <a-button class="mr-8" type="primary" @click="gotoPage('setting')">
         设置页
@@ -20,6 +23,7 @@
     <BlogManagerList
       v-if="giteeFileData && currentPage === 'list'"
       :giteeData="giteeFileData"
+      :belongTo="belongTo"
     ></BlogManagerList>
     <BlogManagerAdd
       v-if="giteeFileData && currentPage === 'add'"
@@ -46,13 +50,14 @@ export default {
     GiteeSettingForm,
     BlogManagerAdd,
     BlogManagerSetting,
-    BlogManagerList
+    BlogManagerList,
   },
   data() {
     return {
       giteePublicData: getGiteeObjectKey("blog_manager", "public"),
       giteeFileData: null,
       currentPage: "list",
+      belongTo: "博客",
     };
   },
   mounted() {
@@ -62,8 +67,12 @@ export default {
     });
   },
   methods: {
-    gotoPage: function (page) {
-      this.currentPage = page;
+    gotoPage: function (page, belongTo) {
+      this.currentPage = null;
+      setTimeout(() => {
+        this.belongTo = belongTo;
+        this.currentPage = page;
+      });
     },
     addSuccess: function () {
       this.currentPage = "list";

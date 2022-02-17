@@ -9,6 +9,15 @@
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
     >
+      <a-form-item label="大分类">
+        <a-select
+          v-model:value="formState.belongTo"
+          style="width: 100%"
+          placeholder="请选择分类"
+          :options="belongTos"
+        >
+        </a-select>
+      </a-form-item>
       <a-form-item label="标题">
         <a-input v-model:value="formState.title" />
       </a-form-item>
@@ -57,6 +66,7 @@ interface FormState {
   fullText: string;
   classify: string;
   tags: string[];
+  belongTo: string;
 }
 export default defineComponent({
   props: {
@@ -66,6 +76,7 @@ export default defineComponent({
     return {
       classifyTags: [],
       tagTags: [],
+      belongTos: [{ value: "项目" }, { value: "博客" }],
     };
   },
   setup(props: any, context) {
@@ -76,10 +87,12 @@ export default defineComponent({
       fullText: "",
       classify: "",
       tags: [],
+      belongTo: "博客",
     });
     const onSubmit = () => {
-      const { classify, tags, title, fullText, preface } = toRaw(formState);
-      const fileName = `${newDate}_$_${classify}_$_${title}_$_${tags.join(
+      const { classify, tags, title, fullText, preface, belongTo } =
+        toRaw(formState);
+      const fileName = `${belongTo}_$_${newDate}_$_${classify}_$_${title}_$_${tags.join(
         ";"
       )}`;
       console.log("submit!", toRaw(formState));
@@ -88,7 +101,7 @@ export default defineComponent({
         props.giteeData.owner,
         props.giteeData.repo,
         "blog",
-        "blog_list"
+        belongTo === "博客" ? "blog_list" : "blog_project_list"
       ).then((v: any) => {
         let blogList = [];
         if (v.content) {
@@ -100,6 +113,7 @@ export default defineComponent({
           title,
           tags,
           preface,
+          belongTo,
         };
         if (index > -1) {
           blogList[index] = inputData;
@@ -116,7 +130,7 @@ export default defineComponent({
         props.giteeData.owner,
         props.giteeData.repo,
         "blog",
-        "blog_list",
+        inputData.belongTo === "博客" ? "blog_list" : "blog_project_list",
         blogList
       ).then((v: any) => {
         console.log("新增结果", v);
