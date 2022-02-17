@@ -49,7 +49,7 @@ export default {
   },
   props: {
     giteeData: Object,
-    belongTo: String
+    belongTo: String,
   },
   data() {
     return {
@@ -70,7 +70,7 @@ export default {
       this.giteeData.owner,
       this.giteeData.repo,
       "blog",
-      this.belongTo === '博客' ? "blog_list" : "blog_project_list"
+      this.belongTo === "博客" ? "blog_list" : "blog_project_list"
     ).then((v) => {
       if (v.content) {
         this.originList = JSON.parse(decodeURIComponent(atob(v.content)))[0];
@@ -114,7 +114,7 @@ export default {
         this.giteeData.owner,
         this.giteeData.repo,
         "blog",
-        "blog_list",
+        this.belongTo === "博客" ? "blog_list" : "blog_project_list",
         blogList
       ).then((v) => {
         console.log("修改结果", v);

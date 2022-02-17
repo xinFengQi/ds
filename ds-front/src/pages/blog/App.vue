@@ -4,20 +4,55 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { getConfigData } from "@/sevices/gitee.api";
+import { getConfigData, getAll } from "@/sevices/gitee.api";
 import poka from "@/sevices/poka.util";
 import store from "./store";
 @Options({
   components: {},
 })
 export default class Home extends Vue {
-  mounted() {
+  created() {
     getConfigData("./data/config.json").then((data) => {
       if (!data.data) {
         throw "请加入配置文件";
       }
       store.dispatch("setLayoutData", data.data);
+      if (!data.data.gitee) {
+        throw "请加入gitee配置";
+      }
+      const { access, owner, repo } = data.data.gitee;
+      getAll(access, owner, repo, "blog", "blog_setting.json").then(
+        (data: any) => {
+          if (data.content) {
+            const blogConfig = JSON.parse(
+              decodeURIComponent(atob(data.content))
+            )[0];
+            console.log("博客分类设置", blogConfig);
+          }
+        }
+      );
+      getAll(access, owner, repo, "blog", "blog_list").then((data: any) => {
+        if (data.content) {
+          const blogList = JSON.parse(
+            decodeURIComponent(atob(data.content))
+          )[0];
+          console.log("博客", blogList);
+        }
+      });
+      getAll(access, owner, repo, "blog", "blog_project_list").then(
+        (data: any) => {
+          if (data.content) {
+            const projectList = JSON.parse(
+              decodeURIComponent(atob(data.content))
+            )[0];
+            console.log("项目", projectList);
+          }
+        }
+      );
     });
+  }
+
+  mounted() {
     const a = poka.zip("121212fsfsdfsfsd分身乏术的");
     console.log("压缩：", a, a.length);
     const aceKey = "12121212";

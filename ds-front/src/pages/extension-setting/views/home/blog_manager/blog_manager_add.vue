@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRaw, UnwrapRef } from "vue";
-import { getAll, addOrUpdateData } from "@/sevices/gitee.api";
+import { getAll, addOrUpdateData, getMdHtml } from "@/sevices/gitee.api";
 import moment from "moment";
 import { message } from "ant-design-vue";
 
@@ -103,34 +103,43 @@ export default defineComponent({
         "blog",
         belongTo === "博客" ? "blog_list" : "blog_project_list"
       ).then((v: any) => {
-        let blogList = [];
+        let blogList: any[] = [];
         if (v.content) {
           blogList = JSON.parse(decodeURIComponent(atob(v.content)))[0];
         }
         const index = blogList.findIndex((bg: any) => bg.fileName === fileName);
-        const inputData = {
-          fileName,
-          title,
-          tags,
-          preface,
-          belongTo,
-        };
-        if (index > -1) {
-          blogList[index] = inputData;
-        } else {
-          blogList = [inputData, ...blogList];
-        }
-        saveBlog(blogList, { ...toRaw(formState), fileName });
+        Promise.all([
+          getMdHtml(props.giteeData.access, preface),
+          getMdHtml(props.giteeData.access, fullText),
+        ]).then((allText) => {
+          const inputData = {
+            classify,
+            fileName,
+            title,
+            tags,
+            preface,
+            prefaceHtml: allText[0],
+            belongTo,
+          };
+          if (index > -1) {
+            blogList[index] = inputData;
+          } else {
+            blogList = [inputData, ...blogList];
+          }
+          saveBlog(blogList, { ...toRaw(formState), fileName, fullTextHtml: allText[1] });
+        });
       });
     };
 
-    function saveBlog(blogList: any[], inputData: any) {
+    function getHtmlMd() {}
+
+    function saveBlog(blogList: any[], alldata: any) {
       addOrUpdateData(
         props.giteeData.access,
         props.giteeData.owner,
         props.giteeData.repo,
         "blog",
-        inputData.belongTo === "博客" ? "blog_list" : "blog_project_list",
+        alldata.belongTo === "博客" ? "blog_list" : "blog_project_list",
         blogList
       ).then((v: any) => {
         console.log("新增结果", v);
@@ -140,8 +149,8 @@ export default defineComponent({
           props.giteeData.owner,
           props.giteeData.repo,
           "blog",
-          inputData.fileName,
-          inputData
+          alldata.fileName,
+          alldata
         ).then((v: any) => {
           console.log("新增结果", v);
           message.success("内容新增成功");

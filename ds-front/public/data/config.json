@@ -1,4 +1,9 @@
 {
+    "gitee": {
+        "access": "e9694199cc954120b37d5d449a56a752",
+        "owner": "dongfubao",
+        "repo": "ct"
+    }, 
     "logo": "./imgs/logo.jpg",
     "title": "DemonStrate",
     "secondTitle": "ds-个人系列",
