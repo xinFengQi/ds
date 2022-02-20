@@ -50,6 +50,7 @@ nav.menu {
   padding: 1px;
   flex-wrap: wrap;
   a.nav-item {
+    cursor: pointer;
     text-overflow: ellipsis;
     word-break: keep-all;
     margin: 1px;

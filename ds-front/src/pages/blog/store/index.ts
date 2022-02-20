@@ -26,11 +26,11 @@ export default createStore({
         setBlogConfig(state: any, config: any) {
             state.blogConfig = config;
         },
-        setBlogData(state: any, blogDataList: any) {
-            state.blogDataList = blogDataList;
+        setBlogDataList(state: any, blogDataList: any) {
+            state.blogDataList = [...blogDataList];
         },
-        setProjectData(state: any, projectDataList: any) {
-            state.projectDataList = projectDataList;
+        setProjectDataList(state: any, projectDataList: any) {
+            state.projectDataList = [...projectDataList];
         },
     },
     actions: {
@@ -44,10 +44,10 @@ export default createStore({
             store.commit('setBlogConfig', config);
         },
         setBlogDataList(store: any, blogDataList: any[]) {
-            store.commit('setBlogData', blogDataList);
+            store.commit('setBlogDataList', blogDataList);
         },
         setProjectDataList(store: any, projectDataList: any[]) {
-            store.commit('setProjectData', projectDataList);
+            store.commit('setProjectDataList', projectDataList);
         },
     },
     modules: {},

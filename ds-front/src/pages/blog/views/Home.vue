@@ -31,7 +31,24 @@
         @selectTab="selectTab"
       ></Tab>
       <div class="right_content">
-        <BlogList :blogList="blogDataList"></BlogList>
+        <BlogList
+          v-if="
+            blogDataList &&
+            blogDataList.length &&
+            selectCurrentNav?.title === '博客' &&
+            selectCurrentTab?.title === '近期发布'
+          "
+          :blogList="blogDataList"
+        ></BlogList>
+        <BlogList
+          v-if="
+            projectDataList &&
+            projectDataList.length &&
+            selectCurrentNav?.title === '项目' &&
+            selectCurrentTab?.title === '所有项目'
+          "
+          :blogList="projectDataList"
+        ></BlogList>
       </div>
     </div>
   </div>
@@ -64,22 +81,21 @@ export default class Home extends Vue {
   }
 
   get blogDataList() {
-    return store.getters.blogDataList;
+    return store.getters.getBlogDataList;
   }
 
   get projectDataList() {
-    return store.getters.projectDataList;
+    return store.getters.getProjectDataList;
   }
 
   selectNav(nav: any) {
     this.selectCurrentNav = nav;
-    console.log('----', this.selectCurrentNav)
+    console.log("----", this.selectCurrentNav);
   }
-  
+
   selectTab(tab: any) {
     this.selectCurrentTab = tab;
-    console.log('选择的tab', this.selectCurrentTab);
-
+    console.log("选择的tab", this.selectCurrentTab);
   }
 }
 </script>
@@ -119,6 +135,6 @@ export default class Home extends Vue {
 }
 .right_content {
   margin: 1rem;
-  min-height: 100%;
+  min-height: 80%;
 }
 </style>
