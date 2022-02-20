@@ -11,6 +11,23 @@ import store from "./store";
   components: {},
 })
 export default class Home extends Vue {
+  splitFileNameGetInfo(arr: any[]) {
+    if (!arr || !Array.isArray(arr)) {
+      return [];
+    }
+    return arr.map((v) => {
+      const vArr = v.fileName.split("_$_");
+      return {
+        belongTo: vArr[0],
+        time: vArr[1].replaceAll("_", "/"),
+        classify: vArr[2],
+        title: vArr[3],
+        tags: vArr[4].split(";"),
+        ...v,
+      };
+    });
+  }
+
   created() {
     getConfigData("./data/config.json").then((data) => {
       if (!data.data) {
@@ -27,6 +44,7 @@ export default class Home extends Vue {
             const blogConfig = JSON.parse(
               decodeURIComponent(atob(data.content))
             )[0];
+            store.dispatch("setBlogConfig", blogConfig);
             console.log("博客分类设置", blogConfig);
           }
         }
@@ -36,7 +54,7 @@ export default class Home extends Vue {
           const blogList = JSON.parse(
             decodeURIComponent(atob(data.content))
           )[0];
-          console.log("博客", blogList);
+          store.dispatch("setBlogList", this.splitFileNameGetInfo(blogList));
         }
       });
       getAll(access, owner, repo, "blog", "blog_project_list").then(
@@ -45,7 +63,10 @@ export default class Home extends Vue {
             const projectList = JSON.parse(
               decodeURIComponent(atob(data.content))
             )[0];
-            console.log("项目", projectList);
+            store.dispatch(
+              "setProjectList",
+              this.splitFileNameGetInfo(projectList)
+            );
           }
         }
       );

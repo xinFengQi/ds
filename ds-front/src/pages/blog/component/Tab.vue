@@ -22,9 +22,9 @@ export default class Tab extends Vue {
   @Prop({ default: [] }) private tabData!: any[];
   selectCurrentTab = null;
   mounted() {
-    setTimeout(() =>  {
+    setTimeout(() => {
       this.tabDataChange();
-    })
+    });
   }
 
   @Watch("tabData")
@@ -39,7 +39,7 @@ export default class Tab extends Vue {
   }
 
   emitSelectTab() {
-    this.$emit("selectNav", this.selectCurrentTab);
+    this.$emit("selectTab", this.selectCurrentTab);
   }
 }
 </script>

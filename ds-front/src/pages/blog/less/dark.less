@@ -28,6 +28,7 @@ body {
     margin: 0;
     text-rendering: optimizelegibility;
     height: 100%;
+    overflow: hidden;
 }
 
 .float-panel {
@@ -123,10 +124,11 @@ a:-webkit-any-link {
 .center_body_pc {
     display: flex;
     margin: auto;
-    padding: 0 var(--gap-l);
+    padding: 0 0 0 var(--gap-l);
     justify-content: center;
     height: 100%;
     .left {
+        width: var(--width-left);
         display: flex;
         flex-direction: column;
         word-break: break-all;
@@ -163,10 +165,24 @@ a:-webkit-any-link {
         flex-grow: 1;
         width: 320px;
         max-width: var(--width-main);
+        overflow: auto;
         header {
             margin: 4rem 1rem 2rem;
         }
+        &::-webkit-scrollbar-track-piece {
+            background: 0 0;
+        }
+        &::-webkit-scrollbar {
+            height: 0;
+            width: 0;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: var(--text-meta);
+            cursor: pointer;
+            border-radius: 0;
+        }
     }
+    
 }
 
 

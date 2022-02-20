@@ -28,7 +28,11 @@
           selectCurrentNav.tab.length > 1
         "
         :tabData="selectCurrentNav.tab"
+        @selectTab="selectTab"
       ></Tab>
+      <div class="right_content">
+        <BlogList :blogList="blogList"></BlogList>
+      </div>
     </div>
   </div>
   <FloatPanel></FloatPanel>
@@ -36,6 +40,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import BlogList from "../component/BlogList.vue";
 import FloatPanel from "../component/FloatPanel.vue";
 import LogoWrap from "../component/LogoWrap.vue";
 import Nav from "../component/Nav.vue";
@@ -43,12 +48,21 @@ import Tab from "../component/Tab.vue";
 import store from "../store";
 
 @Options({
-  components: { LogoWrap, FloatPanel, Nav, Tab },
+  components: { LogoWrap, FloatPanel, Nav, Tab, BlogList },
 })
 export default class Home extends Vue {
   selectCurrentNav = null;
-
+  selectCurrentTab = null;
   mounted() {}
+
+  get project() {
+    return store.getters.getProjectList;
+  }
+
+  get blogList() {
+    return store.getters.getBlogList;
+  }
+
   get layoutData() {
     return store.getters.getLayoutData;
   }
@@ -57,6 +71,12 @@ export default class Home extends Vue {
   }
   selectNav(nav: any) {
     this.selectCurrentNav = nav;
+    console.log('----', this.selectCurrentNav)
+  }
+  selectTab(tab: any) {
+    this.selectCurrentTab = tab;
+    console.log('----', this.selectCurrentTab)
+
   }
 }
 </script>
@@ -93,5 +113,9 @@ export default class Home extends Vue {
       }
     }
   }
+}
+.right_content {
+  margin: 1rem;
+  min-height: 100%;
 }
 </style>
