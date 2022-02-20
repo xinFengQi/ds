@@ -31,7 +31,7 @@
         @selectTab="selectTab"
       ></Tab>
       <div class="right_content">
-        <BlogList :blogList="blogList"></BlogList>
+        <BlogList :blogList="blogDataList"></BlogList>
       </div>
     </div>
   </div>
@@ -53,15 +53,8 @@ import store from "../store";
 export default class Home extends Vue {
   selectCurrentNav = null;
   selectCurrentTab = null;
+
   mounted() {}
-
-  get project() {
-    return store.getters.getProjectList;
-  }
-
-  get blogList() {
-    return store.getters.getBlogList;
-  }
 
   get layoutData() {
     return store.getters.getLayoutData;
@@ -69,13 +62,23 @@ export default class Home extends Vue {
   get mobleSiderStatus() {
     return store.getters.getMobleSiderStatus;
   }
+
+  get blogDataList() {
+    return store.getters.blogDataList;
+  }
+
+  get projectDataList() {
+    return store.getters.projectDataList;
+  }
+
   selectNav(nav: any) {
     this.selectCurrentNav = nav;
     console.log('----', this.selectCurrentNav)
   }
+  
   selectTab(tab: any) {
     this.selectCurrentTab = tab;
-    console.log('----', this.selectCurrentTab)
+    console.log('选择的tab', this.selectCurrentTab);
 
   }
 }

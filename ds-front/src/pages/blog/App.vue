@@ -54,7 +54,8 @@ export default class Home extends Vue {
           const blogList = JSON.parse(
             decodeURIComponent(atob(data.content))
           )[0];
-          store.dispatch("setBlogList", this.splitFileNameGetInfo(blogList));
+          store.dispatch("setBlogDataList", this.splitFileNameGetInfo(blogList));
+          console.log("博客", blogList);
         }
       });
       getAll(access, owner, repo, "blog", "blog_project_list").then(
@@ -64,9 +65,10 @@ export default class Home extends Vue {
               decodeURIComponent(atob(data.content))
             )[0];
             store.dispatch(
-              "setProjectList",
+              "setProjectDataList",
               this.splitFileNameGetInfo(projectList)
             );
+            console.log("项目", projectList);
           }
         }
       );

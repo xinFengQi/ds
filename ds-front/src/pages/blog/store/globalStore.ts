@@ -19,22 +19,26 @@ import store from '@/pages/blog/store';
 })
 export default class GloableStore extends VuexModule {
     // state => 要public不然外面调用不到
-    public layoutData = {};
+    public layoutData = {};  // 布局数据
+    public blogData = []; // 博客列表 
+
 
     // getter
     get getLayoutData(): any {
         return this.layoutData;
     }
 
+    get getBlogData(): any {
+        return this.layoutData;
+    }
+
     @Mutation
     setLayoutData(data: any): void {
-        console.log(data, '===================');
         this.layoutData = { ...data };
     }
     // commit的两种调用方式,第一种,Action后面的括号里面添加commit,然后return的结果就是USERINFO的参数
     @Action({ commit: 'setLayoutData' })
     disLayoutData(data: any) {
-        console.log(data, '===================');
         return data;
     }
     //   // 第二种,直接this.USERINFO调用;
@@ -44,6 +48,16 @@ export default class GloableStore extends VuexModule {
     //     this.context.commit('USERINFO', user); // commit调用
     //     // this.USERINFO(user); // 直接调用
     //   }
+
+    @Mutation
+    setBlogData(data: any): void {
+        this.blogData = { ...data };
+    }
+    // commit的两种调用方式,第一种,Action后面的括号里面添加commit,然后return的结果就是USERINFO的参数
+    @Action({ commit: 'setBlogData' })
+    disBlogData(data: any) {
+        return data;
+    }
 }
 // 使用getModule: 对类型安全的访问
 export const GloableStoreModule = getModule(GloableStore);

@@ -113,25 +113,19 @@ export default defineComponent({
           getMdHtml(props.giteeData.access, fullText),
         ]).then((allText) => {
           const inputData = {
-            classify,
             fileName,
-            title,
-            tags,
             preface,
             prefaceHtml: allText[0],
-            belongTo,
           };
           if (index > -1) {
             blogList[index] = inputData;
           } else {
             blogList = [inputData, ...blogList];
           }
-          saveBlog(blogList, { ...toRaw(formState), fileName, fullTextHtml: allText[1] });
+          saveBlog(blogList, { belongTo, fullText, fileName, fullTextHtml: allText[1] });
         });
       });
     };
-
-    function getHtmlMd() {}
 
     function saveBlog(blogList: any[], alldata: any) {
       addOrUpdateData(
