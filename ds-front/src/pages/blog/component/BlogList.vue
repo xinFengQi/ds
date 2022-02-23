@@ -1,5 +1,5 @@
 <template>
-  <div class="blog_card" v-for="blog in blogList">
+  <div class="blog_card" v-for="blog in blogList" @click="selectBlog(blog)">
     <article class="md_card">
       <h2 class="post-title">
         {{ blog.title }}
@@ -22,7 +22,7 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import store from "../store";
+
 
 export default class BlogList extends Vue {
   @Prop() blogList!: any[];
@@ -35,6 +35,10 @@ export default class BlogList extends Vue {
   }
 
   toggle() {}
+
+  selectBlog(blog: any) {
+    this.$emit('selectBlog', blog)
+  }
 }
 </script>
 
@@ -48,6 +52,7 @@ export default class BlogList extends Vue {
   overflow: hidden;
   background: var(--card);
   position: relative;
+  cursor: pointer;
 }
 .md_card {
   padding: 1rem;

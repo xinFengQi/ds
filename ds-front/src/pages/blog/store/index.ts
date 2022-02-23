@@ -24,7 +24,7 @@ export default createStore({
             state.mobleSiderStatus = bool;
         },
         setBlogConfig(state: any, config: any) {
-            state.blogConfig = config;
+            state.blogConfig = {...config};
         },
         setBlogDataList(state: any, blogDataList: any) {
             state.blogDataList = [...blogDataList];

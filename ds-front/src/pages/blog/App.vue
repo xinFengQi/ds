@@ -38,8 +38,9 @@ export default class Home extends Vue {
         throw "请加入gitee配置";
       }
       const { access, owner, repo } = data.data.gitee;
-      getAll(access, owner, repo, "blog", "blog_setting.json").then(
+      getAll(access, owner, repo, "blog", "blog_setting").then(
         (data: any) => {
+          console.log('------------------------------')
           if (data.content) {
             const blogConfig = JSON.parse(
               decodeURIComponent(atob(data.content))

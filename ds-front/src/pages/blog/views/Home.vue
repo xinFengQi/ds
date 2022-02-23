@@ -22,15 +22,11 @@
         <LogoWrap></LogoWrap>
       </header>
       <Tab
-        v-if="
-          selectCurrentNav &&
-          selectCurrentNav.tab &&
-          selectCurrentNav.tab.length > 1
-        "
+        v-if="!currentShowBlogData && selectCurrentNav && selectCurrentNav.tab"
         :tabData="selectCurrentNav.tab"
         @selectTab="selectTab"
       ></Tab>
-      <div class="right_content">
+      <div class="right_content" v-if="!currentShowBlogData">
         <BlogList
           v-if="
             blogDataList &&
@@ -39,6 +35,7 @@
             selectCurrentTab?.title === '近期发布'
           "
           :blogList="blogDataList"
+          @selectBlog="selectBlog"
         ></BlogList>
         <BlogList
           v-if="
@@ -48,7 +45,11 @@
             selectCurrentTab?.title === '所有项目'
           "
           :blogList="projectDataList"
+          @selectBlog="selectBlog"
         ></BlogList>
+      </div>
+      <div class="right_content" v-if="currentShowBlogData">
+        <MdContent :blogData="currentShowBlogData"></MdContent>
       </div>
     </div>
   </div>
@@ -63,13 +64,15 @@ import LogoWrap from "../component/LogoWrap.vue";
 import Nav from "../component/Nav.vue";
 import Tab from "../component/Tab.vue";
 import store from "../store";
-
+import MdContent from "../component/MdContent.vue";
+import { getAll } from "@/sevices/gitee.api";
 @Options({
-  components: { LogoWrap, FloatPanel, Nav, Tab, BlogList },
+  components: { LogoWrap, FloatPanel, Nav, Tab, BlogList, MdContent },
 })
 export default class Home extends Vue {
-  selectCurrentNav = null;
-  selectCurrentTab = null;
+  selectCurrentNav: any = null;
+  selectCurrentTab: any = null;
+  currentShowBlogData: any = null;
 
   mounted() {}
 
@@ -88,13 +91,40 @@ export default class Home extends Vue {
     return store.getters.getProjectDataList;
   }
 
+
+
+  selectBlog(blogData: any) {
+    console.log(blogData);
+    if (blogData && blogData.fileName) {
+      const { access, owner, repo } = this.layoutData.gitee;
+      getAll(access, owner, repo, "blog", blogData.fileName).then(
+        (data: any) => {
+          if (data.content) {
+            const blogContent = JSON.parse(
+              decodeURIComponent(atob(data.content))
+            )[0];
+            this.currentShowBlogData = {...blogData, ...blogContent};
+            console.log("博客详细内容", this.currentShowBlogData);
+          }
+        }
+      );
+    }
+  }
+
+  // 不在展示博客内容
+  setShowBlogDataNull() {
+    this.currentShowBlogData = null;
+  }
+
   selectNav(nav: any) {
     this.selectCurrentNav = nav;
+    this.setShowBlogDataNull();
     console.log("----", this.selectCurrentNav);
   }
 
   selectTab(tab: any) {
     this.selectCurrentTab = tab;
+    this.setShowBlogDataNull();
     console.log("选择的tab", this.selectCurrentTab);
   }
 }
