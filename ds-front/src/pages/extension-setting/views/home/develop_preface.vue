@@ -96,16 +96,40 @@
             </span>
           </div>
         </div>
-        <a-button type="primary" @click="quickSetting">一键设置</a-button>
+        <a-button class="mr-8" type="primary" @click="allClear"
+          >一键清空</a-button
+        >
+        <a-button v-if="giteeDsAccessToken && giteeDsOwner && giteeDsRepo" class="mr-8" type="primary" @click="quickSetting"
+          >一键设置</a-button
+        >
+        <a-button class="mr-8" type="primary" @click="GenerateCiphertext"
+          >生成密文</a-button
+        >
       </blockquote>
     </a-typography-paragraph>
   </div>
+
+  <a-modal
+    v-model:visible="ciphertextVisible"
+    :maskClosable="false"
+    :keyboard="false"
+    title="密文"
+    :footer="null"
+  >
+    <a-typography-paragraph :copyable="{ text: ciphertext }">
+      {{ ciphertext }}
+    </a-typography-paragraph>
+  </a-modal>
 </template>
 
 <script>
 import { HighlightTwoTone } from "@ant-design/icons-vue";
 import localStorgeData from "@/sevices/localStorge.data";
 import { getGiteeKey, getGiteeArrKey } from "@/sevices/gitee.api";
+import crypto from "@/sevices/crypto.util";
+import { message } from "ant-design-vue";
+import { Md5 } from "ts-md5";
+
 export default {
   name: "developPreface",
   props: {},
@@ -114,11 +138,13 @@ export default {
   },
   data() {
     return {
-      giteeDsFlag: "dongfubao",
-      giteeDsPublicFlag: "dongfubao_trrt",
-      giteeDsAccessToken: "e9694199cc954120b37d5d449a56a752",
-      giteeDsOwner: "dongfubao",
-      giteeDsRepo: "ct",
+      ciphertextVisible: false,
+      ciphertext: "",
+      giteeDsFlag: "",
+      giteeDsPublicFlag: "",
+      giteeDsAccessToken: "",
+      giteeDsOwner: "",
+      giteeDsRepo: "",
     };
   },
   mounted() {
@@ -170,6 +196,30 @@ export default {
     },
   },
   methods: {
+    // 清空
+    allClear() {
+      localStorgeData.clearLocalData();
+    },
+    GenerateCiphertext() {
+      const data = {
+        flag: this.giteeDsFlag,
+        publicFlag: this.giteeDsPublicFlag,
+        accessToken: this.giteeDsAccessToken,
+        owner: this.giteeDsOwner,
+        repo: this.giteeDsRepo,
+      };
+      localStorgeData.getLocalVariable("userName").then((v) => {
+        if (!v) {
+          message.error("用户标识未发现, 请重新刷新页面");
+          return;
+        }
+        const md5UserName = Md5.hashAsciiStr(crypto.decrypt(v, v));
+        const zipData = crypto.zip(JSON.stringify(data));
+        const enacryptData = crypto.encrypt(zipData, md5UserName);
+        this.ciphertext = enacryptData;
+        this.ciphertextVisible = true;
+      });
+    },
     quickSetting: function () {
       const dsFlags = ["booksMarks", "codes", "tasklist"];
       const dsGiteePublicFlags = [
@@ -238,5 +288,8 @@ export default {
 <style scoped>
 .developPrefaceMain {
   text-align: left;
+}
+.mr-8 {
+  margin-right: 8px;
 }
 </style>

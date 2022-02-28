@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/sevices/poka.util.ts"  ],
+, "src/sevices/crypto.util.ts"  ],
   "exclude": [
     "node_modules"
   ]

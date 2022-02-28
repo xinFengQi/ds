@@ -15,7 +15,7 @@ function setWebLocalStorgeValue(value: any) {
 }
 
 function getWebLocalStorgeValue(value: any) {
-    if(value === 'null') {
+    if (value === 'null') {
         return '';
     }
     if (!isNaN(Number(value))) {
@@ -39,7 +39,10 @@ function setLocalVariable(key: string, value: any) {
             });
             return;
         }
-        localStorage.setItem(key, setWebLocalStorgeValue(value));
+        localStorage.setItem(
+            'extensionSetting_' + key,
+            setWebLocalStorgeValue(value)
+        );
         resolve(true);
         subs.filter((v) => v.key === key).forEach((v) => {
             v.fn.apply(null, [value]);
@@ -63,9 +66,9 @@ function getLocalVariable(key: string) {
             );
             return;
         }
-        const data = localStorage.getItem(key);
+        const data = localStorage.getItem('extensionSetting_' + key);
         if (data) {
-            resolve(getWebLocalStorgeValue(data)) ;
+            resolve(getWebLocalStorgeValue(data));
         } else {
             resolve(null);
         }
@@ -85,11 +88,21 @@ function deleteLocalVariableSub(subI: number) {
     subs = subs.filter((v) => v.id !== subI);
 }
 
-
+function clearLocalData() {
+    Object.keys(localStorage).forEach((key: string) => {
+        if (key.startsWith('extensionSetting_')) {
+            localStorage.removeItem(key);
+        }
+    });
+    subs.forEach((v) => {
+        v.fn.apply(null, [null]);
+    });
+}
 
 export default {
     deleteLocalVariableSub,
     getLocalVariableSub,
     getLocalVariable,
-    setLocalVariable
-}
+    setLocalVariable,
+    clearLocalData,
+};

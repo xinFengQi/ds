@@ -1,24 +1,20 @@
 
 module.exports = {
     outputDir: 'dist',
-    publicPath: './',
+    publicPath: process.env.NODE_ENV === 'production' ? './homefile' : '',
     filenameHashing: false,
     pages: {
         index: {
             entry: 'src/pages/blog/main.ts',
-            template: 'public/html/blog.html'
-        },
-        test: {
-            entry: 'src/pages/index/main.ts',
-            template: 'public/html/index.html'
+            template: 'public/blog.html'
         },
         'extension-home': {
             entry: 'src/pages/extension-home/main.ts',
-            template: 'public/html/extension-home.html'
+            template: 'public/extension-home.html'
         },
         'extension-setting': {
             entry: 'src/pages/extension-setting/main.ts',
-            template: 'public/html/extension-setting.html'
+            template: 'public/extension-setting.html'
         },
     },
     css: {
