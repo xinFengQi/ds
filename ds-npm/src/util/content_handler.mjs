@@ -13,8 +13,14 @@ function removeSpace(str) {
     return str.replace(/( )+/g,' ')
 }
 
+// 判断是否为空
+function isUEmpty(str) {
+    return [null, undefined].includes(str)
+}
+
 
 export {
     content_replace,
-    removeSpace
+    removeSpace,
+    isUEmpty
 }

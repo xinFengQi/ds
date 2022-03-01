@@ -1,12 +1,12 @@
 {
   "name": "dsn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "pack": "npm pack && npm install -g dsn-1.0.0.tgz",
-    "serve": "npm install . -g && npm link"
+    "serve": "npm install . -g && npm link --force"
   },
   "bin": {
     "dsn": "index.js"

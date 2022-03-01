@@ -1,20 +1,21 @@
 import program from 'commander' // 设计命令行
-import { removeSpace, getDsnConfig } from '../util/index.mjs';
+import { removeSpace } from '../util/index.mjs';
+import { getDsnConfig } from '../config/index.mjs';
 import { stencilDistComplie } from './complie_json.mjs'
 
 function initstencilCmd() {
     program.command('stencil')
         .alias('scil')
         .option('-config <dir>') // 设置配置的文件路径
-        .option('-H')    
+        .option('-H')
         .option('-h')   // 帮助
         .option('-complie')
         .option('-c')    // 将生成文件编译集合
         .description('stencil命令集合')
         .action((options) => {
             console.log(options)
-            stencilHelp(options);
             stencilCompolie(options);
+            dsnUtilHelp(options);
         })
 }
 
@@ -36,7 +37,7 @@ function stencilCompolie(options) {
 }
 
 
-function stencilHelp(options) {
+function dsnUtilHelp(options) {
     if (!Object.keys(options).length || options.h || options.H) {
         console.log(removeSpace(`
                 stencil命令行工具，简写scil
