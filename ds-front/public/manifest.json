@@ -1,0 +1,49 @@
+{
+    "manifest_version": 2,
+    "name": "ds_个人系列",
+    "version": "1.0.0",
+    "description": "ds_个人系列",
+    "icons": {
+        "16": "homefile/favicon.ico",
+        "48": "homefile/favicon.ico",
+        "128": "homefile/favicon.ico"
+    },
+    "content_security_policy": "default-src 'self' https://dongfubao.gitee.io https://gitee.com 'unsafe-inline'; connect-src 'self' https://dongfubao.gitee.io https://gitee.com;style-src 'self' https://dongfubao.gitee.io 'unsafe-inline';script-src 'self' https://dongfubao.gitee.io; object-src 'self'",
+    "browser_action": {
+        "default_icon": "homefile/favicon.ico",
+        "default_title": "ds_个人系列"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "./homefile/js/index.js"
+            ],
+            "css": [],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [],
+    "homepage_url": "https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html",
+    "chrome_url_overrides": {
+        "newtab": "./extension-home.html"
+    },
+    "options_ui": {
+        "page": "./extension-setting.html"
+    },
+    "devtools_page": "",
+    "permissions": [
+        "background",
+        "contextMenus",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "bookmarks",
+        "http://*/*",
+        "https://*/*"
+    ]
+}
