@@ -2,19 +2,31 @@ import fs from 'fs-extra';
 import request from 'request';
 
 
-const gitOwner = 'dongfubao'
-const gitRepo = 'ct';
-const access_token = 'e9694199cc954120b37d5d449a56a752';
+let gitOwner = 'dongfubao'
+let gitRepo = 'ct';
+let access_token = 'e9694199cc954120b37d5d449a56a752';
+
+function setConfig(owner, repo, token) {
+    gitOwner = owner;
+    gitRepo = repo;
+    access_token = token;
+}
+
 
 //distPath 获取上传的文件位置
 // gitPath 上传的位置
 // deleteGitPath 需要删除的文件， 为空就是全删除
 function giteeDirUpload(distPath, gitPath, deleteGitPath) {
+    console.log({
+        gitOwner,
+        gitRepo,
+        access_token
+    })
     const isExtraDist = fs.existsSync(distPath);
     if (!isExtraDist) {
-        throw '找不到打包文件'
+        throw `找不到上传文件;上传文件地址:${distPath}`
     }
-    console.log('找到打包文件')
+    console.log('找到上传文件地址')
     // bug1: 同名组件会覆盖掉
     // 连接gitee
     const deleteGitPaths = (deleteGitPath && deleteGitPath.length) ? deleteGitPath : null;
@@ -71,13 +83,13 @@ function deleteDirPath(path, deleteGitPaths, taskInfo) {
             body = JSON.parse(body)
             if (Array.isArray(body)) {
                 body.forEach(da => {
-                    if(deleteGitPaths) {
+                    if (deleteGitPaths) {
                         const index = deleteGitPaths.findIndex(pat => da.path.startsWith(pat))
-                        if (  index < 0) {
+                        if (index < 0) {
                             return;
                         }
                     }
-                   
+
                     if (da.type === 'file') {
                         taskInfo.push({ fun: deleteFilePath, arg: [da.path, da.sha] })
                     } else {
@@ -163,4 +175,4 @@ function uploadFile(path, gitPath) {
 }
 
 
-export { giteeDirUpload }
+export { setConfig, giteeDirUpload }

@@ -1,29 +1,16 @@
 {
     "gitee_info": {
-        "access_token": "",
-        "repo": "",
-        "owner": ""
+        "access_token": "1",
+        "repo": "2",
+        "owner": "3"
     },
+    "_stencil": "stencli功能,主要是将生成的文档网页部署到gitee",
     "stencil": {
         "_outputGitDist": "需要上传到gitee的文件夹",
-        "outputGitDist": "./dist_gitee",
+        "outputGitDist": "",
         "_distJsonPath": "组件的json信息",
-        "distJsonPath": "dist/docs.json",
+        "distJsonPath": "",
         "_distPath": "组件打包后的文件夹",
-        "distPath": "dist"
-    },
-    "gitee": {
-        "_outputGitDist": "需要上传到gitee的文件夹",
-        "outputGitDist": "./dist_gitee",
-        "_gitPath": "远程gitee文件夹路径的生成数据, base:前缀路径, package: package.json的属性数据连接, 也可以是字符串",
-        "gitPath": {
-            "base": "component",
-            "package": [
-                "name",
-                "version"
-            ]
-        },
-        "_deleteGitPath": "需要删除远程的gitPath路径下的文件数据, 为空则是把gitPath路径下全部删除",
-        "deleteGitPath": []
+        "distPath": ""
     }
 }

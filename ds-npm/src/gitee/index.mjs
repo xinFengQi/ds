@@ -1,28 +1,32 @@
 import program from 'commander' // 设计命令行
 import fs from 'fs-extra'
+import logSymbols from 'log-symbols'
+import chalk from 'chalk'
 import { removeSpace, isUEmpty } from '../util/index.mjs';
 import { getDsnConfig } from '../config/index.mjs';
 
-import { giteeDirUpload } from './push_gitee.mjs'
+import { giteeDirUpload, setConfig } from './push_gitee.mjs'
 function initGiteeCmd() {
-    program.command('gitee')
-        .alias('dg')
+    program.command('gitee').alias('dg')
         .option('-config <dir>') // 设置配置的文件路径
-        .option('-H')
-        .option('-h')   // 帮助
+        .option('-H').option('-h')   // 帮助
         .option('-push')
+        .option('-pull')
         .description('dsn-gitee命令集合')
         .action((options) => {
             console.log(options)
-            giteePush(options);
+            if (options.Push) {
+                giteePush(options);
+            }
             dsnUtilHelp(options);
         })
 }
 
+
+
+
+// 上传文件
 function giteePush(options) {
-    if (!options.Push) {
-        return;
-    }
     // 获取配置
     const { customConfig, defaultConfig } = options.config ? getDsnConfig(options.config) : getDsnConfig();
     // 获取需要上传的文件位置
@@ -45,7 +49,31 @@ function giteePush(options) {
     let deleteGitPath = (customConfig && customConfig.gitee && customConfig.gitee.deleteGitPath)
         ? customConfig.gitee.deleteGitPath : defaultConfig.gitee.deleteGitPath;
     deleteGitPath = deleteGitPath.map(pas => gitPath ? (gitPath + '/' + pas) : pas);
+    // 获取gitee配置，
+    const { access_token, repo, owner } = getGiteeConfig(customConfig, defaultConfig);
+    setConfig(access_token, repo, owner)
+    // 上传文件
     giteeDirUpload(distPath, gitPath, deleteGitPath)
+}
+
+
+// 获取配置
+function getGiteeConfig(customConfig, defaultConfig) {
+    const currentConfig = customConfig ? {...customConfig.gitee_info} : {};
+    const baseConfig = defaultConfig ? {...defaultConfig.gitee_info} : {};
+    for (const key in currentConfig) {
+        if (!currentConfig[key]) {
+            delete currentConfig[key]
+        }
+    }
+    const allConfig = { ...baseConfig, ...currentConfig };
+    const allConfigKeys = Object.keys(allConfig);
+    const index = allConfigKeys.findIndex(key => !allConfig[key])
+    if (index > -1) {
+        console.log(logSymbols.info, chalk.red(`${allConfigKeys[index]}配置为空`));
+        return;
+    }
+    return allConfig;
 }
 
 

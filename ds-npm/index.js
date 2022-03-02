@@ -13,7 +13,7 @@ import { initGiteeCmd } from './src/gitee/index.mjs';
 import { getDsnConfig, initDsnConfigCmd } from './src/config/index.mjs';
 
 
-const data = JSON.parse(fs.readFileSync(new URL('./dsn.config.json', import.meta.url)).toString());
+const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
 // dsn -V|--version
 program.version(data.version);
 
@@ -25,10 +25,9 @@ program.command('test')
         console.log(logSymbols.info, chalk.green(`当前目录是${path.resolve()}`));
     })
 
-
-initstencilCmd();
-initGiteeCmd();
 initDsnConfigCmd();
+initGiteeCmd();
+initstencilCmd();
 
 
 program.command('help')
@@ -48,14 +47,20 @@ program.option('-h')
 
 function consoleAllCmd() {
     console.log(`
+    -V|--version 版本号
     test 测试
     help 查看所有命令
-    config|dc
+    config|dc dsn的配置
         -h|-H 查看帮助
         -init|-i  将配置文件生成
+            --stencli 生成stencli的配置
+            --gitee 生成上传gitee的配置
+        -token <access_token> 设置access_token
+        -repo <repo> 设置repo
+        -owner <owner> 设置owner
     gitee|dg 
         -h|-H 帮助
-        -push|-p 文件上传进ct的gitee
+        -push|-p gitee的文件上传
     stencil|scil
         -h|-H 帮助
         -c|-complie 将目标文件移入准备上传到gitee的文件夹

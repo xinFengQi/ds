@@ -4,6 +4,7 @@
         "repo": "",
         "owner": ""
     },
+    "_stencil": "stencli功能,主要是将生成的文档网页部署到gitee",
     "stencil": {
         "_outputGitDist": "需要上传到gitee的文件夹",
         "outputGitDist": "./dist_gitee",
@@ -12,6 +13,7 @@
         "_distPath": "组件打包后的文件夹",
         "distPath": "dist"
     },
+    "_gitee": "gitee功能,主要是将gitee代码上传或者下载",
     "gitee": {
         "_outputGitDist": "需要上传到gitee的文件夹",
         "outputGitDist": "./dist_gitee",
