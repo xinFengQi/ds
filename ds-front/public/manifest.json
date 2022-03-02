@@ -30,6 +30,9 @@
     "chrome_url_overrides": {
         "newtab": "./extension-home.html"
     },
+    "background": {
+        "page": "./extension-backgroud.html"
+    },
     "options_ui": {
         "page": "./extension-setting.html"
     },

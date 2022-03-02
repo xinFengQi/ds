@@ -33,7 +33,7 @@ function addLinkMenu(title: string, src: string) {
 }
 
 // 新建分割线菜单显示
-function addSeparatorMenu(title: string) {
+function addSeparatorMenu(title?: string) {
     if (!getExtensionApi() || !getExtensionApi().contextMenus) {
         return null;
     }
