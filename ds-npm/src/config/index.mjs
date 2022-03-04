@@ -5,8 +5,9 @@ import chalk from 'chalk'
 
 function initDsnConfigCmd() {
     program.command('config').alias('dc')
-        .option('-H').option('-h')// 帮助
+        .option('-H').option('--h')// 帮助
         .option('-init').option('-i') // 将配置文件生成
+        .option('-update').option('-u') // 将配置文件生成
         .option('--stencli').option('--gitee') // 将配置文件生成
         .option('-token <access_token>') // 写入token
         .option('-repo <repo>') // 写入token
@@ -32,7 +33,7 @@ function initConfigFile(options) {
     const isConfig = fs.existsSync('./dsn.config.json');
     if (isConfig) {
         // todo 后期增量新增配置
-        console.log(logSymbols.warning, chalk.yellow('配置文件已存在,请删除重新创建'));
+        console.log(logSymbols.warning, chalk.yellow('配置文件已存在,请删除重新创建或者进行更新使用 dc -update'));
         return;
     }
     const data = fs.readFileSync
@@ -45,6 +46,10 @@ function initConfigFile(options) {
     if (options.gitee) {
         generateArr.push('_gitee');
         generateArr.push('gitee');
+    }
+    if (options.file) {
+        generateArr.push('_fileHandler');
+        generateArr.push('fileHandler');
     }
     const getAllConfig = lopoForEmpty(JSON.parse(data), generateArr);
 
@@ -75,7 +80,13 @@ function lopoForEmpty(data, arr) {
             data[key] = '';
         } else if (typeof (data[key]) === 'object') {
             if (Array.isArray(data[key])) {
-                data[key] = []
+                if (typeof data[key][0] === 'string') {
+                    data[key] = []
+                } else if (typeof data[key][0] === 'object') {
+                    data[key].forEach(dk => {
+                        lopoForEmpty(dk)
+                    })
+                }
             } else {
                 lopoForEmpty(data[key])
             }
@@ -106,28 +117,21 @@ function setGiteeConfig(options) {
 }
 
 
-rogram.command('config').alias('dc')
-        .option('-H').option('-h')// 帮助
-        .option('-init').option('-i') // 将配置文件生成
-        .option('--stencli').option('--gitee') // 将配置文件生成
-        .option('-token <access_token>') // 写入token
-        .option('-repo <repo>') // 写入token
-        .option('-owner <owner>') // 写入token
-        .description('dsn的配置及版本处理')
 
 
 function dsnUtilHelp(options) {
-    if (!Object.keys(options).length || options.h || options.H) {
+    if (options.h || options.H) {
         console.log(removeSpace(`
             config dsn的配置及版本处理，简写dc
-                -h|-H 查看帮助
+                --h|-H 查看帮助
                 -init|-i  将配置文件生成
                     --stencli 生成stencli的配置
                     --gitee 生成上传gitee的配置
+                    --file 生成上传gitee的配置
                 -token <access_token> 设置access_token
                 -repo <repo> 设置repo
                 -owner <owner> 设置owner
-            `)) 
+            `))
     }
 }
 

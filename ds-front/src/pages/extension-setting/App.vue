@@ -8,11 +8,7 @@
     title="请输入账号信息"
   >
     <a-input class="mb-8" v-model:value="userName" placeholder="用户名" />
-    <a-input
-      v-if="use === 'password'"
-      v-model:value="password"
-      placeholder="用户密码"
-    />
+    <a-input v-if="use === 'password'" v-model:value="password" placeholder="用户密码" />
     <a-textarea
       v-if="use === 'cipher'"
       v-model:value="password"
@@ -21,20 +17,13 @@
       allow-clear
     />
     <template #footer>
-      <a-button key="submit" type="primary" @click="newUser"
-        >新用户进入</a-button
-      >
-      <a-button
-        key="submit"
-        type="primary"
-        :loading="loading"
-        @click="formHandleOk"
+      <a-button key="submit" type="primary" @click="newUser">新用户进入</a-button>
+      <a-button key="submit" type="primary" :loading="loading" @click="formHandleOk"
         >确定</a-button
       >
     </template>
   </a-modal>
 </template>
-
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
@@ -104,9 +93,7 @@ export default class Home extends Vue {
   }
 
   setUserName() {
-    const md5UserName = Md5.hashAsciiStr(
-      crypto.decrypt(this.userName, this.userName)
-    );
+    const md5UserName = Md5.hashAsciiStr(crypto.decrypt(this.userName, this.userName));
     return md5UserName;
   }
 
@@ -125,9 +112,7 @@ export default class Home extends Vue {
       };
       const promiseAll: any = [];
       Object.keys(datas).forEach((key: string) => {
-        promiseAll.push(
-          localStorgeData.setLocalVariable(key, objectData[datas[key]])
-        );
+        promiseAll.push(localStorgeData.setLocalVariable(key, objectData[datas[key]]));
       });
       Promise.all(promiseAll).then((v) => {
         localStorgeData.setLocalVariable("userName", md5UserName);
@@ -152,7 +137,6 @@ export default class Home extends Vue {
 }
 </script>
 
-
 <style lang="less">
 @import "../../less/index.less";
 
@@ -162,7 +146,8 @@ export default class Home extends Vue {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   padding: 30px 0px;
-  height: 100%;
+  height: calc(100% - 60px) !important;
+  overflow: hidden;
 }
 
 .mb-8 {

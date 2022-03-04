@@ -41,7 +41,7 @@ function dsnUtilHelp(options) {
     if (!Object.keys(options).length || options.h || options.H) {
         console.log(removeSpace(`
                 stencil命令行工具，简写scil
-                -h|-H 查看帮助
+                --h|-H 查看帮助
                 -complie|-c  将生成文件编译集合,上传到git上的预处理
             `))
     }

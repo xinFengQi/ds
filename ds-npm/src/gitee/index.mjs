@@ -9,7 +9,7 @@ import { giteeDirUpload, setConfig } from './push_gitee.mjs'
 function initGiteeCmd() {
     program.command('gitee').alias('dg')
         .option('-config <dir>') // 设置配置的文件路径
-        .option('-H').option('-h')   // 帮助
+        .option('-H').option('--h')   // 帮助
         .option('-push')
         .option('-pull')
         .description('dsn-gitee命令集合')
@@ -78,10 +78,10 @@ function getGiteeConfig(customConfig, defaultConfig) {
 
 
 function dsnUtilHelp(options) {
-    if (!Object.keys(options).length || options.h || options.H) {
+    if (options.h || options.H) {
         console.log(removeSpace(`
                 ds的gitee命令行工具，简写dg
-                -h|-H 查看帮助
+                --h|-H 查看帮助
                 -pull|-p  文件上传进ct的gitee
             `))
     }

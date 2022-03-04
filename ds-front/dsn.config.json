@@ -32,12 +32,26 @@
             "default": [
                 {
                     "_src": "需要复制的文件夹或者文件路径",
-                    "src": "./src",
+                    "src": "",
                     "_dest": "复制后生成的路径",
-                    "dest": "./copysrc"
+                    "dest": ""
                 }
             ]
-            
-        }
+        },
+        "_move": "移动文件的配置, 类型:{[key: string]: {src: string, dest: string}[]}",
+        "move": [
+            {
+                "_src": "需要移动的文件夹或者文件路径",
+                "src": "./dist/css",
+                "_dest": "移动后生成的路径",
+                "dest": "./dist/homefile/css"
+            },
+            {
+                "_src": "需要移动的文件夹或者文件路径",
+                "src": "./dist/js",
+                "_dest": "移动后生成的路径",
+                "dest": "./dist/homefile/js"
+            }
+        ]
     }
 }

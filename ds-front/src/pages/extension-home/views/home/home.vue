@@ -5,15 +5,13 @@
     >
   </div>
   <div class="home_main">
-    <div>
-      <HomeMenu
-        @getShowMenu="getShowMenu($event)"
-        @getShowPublicMenu="getShowPublicMenu($event)"
-        @getAllMenu="getAllMenu($event)"
-        @deleteItem="deleteItem($event)"
-        :edit="edit"
-      ></HomeMenu>
-    </div>
+    <HomeMenu
+      @getShowMenu="getShowMenu($event)"
+      @getShowPublicMenu="getShowPublicMenu($event)"
+      @getAllMenu="getAllMenu($event)"
+      @deleteItem="deleteItem($event)"
+      :edit="edit"
+    ></HomeMenu>
     <div class="home_content">
       <div
         class="home_tool"
@@ -23,19 +21,11 @@
             (showPublicContentData && showPublicContentData.length))
         "
       >
-        <a-input
-          class="input_search"
-          v-model:value="value"
-          placeholder="搜索书签"
-        />
+        <a-input class="input_search" v-model:value="value" placeholder="搜索书签" />
       </div>
       <div
         v-if="
-          edit &&
-          !isShowPublic &&
-          !value &&
-          showContentData &&
-          showContentData.length
+          edit && !isShowPublic && !value && showContentData && showContentData.length
         "
         class="data_show_tool"
       >
@@ -53,9 +43,7 @@
       <HomeContent
         :edit="edit"
         style="overflow: auto; flex: 1"
-        v-if="
-          !isShowPublic && !value && showContentData && showContentData.length
-        "
+        v-if="!isShowPublic && !value && showContentData && showContentData.length"
         :showContentData="showContentData"
         @deleteItem="deleteItem($event)"
       ></HomeContent>
@@ -65,18 +53,12 @@
         :edit="false"
         style="overflow: auto; flex: 1"
         v-if="
-          isShowPublic &&
-          !value &&
-          showPublicContentData &&
-          showPublicContentData.length
+          isShowPublic && !value && showPublicContentData && showPublicContentData.length
         "
         :showContentData="showPublicContentData"
       ></HomeContent>
     </div>
-    <div
-      v-if="!edit && (isHomeTaskList || isHomeTaskListPublic)"
-      class="home_task_list"
-    >
+    <div v-if="!edit && (isHomeTaskList || isHomeTaskListPublic)" class="home_task_list">
       <HomeTaskList></HomeTaskList>
     </div>
   </div>
@@ -128,9 +110,11 @@ export default {
     },
   },
   mounted() {
-    localStorgeData.getLocalVariable(getGiteeKey("tasklist", "private_open")).then((v) => {
-      this.isHomeTaskList = v;
-    });
+    localStorgeData
+      .getLocalVariable(getGiteeKey("tasklist", "private_open"))
+      .then((v) => {
+        this.isHomeTaskList = v;
+      });
     localStorgeData.getLocalVariable(getGiteeKey("tasklist", "public_open")).then((v) => {
       this.isHomeTaskListPublic = v;
     });
@@ -162,8 +146,11 @@ export default {
       if (!marks) {
         return [];
       }
-      const outputData = marks.filter((v) =>
-        deleteArr.includes((dV) => v.dateAdded !== dV.dateAdded && v.title !== dV.title)
+      const outputData = marks.filter(
+        (v) =>
+          !deleteArr.includes(
+            (dV) => v.dateAdded === dV.dateAdded && v.title === dV.title
+          )
       );
       if (outputData && outputData.length) {
         outputData.forEach((v) => {
@@ -217,19 +204,10 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  padding: 20px 0;
-  height: 100%;
-}
-
+<style scoped>
 .home_main {
   display: flex;
-  height: calc(100% - 42px);
+  height: calc(100% - 40px);
 }
 .home_content {
   height: 100%;

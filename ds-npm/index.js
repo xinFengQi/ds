@@ -11,6 +11,7 @@ import path, { parse } from 'path'
 import { initstencilCmd } from './src/stencil/index.mjs'
 import { initGiteeCmd } from './src/gitee/index.mjs';
 import { getDsnConfig, initDsnConfigCmd } from './src/config/index.mjs';
+import { initUtilCmd } from './src/util/index.mjs'
 
 
 const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
@@ -26,6 +27,7 @@ program.command('test')
     })
 
 initDsnConfigCmd();
+initUtilCmd();
 initGiteeCmd();
 initstencilCmd();
 
@@ -36,8 +38,8 @@ program.command('help')
         consoleAllCmd()
     })
 
-program.option('-h')
-    .option('--help')
+program.option('--h')
+    .option('-H')
     .description('查看所有的命令')
     .action(() => {
         consoleAllCmd()
@@ -49,9 +51,9 @@ function consoleAllCmd() {
     console.log(`
     -V|--version 版本号
     test 测试
-    help 查看所有命令
+    help|--h|-H 查看所有命令
     config|dc dsn的配置
-        -h|-H 查看帮助
+        --h|-H 查看帮助
         -init|-i  将配置文件生成
             --stencli 生成stencli的配置
             --gitee 生成上传gitee的配置
@@ -59,10 +61,10 @@ function consoleAllCmd() {
         -repo <repo> 设置repo
         -owner <owner> 设置owner
     gitee|dg 
-        -h|-H 帮助
+        --h|-H 帮助
         -push|-p gitee的文件上传
     stencil|scil
-        -h|-H 帮助
+        --h|-H 帮助
         -c|-complie 将目标文件移入准备上传到gitee的文件夹
 `);
 }

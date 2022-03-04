@@ -114,7 +114,8 @@ function handlerBooksMarks(bookMarks: any[], remoteBookMarkData: any) {
     if (remoteBookMarkData && remoteBookMarkData.content) {
         remoteBookMarks = JSON.parse(
             decodeURIComponent(atob(remoteBookMarkData.content))
-        ).map((olDa: any) => {
+        );
+        remoteBookMarks = remoteBookMarks.map((olDa: any) => {
             return {
                 ...olDa,
                 title: olDa.title || olDa.dateAdded,
@@ -128,6 +129,7 @@ function handlerBooksMarks(bookMarks: any[], remoteBookMarkData: any) {
 
 // 更新所有数据书签
 function uploadBookMarks(bookMarks: any[]) {
+    bookMarks = bookMarks ? bookMarks : [];
     return new Promise((relove, reject) => {
         getGiteeLocalStoreData('booksMarks', 'private')
             .then((daP: any) => {
@@ -198,7 +200,7 @@ function getPublicBookMarks() {
     });
 }
 
-// 获取任务列表  
+// 获取任务列表
 function getTasklist() {
     return new Promise((resolve, reject) => {
         let publicData: any = null;
@@ -212,6 +214,8 @@ function getTasklist() {
             ) {
                 return;
             }
+            console.log(JSON.stringify(publicData))
+            console.log(JSON.stringify(privateData))
             resolve(handlerPublicPrivateData(publicData, privateData));
         };
 
@@ -268,11 +272,11 @@ function getTasklist() {
                         )
                             .then((httpData) => {
                                 publicData = httpData;
-                                next({ private: true });
+                                next({ public: true });
                             })
                             .catch((err) => {
                                 console.log('获取远程数据不存在', err);
-                                next({ private: false });
+                                next({ public: false });
                             });
                     })
                     .catch((err) => {
@@ -293,11 +297,13 @@ function handlerPublicPrivateData(publicData: any, privateData: any) {
         retuObj.publicDatas = JSON.parse(
             decodeURIComponent(atob(publicData.content))
         );
+        retuObj.publicDatas = retuObj.publicDatas[0];
     }
     if (privateData && privateData.content) {
         retuObj.privateDatas = JSON.parse(
             decodeURIComponent(atob(privateData.content))
         );
+        retuObj.privateDatas = retuObj.privateDatas[0];
     }
     return retuObj;
 }
@@ -337,7 +343,7 @@ function uploadTaskList(taskList: any[]) {
     });
 }
 
-// 获取代码  
+// 获取代码
 function getCodes() {
     return new Promise((resolve, reject) => {
         let publicData: any = null;
@@ -371,7 +377,7 @@ function getCodes() {
                             'codes',
                             daP.flag
                         )
-                            .then((httpData) => {
+                            .then((httpData: any) => {
                                 privateData = httpData;
                                 next({ private: true });
                             })
@@ -406,11 +412,11 @@ function getCodes() {
                         )
                             .then((httpData) => {
                                 publicData = httpData;
-                                next({ private: true });
+                                next({ public: true });
                             })
                             .catch((err) => {
                                 console.log('获取远程数据不存在', err);
-                                next({ private: false });
+                                next({ public: false });
                             });
                     })
                     .catch((err) => {

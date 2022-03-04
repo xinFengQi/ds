@@ -186,7 +186,11 @@ function update(
     ) {
         inputData = data.split(';base64,')[1];
     } else {
-        inputData = btoa(encodeURIComponent(JSON.stringify([data])));
+        if (Array.isArray(data)) {
+            inputData = btoa(encodeURIComponent(JSON.stringify(data)));
+        } else {
+            inputData = btoa(encodeURIComponent(JSON.stringify([data])));
+        }
     }
     formData.append('content', inputData ? inputData : '');
     formData.append('sha', sha);
