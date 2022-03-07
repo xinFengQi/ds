@@ -7,6 +7,10 @@
     :closable="false"
     title="请输入账号信息"
   >
+    <a-radio-group class="mb-8" v-model:value="use">
+      <a-radio-button value="password">密码登录</a-radio-button>
+      <a-radio-button value="cipher">密文登录</a-radio-button>
+    </a-radio-group>
     <a-input class="mb-8" v-model:value="userName" placeholder="用户名" />
     <a-input v-if="use === 'password'" v-model:value="password" placeholder="用户密码" />
     <a-textarea
@@ -31,8 +35,8 @@ import crypto from "@/sevices/crypto.util";
 import localStorgeData from "@/sevices/localStorge.data";
 import { Md5 } from "ts-md5";
 import { message } from "ant-design-vue";
-import { getAll } from "@/sevices/gitee.api";
-
+import { getPersonalSetting } from "./store/util";
+import store from "./store";
 @Options({
   components: {},
 })
@@ -41,13 +45,14 @@ export default class Home extends Vue {
   loading = false;
   userName = "";
   password = "";
-  use: "password" | "cipher" = "cipher";
+  use: "password" | "cipher" = "password";
 
   created() {}
 
   mounted() {
     localStorgeData.getLocalVariable("userName").then((v) => {
       if (v) {
+        store.dispatch("setUserName", v);
         this.visible = false;
       }
     });
@@ -74,8 +79,15 @@ export default class Home extends Vue {
       return;
     }
     localStorgeData.clearLocalData();
-    this.setUserName();
-    this.visible = false;
+    const md5UserName = this.setUserName();
+    getPersonalSetting(md5UserName)
+      .then((v) => {
+        message.error("用户名已存在");
+      })
+      .catch(() => {
+        localStorgeData.setLocalVariable("userName", md5UserName);
+        this.visible = false;
+      });
   }
 
   formHandleOk() {
@@ -93,7 +105,7 @@ export default class Home extends Vue {
   }
 
   setUserName() {
-    const md5UserName = Md5.hashAsciiStr(crypto.decrypt(this.userName, this.userName));
+    const md5UserName = Md5.hashAsciiStr(crypto.encrypt(this.userName, this.userName));
     return md5UserName;
   }
 
@@ -103,31 +115,49 @@ export default class Home extends Vue {
       const unzipData = crypto.unzip(decryptData);
       const objectData = JSON.parse(unzipData);
       console.log("获取数据:", objectData);
-      const datas: any = {
-        __gitee_all_ds_flag: "flag",
-        __gitee_all_ds_pubilc_flag: "publicFlag",
-        __gitee_all_ds_access_token: "accessToken",
-        __gitee_all_ds_owner: "owner",
-        __gitee_all_ds_repo: "repo",
-      };
-      const promiseAll: any = [];
-      Object.keys(datas).forEach((key: string) => {
-        promiseAll.push(localStorgeData.setLocalVariable(key, objectData[datas[key]]));
-      });
-      Promise.all(promiseAll).then((v) => {
-        localStorgeData.setLocalVariable("userName", md5UserName);
-        this.visible = false;
-      });
-    } catch (error) {}
+      this.settingAllData(md5UserName, objectData);
+    } catch (error) {
+      message.error("解析失败");
+    }
   }
-
+  settingAllData(md5UserName: string, objectData: any) {
+    const datas: any = {
+      __gitee_all_ds_flag: "flag",
+      __gitee_all_ds_pubilc_flag: "publicFlag",
+      __gitee_all_ds_access_token: "accessToken",
+      __gitee_all_ds_owner: "owner",
+      __gitee_all_ds_repo: "repo",
+    };
+    const promiseAll: any = [];
+    Object.keys(datas).forEach((key: string) => {
+      promiseAll.push(localStorgeData.setLocalVariable(key, objectData[datas[key]]));
+    });
+    Promise.all(promiseAll).then((v) => {
+      localStorgeData.setLocalVariable("userName", md5UserName);
+      store.dispatch("setUserName", md5UserName);
+      this.visible = false;
+    });
+  }
   passwordHandleOk(md5UserName: string) {
-    getAll("12", "12", "121", "username", md5UserName)
+    getPersonalSetting(md5UserName)
       .then((v: any) => {
-        if (v.content) {
-          localStorgeData.setLocalVariable("userName", md5UserName);
-        } else {
-          message.error("未查询到账号信息");
+        const password = v.data.password;
+        if (!password) {
+          message.error("此账号未设置密码");
+          return;
+        }
+        try {
+          const md5UserNamePassword = Md5.hashAsciiStr(
+            crypto.decrypt(md5UserName, this.password)
+          );
+          const decryptData = crypto.decrypt(password, md5UserNamePassword);
+          const unzipData = crypto.unzip(decryptData);
+          const objectData = JSON.parse(unzipData);
+          console.log("获取数据:", objectData);
+          this.settingAllData(md5UserName, objectData);
+        } catch (error) {
+          console.log(error);
+          message.error("解析失败", error);
         }
       })
       .catch((err) => {

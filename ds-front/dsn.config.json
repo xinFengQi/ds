@@ -1,25 +1,16 @@
 {
     "gitee_info": {
-        "access_token": "",
-        "repo": "",
-        "owner": ""
-    },
-    "_stencil": "stencli功能,主要是将生成的文档网页部署到gitee",
-    "stencil": {
-        "_outputGitDist": "需要上传到gitee的文件夹",
-        "outputGitDist": "",
-        "_distJsonPath": "组件的json信息",
-        "distJsonPath": "",
-        "_distPath": "组件打包后的文件夹",
-        "distPath": ""
+        "access_token": "16cf2bb0ab7fa12779bfec47f2c3ee9a",
+        "repo": "demonstrate_storage",
+        "owner": "semonstrate"
     },
     "_gitee": "gitee功能,主要是将gitee代码上传或者下载",
     "gitee": {
         "_outputGitDist": "需要上传到gitee的文件夹",
-        "outputGitDist": "",
+        "outputGitDist": "./dist",
         "_gitPath": "远程gitee文件夹路径的生成数据, base:前缀路径, package: package.json的属性数据连接, 也可以是字符串",
         "gitPath": {
-            "base": "",
+            "base": "./lib/chrome_extension",
             "package": []
         },
         "_deleteGitPath": "需要删除远程的gitPath路径下的文件数据, 为空则是把gitPath路径下全部删除",

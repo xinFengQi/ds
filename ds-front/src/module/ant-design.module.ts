@@ -16,7 +16,8 @@ import {
     Breadcrumb,
     Table,
     Divider,
-    Select
+    Select,
+    Radio
 } from 'ant-design-vue';
 import { App } from 'vue';
 import moment from 'moment';
@@ -42,6 +43,6 @@ export function importAnt(app: App<Element>) {
     app.use(Table);
     app.use(Divider);
     app.use(Select);
-
+    app.use(Radio);
 
 }

@@ -152,7 +152,6 @@ export default {
       browerExtensionUtil.getBookmarks().then((book) => {
         console.log("=====当前书签页", book);
         browerExtensionService.uploadBookMarks(book ? book : []).then((v) => {
-          console.log(v, "=======================");
           if (v) {
             alert("更新成功");
           }

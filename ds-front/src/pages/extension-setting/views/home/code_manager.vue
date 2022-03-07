@@ -122,15 +122,16 @@ export default {
           }),
         ];
       }
-      this.defaultSelectedKeys = [this.codeList[0].key];
-      this.selectData = this.codeList[0];
+      if (this.codeList[0]) {
+        this.defaultSelectedKeys = [this.codeList[0].key];
+        this.selectData = this.codeList[0];
+      }
       // 赋值现在启用的keys
       this.openKeys = data[1] ? data[1].map((v) => v.key) : null;
       this.codeList.forEach((ok) => {
         ok.isOpen = this.getOpenOrClose(ok.key);
       });
       this.codeList = [...this.codeList];
-      console.log(JSON.stringify(this.codeList));
     });
   },
   methods: {
@@ -152,7 +153,7 @@ export default {
       const data = {
         key,
         name: "测试脚本",
-        dev: "这是测试的代码",
+        dec: "这是测试的代码",
         code: `
         alert('测试的代码')
         `,

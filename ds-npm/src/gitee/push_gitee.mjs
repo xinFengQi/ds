@@ -6,7 +6,7 @@ let gitOwner = 'dongfubao'
 let gitRepo = 'ct';
 let access_token = 'e9694199cc954120b37d5d449a56a752';
 
-function setConfig(owner, repo, token) {
+function setConfig(token, repo, owner) {
     gitOwner = owner;
     gitRepo = repo;
     access_token = token;
@@ -147,6 +147,7 @@ function uploadDir(path, gitPath, taskInfo) {
 }
 
 function uploadFile(path, gitPath) {
+    console.log(access_token, gitOwner, gitRepo, gitPath)
     return new Promise((resolve, reject) => {
         // 上传文件
         const formData = {

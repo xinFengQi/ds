@@ -127,7 +127,7 @@ export function getFileData(
 }
 
 // 新增
-function add(
+export function add(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
@@ -165,7 +165,7 @@ function add(
 }
 
 // 更新
-function update(
+export function update(
     accessToken: string,
     giteeOwner: string,
     giteeRepo: string,
