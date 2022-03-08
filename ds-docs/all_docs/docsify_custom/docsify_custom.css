@@ -1,0 +1,8 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-nav{
+    height: 100%;
+    overflow: auto;
+}
