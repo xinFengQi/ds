@@ -1,26 +1,25 @@
+#!/usr/bin/env node
+
 import program from 'commander' // 设计命令行
 import fs from 'fs-extra'
 import logSymbols from 'log-symbols'
 import chalk from 'chalk'
-import { removeSpace, isUEmpty } from '../util/index.mjs';
-import { getDsnConfig } from '../config/index.mjs';
+import { isUEmpty } from '../src/util/index.js';
+import { getDsnConfig } from '../src/config/index.js';
 
-import { giteeDirUpload, setConfig } from './push_gitee.mjs'
-function initGiteeCmd() {
-    program.command('gitee').alias('dg')
-        .option('-config <dir>') // 设置配置的文件路径
-        .option('-H').option('--h')   // 帮助
-        .option('-push')
-        .option('-pull')
-        .description('dsn-gitee命令集合')
-        .action((options) => {
-            console.log(options)
-            if (options.Push) {
-                giteePush(options);
-            }
-            dsnUtilHelp(options);
-        })
-}
+import { giteeDirUpload, setConfig } from '../src/gitee/index.js'
+
+program.command('gitee').alias('dg')
+    .option('-config <dir>', '输入配置文件地址') // 设置配置的文件路径
+    .option('-push', '根据配置上传文件')
+    .option('-pull', '根据配置下载文件')
+    .description('dsn-gitee命令集合')
+    .action((options) => {
+        console.log(options)
+        if (options.Push) {
+            giteePush(options);
+        }
+    })
 
 
 
@@ -59,8 +58,8 @@ function giteePush(options) {
 
 // 获取配置
 function getGiteeConfig(customConfig, defaultConfig) {
-    const currentConfig = customConfig ? {...customConfig.gitee_info} : {};
-    const baseConfig = defaultConfig ? {...defaultConfig.gitee_info} : {};
+    const currentConfig = customConfig ? { ...customConfig.gitee_info } : {};
+    const baseConfig = defaultConfig ? { ...defaultConfig.gitee_info } : {};
     for (const key in currentConfig) {
         if (!currentConfig[key]) {
             delete currentConfig[key]
@@ -77,16 +76,11 @@ function getGiteeConfig(customConfig, defaultConfig) {
 }
 
 
-function dsnUtilHelp(options) {
-    if (options.h || options.H) {
-        console.log(removeSpace(`
-                ds的gitee命令行工具，简写dg
-                --h|-H 查看帮助
-                -pull|-p  文件上传进ct的gitee
-            `))
-    }
+if (process.argv[1].indexOf('gitee.js') > -1) {
+    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    // dsn -V|--version
+    program.version(data.version);
+
+    program.parse(process.argv);
 }
 
-
-
-export { initGiteeCmd };

@@ -1,22 +1,22 @@
-export * from './content_handler.mjs'
-import { dsnCopyFile } from './content_handler.mjs'
-import fs from 'fs-extra'
+#!/usr/bin/env node
+
+import { dsnCopyFile } from '../src/util/index.js'
 import logSymbols from 'log-symbols'
 import chalk from 'chalk'
 import program from 'commander' // 设计命令行
-import { getDsnConfig } from '../config/index.mjs';
-import { removeSpace } from '../util/index.mjs';
+import { getDsnConfig } from '../src/config/index.js';
+import fs from 'fs-extra';
 
+initUtilCmd();
 
 function initUtilCmd() {
     program.command('fileutil').alias('dfu')
-        .option('-H').option('--h')   // 帮助
-        .option('-copy')    // 根据配置文件进行简单复制
-        .option('-move')    // 根据配置文件进行移动
-        .option('--key <config>')    // 需要进行文件处理的配置key
-        .option('--src <config>')    // 需要处理文件的原路径
-        .option('--dest <config>')    // 需要处理文件的生成路径
-        .description('针对文件处理的工具类')
+        .option('-copy', '根据配置文件进行简单复制')
+        .option('-move', '根据配置文件进行移动')
+        .option('--key <config>', '需要进行文件处理的配置key')
+        .option('--src <config>', '需要处理文件的原路径')
+        .option('--dest <config>', '需要处理文件的生成路径')
+        .description('文件处理的工具命令集合')
         .action((options) => {
             console.log(options)
             if (options.Copy) {
@@ -25,7 +25,6 @@ function initUtilCmd() {
             if (options.Move) {
                 handlerFileCopy(options, true)
             }
-            dsnUtilHelp(options);
         })
 }
 
@@ -78,24 +77,11 @@ function handlerFileCopyByKey(customConfig, key, configKey, isMove) {
 }
 
 
+if (process.argv[1].indexOf('util.js') > -1) {
+    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    // dsn -V|--version
+    program.version(data.version);
 
-
-
-function dsnUtilHelp(options) {
-    if (options.h || options.H) {
-        console.log(removeSpace(`
-            fileutil 针对文件处理的工具类，简写dfu
-                --h|-H 查看帮助
-                -copy  根据配置文件进行简单复制
-                -move  根据配置文件进行移动
-                    --key <config> 需要进行文件处理的配置key
-                    --src <config> 需要处理文件的原路径
-                    --dest <config> 需要处理文件的生成路径
-            `))
-    }
+    program.parse(process.argv);
 }
 
-
-
-
-export { initUtilCmd };

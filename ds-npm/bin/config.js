@@ -1,31 +1,31 @@
+#!/usr/bin/env node
+
 import program from 'commander' // 设计命令行
 import fs from 'fs-extra'
 import logSymbols from 'log-symbols'
 import chalk from 'chalk'
 
-function initDsnConfigCmd() {
-    program.command('config').alias('dc')
-        .option('-H').option('--h')// 帮助
-        .option('-init').option('-i') // 将配置文件生成
-        .option('-update').option('-u') // 将配置文件生成
-        .option('--stencli').option('--gitee') // 将配置文件生成
-        .option('-token <access_token>') // 写入token
-        .option('-repo <repo>') // 写入token
-        .option('-owner <owner>') // 写入token
-        .description('dsn的配置及版本处理')
-        .action((options) => {
-            console.log(options)
-            if (options.Init || options.i) {
-                initConfigFile(options)
-            }
-            // 写配置
-            if (options.Token || options.Repo || options.Owner) {
-                setGiteeConfig(options);
-            }
-            dsnUtilHelp(options)
 
-        })
-}
+program.command('config').alias('dc')
+    .option('-init, --i', '初始化配置文件')
+    .option('-update, --u', '更新配置文件')
+    .option('--stencli', '加入配置文件生成的可选项')
+    .option('--gitee', '加入配置文件生成的可选项')
+    .option('-token <access_token>', '写入gitee的配置')
+    .option('-repo <repo>', '写入gitee的配置')
+    .option('-owner <owner>', '写入gitee的配置')
+    .description('dsn的配置命令集合,可使用--help查看细节')
+    .action((options) => {
+        console.log(options)
+        // 写配置
+        if (options.Token || options.Repo || options.Owner) {
+            setGiteeConfig(options);
+        }
+        if (options.Init || options.i) {
+            initConfigFile(options)
+        }
+
+    })
 
 
 // 初始化配置
@@ -116,26 +116,12 @@ function setGiteeConfig(options) {
     console.log(logSymbols.success, `配置写入成功`);
 }
 
+if (process.argv[1].indexOf('config.js') > -1) {
+    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    // dsn -V|--version
+    program.version(data.version);
 
-
-
-function dsnUtilHelp(options) {
-    if (options.h || options.H) {
-        console.log(removeSpace(`
-            config dsn的配置及版本处理，简写dc
-                --h|-H 查看帮助
-                -init|-i  将配置文件生成
-                    --stencli 生成stencli的配置
-                    --gitee 生成上传gitee的配置
-                    --file 生成上传gitee的配置
-                -token <access_token> 设置access_token
-                -repo <repo> 设置repo
-                -owner <owner> 设置owner
-            `))
-    }
+    program.parse(process.argv);
 }
 
 
-
-export { initDsnConfigCmd };
-export * from './config_handler.mjs'

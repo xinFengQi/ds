@@ -1,15 +1,19 @@
 {
-  "name": "dsn",
+  "name": "dfb",
   "version": "1.0.1",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "pack": "npm pack && npm install -g dsn-1.0.0.tgz",
-    "serve": "npm install . -g && npm link --force"
+    "pack": "npm pack && npm install -g dsn-1.0.1.tgz",
+    "serve": "npm install . -g --force && npm link --force"
   },
   "bin": {
-    "dsn": "index.js"
+    "dsn": "index.js",
+    "dsgitee": "bin/gitee.js",
+    "dsconfig": "bin/config.js",
+    "dsstecil": "bin/stencil.js",
+    "dsutil": "bin/util.js"
   },
   "author": "fbdong",
   "license": "ISC",

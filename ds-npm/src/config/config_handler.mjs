@@ -1,7 +1,6 @@
 
 import fs from 'fs-extra'
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
+
 
 // 获取config的配置
 function getDsnConfig(configpath = './dsn.config.json') {

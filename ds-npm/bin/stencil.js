@@ -1,21 +1,20 @@
+#!/usr/bin/env node
+
 import program from 'commander' // 设计命令行
-import { removeSpace } from '../util/index.mjs';
-import { getDsnConfig } from '../config/index.mjs';
-import { stencilDistComplie } from './complie_json.mjs'
+import { getDsnConfig } from '../src/config/index.js';
+import { stencilDistComplie } from '../src/stencil/index.js'
+import fs from 'fs-extra';
+
+initstencilCmd();
 
 function initstencilCmd() {
-    program.command('stencil')
-        .alias('scil')
-        .option('-config <dir>') // 设置配置的文件路径
-        .option('-H')
-        .option('-h')   // 帮助
-        .option('-complie')
-        .option('-c')    // 将生成文件编译集合
+    program.command('stencil').alias('scil')
+        .option('-config <dir>', '设置配置的文件路径')
+        .option('-complie, --c', ' 将生成文件编译集合')
         .description('stencil命令集合')
         .action((options) => {
             console.log(options)
             stencilCompolie(options);
-            dsnUtilHelp(options);
         })
 }
 
@@ -37,16 +36,11 @@ function stencilCompolie(options) {
 }
 
 
-function dsnUtilHelp(options) {
-    if (!Object.keys(options).length || options.h || options.H) {
-        console.log(removeSpace(`
-                stencil命令行工具，简写scil
-                --h|-H 查看帮助
-                -complie|-c  将生成文件编译集合,上传到git上的预处理
-            `))
-    }
+if (process.argv[1].indexOf('stencil.js') > -1) {
+    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    // dsn -V|--version
+    program.version(data.version);
+
+    program.parse(process.argv);
 }
 
-
-
-export { initstencilCmd };
