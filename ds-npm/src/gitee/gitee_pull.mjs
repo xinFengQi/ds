@@ -7,11 +7,14 @@ import md5 from 'md5'
 let gitOwner = 'semonstrate'
 let gitRepo = 'demonstrate_storage';
 let access_token = '16cf2bb0ab7fa12779bfec47f2c3ee9a';
+let callback = () => {
+};
 
-function setConfig(token, repo, owner) {
+function setPullConfig(token, repo, owner,  cb) {
     gitOwner = owner;
     gitRepo = repo;
     access_token = token;
+    callback = cb;
 }
 
 
@@ -31,10 +34,6 @@ const allPath = [];
  * 5. 任务结束进行文件复制操作
  * 
  */
-
-
- giteeDirDownload('./test_forde', 'lib')
-
 
 // distPath 获取下载的位置
 // gitPath git上文件的位置
@@ -57,7 +56,6 @@ function giteeDirDownload(distPath, gitPath, filterGitPath) {
     frontGitPaths.pop();
     const frontGitPath = giteePathHandler(pathFomate(frontGitPaths.join('/')));
     getMenuSha(frontGitPath, distPath, gitPath, filterGitPath)
-
 }
 
 //  获取下载目录的sha值
@@ -183,11 +181,13 @@ function taskInfosEnd(distPath) {
         fs.copyFileSync(v.path, destPath);
     })
     console.log('文件保存成功:', nodePath.resolve(distPath))
-
+    if(callback && typeof callback === 'function') {
+        callback.apply(this)
+    }
 }
 
 
 export {
-    setConfig,
+    setPullConfig,
     giteeDirDownload
 }

@@ -9,41 +9,78 @@
 6. 博客管理功能(未开发完全)
 
 
+
+## 扩展初始化
+
+基于dsn系列的脚手架进行初始化
+
+### 安装方式
+
+```
+1. 安装了node, 在控制台中执行如下命令
+2. npm install dfb -g
+3. dsn dg -chrome
+```
+
+最后会打印出扩展的下载地址，然后在chrome扩展中加载已解压的文件夹即可；操作如下
+
+![chrome使用方式](./imgs/chrome使用方式.jpg)
+
+
+
+![chrome使用方式1](./imgs/chrome使用方式1.jpg)
+
+
+### 前置条件
+
+#### 使用开发者提供的公共gitee仓库
+
+```
+1. 用户授权码: 16cf2bb0ab7fa12779bfec47f2c3ee9a
+2. 仓库所属空间地址: semonstrate
+3. 仓库路径: demonstrate_storage
+```
+
+#### 使用自己的gitee仓库
+
+1. 登录码云, 这个能获取到仓库所属空间地址
+2. 新建一个自己的仓库, 这个能获取到仓库路径
+3. 获取私人令牌, 这个能获取到用户授权码
+
 ### 书签功能
 
 #### 重写的书签页
 
 1. 使用的是antDesign风格的折叠面板展示自己的书签页
 
-<div style="backgroud: #000">
-    <img style="height: 400px" src="./ds-series/dsn-system/imgs/书签页.jpg">
-</div>
+
+![书签页](./imgs/书签页.jpg)
 
 
 2. 书签设置页，设置储存书签的gitee令牌信息
-<div style="backgroud: #000">
-    <img style="height: 400px" src="./ds-series/dsn-system/imgs/书签设置页.jpg">
-</div>
+
+![书签设置页](./imgs/书签设置页.jpg)
+
+
 
 3. 书签管理页，可以删除储存的书签信息
 
 ### 脚本快捷执行
 
 1. 右击快捷执行脚本
-<div style="backgroud: #000">
-    <img style="height: 200px" src="./ds-series/dsn-system/imgs/右击菜单项.jpg">
-</div>
+
+![右击菜单项](./imgs/右击菜单项.jpg)
+
 
 2. 脚本管理，进行脚本的增删改查及启用禁用
 
-<div style="backgroud: #000">
-    <img style="height: 400px" src="./ds-series/dsn-system/imgs/脚本管理页面.jpg">
-</div>
+![脚本管理页面](./imgs/脚本管理页面.jpg)
+
 
 
 ### gitee文件管理
 
 1. 文件管理，进行上传和删除功能
-<div style="backgroud: #000">
-    <img style="height: 200px" src="./ds-series/dsn-system/imgs/资源管理.jpg">  
-</div>
+
+
+![资源管理](./imgs/资源管理.jpg)

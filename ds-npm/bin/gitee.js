@@ -6,22 +6,52 @@ import logSymbols from 'log-symbols'
 import chalk from 'chalk'
 import { isUEmpty } from '../src/util/index.js';
 import { getDsnConfig } from '../src/config/index.js';
-
-import { giteeDirUpload, setConfig } from '../src/gitee/index.js'
+import nodePath from 'path'
+import { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig } from '../src/gitee/index.js'
 
 program.command('gitee').alias('dg')
     .option('-config <dir>', '输入配置文件地址') // 设置配置的文件路径
     .option('-push', '根据配置上传文件')
     .option('-pull', '根据配置下载文件')
+    .option('-chrome', 'chrome插件下载')
+    .option('--path <path>', '根据配置下载文件')
     .description('dsn-gitee命令集合')
     .action((options) => {
         console.log(options)
         if (options.Push) {
             giteePush(options);
         }
+        if (options.Push && options.path) {
+            giteePull(options.path)
+        }
+
+        if (options.Chrome) {
+            chromeInit()
+        }
     })
 
 
+// chrome插件下载
+function chromeInit() {
+    // 在公共库
+    setPullConfig('16cf2bb0ab7fa12779bfec47f2c3ee9a', 'demonstrate_storage', 'semonstrate', () => {
+        console.log(logSymbols.success, 'chrome插件初始化成功,地址是:', chalk.green(downFilePath),
+            '请将此地址放入扩展中')
+        console.log(logSymbols.success, '查看文档', chalk.green('https://dongfubao.gitee.io/ct'))
+    })
+    // 下载文件文件
+    const downFilePath = new URL('../downFile', import.meta.url).toString().replace('file:///', '');
+    giteeDirDownload(downFilePath, 'lib/chrome_extension')
+
+}
+
+
+
+
+// 下载文件
+function giteePull(giteePath) {
+
+}
 
 
 // 上传文件
@@ -50,7 +80,7 @@ function giteePush(options) {
     deleteGitPath = deleteGitPath.map(pas => gitPath ? (gitPath + '/' + pas) : pas);
     // 获取gitee配置，
     const { access_token, repo, owner } = getGiteeConfig(customConfig, defaultConfig);
-    setConfig(access_token, repo, owner)
+    setPushConfig(access_token, repo, owner)
     // 上传文件
     giteeDirUpload(distPath, gitPath, deleteGitPath)
 }

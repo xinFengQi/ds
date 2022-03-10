@@ -6,7 +6,7 @@ let gitOwner = 'dongfubao'
 let gitRepo = 'ct';
 let access_token = 'e9694199cc954120b37d5d449a56a752';
 
-function setConfig(token, repo, owner) {
+function setPushConfig(token, repo, owner) {
     gitOwner = owner;
     gitRepo = repo;
     access_token = token;
@@ -176,4 +176,4 @@ function uploadFile(path, gitPath) {
 }
 
 
-export { setConfig, giteeDirUpload }
+export { setPushConfig, giteeDirUpload }

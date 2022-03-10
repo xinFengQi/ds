@@ -16,6 +16,8 @@ dfb_dist/**
 .dstemp/**
 **/.dstemp/**
 
+.downFile/**
+**/.downFile/**
 
 
 dist_gitee/**
