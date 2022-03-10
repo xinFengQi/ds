@@ -9,6 +9,7 @@ import chalk from 'chalk'
 program.command('config').alias('dc')
     .option('-init, --i', '初始化配置文件')
     .option('-update, --u', '更新配置文件')
+    .option('-clear', '清除dsn的所有缓存')
     .option('--stencli', '加入配置文件生成的可选项')
     .option('--gitee', '加入配置文件生成的可选项')
     .option('-token <access_token>', '写入gitee的配置')
@@ -24,9 +25,18 @@ program.command('config').alias('dc')
         if (options.Init || options.i) {
             initConfigFile(options)
         }
+        if (options.Clear || options.i) {
+            cacheClear(new URL('../.dstemp', import.meta.url).toString().replace('file:///', ''))
+        }
 
     })
 
+
+    // 递归清空所有缓存
+function cacheClear(path){
+    fs.emptyDirSync(path)
+    console.log(logSymbols.success, chalk.green('清除成功'))
+}
 
 // 初始化配置
 function initConfigFile(options) {

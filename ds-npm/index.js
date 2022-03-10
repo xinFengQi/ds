@@ -13,9 +13,9 @@ import { getDsnConfig } from './src/config/index.js';
 
 
 
-// const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
-// // dsn -V|--version
-// program.version(data.version);
+const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
+// dsn -V|--version
+program.version(data.version);
 
 // 测试
 program.command('test')

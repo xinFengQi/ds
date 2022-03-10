@@ -1,3 +1,3 @@
-export * from './pull_gitee.mjs'
-export * from './push_gitee.mjs'
+export * from './gitee_pull.mjs'
+export * from './gitee_push.mjs'
 
