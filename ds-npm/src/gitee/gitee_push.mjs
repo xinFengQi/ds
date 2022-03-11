@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import request from 'request';
+import { pathFomate, giteePathHandler } from './gitee_util.mjs';
 
 
 let gitOwner = 'dongfubao'
@@ -26,7 +27,7 @@ function giteeDirUpload(distPath, gitPath, deleteGitPath) {
     if (!isExtraDist) {
         throw `找不到上传文件;上传文件地址:${distPath}`
     }
-    console.log('找到上传文件地址')
+    console.log('找到上传文件地址:', distPath)
     // bug1: 同名组件会覆盖掉
     // 连接gitee
     const deleteGitPaths = (deleteGitPath && deleteGitPath.length) ? deleteGitPath : null;
@@ -43,10 +44,6 @@ function giteeDirUpload(distPath, gitPath, deleteGitPath) {
 
     deleteDirPathNext(0, taskInfos[0], taskInfos);
 
-}
-
-function pathFomate(path) {
-    return path.replace(/\//g, '%2F')
 }
 
 
@@ -72,10 +69,10 @@ function deleteDirPathNext(time, taskInfo, taskInfos) {
 function deleteDirPath(path, deleteGitPaths, taskInfo) {
     return new Promise((resolve, reject) => {
         // 获取仓库下路径信息
-        const getPathInfoUrl = `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(path)}?access_token=${access_token}`;
+        const getPathInfoUrl = `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(giteePathHandler(path))}?access_token=${access_token}`;
         request(getPathInfoUrl, function (error, response, body) {
             if (error || response.statusCode !== 200) {
-                console.log(error, response)
+                console.log(error, getPathInfoUrl)
                 console.log(path + '获取文件路径信息失败！！！')
                 resolve(true)
                 return
@@ -109,7 +106,7 @@ function deleteFilePath(path, sha) {
     return new Promise((resolve, reject) => {
 
         // 删除gitee相对组件文件夹
-        const detelePathUrl = `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(path)}?access_token=${access_token}&sha=${sha}&message=delete`;
+        const detelePathUrl = `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(giteePathHandler(path))}?access_token=${access_token}&sha=${sha}&message=delete`;
         request({
             url: detelePathUrl,
             method: 'DELETE'
@@ -157,7 +154,7 @@ function uploadFile(path, gitPath) {
         };
         let options = {
             method: 'POST',
-            url: `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(gitPath)}`,
+            url: `https://gitee.com/api/v5/repos/${gitOwner}/${gitRepo}/contents/${pathFomate(giteePathHandler(gitPath))}`,
             headers: { 'Content-Type': 'multipart/form-data' },
             formData: formData
         };
