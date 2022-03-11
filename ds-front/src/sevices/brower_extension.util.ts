@@ -5,7 +5,7 @@ function getBookmarks() {
     return new Promise((resolve) => {
         if (getExtensionApi() && getExtensionApi().bookmarks) {
             getExtensionApi().bookmarks.getTree((markNodes: any[]) => {
-                resolve(markNodes[0]);
+                resolve(markNodes);
             });
         } else {
             resolve(null);

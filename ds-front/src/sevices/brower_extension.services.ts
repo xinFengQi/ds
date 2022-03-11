@@ -36,9 +36,10 @@ function getBookMarks(edit = false) {
             browerExtensionUtil
                 .getBookmarks()
                 .then((data) => {
-                    if (!data) {
+                    if (data) {
                         bookMarks = data;
                     }
+                    console.log('获取到的本地书签', bookMarks);
                     next({
                         getBookMarks: true,
                     });
@@ -122,6 +123,12 @@ function handlerBooksMarks(bookMarks: any[], remoteBookMarkData: any) {
                 dateAdded: olDa.dateAdded,
             };
         });
+    }
+    if (bookMarks && bookMarks.length > 0) {
+        bookMarks[0].title = '本地书签';
+        remoteBookMarks = remoteBookMarks.filter(
+            (v: any) => v.dateAdded !== bookMarks[0].dateAdded
+        );
     }
     const machineMenu = [...bookMarks, ...remoteBookMarks];
     return machineMenu;
@@ -214,8 +221,8 @@ function getTasklist() {
             ) {
                 return;
             }
-            console.log(JSON.stringify(publicData))
-            console.log(JSON.stringify(privateData))
+            console.log(JSON.stringify(publicData));
+            console.log(JSON.stringify(privateData));
             resolve(handlerPublicPrivateData(publicData, privateData));
         };
 
