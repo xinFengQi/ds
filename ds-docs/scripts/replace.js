@@ -7,7 +7,7 @@ const allPath = [
     {
         path: './all_docs',
         title: 'ds-个人系列',
-        docsify_custom_path:  './'
+        docsify_custom_path:  './docs/'
     },
     {
         path: './all_docs/docs/ds-series/dsn_npm',
