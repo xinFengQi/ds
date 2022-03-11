@@ -47,7 +47,7 @@ function initConfigFile(options) {
         return;
     }
     const data = fs.readFileSync
-        (new URL('../../dsn.config.json', import.meta.url)).toString()
+        (new URL('../dsn.config.json', import.meta.url)).toString()
     const generateArr = ['gitee_info'];
     if (options.stencli) {
         generateArr.push('_stencil');

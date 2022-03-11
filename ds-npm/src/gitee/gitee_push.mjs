@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
 import request from 'request';
 import { pathFomate, giteePathHandler } from './gitee_util.mjs';
+import inquirer from 'inquirer' // 命令行答询
 
 
 let gitOwner = 'dongfubao'
@@ -34,16 +35,40 @@ function giteeDirUpload(distPath, gitPath, deleteGitPath) {
     if (deleteGitPaths && !Array.isArray(deleteGitPaths)) {
         throw "deleteGitPath配置必须是数组"
     }
-    const taskInfos = [
-        [{
-            fun: deleteDirPath,
-            arg: [gitPath, deleteGitPaths]
-        }],
-        [{ fun: uploadDir, arg: [distPath, gitPath] }]
-    ]
+    console.log('需要删除的目录:', deleteGitPaths ? deleteGitPaths : `${gitPath}下所有目录`)
 
-    deleteDirPathNext(0, taskInfos[0], taskInfos);
+    inquirerisDelete(deleteGitPaths, distPath, gitPath);
 
+}
+
+// 二次确认是否删除文件
+function inquirerisDelete(deleteGitPaths, distPath, gitPath) {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: (deleteGitPaths ? '是否决定删除配置的目录' : '是否决定删除上传文件夹下所有目录'),
+            name: 'isDelete',
+            default: "y/n" // 默认值
+        }
+    ]).then(answers => {
+        if (answers.isDelete === 'y' || answers.isDelete === 'Y') {
+            console.log(deleteGitPaths, '====')
+            const taskInfos = [
+                [{
+                    fun: deleteDirPath,
+                    arg: [gitPath, deleteGitPaths]
+                }],
+                [{ fun: uploadDir, arg: [distPath, gitPath] }]
+            ]
+            deleteDirPathNext(0, taskInfos[0], taskInfos);
+        }
+        if (answers.isDelete === 'n' || answers.isDelete === 'NN') {
+            return
+        }
+        if (answers.isDelete === 'y/n') {
+            inquirerisDelete(deleteGitPaths, distPath, gitPath);
+        }
+    })
 }
 
 
@@ -78,6 +103,7 @@ function deleteDirPath(path, deleteGitPaths, taskInfo) {
                 return
             }
             body = JSON.parse(body)
+
             if (Array.isArray(body)) {
                 body.forEach(da => {
                     if (deleteGitPaths) {
@@ -144,7 +170,6 @@ function uploadDir(path, gitPath, taskInfo) {
 }
 
 function uploadFile(path, gitPath) {
-    console.log(access_token, gitOwner, gitRepo, gitPath)
     return new Promise((resolve, reject) => {
         // 上传文件
         const formData = {

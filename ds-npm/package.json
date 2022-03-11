@@ -1,12 +1,16 @@
 {
   "name": "dfb",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "pack": "npm pack && npm install -g dsn-1.0.1.tgz",
-    "serve": "npm install . -g --force && npm link --force"
+    "serve": "npm install . -g --force && npm link --force",
+    "version1": "npm version patch",
+    "version2": "npm version minor",
+    "version3": "npm version major",
+    "publish": "npm publish"
   },
   "bin": {
     "dsn": "index.js",
@@ -28,5 +32,9 @@
     "md5": "^2.3.0",
     "ora": "^5.4.1",
     "request": "^2.88.2"
-  }
+  },
+  "keywords": [
+    "ds",
+    "个人工具"
+  ]
 }

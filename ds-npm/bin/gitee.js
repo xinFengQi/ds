@@ -7,8 +7,7 @@ import chalk from 'chalk'
 import { isUEmpty } from '../src/util/index.js';
 import { getDsnConfig } from '../src/config/index.js';
 import nodePath from 'path'
-import { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig } from '../src/gitee/index.js'
-
+import { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig, giteePathHandler } from '../src/gitee/index.js'
 program.command('gitee').alias('dg')
     .option('-config <dir>', '输入配置文件地址') // 设置配置的文件路径
     .option('-push', '根据配置上传文件')
@@ -77,7 +76,13 @@ function giteePush(options) {
     // 获取删除的远程文件夹
     let deleteGitPath = (customConfig && customConfig.gitee && customConfig.gitee.deleteGitPath)
         ? customConfig.gitee.deleteGitPath : defaultConfig.gitee.deleteGitPath;
-    deleteGitPath = deleteGitPath.map(pas => gitPath ? (gitPath + '/' + pas) : pas);
+    deleteGitPath = deleteGitPath.map(pas => giteePathHandler(pas)).map(pas => {
+        if (gitPath.endsWith('/')) {
+            return gitPath ? (gitPath + pas) : pas
+        } else {
+            return gitPath ? (gitPath + pas) : pas
+        }
+    }).map(pas => giteePathHandler(pas));
     // 获取gitee配置，
     const { access_token, repo, owner } = getGiteeConfig(customConfig, defaultConfig);
     setPushConfig(access_token, repo, owner)
