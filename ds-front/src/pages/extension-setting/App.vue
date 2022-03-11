@@ -56,21 +56,21 @@ export default class Home extends Vue {
         this.visible = false;
       }
     });
-    const a = crypto.zip(
-      JSON.stringify({
-        accesk: "1sfhjdshfkjs fshdfhsf",
-        repo: "ct",
-        dongfub: 121212,
-      })
-    );
-    console.log("压缩：", a, a.length);
-    const aceKey = "12121212";
-    const ena = crypto.encrypt(a, aceKey);
-    console.log("加密", ena, ena.length);
-    const dac = crypto.decrypt(ena, aceKey);
-    console.log("解密", dac, dac.length);
-    const b = crypto.unzip(dac);
-    console.log("解压：", b, b.length);
+    // const a = crypto.zip(
+    //   JSON.stringify({
+    //     accesk: "1sfhjdshfkjs fshdfhsf",
+    //     repo: "ct",
+    //     dongfub: 121212,
+    //   })
+    // );
+    // console.log("压缩：", a, a.length);
+    // const aceKey = "12121212";
+    // const ena = crypto.encrypt(a, aceKey);
+    // console.log("加密", ena, ena.length);
+    // const dac = crypto.decrypt(ena, aceKey);
+    // console.log("解密", dac, dac.length);
+    // const b = crypto.unzip(dac);
+    // console.log("解压：", b, b.length);
   }
 
   newUser() {

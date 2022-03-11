@@ -10,16 +10,16 @@ const allPath = [
         docsify_custom_path:  './'
     },
     {
-        path: './all_docs/ds-series/dsn_npm',
+        path: './all_docs/docs/ds-series/dsn_npm',
         title: 'dsn脚手架工具',
         docsify_custom_path:  '../../'
     },
     {
-        path: './all_docs/front_end_knowledge',
+        path: './all_docs/docs/front_end_knowledge',
         title: '前端知识及面试',
         docsify_custom_path:  '../'
     }, {
-        path: './all_docs/stencil/zh_cn',
+        path: './all_docs/docs/stencil/zh_cn',
         title: 'stencil翻译文档',
         docsify_custom_path:  '../../'
     },
