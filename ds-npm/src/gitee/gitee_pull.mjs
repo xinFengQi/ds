@@ -86,7 +86,11 @@ function loopAllTree(sha, distPath, filterGitPath) {
             throw error
         }
         const allTree = JSON.parse(body).tree;
-        const url = new URL('../../.dstemp', import.meta.url).toString().replace('file:///', '');
+        const url = '/'+  new URL('../../.dstemp', import.meta.url).toString().replace('file:///', '');
+        console.log(process.execPath);//返回启动 Node.js 进程的可执行文件的绝对路径名
+        console.log(import.meta.url);//是被执行的js文件的地址
+        console.log(process.cwd());//是当前执行node命令的目录地址
+       
         allTree.forEach(tree => {
             // console.log(tree)
             if (tree.type !== 'blob') {
