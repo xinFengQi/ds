@@ -96,15 +96,32 @@
             </span>
           </div>
         </div>
-        <a-button class="mr-8" type="primary" @click="allClear"
-          >一键清空</a-button
-        >
-        <a-button v-if="giteeDsAccessToken && giteeDsOwner && giteeDsRepo" class="mr-8" type="primary" @click="quickSetting"
+        <a-button class="mr-8" type="primary" @click="allClear">一键清空</a-button>
+        <a-button
+          v-if="giteeDsAccessToken && giteeDsOwner && giteeDsRepo"
+          class="mr-8"
+          type="primary"
+          @click="quickSetting"
           >一键设置</a-button
         >
         <a-button class="mr-8" type="primary" @click="GenerateCiphertext"
           >生成密文</a-button
         >
+        <div class="writer_content mt-25">
+          <div class="input_conlone">
+            <label>设置密码:</label>
+            <a-input
+              class="password_input"
+              v-model:value="password"
+              placeholder="请输入密码"
+            />
+            <span class="input_value">
+              <a-button class="mr-8" type="primary" @click="settingPassword"
+                >重新设置</a-button
+              >
+            </span>
+          </div>
+        </div>
       </blockquote>
     </a-typography-paragraph>
   </div>
@@ -128,6 +145,12 @@ import localStorgeData from "@/sevices/localStorge.data";
 import { getGiteeKey, getGiteeArrKey } from "@/sevices/gitee.api";
 import crypto from "@/sevices/crypto.util";
 import { message } from "ant-design-vue";
+import store from "../../store";
+import {
+  getPersonalSetting,
+  addPersonalSetting,
+  updatePersonalSetting,
+} from "../../store/util";
 import { Md5 } from "ts-md5";
 
 export default {
@@ -145,6 +168,7 @@ export default {
       giteeDsAccessToken: "",
       giteeDsOwner: "",
       giteeDsRepo: "",
+      password: "", // 重新设置密码
     };
   },
   mounted() {
@@ -196,26 +220,91 @@ export default {
     },
   },
   methods: {
+    // 设置密码
+    settingPassword() {
+      if (!this.password) {
+        message.error("请输入密码");
+        return;
+      }
+      localStorgeData.getLocalVariable("userName").then((v) => {
+        if (!v) {
+          message.error("用户标识未发现, 请重新刷新页面");
+          return;
+        }
+        const md5UserNamePassword = Md5.hashAsciiStr(crypto.decrypt(v, this.password));
+        const data = this.getLocalData();
+        const zipData = crypto.zip(JSON.stringify(data));
+        const enacryptData = crypto.encrypt(zipData, md5UserNamePassword);
+        // 存在已有的配置
+        let personalSetting = store.getters.getPersonalSetting;
+        if (personalSetting) {
+          personalSetting.password = enacryptData;
+          this.saveAllSetting(personalSetting, null, v);
+        } else {
+          // 不存在已有的配置
+          personalSetting = {
+            password: enacryptData,
+          };
+          // 获取看看有没有这个配置
+          getPersonalSetting(v)
+            .then((data) => {
+              personalSetting = {
+                ...data.data,
+                password: enacryptData,
+              };
+              this.saveAllSetting(personalSetting, data.sha, v);
+            })
+            .catch((err) => {
+              console.log(err);
+              this.saveAllSetting(personalSetting, null, v);
+            });
+        }
+      });
+    },
+    saveAllSetting(personalSetting, sha, md5UserName) {
+      if (sha) {
+        updatePersonalSetting(personalSetting, sha, md5UserName)
+          .then((v) => {
+            message.success("更新成功");
+          })
+          .catch((v) => {
+            message.error("更新失败");
+          });
+      } else {
+        addPersonalSetting(personalSetting, md5UserName)
+          .then((v) => {
+            message.success("新增成功");
+          })
+          .catch((v) => {
+            message.error("新增失败");
+          });
+      }
+    },
     // 清空
     allClear() {
       localStorgeData.clearLocalData();
+      window.location.reload();
     },
-    GenerateCiphertext() {
-      const data = {
+    // 获取存储数据
+    getLocalData() {
+      return {
         flag: this.giteeDsFlag,
         publicFlag: this.giteeDsPublicFlag,
         accessToken: this.giteeDsAccessToken,
         owner: this.giteeDsOwner,
         repo: this.giteeDsRepo,
       };
+    },
+    // 生成加密密文
+    GenerateCiphertext() {
+      const data = this.getLocalData();
       localStorgeData.getLocalVariable("userName").then((v) => {
         if (!v) {
           message.error("用户标识未发现, 请重新刷新页面");
           return;
         }
-        const md5UserName = Md5.hashAsciiStr(crypto.decrypt(v, v));
         const zipData = crypto.zip(JSON.stringify(data));
-        const enacryptData = crypto.encrypt(zipData, md5UserName);
+        const enacryptData = crypto.encrypt(zipData, v);
         this.ciphertext = enacryptData;
         this.ciphertextVisible = true;
       });
@@ -291,5 +380,11 @@ export default {
 }
 .mr-8 {
   margin-right: 8px;
+}
+.mt-25 {
+  margin-top: 25px;
+}
+.password_input {
+  width: auto;
 }
 </style>

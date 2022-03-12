@@ -22,10 +22,7 @@
       </div>
     </div>
 
-    <div
-      v-if="!getLastIsFile() && showList && showList.length"
-      class="folder_table"
-    >
+    <div v-if="!getLastIsFile() && showList && showList.length" class="folder_table">
       <div class="folder_table_header">
         <div class="folder_table_col ml-16">文件名</div>
         <div class="folder_table_col ml-16">操作</div>
@@ -48,11 +45,9 @@
             >
               <FolderOutlined />
               <a-typography-paragraph copyable>
-                <span
-                  class="mr-8 ml-8 link"
-                  @click="showFolderDetail(record)"
-                  >{{ record.name }}</span
-                >
+                <span class="mr-8 ml-8 link" @click="showFolderDetail(record)">{{
+                  record.name
+                }}</span>
               </a-typography-paragraph>
             </a-button>
             <a-button v-if="!record.childrens.length" type="text">
@@ -64,16 +59,10 @@
           </div>
         </div>
         <div class="folder_table_col">
-          <a-button
-            v-if="!record.childrens"
-            @click="downFile(record)"
-            type="link"
+          <a-button v-if="!record.childrens" @click="downFile(record)" type="link"
             >下载</a-button
           >
-          <a-button
-            v-if="!record.childrens"
-            @click="showFile(record)"
-            type="link"
+          <a-button v-if="!record.childrens" @click="showFile(record)" type="link"
             >查看</a-button
           >
           <a-button type="link" @click="deleteFile(record)">删除</a-button>
@@ -96,10 +85,7 @@
     :cancelText="'取消'"
     :maskClosable="false"
   >
-    <a-input
-      v-model:value="deleteValue"
-      placeholder="请输入删除的提交信息(必填)"
-    />
+    <a-input v-model:value="deleteValue" placeholder="请输入删除的提交信息(必填)" />
     <div v-if="confirmDeleteLoading">
       需要删除文件数：{{ allDeleteNum }},删除成功数：{{
         alreadySuccessNum
@@ -125,11 +111,7 @@
 <script>
 import { getAllTree, deleteFile } from "@/sevices/gitee.api";
 import { getData } from "@/sevices/axios.api";
-import {
-  FileOutlined,
-  FolderOutlined,
-  CopyOutlined,
-} from "@ant-design/icons-vue";
+import { FileOutlined, FolderOutlined, CopyOutlined } from "@ant-design/icons-vue";
 import FileShowData from "./FileShowData.vue";
 import GiteeUpload from "./GiteeUpload.vue";
 import { message } from "ant-design-vue";
@@ -192,19 +174,17 @@ export default {
         return;
       }
       getData(item.origin.url).then((data) => {
-        console.log(data, "===============");
         if (!data.content) {
           return;
         }
         const bstr = decodeURIComponent(decodeURIComponent(escape(atob(data.content))));
-        console.log(bstr, '=============')
         let n = bstr.length;
         const u8arr = new Uint8Array(n);
         while (n--) {
           u8arr[n] = bstr.charCodeAt(n);
         }
         // 乱码问题
-        const blob = new Blob([u8arr],  {type:"*/*;charset=utf-8"});
+        const blob = new Blob([u8arr], { type: "*/*;charset=utf-8" });
         var myUrl = URL.createObjectURL(blob);
         console.log(blob, myUrl);
         var a = document.createElement("a");
@@ -250,21 +230,19 @@ export default {
       });
     },
     releadData() {
-      getAllTree(
-        this.giteeData.access,
-        this.giteeData.owner,
-        this.giteeData.repo
-      ).then((v) => {
-        this.originData = [...this.sortTree(v.tree)];
-        this.filterClick();
-        this.showList = [
-          ...this.inputDatas.map((v, index) => {
-            v.key = index + "";
-            return v;
-          }),
-        ];
-        this.lopoGotoFolder();
-      });
+      getAllTree(this.giteeData.access, this.giteeData.owner, this.giteeData.repo).then(
+        (v) => {
+          this.originData = [...this.sortTree(v.tree)];
+          this.filterClick();
+          this.showList = [
+            ...this.inputDatas.map((v, index) => {
+              v.key = index + "";
+              return v;
+            }),
+          ];
+          this.lopoGotoFolder();
+        }
+      );
     },
     // 数据重启后递归进行文件夹点击
     lopoGotoFolder() {
@@ -329,10 +307,7 @@ export default {
     // 串行删除文件
     deleteArrFile(arr) {
       if (!arr.length) {
-        if (
-          this.alreadyFailNum === 0 ||
-          this.allDeleteNum === this.alreadySuccessNum
-        ) {
+        if (this.alreadyFailNum === 0 || this.allDeleteNum === this.alreadySuccessNum) {
           this.isDeleteVisible = false;
         }
         this.confirmDeleteLoading = false;
@@ -389,9 +364,7 @@ export default {
         if (Array.isArray(showChildres)) {
           showChildres = showChildres.find((sc) => sc.name === v.name);
         } else {
-          showChildres = showChildres.childrens.find(
-            (sc) => sc.name === v.name
-          );
+          showChildres = showChildres.childrens.find((sc) => sc.name === v.name);
         }
       });
       this.showFolderDetail(showChildres, true);

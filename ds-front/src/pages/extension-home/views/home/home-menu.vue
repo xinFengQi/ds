@@ -1,30 +1,31 @@
 <template>
-  <div>
-    <a-menu
-      mode="inline"
-      v-model:selectedKeys="selectedKeys"
-      :inline-collapsed="collapsed"
+  <a-menu
+    style="width: auto"
+    mode="inline"
+    v-model:selectedKeys="selectedKeys"
+    :inline-collapsed="collapsed"
+  >
+    <a-menu-item
+      style="width: auto"
+      v-for="item in machineMenu"
+      :key="item.dateAdded + ''"
+      @click="getClickMenu(item)"
     >
-      <a-menu-item
-        v-for="item in machineMenu"
-        :key="item.dateAdded + ''"
-        @click="getClickMenu(item)"
-      >
-        <span>{{ item.title }}</span>
-        <span class="opate" v-if="edit">
-          <DeleteOutlined @click="deleteMenu($event, item)"></DeleteOutlined>
-        </span>
-      </a-menu-item>
+      <span>{{ item.title }}</span>
+      <span class="opate" v-if="edit">
+        <DeleteOutlined @click="deleteMenu($event, item)"></DeleteOutlined>
+      </span>
+    </a-menu-item>
 
-      <a-menu-item
-        v-for="item in pubilcMachineMenu"
-        :key="item.dateAdded + ''"
-        @click="getClickPublicMenu(item)"
-      >
-        <span>{{ item.title }}</span>
-      </a-menu-item>
-    </a-menu>
-  </div>
+    <a-menu-item
+      style="width: auto"
+      v-for="item in pubilcMachineMenu"
+      :key="item.dateAdded + ''"
+      @click="getClickPublicMenu(item)"
+    >
+      <span>{{ item.title }}</span>
+    </a-menu-item>
+  </a-menu>
 </template>
 
 <script>
@@ -84,14 +85,9 @@ export default {
       ev.stopPropagation();
       ev.preventDefault();
       console.log("删除导航", item);
-      this.machineMenu = this.machineMenu.filter(
-        (v) => v.dateAdded !== item.dateAdded
-      );
+      this.machineMenu = this.machineMenu.filter((v) => v.dateAdded !== item.dateAdded);
 
-      if (
-        this.machineMenu.length &&
-        this.selectedKeys.includes(item.dateAdded + "")
-      ) {
+      if (this.machineMenu.length && this.selectedKeys.includes(item.dateAdded + "")) {
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
         this.getClickMenu(this.machineMenu[0]);
       } else {

@@ -21,10 +21,8 @@
         <a-menu-item style="margin: 0" v-for="code in codeList" :key="code.key">
           {{ code.name }}
           <span class="opate">
-            <a-tooltip title="删除" v-if="!code.publicCode">
-              <DeleteOutlined
-                @click="deleteMenu($event, code)"
-              ></DeleteOutlined>
+            <a-tooltip title="删除" v-if="!code.publicDatas">
+              <DeleteOutlined @click="deleteMenu($event, code)"></DeleteOutlined>
             </a-tooltip>
             <a-tooltip title="启用" v-if="!code.isOpen">
               <CheckCircleOutlined @click="openCode($event, code)" />
@@ -39,7 +37,7 @@
         <a-form :model="selectData" :label-col="{ span: 4 }">
           <a-form-item label="唯一标识:">
             <a-input
-              :disabled="selectData.publicCode"
+              :disabled="selectData.publicDatas"
               class="code_manager_input"
               v-model:value="selectData.key"
               placeholder="相同标识会覆盖内容"
@@ -47,7 +45,7 @@
           </a-form-item>
           <a-form-item label="名称:">
             <a-input
-              :disabled="selectData.publicCode"
+              :disabled="selectData.publicDatas"
               class="code_manager_input"
               v-model:value="selectData.name"
               placeholder=""
@@ -55,7 +53,7 @@
           </a-form-item>
           <a-form-item label="描述:">
             <a-input
-              :disabled="selectData.publicCode"
+              :disabled="selectData.publicDatas"
               class="code_manager_input"
               v-model:value="selectData.dec"
               placeholder=""
@@ -63,7 +61,7 @@
           </a-form-item>
           <a-form-item label="脚本:">
             <a-textarea
-              :disabled="selectData.publicCode"
+              :disabled="selectData.publicDatas"
               class="code_manager_textarea"
               :auto-size="{ minRows: 10, maxRows: 50 }"
               v-model:value="selectData.code"
@@ -77,7 +75,7 @@
 </template>
 
 <script>
-import browerExtensionService from "@/sevices/brower_extension.services"
+import browerExtensionService from "@/sevices/brower_extension.services";
 import {
   DeleteOutlined,
   CheckCircleOutlined,
@@ -85,6 +83,7 @@ import {
 } from "@ant-design/icons-vue";
 import localStorgeData from "@/sevices/localStorge.data";
 import browerExtensionUtil from "@/sevices/brower_extension.util";
+import { colSize } from "ant-design-vue/lib/grid/Col";
 
 export default {
   name: "codeManager",
@@ -104,34 +103,35 @@ export default {
     };
   },
   mounted() {
-    const localOpenCode = localStorgeData.getLocalVariable(
-      "__execute_codeScriptArr"
-    );
+    const localOpenCode = localStorgeData.getLocalVariable("__execute_codeScriptArr");
     const allCode = browerExtensionService.getCodes();
     Promise.all([allCode, localOpenCode]).then((data) => {
-      if (!data[0].privateCode) {
+      if (!data[0].privateDatas) {
         return;
       }
       // 处理全部的代码
-      this.codeList = data[0].privateCode;
-      if (data[0].publicCode) {
+      this.codeList = data[0].privateDatas;
+      if (data[0].publicDatas) {
         this.codeList = [
           ...this.codeList,
-          ...data[0].publicCode.map((pubCo) => {
+          ...data[0].publicDatas.map((pubCo) => {
             return {
               ...pubCo,
-              publicCode: true,
+              publicDatas: true,
             };
           }),
         ];
       }
-      this.defaultSelectedKeys = [this.codeList[0].key];
-      this.selectData = this.codeList[0];
+      if (this.codeList[0]) {
+        this.defaultSelectedKeys = [this.codeList[0].key];
+        this.selectData = this.codeList[0];
+      }
       // 赋值现在启用的keys
       this.openKeys = data[1] ? data[1].map((v) => v.key) : null;
       this.codeList.forEach((ok) => {
         ok.isOpen = this.getOpenOrClose(ok.key);
       });
+      this.codeList = [...this.codeList];
     });
   },
   methods: {
@@ -153,7 +153,7 @@ export default {
       const data = {
         key,
         name: "测试脚本",
-        dev: "这是测试的代码",
+        dec: "这是测试的代码",
         code: `
         alert('测试的代码')
         `,
@@ -163,15 +163,13 @@ export default {
       this.selectData = this.codeList[0];
     },
     autoSave: function () {
-      const index = this.codeList.findIndex(
-        (v) => v.key === this.selectData.key
-      );
+      const index = this.codeList.findIndex((v) => v.key === this.selectData.key);
       this.codeList[index] = this.selectData;
       this.codeList = [...this.codeList];
     },
     saveAll: function () {
       browerExtensionService
-        .uploadCode(this.codeList.filter((co) => !co.publicCode))
+        .uploadCodes(this.codeList.filter((co) => !co.publicDatas))
         .then((data) => {
           if (data) {
             alert("操作成功");
@@ -209,10 +207,7 @@ export default {
     openSync: function () {
       const isOpenData = this.codeList.filter((v) => v.isOpen);
       const isOpemDataClone = JSON.parse(JSON.stringify(isOpenData));
-      localStorgeData.setLocalVariable(
-        "__execute_codeScriptArr",
-        isOpemDataClone
-      );
+      localStorgeData.setLocalVariable("__execute_codeScriptArr", isOpemDataClone);
       browerExtensionUtil.sendMessage(
         "__execute_codeScriptArr_reload",
         isOpemDataClone,

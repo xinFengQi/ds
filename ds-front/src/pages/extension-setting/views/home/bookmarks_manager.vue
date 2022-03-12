@@ -16,18 +16,16 @@ export default {
   components: {
     Home,
   },
-  methods: {
-    
-  },
+  methods: {},
 };
 </script>
 
 <style scoped>
 .bookmarks_manager_main {
-  height: 100%;
+  height: 99%;
 }
 
-.bm_setting_tool{
-    display: flex;
+.bm_setting_tool {
+  display: flex;
 }
 </style>

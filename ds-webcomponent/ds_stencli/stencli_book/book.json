@@ -1,9 +1,0 @@
-{
-    "title": "damon 文档",
-    "description": "学习记录的文档仓库。",
-    "language": "zh-hans",
-    "plugins": [
-        "expandable-chapters"
-    ],
-    "pluginsConfig": {}
-}

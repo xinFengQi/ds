@@ -1,4 +1,10 @@
 {
+    "gitee_info": {
+        "access_token": "",
+        "repo": "",
+        "owner": ""
+    },
+    "_stencil": "stencli功能,主要是将生成的文档网页部署到gitee",
     "stencil": {
         "_outputGitDist": "需要上传到gitee的文件夹",
         "outputGitDist": "./dist_gitee",
@@ -7,6 +13,7 @@
         "_distPath": "组件打包后的文件夹",
         "distPath": "dist"
     },
+    "_gitee": "gitee功能,主要是将gitee代码上传或者下载",
     "gitee": {
         "_outputGitDist": "需要上传到gitee的文件夹",
         "outputGitDist": "./dist_gitee",
@@ -20,5 +27,30 @@
         },
         "_deleteGitPath": "需要删除远程的gitPath路径下的文件数据, 为空则是把gitPath路径下全部删除",
         "deleteGitPath": []
+    },
+    "_fileHandler": "文件处理的配置",
+    "fileHandler": {
+        "_copy": "复制文件的配置, 类型:{[key: string]: {src: string, dest: string}[]}",
+        "copy": {
+            "default": [
+                {
+                    "_src": "需要复制的文件夹或者文件路径",
+                    "src": "./src",
+                    "_dest": "复制后生成的路径",
+                    "dest": "./dist"
+                }
+            ]
+        },
+        "_move": "移动文件的配置, 类型:{[key: string]: {src: string, dest: string}[]}",
+        "move": {
+            "default": [
+                {
+                    "_src": "需要移动的文件夹或者文件路径",
+                    "src": "./src",
+                    "_dest": "移动后生成的路径",
+                    "dest": "./dist"
+                }
+            ]
+        }
     }
 }

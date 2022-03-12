@@ -2,9 +2,7 @@
   <div class="blog_manager_main">
     <GiteeSettingForm :giteeData="giteePublicData"></GiteeSettingForm>
     <div class="setting_tool">
-      <a-button class="mr-8" type="primary" @click="reload()">
-        重新加载
-      </a-button>
+      <a-button class="mr-8" type="primary" @click="reload()"> 重新加载 </a-button>
     </div>
     <div class="setting_tool left">
       <a-button class="mr-8" type="primary" @click="gotoPage('list', '博客')">
@@ -16,9 +14,7 @@
       <a-button class="mr-8" type="primary" @click="gotoPage('setting')">
         设置页
       </a-button>
-      <a-button class="mr-8" type="primary" @click="gotoPage('add')">
-        新增页
-      </a-button>
+      <a-button class="mr-8" type="primary" @click="gotoPage('add')"> 新增页 </a-button>
     </div>
     <BlogManagerList
       v-if="giteeFileData && currentPage === 'list'"
@@ -63,7 +59,6 @@ export default {
   mounted() {
     getGiteeLocalStoreData("blog_manager", "public", true).then((v) => {
       this.giteeFileData = v;
-      console.log(this.giteeFileData, "======");
     });
   },
   methods: {
@@ -98,4 +93,5 @@ export default {
 .left {
   justify-content: flex-end;
 }
-</style>>
+</style>
+>

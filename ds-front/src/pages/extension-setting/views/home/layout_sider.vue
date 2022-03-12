@@ -68,32 +68,41 @@ export default {
           key: "resource_manager",
           label: "资源管理",
           icon: SnippetsTwoTone,
-          isShow: true,
+          isShow: false,
         },
         {
           key: "blog_manager",
           label: "博客管理",
           icon: SnippetsTwoTone,
-          isShow: true,
+          isShow: false,
         },
       ],
     };
   },
 
   mounted() {
+    // 判断是否有资源管理的权限
+    localStorgeData.getLocalVariableSub("__gitee_all_ds_access_token", (isShow) => {
+      console.log(isShow, "=====");
+      const index = this.menuTree.findIndex((v) => v.key === "resource_manager");
+      this.menuTree[index].isShow = isShow !== "16cf2bb0ab7fa12779bfec47f2c3ee9a";
+    });
+
     this.$emit("selectMenuKey", this.defaultSelectedKeys[0]);
     // 判断是否读取远程书签权限
     localStorgeData.getLocalVariableSub(
       getGiteeKey("booksMarks", "private_open"),
       (isShow) => {
-        this.menuTree[2].isShow = isShow;
+        const index = this.menuTree.findIndex((v) => v.key === "bookmarks_manager");
+        this.menuTree[index].isShow = isShow;
       }
     );
     // 判断是否读取远程书签权限
     localStorgeData.getLocalVariableSub(
       getGiteeKey("codes", "private_open"),
       (isShow) => {
-        this.menuTree[4].isShow = isShow;
+        const index = this.menuTree.findIndex((v) => v.key === "code_manager");
+        this.menuTree[index].isShow = isShow;
       }
     );
   },

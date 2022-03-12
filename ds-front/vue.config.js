@@ -16,6 +16,10 @@ module.exports = {
             entry: 'src/pages/extension-setting/main.ts',
             template: 'public/extension-setting.html'
         },
+        'extension-backgroud': {
+            entry: 'src/pages/extension-backgroud/main.ts',
+            template: 'public/extension-backgroud.html'
+        },
     },
     css: {
         loaderOptions: {

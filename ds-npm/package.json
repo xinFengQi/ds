@@ -1,15 +1,23 @@
 {
   "name": "dfb",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "pack": "npm pack && npm install -g dfb-1.0.0.tgz",
-    "serve": "npm install . -g && npm link"
+    "pack": "npm pack && npm install -g dfb-1.0.1.tgz",
+    "serve": "npm install . -g --force && npm link --force",
+    "version1": "npm version patch",
+    "version2": "npm version minor",
+    "version3": "npm version major",
+    "publish": "npm publish"
   },
   "bin": {
-    "dsn": "index.js"
+    "dsn": "index.js",
+    "dsgitee": "bin/gitee.js",
+    "dsconfig": "bin/config.js",
+    "dsstecil": "bin/stencil.js",
+    "dsutil": "bin/util.js"
   },
   "author": "fbdong",
   "license": "ISC",
@@ -20,8 +28,13 @@
     "handlebars": "^4.7.7",
     "inquirer": "^8.1.1",
     "log-symbols": "^5.0.0",
-    "marked": "^4.0.12",
+    "marked": "^2.1.3",
+    "md5": "^2.3.0",
     "ora": "^5.4.1",
     "request": "^2.88.2"
-  }
+  },
+  "keywords": [
+    "ds",
+    "个人工具"
+  ]
 }

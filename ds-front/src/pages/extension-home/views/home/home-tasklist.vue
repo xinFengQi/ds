@@ -44,7 +44,9 @@
       :key="task.title + i"
       :bodyStyle="cardBodyStyle"
     >
-      <template #extra><a @click="deleteTask(task)">删除</a></template>
+      <template #extra>
+        <a-button type="link" @click="deleteTask(task)">删除</a-button>
+      </template>
       <span>{{ getData(task.time) }}</span>
       <pre>{{ task.content }}</pre>
       <div class="tag_list">

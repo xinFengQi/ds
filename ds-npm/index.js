@@ -8,14 +8,16 @@ import chalk from 'chalk'
 import logSymbols from 'log-symbols'
 import fs from 'fs-extra'
 import path, { parse } from 'path'
-import { initstencilCmd } from './src/stencil/index.mjs'
-import  { initGiteeCmd } from './src/gitee/index.mjs';
-import { removeSpace, getDsnConfig, initDsnUtilCmd } from './src/util/index.mjs';
 
+import { getDsnConfig } from './src/config/index.js';
+
+
+
+const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
 // dsn -V|--version
-program.version('1.0.0');
+program.version(data.version);
 
-// 初始化一些项目
+// 测试
 program.command('test')
     .description('测试命令行')
     .action(() => {
@@ -23,27 +25,9 @@ program.command('test')
         console.log(logSymbols.info, chalk.green(`当前目录是${path.resolve()}`));
     })
 
-
-initstencilCmd();
-initGiteeCmd();
-initDsnUtilCmd();
-
-program.command('list')
-    .description('查看所有的命令')
-    .action(() => {
-        console.log(`
-        test 测试一些数据
-        list 查看所有命令
-        stencil|scil
-            -h|-H 帮助
-            -c|-complie 将目标文件移入准备上传到gitee的文件夹
-        gitee|ge 
-            -h|-H 帮助
-            -pull|-p 文件上传进ct的gitee
-        dsnutil|du
-            -h|-H 查看帮助
-            -init|-i  将配置文件生成
-    `);
-    })
+import './bin/config.js';
+import './bin/stencil.js';
+import './bin/gitee.js';
+import './bin/util.js';
 
 program.parse(process.argv);

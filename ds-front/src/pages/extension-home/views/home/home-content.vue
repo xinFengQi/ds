@@ -15,12 +15,9 @@
         ></HomeContent>
       </a-collapse-panel>
       <div class="show_contain">
-        <a-button
-          v-for="da in getNoChildren"
-          :key="da.dateAdded + ''"
-          type="link"
-        >
-          <a :href="da.url" target="_blank">{{ da.title }}</a>
+        <a-button v-for="da in getNoChildren" :key="da.dateAdded + ''" type="link">
+          <a-button type="link" :href="da.url" target="_blank">{{ da.title }}</a-button>
+
           <span class="opate" v-if="edit">
             <DeleteOutlined @click="deleteMenu($event, da)"></DeleteOutlined>
           </span>
@@ -85,7 +82,9 @@ export default {
       this.$emit("deleteItem", item);
     },
     deleteItem(ev, da) {
-      da.children = da.children.filter((v) => v.dateAdded !== ev.dateAdded && v.title !== ev.title);
+      da.children = da.children.filter(
+        (v) => v.dateAdded !== ev.dateAdded && v.title !== ev.title
+      );
       this.$emit("deleteItem", ev);
     },
   },

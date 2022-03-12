@@ -2,16 +2,11 @@
   <div>
     <GiteeSettingForm :giteeData="giteePublicData"></GiteeSettingForm>
     <div class="setting_tool">
-      <a-button class="mr-8" type="primary" @click="reload()"
-        >重新加载</a-button
-      >
+      <a-button class="mr-8" type="primary" @click="reload()">重新加载</a-button>
       <!-- 非付费pages不允许构建 -->
       <!-- <a-button type="primary" @click="buildPages()">构建pages</a-button> -->
     </div>
-    <GiteeFileManager
-      v-if="giteeFileData"
-      :giteeData="giteeFileData"
-    ></GiteeFileManager>
+    <GiteeFileManager v-if="giteeFileData" :giteeData="giteeFileData"></GiteeFileManager>
   </div>
 </template>
 
@@ -39,7 +34,6 @@ export default {
   mounted() {
     getGiteeLocalStoreData("resource", "public", true).then((v) => {
       this.giteeFileData = v;
-      console.log(this.giteeFileData, "======");
     });
   },
   methods: {
@@ -64,5 +58,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

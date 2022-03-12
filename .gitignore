@@ -13,6 +13,12 @@ dist/**
 dfb_dist/**
 **/dfb_dist/**
 
+.dstemp/**
+**/.dstemp/**
+
+.downFile/**
+**/.downFile/**
+
 
 dist_gitee/**
 **/dist_gitee/**
