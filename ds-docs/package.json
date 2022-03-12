@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "docsify serve all_docs",
-    "replace": "node ./scripts/replace.js"
+    "replace": "node ./scripts/replace.js",
+    "deploy": "npm run replace && dsn dg -push",
+    "version1": "npm version patch",
+    "version2": "npm version minor",
+    "version3": "npm version major"
   },
   "author": "",
   "license": "ISC",

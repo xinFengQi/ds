@@ -22,22 +22,4 @@ dsn --help
 dsn dc -clea
 ```
 
-### 配置的指令
-
-```
-
-dsn dc **
-
-Options:
-  -init, --i             初始化配置文件
-  -update, --u           更新配置文件
-  --stencli              加入配置文件生成的可选项
-  --gitee                加入配置文件生成的可选项
-  -token <access_token>  写入gitee的配置
-  -repo <repo>           写入gitee的配置
-  -owner <owner>         写入gitee的配置
-  -h, --help             display help for command
-
-```
-
 ## 已有功能介绍

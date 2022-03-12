@@ -27,8 +27,11 @@ const allPath = [
 
 const indexTemplate = fs.readFileSync('./scripts/template/index.html').toString();
 
+const version = JSON.parse(fs.readFileSync('./package.json').toString()).version;
+
 allPath.forEach(path => {
     const newIndexStr = indexTemplate.replace(/\{\{title\}\}/g, path.title)
-                                     .replace(/\{\{docsify_custom_path\}\}/g, path.docsify_custom_path);
+                                     .replace(/\{\{docsify_custom_path\}\}/g, path.docsify_custom_path)
+                                     .replace(/\{\{version\}\}/g, version);
     fs.writeFileSync(path.path+'/index.html', newIndexStr)
 })

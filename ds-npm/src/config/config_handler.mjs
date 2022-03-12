@@ -1,6 +1,6 @@
 
 import fs from 'fs-extra'
-
+import nodePath from 'path'
 
 // 获取config的配置
 function getDsnConfig(configpath = './dsn.config.json') {
@@ -12,7 +12,6 @@ function getDsnConfig(configpath = './dsn.config.json') {
             (fs.readFileSync(configpath)).toString()
         );
     }
-
     dsnConfig.defaultConfig = JSON.parse(fs.readFileSync
         (new URL('../../dsn.config.json', import.meta.url)).toString()
     );

@@ -10,7 +10,7 @@ program.command('config').alias('dc')
     .option('-init, --i', '初始化配置文件')
     .option('-update, --u', '更新配置文件')
     .option('-clear', '清除dsn的所有缓存')
-    .option('--stencli', '加入配置文件生成的可选项')
+    .option('--stencil', '加入配置文件生成的可选项')
     .option('--gitee', '加入配置文件生成的可选项')
     .option('-token <access_token>', '写入gitee的配置')
     .option('-repo <repo>', '写入gitee的配置')
@@ -49,7 +49,7 @@ function initConfigFile(options) {
     const data = fs.readFileSync
         (new URL('../dsn.config.json', import.meta.url)).toString()
     const generateArr = ['gitee_info'];
-    if (options.stencli) {
+    if (options.stencil) {
         generateArr.push('_stencil');
         generateArr.push('stencil');
     }
