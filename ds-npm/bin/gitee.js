@@ -4,7 +4,7 @@ import program from 'commander' // 设计命令行
 import fs from 'fs-extra'
 import logSymbols from 'log-symbols'
 import chalk from 'chalk'
-import { isUEmpty } from '../src/util/index.js';
+import { isUEmpty, getExcPath } from '../src/util/index.js';
 import { getDsnConfig } from '../src/config/index.js';
 import nodePath from 'path'
 import { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig, giteePathHandler } from '../src/gitee/index.js'
@@ -39,7 +39,8 @@ function chromeInit() {
         console.log(logSymbols.success, '查看文档', chalk.green('https://dongfubao.gitee.io/ct'))
     })
     // 下载文件文件
-    const downFilePath = new URL('../downFile', import.meta.url).toString().replace('file:///', '');
+    const downFilePath = getExcPath('../../downFile/chrome');
+    console.log(downFilePath, '======')
     giteeDirDownload(downFilePath, 'lib/chrome_extension')
 
 }

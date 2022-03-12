@@ -4,7 +4,7 @@ import program from 'commander' // 设计命令行
 import fs from 'fs-extra'
 import logSymbols from 'log-symbols'
 import chalk from 'chalk'
-
+import { getExcPath } from '../src/util/index.js'
 
 program.command('config').alias('dc')
     .option('-init, --i', '初始化配置文件')
@@ -26,14 +26,14 @@ program.command('config').alias('dc')
             initConfigFile(options)
         }
         if (options.Clear || options.i) {
-            cacheClear(new URL('../.dstemp', import.meta.url).toString().replace('file:///', ''))
+            cacheClear(getExcPath('../.dstemp'))
         }
 
     })
 
 
-    // 递归清空所有缓存
-function cacheClear(path){
+// 递归清空所有缓存
+function cacheClear(path) {
     fs.emptyDirSync(path)
     console.log(logSymbols.success, chalk.green('清除成功'))
 }
