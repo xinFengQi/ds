@@ -1,6 +1,6 @@
 {
   "name": "ds-docs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "文档博客管理的页面",
   "main": "index.js",
   "scripts": {

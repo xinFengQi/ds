@@ -26,7 +26,7 @@ program.command('config').alias('dc')
             initConfigFile(options)
         }
         if (options.Clear || options.i) {
-            cacheClear(getExcPath('../.dstemp'))
+            cacheClear(getExcPath('../../.dstemp'))
         }
 
     })

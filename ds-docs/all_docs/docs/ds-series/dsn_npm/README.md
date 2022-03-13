@@ -19,7 +19,6 @@ dsn --help
 
 ### 清除下载文件缓存
 ```
-dsn dc -clea
+dsn dc -clear
 ```
 
-## 已有功能介绍

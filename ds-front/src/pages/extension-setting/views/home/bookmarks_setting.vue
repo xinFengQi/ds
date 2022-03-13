@@ -62,7 +62,10 @@
         <div class="input_conlone">
           <label>设置标识:</label>
           <span class="input_value">
-            <a-typography-paragraph v-model:content="giteeDsPublicFlag" editable>
+            <a-typography-paragraph
+              v-model:content="giteeDsPublicFlag"
+              editable
+            >
               <template v-slot:editableIcon>
                 <HighlightTwoTone />
               </template>
@@ -137,20 +140,25 @@ export default {
         return;
       }
       console.log("存在变化", newV, oldV);
-      localStorgeData.setLocalVariable(getGiteeKey("booksMarks", "private_flag"), newV);
+      localStorgeData.setLocalVariable(
+        getGiteeKey("booksMarks", "private_flag"),
+        newV
+      );
     },
     giteeDsPublicFlag: function (newV, oldV) {
       if (newV === oldV) {
         return;
       }
       console.log("存在变化", newV, oldV);
-      localStorgeData.setLocalVariable(getGiteeKey("booksMarks", "public_flag"), newV);
+      localStorgeData.setLocalVariable(
+        getGiteeKey("booksMarks", "public_flag"),
+        newV
+      );
     },
   },
   methods: {
     uploadBookMarks: function () {
-      browerExtensionUtil.getBookmarks().then((book) => {
-        console.log("=====当前书签页", book);
+      browerExtensionService.getBookMarks().then((book) => {
         browerExtensionService.uploadBookMarks(book ? book : []).then((v) => {
           if (v) {
             alert("更新成功");
@@ -160,10 +168,16 @@ export default {
       // 上传功能暂时未做
     },
     giteePrivateOpenChange: function (ev) {
-      localStorgeData.setLocalVariable(getGiteeKey("booksMarks", "private_open"), ev);
+      localStorgeData.setLocalVariable(
+        getGiteeKey("booksMarks", "private_open"),
+        ev
+      );
     },
     giteePublicOpenChange: function (ev) {
-      localStorgeData.setLocalVariable(getGiteeKey("booksMarks", "public_open"), ev);
+      localStorgeData.setLocalVariable(
+        getGiteeKey("booksMarks", "public_open"),
+        ev
+      );
     },
   },
 };

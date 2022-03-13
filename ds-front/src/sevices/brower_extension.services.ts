@@ -221,9 +221,7 @@ function getTasklist() {
             ) {
                 return;
             }
-            console.log(JSON.stringify(publicData));
-            console.log(JSON.stringify(privateData));
-            resolve(handlerPublicPrivateData(publicData, privateData));
+            resolve(handlerPublicPrivateDataSingle(publicData, privateData));
         };
 
         localStorgeData
@@ -294,6 +292,30 @@ function getTasklist() {
     });
 }
 
+
+function handlerPublicPrivateDataSingle(publicData: any, privateData: any) {
+    const retuObj = {
+        publicDatas: [],
+        privateDatas: [],
+    };
+
+    if (publicData && publicData.content) {
+        retuObj.publicDatas = JSON.parse(
+            decodeURIComponent(atob(publicData.content))
+        );
+        retuObj.publicDatas = retuObj.publicDatas;
+    }
+    if (privateData && privateData.content) {
+        retuObj.privateDatas = JSON.parse(
+            decodeURIComponent(atob(privateData.content))
+        );
+        retuObj.privateDatas = retuObj.privateDatas;
+    }
+    return retuObj;
+}
+
+
+
 function handlerPublicPrivateData(publicData: any, privateData: any) {
     const retuObj = {
         publicDatas: [],
@@ -325,6 +347,7 @@ function uploadTaskList(taskList: any[]) {
         };
     });
     return new Promise((relove, reject) => {
+        console.log(Array.isArray(newTaskList))
         getGiteeLocalStoreData('tasklist', 'private')
             .then((daP: any) => {
                 addOrUpdateData(
