@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'bootstrap_4_stencli',
+  namespace: 'bootstrap5_stencli',
   globalScript: 'src/global_js/index.ts',
   globalStyle: 'src/global_css/index.css',
   outputTargets: [
@@ -25,7 +25,7 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
-      dir: 'dist/docs',
+      dir: 'dist/www',
       footer: ''
     },
     { type: 'docs-json', file: 'dist/docs.json'},

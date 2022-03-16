@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 import { Toast, Tooltip } from 'bootstrap';
 
 @Component({
@@ -6,7 +6,13 @@ import { Toast, Tooltip } from 'bootstrap';
   styleUrl: 'dsb5-test.css',
   shadow: false,
 })
-export class Bootstrap4StencliTest {
+export class bootstrap5StencliTest {
+  /** 一个字符串数组参数1 */
+  @Prop() propArr: string[];
+
+  /** 一个字符串参数 */
+  @Prop() prop: string;
+
   componentDidLoad() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {

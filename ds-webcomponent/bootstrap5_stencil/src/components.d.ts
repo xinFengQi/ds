@@ -9,6 +9,14 @@ export namespace Components {
     interface Dsb5FunctionTest {
     }
     interface Dsb5Test {
+        /**
+          * 一个字符串参数
+         */
+        "prop": string;
+        /**
+          * 一个字符串数组参数1
+         */
+        "propArr": string[];
     }
 }
 declare global {
@@ -33,6 +41,14 @@ declare namespace LocalJSX {
     interface Dsb5FunctionTest {
     }
     interface Dsb5Test {
+        /**
+          * 一个字符串参数
+         */
+        "prop"?: string;
+        /**
+          * 一个字符串数组参数1
+         */
+        "propArr"?: string[];
     }
     interface IntrinsicElements {
         "dsb5-function-test": Dsb5FunctionTest;

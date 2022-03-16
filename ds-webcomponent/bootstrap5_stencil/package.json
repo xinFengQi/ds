@@ -16,7 +16,9 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "start": "stencil build --docs --dev --watch --serve",
+    "start": "npm-run-all --parallel start:*",
+    "start:stencil": "stencil build --docs --dev --watch --serve",
+    "start:mobitor": "node ./scripts/monitor.js",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
@@ -25,15 +27,13 @@
     "@popperjs/core": "^2.9.2",
     "@stencil/core": "^2.0.1",
     "bootstrap": "^5.0.2",
-    "bootstrap-icons": "^1.5.0",
-    "fs-extra": "^10.0.0",
-    "marked": "^2.1.3",
-    "request": "^2.88.2"
+    "bootstrap-icons": "^1.5.0"
   },
   "license": "MIT",
   "devDependencies": {
     "@stencil/store": "^1.4.1",
-    "@types/node": "^15.12.4"
+    "@types/node": "^15.12.4",
+    "npm-run-all": "^4.1.5"
   },
   "author": ""
 }
