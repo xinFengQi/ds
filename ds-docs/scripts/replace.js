@@ -10,8 +10,13 @@ const allPath = [
         docsify_custom_path:  './docs/'
     },
     {
-        path: './all_docs/docs/ds-series/dsn_npm',
+        path: './all_docs/docs/ds-series/dsn',
         title: 'dsn脚手架工具',
+        docsify_custom_path:  '../../'
+    },
+    {
+        path: './all_docs/docs/ds-series/dsb5',
+        title: '基于bootstrap5的标准web组件',
         docsify_custom_path:  '../../'
     },
     {
