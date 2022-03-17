@@ -40,7 +40,15 @@ export const config: Config = {
         {
           src: '../node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2',
           dest: 'build/fonts/bootstrap-icons.woff2'
-        }
+        },
+        {
+          src: '../docsify/docsify@4.js',
+          dest: './docsify/docsify@4.js'
+        },
+        {
+          src: '../docsify/vue.css',
+          dest: './docsify/vue.css'
+        },
       ],
       serviceWorker: null, // disable service workers
     },

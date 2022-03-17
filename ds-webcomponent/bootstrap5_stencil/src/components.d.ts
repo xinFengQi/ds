@@ -6,7 +6,29 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface DsProp {
+        "name": string;
+        "type": 'string' | 'array' | 'json';
+    }
+    interface DsScript {
+    }
     interface Dsb5FunctionTest {
+        /**
+          * 需要执行的全局函数
+         */
+        "fun": string;
+        /**
+          * 需要执行函数的参数
+         */
+        "params": any[];
+        /**
+          * 执行函数的结果
+         */
+        "result": any[];
+        /**
+          * 展示用例的类型
+         */
+        "type": 'testCase';
     }
     interface Dsb5Test {
         /**
@@ -20,6 +42,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLDsPropElement extends Components.DsProp, HTMLStencilElement {
+    }
+    var HTMLDsPropElement: {
+        prototype: HTMLDsPropElement;
+        new (): HTMLDsPropElement;
+    };
+    interface HTMLDsScriptElement extends Components.DsScript, HTMLStencilElement {
+    }
+    var HTMLDsScriptElement: {
+        prototype: HTMLDsScriptElement;
+        new (): HTMLDsScriptElement;
+    };
     interface HTMLDsb5FunctionTestElement extends Components.Dsb5FunctionTest, HTMLStencilElement {
     }
     var HTMLDsb5FunctionTestElement: {
@@ -33,12 +67,37 @@ declare global {
         new (): HTMLDsb5TestElement;
     };
     interface HTMLElementTagNameMap {
+        "ds-prop": HTMLDsPropElement;
+        "ds-script": HTMLDsScriptElement;
         "dsb5-function-test": HTMLDsb5FunctionTestElement;
         "dsb5-test": HTMLDsb5TestElement;
     }
 }
 declare namespace LocalJSX {
+    interface DsProp {
+        "name": string;
+        "onGetProp"?: (event: CustomEvent<{ key: string; value: any }>) => void;
+        "type"?: 'string' | 'array' | 'json';
+    }
+    interface DsScript {
+    }
     interface Dsb5FunctionTest {
+        /**
+          * 需要执行的全局函数
+         */
+        "fun": string;
+        /**
+          * 需要执行函数的参数
+         */
+        "params"?: any[];
+        /**
+          * 执行函数的结果
+         */
+        "result"?: any[];
+        /**
+          * 展示用例的类型
+         */
+        "type"?: 'testCase';
     }
     interface Dsb5Test {
         /**
@@ -51,6 +110,8 @@ declare namespace LocalJSX {
         "propArr"?: string[];
     }
     interface IntrinsicElements {
+        "ds-prop": DsProp;
+        "ds-script": DsScript;
         "dsb5-function-test": Dsb5FunctionTest;
         "dsb5-test": Dsb5Test;
     }
@@ -59,6 +120,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ds-prop": LocalJSX.DsProp & JSXBase.HTMLAttributes<HTMLDsPropElement>;
+            "ds-script": LocalJSX.DsScript & JSXBase.HTMLAttributes<HTMLDsScriptElement>;
             "dsb5-function-test": LocalJSX.Dsb5FunctionTest & JSXBase.HTMLAttributes<HTMLDsb5FunctionTestElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
         }
