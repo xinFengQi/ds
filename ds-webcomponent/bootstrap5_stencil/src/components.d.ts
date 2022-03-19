@@ -7,7 +7,13 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DsProp {
+        /**
+          * 参数名称
+         */
         "name": string;
+        /**
+          * 参数类型
+         */
         "type": 'string' | 'array' | 'json';
     }
     interface DsScript {
@@ -75,8 +81,17 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DsProp {
+        /**
+          * 参数名称
+         */
         "name": string;
+        /**
+          * 解析参数后回调事件
+         */
         "onGetProp"?: (event: CustomEvent<{ key: string; value: any }>) => void;
+        /**
+          * 参数类型
+         */
         "type"?: 'string' | 'array' | 'json';
     }
     interface DsScript {

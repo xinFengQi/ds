@@ -10,21 +10,21 @@
 
 ### 示例
 
-<dsb5-function-test fun="dsutil.test1">   
+<dsb5-function-test fun="ds.tsetFun">   
     <ds-prop name="params" type="array">
-       ["12"]
+       ["1"]
     </ds-prop>
     <ds-prop name="result" type="array">
-       ["121"]
+       "1"
     </ds-prop>
 </dsb5-function-test>
 <hr />
-<dsb5-function-test fun="dsutil.test1">   
+<dsb5-function-test fun="ds.tsetFun">   
     <ds-prop name="params" type="array">
-      ["12"]
+      ["2"]
     </ds-prop>
     <ds-prop name="result" type="array">
-      ["12"]
+      3
     </ds-prop>
 </dsb5-function-test>
 

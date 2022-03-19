@@ -7,10 +7,13 @@ import { Component, Element, h, Event, Host, EventEmitter, Prop } from '@stencil
 export class DsProp {
   @Element() el: HTMLElement;
 
+  /** 参数名称 */
   @Prop() name!: string;
 
+  /** 参数类型 */
   @Prop() type: 'string' | 'array' | 'json' = 'string';
 
+  /** 解析参数后回调事件 */
   @Event() getProp: EventEmitter<{ key: string; value: any }>;
 
   componentDidRender() {
@@ -25,7 +28,6 @@ export class DsProp {
       console.error(error);
     }
 
-    console.log(this.name, this.type, text);
     this.getProp.emit({ key: this.name, value });
   }
 
