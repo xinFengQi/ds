@@ -32,6 +32,10 @@ export namespace Components {
          */
         "result": any[];
         /**
+          * 执行次数
+         */
+        "time": number;
+        /**
           * 展示用例的类型
          */
         "type": 'testCase';
@@ -109,6 +113,10 @@ declare namespace LocalJSX {
           * 执行函数的结果
          */
         "result"?: any[];
+        /**
+          * 执行次数
+         */
+        "time"?: number;
         /**
           * 展示用例的类型
          */

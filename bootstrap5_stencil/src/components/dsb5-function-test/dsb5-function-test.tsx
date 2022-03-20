@@ -20,6 +20,9 @@ export class Dsb5FunctionTest {
   /** 执行函数的结果 */
   @Prop() result: any[];
 
+  /** 执行次数 */
+  @Prop() time = 10;
+
   @Element() hostDiv: HTMLElement;
 
   // 基础组件minix
@@ -76,9 +79,12 @@ export class Dsb5FunctionTest {
     if (funObj) {
       const startTime = new Date().getTime();
       const getResult = funObj.apply(this, this.params);
+      for (let i = 1; i < this.time; i++) {
+        funObj.apply(this, this.params);
+      }
       this.executeTime = new Date().getTime() - startTime;
       this.isResult = this.isEqual(getResult, this.result)
-      if(!this.isResult) {
+      if (!this.isResult) {
         this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`)
       }
       console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result)
@@ -87,13 +93,13 @@ export class Dsb5FunctionTest {
 
   // 判断两个值是否相等
   isEqual(a: any, b: any) {
-    if(typeof a !== typeof b) {
+    if (typeof a !== typeof b) {
       return false;
     }
-    if(a === b) {
+    if (a === b) {
       return true;
     }
-    if(typeof a === 'object') {
+    if (typeof a === 'object') {
       return JSON.stringify(a) === JSON.stringify(b)
     }
 
@@ -121,7 +127,8 @@ export class Dsb5FunctionTest {
                     </span>
                   ) : (
                     <span>
-                      <span class="font_success">执行成功</span>:执行时间{this.executeTime}ms
+                      <span class="font_success">执行成功</span>;执行时间{this.executeTime}ms;
+                        执行次数:{this.time}
                     </span>
                   )}
                 </button>
@@ -136,8 +143,8 @@ export class Dsb5FunctionTest {
                     </span>
                   ) : (
                     <span>
-                     <span>执行参数:</span>{this.params}<br />
-                     <span>执行结果:</span>{this.result}<br />
+                      <span>执行参数:</span>{this.params}<br />
+                      <span>执行结果:</span>{this.result}<br />
 
                     </span>
                   )}

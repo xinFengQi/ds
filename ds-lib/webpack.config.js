@@ -69,7 +69,7 @@ module.exports = {
                         to: './_sidebar.md',
                     },
                     {
-                        from: './src/docs',
+                        from: './docs',
                         to: './docs',
                     },
                     {

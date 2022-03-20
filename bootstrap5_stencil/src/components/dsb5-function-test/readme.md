@@ -10,7 +10,7 @@
 
 ### 示例
 
-<dsb5-function-test fun="ds.tsetFun">   
+<dsb5-function-test fun="ds.tsetFun" time="100000">   
     <ds-prop name="params" type="array">
        ["1"]
     </ds-prop>
