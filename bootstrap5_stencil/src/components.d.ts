@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ComponentType } from "./interface/type.interface";
 export namespace Components {
     interface DsProp {
         /**
@@ -18,7 +19,29 @@ export namespace Components {
     }
     interface DsScript {
     }
-    interface Dsb5FunctionTest {
+    interface Dsb5Alert {
+        /**
+          * 是否显示关闭按钮
+         */
+        "close": boolean;
+        /**
+          * 弹框的内容
+         */
+        "content": string;
+        /**
+          * 弹框是否是浮动的
+         */
+        "fixed": boolean;
+        /**
+          * 是否显示
+         */
+        "show": boolean;
+        /**
+          * 弹框的类型
+         */
+        "type": ComponentType;
+    }
+    interface Dsb5FunctionExecute {
         /**
           * 需要执行的全局函数
          */
@@ -50,6 +73,8 @@ export namespace Components {
          */
         "propArr": string[];
     }
+    interface Dsb5WebcomponentShow {
+    }
 }
 declare global {
     interface HTMLDsPropElement extends Components.DsProp, HTMLStencilElement {
@@ -64,11 +89,17 @@ declare global {
         prototype: HTMLDsScriptElement;
         new (): HTMLDsScriptElement;
     };
-    interface HTMLDsb5FunctionTestElement extends Components.Dsb5FunctionTest, HTMLStencilElement {
+    interface HTMLDsb5AlertElement extends Components.Dsb5Alert, HTMLStencilElement {
     }
-    var HTMLDsb5FunctionTestElement: {
-        prototype: HTMLDsb5FunctionTestElement;
-        new (): HTMLDsb5FunctionTestElement;
+    var HTMLDsb5AlertElement: {
+        prototype: HTMLDsb5AlertElement;
+        new (): HTMLDsb5AlertElement;
+    };
+    interface HTMLDsb5FunctionExecuteElement extends Components.Dsb5FunctionExecute, HTMLStencilElement {
+    }
+    var HTMLDsb5FunctionExecuteElement: {
+        prototype: HTMLDsb5FunctionExecuteElement;
+        new (): HTMLDsb5FunctionExecuteElement;
     };
     interface HTMLDsb5TestElement extends Components.Dsb5Test, HTMLStencilElement {
     }
@@ -76,11 +107,19 @@ declare global {
         prototype: HTMLDsb5TestElement;
         new (): HTMLDsb5TestElement;
     };
+    interface HTMLDsb5WebcomponentShowElement extends Components.Dsb5WebcomponentShow, HTMLStencilElement {
+    }
+    var HTMLDsb5WebcomponentShowElement: {
+        prototype: HTMLDsb5WebcomponentShowElement;
+        new (): HTMLDsb5WebcomponentShowElement;
+    };
     interface HTMLElementTagNameMap {
         "ds-prop": HTMLDsPropElement;
         "ds-script": HTMLDsScriptElement;
-        "dsb5-function-test": HTMLDsb5FunctionTestElement;
+        "dsb5-alert": HTMLDsb5AlertElement;
+        "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
         "dsb5-test": HTMLDsb5TestElement;
+        "dsb5-webcomponent-show": HTMLDsb5WebcomponentShowElement;
     }
 }
 declare namespace LocalJSX {
@@ -100,7 +139,29 @@ declare namespace LocalJSX {
     }
     interface DsScript {
     }
-    interface Dsb5FunctionTest {
+    interface Dsb5Alert {
+        /**
+          * 是否显示关闭按钮
+         */
+        "close"?: boolean;
+        /**
+          * 弹框的内容
+         */
+        "content"?: string;
+        /**
+          * 弹框是否是浮动的
+         */
+        "fixed"?: boolean;
+        /**
+          * 是否显示
+         */
+        "show"?: boolean;
+        /**
+          * 弹框的类型
+         */
+        "type"?: ComponentType;
+    }
+    interface Dsb5FunctionExecute {
         /**
           * 需要执行的全局函数
          */
@@ -132,11 +193,15 @@ declare namespace LocalJSX {
          */
         "propArr"?: string[];
     }
+    interface Dsb5WebcomponentShow {
+    }
     interface IntrinsicElements {
         "ds-prop": DsProp;
         "ds-script": DsScript;
-        "dsb5-function-test": Dsb5FunctionTest;
+        "dsb5-alert": Dsb5Alert;
+        "dsb5-function-execute": Dsb5FunctionExecute;
         "dsb5-test": Dsb5Test;
+        "dsb5-webcomponent-show": Dsb5WebcomponentShow;
     }
 }
 export { LocalJSX as JSX };
@@ -145,8 +210,10 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ds-prop": LocalJSX.DsProp & JSXBase.HTMLAttributes<HTMLDsPropElement>;
             "ds-script": LocalJSX.DsScript & JSXBase.HTMLAttributes<HTMLDsScriptElement>;
-            "dsb5-function-test": LocalJSX.Dsb5FunctionTest & JSXBase.HTMLAttributes<HTMLDsb5FunctionTestElement>;
+            "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
+            "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
+            "dsb5-webcomponent-show": LocalJSX.Dsb5WebcomponentShow & JSXBase.HTMLAttributes<HTMLDsb5WebcomponentShowElement>;
         }
     }
 }

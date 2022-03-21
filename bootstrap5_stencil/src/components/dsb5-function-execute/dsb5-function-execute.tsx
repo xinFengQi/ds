@@ -2,8 +2,8 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 
 @Component({
-  tag: 'dsb5-function-test',
-  styleUrl: 'dsb5-function-test.css',
+  tag: 'dsb5-function-execute',
+  styleUrl: 'dsb5-function-execute.css',
   shadow: false,
   scoped: true,
 })

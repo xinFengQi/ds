@@ -10,23 +10,23 @@
 
 ### 示例
 
-<dsb5-function-test fun="ds.tsetFun" time="100000">   
+<dsb5-function-execute fun="ds.tsetFun" time="100000">   
     <ds-prop name="params" type="array">
        ["1"]
     </ds-prop>
     <ds-prop name="result" type="array">
        "1"
     </ds-prop>
-</dsb5-function-test>
+</dsb5-function-execute>
 <hr />
-<dsb5-function-test fun="ds.tsetFun">   
+<dsb5-function-execute fun="ds.tsetFun">   
     <ds-prop name="params" type="array">
       ["2"]
     </ds-prop>
     <ds-prop name="result" type="array">
       3
     </ds-prop>
-</dsb5-function-test>
+</dsb5-function-execute>
 
 
 <!-- Auto Generated Below -->

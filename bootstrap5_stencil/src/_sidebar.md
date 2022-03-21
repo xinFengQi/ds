@@ -1,5 +1,7 @@
 * [介绍](/readme.md)
    * [ds-prop](/components/ds-prop/readme.md)
    * [ds-script](/components/ds-script/readme.md)
-   * [dsb5-function-test](/components/dsb5-function-test/readme.md)
+   * [dsb5-alert](/components/dsb5-alert/readme.md)
+   * [dsb5-function-execute](/components/dsb5-function-execute/readme.md)
    * [dsb5-test](/components/dsb5-test/readme.md)
+   * [dsb5-webcomponent-show](/components/dsb5-webcomponent-show/readme.md)

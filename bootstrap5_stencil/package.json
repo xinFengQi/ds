@@ -16,12 +16,11 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "start": "npm-run-all --parallel start:*",
     "start:stencil": "stencil build --docs --dev --watch --serve",
-    "start:mobitor": "node ./scripts/monitor.js",
+    "dev": "node ./scripts/monitor.js",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "g": "stencil generate"
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
@@ -33,6 +32,7 @@
   "devDependencies": {
     "@stencil/store": "^1.4.1",
     "@types/node": "^15.12.4",
+    "browser-sync": "^2.27.9",
     "npm-run-all": "^4.1.5"
   },
   "author": ""

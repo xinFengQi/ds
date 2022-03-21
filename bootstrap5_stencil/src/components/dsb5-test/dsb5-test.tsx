@@ -21,7 +21,6 @@ export class bootstrap5StencliTest {
   }
 
   testBjs = () => {
-    console.log('=======================', document.querySelectorAll('.toast'));
     Array.from(document.querySelectorAll('.toast')).forEach(toastNode => new Toast(toastNode).show());
   };
 
