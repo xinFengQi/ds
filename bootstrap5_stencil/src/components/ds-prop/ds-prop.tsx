@@ -16,7 +16,7 @@ export class DsProp {
   /** 解析参数后回调事件 */
   @Event() getProp: EventEmitter<{ key: string; value: any }>;
 
-  componentDidRender() {
+  connectedCallback() {
     const text = this.el.innerHTML.replace(/\n|\r| /g, '');
     let value: any = '';
     try {

@@ -15,9 +15,9 @@
     "./dist/dist/loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
-    "start:stencil": "stencil build --docs --dev --watch --serve",
     "dev": "node ./scripts/monitor.js",
+    "start:stencil": "stencil build --docs --dev --watch --serve",
+    "build": "stencil build --docs",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "g": "stencil generate"

@@ -6,9 +6,13 @@ var bs = require("browser-sync").create();
 // 是否启动服务器
 let serveOpen = false;
 let timer = null;
+let stencilCompolieCmd = null;
+let copyHandlerCmd = null;
 
 stencilCompolie();
 const excepts = ['_sidebar.md']
+
+
 
 
 
@@ -23,7 +27,7 @@ fs.watch('./src', { recursive: true }, function (event, filename) {
   }
   timer = setTimeout(() => {
     stencilCompolie();
-  }, 500)
+  }, 2000)
 });
 
 // stencil打包
@@ -31,7 +35,10 @@ function stencilCompolie() {
   // 先去生成目录
   console.log('开始打包');
   const cmd = 'stencil build --docs --dev';
-  exec(cmd, function (error, stdout, stderr) {
+  if(stencilCompolieCmd) {
+    stencilCompolieCmd.kill();
+  }
+  stencilCompolieCmd = exec(cmd, function (error, stdout, stderr) {
     // 获取命令执行的输出
     console.log(error);
     console.log(stdout);
@@ -56,7 +63,10 @@ function copyHandler() {
   }
   fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
   const cmd = 'dsn dfu -copy';
-  exec(cmd, function (error, stdout, stderr) {
+  if(copyHandlerCmd) {
+    copyHandlerCmd.kill();
+  }
+  copyHandlerCmd = exec(cmd, function (error, stdout, stderr) {
     // 获取命令执行的输出
     console.log(error);
     console.log(stdout);
@@ -64,8 +74,6 @@ function copyHandler() {
     console.log(cmd, '命令被执行')
     openBrowserSync();
   });
-
-
 }
 
 

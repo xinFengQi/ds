@@ -36,9 +36,9 @@ export class Dsb5FunctionTest {
   // 执行的结果
   isResult = false;
 
-  componentWillRender() {
+  connectedCallback() {
     // 通过代码插入获取参数或相应的
-    this.baseCompoent.componentWillRender(this.hostDiv, (prop: { key: string; value: any }[]) => {
+    this.baseCompoent.connectedCallback(this.hostDiv, (prop: { key: string; value: any }[]) => {
       prop.forEach(v => {
         this[v.key] = v.value;
       })

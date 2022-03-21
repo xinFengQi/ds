@@ -18,6 +18,10 @@ export namespace Components {
         "type": 'string' | 'array' | 'json';
     }
     interface DsScript {
+        /**
+          * 父节点
+         */
+        "parentEl": HTMLElement | ParentNode;
     }
     interface Dsb5Alert {
         /**
@@ -138,6 +142,10 @@ declare namespace LocalJSX {
         "type"?: 'string' | 'array' | 'json';
     }
     interface DsScript {
+        /**
+          * 父节点
+         */
+        "parentEl"?: HTMLElement | ParentNode;
     }
     interface Dsb5Alert {
         /**

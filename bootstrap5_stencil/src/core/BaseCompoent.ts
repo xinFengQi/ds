@@ -19,7 +19,7 @@ export class BaseCompoent {
    * @param el 父组件节点实例
    * @param cb 返回的回调函数
    */
-  componentWillRender(el: HTMLElement, cb: (prop: { key: string; value: any }[]) => void) {
+   connectedCallback(el: HTMLElement, cb: (prop: { key: string; value: any }[]) => void) {
     const child = el.children;
     const len = child.length;
     const propElArr = [];
@@ -32,14 +32,18 @@ export class BaseCompoent {
       }
     };
     for (let i = 0; i < len; i++) {
-      const el = child.item(i);
-      if (el?.localName === 'ds-prop') {
-        propElArr.push(el);
+      const elChildren = child.item(i);
+      if (elChildren?.localName === 'ds-prop') {
+        propElArr.push(elChildren);
+      }
+      if (elChildren?.localName === 'ds-script') {
+        (elChildren as any).parentEl = el;
+        console.log('执行了一段代码')
       }
     }
     propNum = propElArr.length;
-    propElArr.forEach(el => {
-      el.addEventListener('getProp', (event: CustomEvent) => {
+    propElArr.forEach(elChildren => {
+      elChildren.addEventListener('getProp', (event: CustomEvent) => {
         propArr.push(event.detail);
         next();
       });
