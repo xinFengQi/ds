@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element } from '@stencil/core';
+import { Component, Host, h, Prop, Element, Method, Event, EventEmitter } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 import { ComponentType } from '../../interface/type.interface';
 
@@ -11,7 +11,7 @@ import { ComponentType } from '../../interface/type.interface';
   tag: 'dsb5-alert',
   styleUrl: 'dsb5-alert.css',
   shadow: false,
-  scoped: false,
+  scoped: true,
 })
 export class Dsb5Alert {
   @Element() hostDiv: HTMLElement;
@@ -31,11 +31,51 @@ export class Dsb5Alert {
   /** 是否显示关闭按钮 */
   @Prop() close = false;
 
+  /** 延迟关闭 */
+  @Prop() delay: null | number = 3000;
+
+  /** 弹框关闭事件 */
+  @Event() closeEmit: EventEmitter<boolean>;
+
   // 基础组件minix
   baseCompoent = new BaseCompoent();
 
+  // 弹框实例
+  alertRef: HTMLElement;
+
   componentDidLoad() {
     this.baseCompoent.toastInit(this.hostDiv);
+    if (!this.delay && this.close) {
+      this.alertRef.addEventListener('closed.bs.alert', () => {
+        this.hostDiv.remove();
+        this.closeEmit.emit(true);
+      });
+    }
+    if (this.delay) {
+      setTimeout(() => {
+        this.hostDiv.remove();
+        this.closeEmit.emit(true);
+      }, this.delay);
+    }
+  }
+
+  /**
+   * 显示弹框组件;
+   * 用法: dsb5.dsb5Alert.showAlert({content: '测试弹框'});
+   */
+  @Method() showAlert(opt: Dsb5Alert): void {
+    if (!opt) {
+      throw '调用的showAlert未传入参数';
+    }
+    const el = document.createElement('dsb5-alert') as HTMLDsb5AlertElement;
+    el.fixed = true;
+    if (opt.hasOwnProperty('content')) {
+      el.content = opt.content;
+    }
+    if (opt.hasOwnProperty('close')) {
+      el.close = opt.close;
+    }
+    document.body.append(el);
   }
 
   render() {
@@ -48,13 +88,14 @@ export class Dsb5Alert {
             }}
           >
             <div
+              ref={el => (this.alertRef = el)}
               class={{
                 'alert': true,
                 [`alert-${this.type}`]: true,
                 'alert-dismissible': true,
                 'fade': true,
                 'show': true,
-                alert_padding: this.fixed
+                'alert_padding': this.fixed,
               }}
               role="alert"
             >

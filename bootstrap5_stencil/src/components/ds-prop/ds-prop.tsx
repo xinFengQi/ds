@@ -7,6 +7,9 @@ import { Component, Element, h, Event, Host, EventEmitter, Prop } from '@stencil
 export class DsProp {
   @Element() el: HTMLElement;
 
+  /** 父节点 */
+  @Prop() parentEl: HTMLElement | ParentNode;
+
   /** 参数名称 */
   @Prop() name!: string;
 
@@ -16,19 +19,27 @@ export class DsProp {
   /** 解析参数后回调事件 */
   @Event() getProp: EventEmitter<{ key: string; value: any }>;
 
+  // 获取到的值
+  value = '';
+
   connectedCallback() {
     const text = this.el.innerHTML.replace(/\n|\r| /g, '');
-    let value: any = '';
     try {
       const lowerType = this.type.toLocaleLowerCase();
       if (lowerType === 'array' || lowerType === 'json') {
-        value = JSON.parse(text);
+        this.value = JSON.parse(text);
       }
     } catch (error) {
       console.error(error);
     }
+  }
 
-    this.getProp.emit({ key: this.name, value });
+  componentDidLoad() {
+    if (!this.parentEl) {
+      this.parentEl = this.el.parentNode;
+    }
+    this.parentEl[this.name] = this.value;
+    this.getProp.emit({ key: this.name, value: this.value });
   }
 
   render() {

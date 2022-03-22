@@ -13,6 +13,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * 父节点
+         */
+        "parentEl": HTMLElement | ParentNode;
+        /**
           * 参数类型
          */
         "type": 'string' | 'array' | 'json';
@@ -33,6 +37,10 @@ export namespace Components {
          */
         "content": string;
         /**
+          * 延迟关闭
+         */
+        "delay": null | number;
+        /**
           * 弹框是否是浮动的
          */
         "fixed": boolean;
@@ -41,7 +49,21 @@ export namespace Components {
          */
         "show": boolean;
         /**
+          * 显示弹框组件; 用法: dsb5.dsb5Alert.showAlert({content: '测试弹框'});
+         */
+        "showAlert": (opt: Dsb5Alert) => Promise<void>;
+        /**
           * 弹框的类型
+         */
+        "type": ComponentType;
+    }
+    interface Dsb5Button {
+        /**
+          * 弹框的类型
+         */
+        "outline": boolean;
+        /**
+          * 按钮的类型
          */
         "type": ComponentType;
     }
@@ -78,6 +100,10 @@ export namespace Components {
         "propArr": string[];
     }
     interface Dsb5WebcomponentShow {
+        /**
+          * 内容展示方式
+         */
+        "type": null | 'row';
     }
 }
 declare global {
@@ -98,6 +124,12 @@ declare global {
     var HTMLDsb5AlertElement: {
         prototype: HTMLDsb5AlertElement;
         new (): HTMLDsb5AlertElement;
+    };
+    interface HTMLDsb5ButtonElement extends Components.Dsb5Button, HTMLStencilElement {
+    }
+    var HTMLDsb5ButtonElement: {
+        prototype: HTMLDsb5ButtonElement;
+        new (): HTMLDsb5ButtonElement;
     };
     interface HTMLDsb5FunctionExecuteElement extends Components.Dsb5FunctionExecute, HTMLStencilElement {
     }
@@ -121,6 +153,7 @@ declare global {
         "ds-prop": HTMLDsPropElement;
         "ds-script": HTMLDsScriptElement;
         "dsb5-alert": HTMLDsb5AlertElement;
+        "dsb5-button": HTMLDsb5ButtonElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
         "dsb5-test": HTMLDsb5TestElement;
         "dsb5-webcomponent-show": HTMLDsb5WebcomponentShowElement;
@@ -137,11 +170,19 @@ declare namespace LocalJSX {
          */
         "onGetProp"?: (event: CustomEvent<{ key: string; value: any }>) => void;
         /**
+          * 父节点
+         */
+        "parentEl"?: HTMLElement | ParentNode;
+        /**
           * 参数类型
          */
         "type"?: 'string' | 'array' | 'json';
     }
     interface DsScript {
+        /**
+          * 解析参数后回调事件
+         */
+        "onGetExecute"?: (event: CustomEvent<any>) => void;
         /**
           * 父节点
          */
@@ -157,15 +198,33 @@ declare namespace LocalJSX {
          */
         "content"?: string;
         /**
+          * 延迟关闭
+         */
+        "delay"?: null | number;
+        /**
           * 弹框是否是浮动的
          */
         "fixed"?: boolean;
+        /**
+          * 弹框关闭事件
+         */
+        "onCloseEmit"?: (event: CustomEvent<boolean>) => void;
         /**
           * 是否显示
          */
         "show"?: boolean;
         /**
           * 弹框的类型
+         */
+        "type"?: ComponentType;
+    }
+    interface Dsb5Button {
+        /**
+          * 弹框的类型
+         */
+        "outline"?: boolean;
+        /**
+          * 按钮的类型
          */
         "type"?: ComponentType;
     }
@@ -202,11 +261,16 @@ declare namespace LocalJSX {
         "propArr"?: string[];
     }
     interface Dsb5WebcomponentShow {
+        /**
+          * 内容展示方式
+         */
+        "type"?: null | 'row';
     }
     interface IntrinsicElements {
         "ds-prop": DsProp;
         "ds-script": DsScript;
         "dsb5-alert": Dsb5Alert;
+        "dsb5-button": Dsb5Button;
         "dsb5-function-execute": Dsb5FunctionExecute;
         "dsb5-test": Dsb5Test;
         "dsb5-webcomponent-show": Dsb5WebcomponentShow;
@@ -219,6 +283,7 @@ declare module "@stencil/core" {
             "ds-prop": LocalJSX.DsProp & JSXBase.HTMLAttributes<HTMLDsPropElement>;
             "ds-script": LocalJSX.DsScript & JSXBase.HTMLAttributes<HTMLDsScriptElement>;
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
+            "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
             "dsb5-webcomponent-show": LocalJSX.Dsb5WebcomponentShow & JSXBase.HTMLAttributes<HTMLDsb5WebcomponentShowElement>;

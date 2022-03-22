@@ -3,14 +3,14 @@ import { Toast, Tooltip } from 'bootstrap';
 export class BaseCompoent {
   id = 'c' + new Date().getTime() + (Math.random() * 1000).toFixed(0);
 
-  toolTipInit(el: HTMLElement) {
+  public toolTipInit(el: HTMLElement) {
     var tooltipTriggerList = [].slice.call(el.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new Tooltip(tooltipTriggerEl);
     });
   }
 
-  toastInit(el: HTMLElement) {
+  public toastInit(el: HTMLElement) {
     Array.from(el.querySelectorAll('.toast')).forEach(toastNode => new Toast(toastNode).show());
   }
 
@@ -19,18 +19,26 @@ export class BaseCompoent {
    * @param el 父组件节点实例
    * @param cb 返回的回调函数
    */
-   connectedCallback(el: HTMLElement, cb: (prop: { key: string; value: any }[]) => void) {
+  public connectedCallback(el: HTMLElement, cb: (prop: { key: string; value: any }[], script: any) => void) {
     const child = el.children;
     const len = child.length;
+    // 参数的变量
     const propElArr = [];
-    let propArr = [];
+    let propDataArr = [];
     let propNum = 0;
+    // 执行代码的变量
+    const scriptElArr = [];
+    let scriptDataArr = [];
+    let scriptNum = 0;
+    // 队列执行拦截器
     const next = () => {
-      if (propArr.length === propNum) {
-        cb(propArr);
-        propArr = [];
+      if (propDataArr.length === propNum && scriptDataArr.length === scriptNum) {
+        cb(propDataArr, scriptDataArr);
+        propDataArr = [];
+        scriptDataArr = [];
       }
     };
+    // 判断所有子节点,标识特殊节点
     for (let i = 0; i < len; i++) {
       const elChildren = child.item(i);
       if (elChildren?.localName === 'ds-prop') {
@@ -38,13 +46,22 @@ export class BaseCompoent {
       }
       if (elChildren?.localName === 'ds-script') {
         (elChildren as any).parentEl = el;
-        console.log('执行了一段代码')
+        scriptElArr.push(elChildren);
       }
     }
     propNum = propElArr.length;
+    scriptNum = scriptElArr.length;
+    // 将获取参数的事件监听
     propElArr.forEach(elChildren => {
       elChildren.addEventListener('getProp', (event: CustomEvent) => {
-        propArr.push(event.detail);
+        propDataArr.push(event.detail);
+        next();
+      });
+    });
+    // 将执行代码的事件监听
+    scriptElArr.forEach(elChildren => {
+      elChildren.addEventListener('getExecute', (event: CustomEvent) => {
+        scriptDataArr.push(event.detail);
         next();
       });
     });

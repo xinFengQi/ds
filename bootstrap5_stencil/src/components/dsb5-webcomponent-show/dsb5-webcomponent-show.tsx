@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, forceUpdate } from '@stencil/core';
+import { Component, Host, h, Element, forceUpdate, Prop } from '@stencil/core';
 import { BaseCompoent } from './../../core/BaseCompoent';
 
 @Component({
@@ -9,6 +9,9 @@ import { BaseCompoent } from './../../core/BaseCompoent';
 })
 export class Dsb5WebcomponentShow {
   @Element() hostDiv: HTMLElement;
+
+  /** 内容展示方式 */
+  @Prop() type: null | 'row' = null;
 
   // 是否展示代码
   showCode = false;
@@ -45,7 +48,12 @@ export class Dsb5WebcomponentShow {
   render() {
     return (
       <Host>
-        <div class="main_content">
+        <div
+          class={{
+            main_content: true,
+            main_content_flex: this.type === 'row',
+          }}
+        >
           <slot></slot>
         </div>
         <div class="main_toobar">
