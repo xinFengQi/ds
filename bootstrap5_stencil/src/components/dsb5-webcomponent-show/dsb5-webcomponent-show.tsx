@@ -1,6 +1,9 @@
 import { Component, Host, h, Element, forceUpdate, Prop } from '@stencil/core';
+import { Dsb5 } from '../../interface/method.inter';
+import { ComponentType } from '../../interface/type.interface';
 import { BaseCompoent } from './../../core/BaseCompoent';
 
+declare const dsb5: Dsb5;
 @Component({
   tag: 'dsb5-webcomponent-show',
   styleUrl: 'dsb5-webcomponent-show.css',
@@ -42,6 +45,7 @@ export class Dsb5WebcomponentShow {
     input.select(); // 选中文本
     document.execCommand('copy'); // 执行浏览器复制命令
     document.body.removeChild(input);
+    dsb5.dsb5Alert.showAlert({ content: '复制成功', type: ComponentType.success });
     console.log('复制成功');
   }
 

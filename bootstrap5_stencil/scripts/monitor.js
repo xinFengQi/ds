@@ -13,9 +13,6 @@ stencilCompolie();
 const excepts = ['_sidebar.md']
 
 
-
-
-
 // 监听src下目录改变
 fs.watch('./src', { recursive: true }, function (event, filename) {
   if (excepts.includes(filename)) {

@@ -17,22 +17,22 @@ export class Dsb5Alert {
   @Element() hostDiv: HTMLElement;
 
   /** 弹框是否是浮动的 */
-  @Prop() fixed = true;
+  @Prop() fixed? = true;
 
   /** 弹框的类型 */
-  @Prop() type: ComponentType = ComponentType.primary;
+  @Prop() type?: ComponentType = ComponentType.primary;
 
   /** 弹框的内容 */
-  @Prop() content = '';
+  @Prop() content!: string;
 
   /** 是否显示 */
-  @Prop() show = true;
+  @Prop() show? = true;
 
   /** 是否显示关闭按钮 */
-  @Prop() close = false;
+  @Prop() close? = false;
 
   /** 延迟关闭 */
-  @Prop() delay: null | number = 3000;
+  @Prop() delay?: null | number = 3000;
 
   /** 弹框关闭事件 */
   @Event() closeEmit: EventEmitter<boolean>;
@@ -62,8 +62,10 @@ export class Dsb5Alert {
   /**
    * 显示弹框组件;
    * 用法: dsb5.dsb5Alert.showAlert({content: '测试弹框'});
-   */
-  @Method() showAlert(opt: Dsb5Alert): void {
+   *
+   **/
+  @Method()
+  async showAlert(opt: { content: string; type?: ComponentType; close?: boolean; delay?: number }) {
     if (!opt) {
       throw '调用的showAlert未传入参数';
     }

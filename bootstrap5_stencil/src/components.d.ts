@@ -31,7 +31,7 @@ export namespace Components {
         /**
           * 是否显示关闭按钮
          */
-        "close": boolean;
+        "close"?: boolean;
         /**
           * 弹框的内容
          */
@@ -39,23 +39,23 @@ export namespace Components {
         /**
           * 延迟关闭
          */
-        "delay": null | number;
+        "delay"?: null | number;
         /**
           * 弹框是否是浮动的
          */
-        "fixed": boolean;
+        "fixed"?: boolean;
         /**
           * 是否显示
          */
-        "show": boolean;
+        "show"?: boolean;
         /**
           * 显示弹框组件; 用法: dsb5.dsb5Alert.showAlert({content: '测试弹框'});
          */
-        "showAlert": (opt: Dsb5Alert) => Promise<void>;
+        "showAlert": (opt: { content: string; type?: ComponentType; close?: boolean; delay?: number; }) => Promise<void>;
         /**
           * 弹框的类型
          */
-        "type": ComponentType;
+        "type"?: ComponentType;
     }
     interface Dsb5Button {
         /**
@@ -196,7 +196,7 @@ declare namespace LocalJSX {
         /**
           * 弹框的内容
          */
-        "content"?: string;
+        "content": string;
         /**
           * 延迟关闭
          */

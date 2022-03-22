@@ -10,6 +10,8 @@
 
 ### 示例
 
+
+<dsb5-webcomponent-show>
 <dsb5-function-execute fun="ds.tsetFun" time="1">   
     <ds-prop name="params" type="array">
        ["1"]
@@ -18,7 +20,6 @@
        "1"
     </ds-prop>
 </dsb5-function-execute>
-<hr />
 <dsb5-function-execute fun="ds.tsetFun">   
     <ds-prop name="params" type="array">
       ["2"]
@@ -27,6 +28,8 @@
       3
     </ds-prop>
 </dsb5-function-execute>
+</dsb5-webcomponent-show>
+
 
 
 <!-- Auto Generated Below -->
