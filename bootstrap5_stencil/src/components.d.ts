@@ -5,7 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentType } from "./interface/type.interface";
+import { ComponentType, DataType } from "./interface/type.interface";
+import { Dsb5FromModel } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
         /**
@@ -19,7 +20,7 @@ export namespace Components {
         /**
           * 参数类型
          */
-        "type": 'string' | 'array' | 'json';
+        "type": DataType;
     }
     interface DsScript {
         /**
@@ -89,6 +90,20 @@ export namespace Components {
          */
         "type": 'testCase';
     }
+    interface Dsb5FunctionParams {
+    }
+    interface Dsb5Input {
+        /**
+          * placeholder值
+         */
+        "placeholder": string;
+    }
+    interface Dsb5Select {
+        /**
+          * 当前的值
+         */
+        "value": any;
+    }
     interface Dsb5Tabs {
         "tabs": string[];
     }
@@ -140,6 +155,24 @@ declare global {
         prototype: HTMLDsb5FunctionExecuteElement;
         new (): HTMLDsb5FunctionExecuteElement;
     };
+    interface HTMLDsb5FunctionParamsElement extends Components.Dsb5FunctionParams, HTMLStencilElement {
+    }
+    var HTMLDsb5FunctionParamsElement: {
+        prototype: HTMLDsb5FunctionParamsElement;
+        new (): HTMLDsb5FunctionParamsElement;
+    };
+    interface HTMLDsb5InputElement extends Components.Dsb5Input, HTMLStencilElement {
+    }
+    var HTMLDsb5InputElement: {
+        prototype: HTMLDsb5InputElement;
+        new (): HTMLDsb5InputElement;
+    };
+    interface HTMLDsb5SelectElement extends Components.Dsb5Select, HTMLStencilElement {
+    }
+    var HTMLDsb5SelectElement: {
+        prototype: HTMLDsb5SelectElement;
+        new (): HTMLDsb5SelectElement;
+    };
     interface HTMLDsb5TabsElement extends Components.Dsb5Tabs, HTMLStencilElement {
     }
     var HTMLDsb5TabsElement: {
@@ -164,6 +197,9 @@ declare global {
         "dsb5-alert": HTMLDsb5AlertElement;
         "dsb5-button": HTMLDsb5ButtonElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
+        "dsb5-function-params": HTMLDsb5FunctionParamsElement;
+        "dsb5-input": HTMLDsb5InputElement;
+        "dsb5-select": HTMLDsb5SelectElement;
         "dsb5-tabs": HTMLDsb5TabsElement;
         "dsb5-test": HTMLDsb5TestElement;
         "dsb5-webcomponent-show": HTMLDsb5WebcomponentShowElement;
@@ -186,7 +222,7 @@ declare namespace LocalJSX {
         /**
           * 参数类型
          */
-        "type"?: 'string' | 'array' | 'json';
+        "type"?: DataType;
     }
     interface DsScript {
         /**
@@ -260,6 +296,28 @@ declare namespace LocalJSX {
          */
         "type"?: 'testCase';
     }
+    interface Dsb5FunctionParams {
+        /**
+          * 返回变更的数据
+         */
+        "onGetData"?: (event: CustomEvent<Dsb5FromModel[]>) => void;
+    }
+    interface Dsb5Input {
+        /**
+          * placeholder值
+         */
+        "placeholder"?: string;
+    }
+    interface Dsb5Select {
+        /**
+          * 值变化的事件
+         */
+        "onValueChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * 当前的值
+         */
+        "value"?: any;
+    }
     interface Dsb5Tabs {
         "tabs"?: string[];
     }
@@ -285,6 +343,9 @@ declare namespace LocalJSX {
         "dsb5-alert": Dsb5Alert;
         "dsb5-button": Dsb5Button;
         "dsb5-function-execute": Dsb5FunctionExecute;
+        "dsb5-function-params": Dsb5FunctionParams;
+        "dsb5-input": Dsb5Input;
+        "dsb5-select": Dsb5Select;
         "dsb5-tabs": Dsb5Tabs;
         "dsb5-test": Dsb5Test;
         "dsb5-webcomponent-show": Dsb5WebcomponentShow;
@@ -299,6 +360,9 @@ declare module "@stencil/core" {
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
             "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
+            "dsb5-function-params": LocalJSX.Dsb5FunctionParams & JSXBase.HTMLAttributes<HTMLDsb5FunctionParamsElement>;
+            "dsb5-input": LocalJSX.Dsb5Input & JSXBase.HTMLAttributes<HTMLDsb5InputElement>;
+            "dsb5-select": LocalJSX.Dsb5Select & JSXBase.HTMLAttributes<HTMLDsb5SelectElement>;
             "dsb5-tabs": LocalJSX.Dsb5Tabs & JSXBase.HTMLAttributes<HTMLDsb5TabsElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
             "dsb5-webcomponent-show": LocalJSX.Dsb5WebcomponentShow & JSXBase.HTMLAttributes<HTMLDsb5WebcomponentShowElement>;

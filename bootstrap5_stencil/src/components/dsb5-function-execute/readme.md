@@ -46,13 +46,6 @@
 | `type`             | `type`    | 展示用例的类型     | `"testCase"` | `'testCase'` |
 
 
-## Slots
-
-| Slot        | Description |
-| ----------- | ----------- |
-| `"default"` | 展示的内容       |
-
-
 ## Dependencies
 
 ### Depends on

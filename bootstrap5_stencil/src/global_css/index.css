@@ -92,29 +92,34 @@ i:hover {
 }
 
 /* 针对bootstrap5样式进行重写 */
+select,
+option{
+  cursor: pointer;
+}
+
 .accordion-button {
   background-color: #e3e3e3;
-}
-.accordion-button:focus {
-  box-shadow: none;
 }
 
 .btn-close:focus {
   box-shadow: none;
   transform: scale(0.8);
 }
-
+.accordion-button:focus,
+.form-select:focus,
+.btn:checked,
+.form-control:focus,
 .btn:focus {
   box-shadow: none !important;
 }
+
 .btn:active {
   box-shadow: none !important;
   transform: scale(0.95);
 }
-.btn:checked {
-  box-shadow: none !important;
-}
 
+
+/* 全局可使用的样式 */
 .font_success {
   color: var(--bs-success);
 }
@@ -122,7 +127,9 @@ i:hover {
 .font_danger {
   color: var(--bs-danger);
 }
-
+.w100{
+  width: 100%;
+}
 .padding0 {
   padding: 0 !important;
 }

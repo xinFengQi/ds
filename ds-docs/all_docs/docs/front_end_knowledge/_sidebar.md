@@ -6,6 +6,7 @@
     * [js基础](/knowledge/js.md)
     * [ts基础](/knowledge/ts.md)
     * [lib库使用](/knowledge/lib.md)
+    * [vue3随记](/knowledge/vue3.md)
 * 组件文档
     * [目录组件](/component/catalog.md)
     * [日期选择器组件](/component/datePicker.md)

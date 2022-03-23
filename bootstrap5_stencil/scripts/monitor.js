@@ -20,6 +20,12 @@ fs.watch('./src', { recursive: true }, function (event, filename) {
   }
   if (timer) {
     clearTimeout(timer);
+    if (stencilCompolieCmd) {
+      stencilCompolieCmd.kill();
+    }
+    if (copyHandlerCmd) {
+      copyHandlerCmd.kill();
+    }
     timer = null;
   }
   timer = setTimeout(() => {
@@ -32,9 +38,6 @@ function stencilCompolie(filename) {
   // 先去生成目录
   console.log('开始打包');
   const cmd = 'stencil build --docs --dev';
-  if (stencilCompolieCmd) {
-    stencilCompolieCmd.kill();
-  }
   stencilCompolieCmd = exec(cmd, function (error, stdout, stderr) {
     // 获取命令执行的输出
     console.log(error);
@@ -63,9 +66,6 @@ function copyHandler(filename) {
   fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
   // 复制相关的文件
   const cmd = 'dsn dfu -copy';
-  if (copyHandlerCmd) {
-    copyHandlerCmd.kill();
-  }
   copyHandlerCmd = exec(cmd, function (error, stdout, stderr) {
     // 获取命令执行的输出
     console.log(error);

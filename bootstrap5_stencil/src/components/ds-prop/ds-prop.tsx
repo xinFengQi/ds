@@ -1,4 +1,5 @@
 import { Component, Element, h, Event, Host, EventEmitter, Prop } from '@stencil/core';
+import { DataType } from '../../interface/type.interface';
 
 /**
  * @componentName 参数组件
@@ -18,7 +19,7 @@ export class DsProp {
   @Prop() name!: string;
 
   /** 参数类型 */
-  @Prop() type: 'string' | 'array' | 'json' = 'string';
+  @Prop() type: DataType = DataType.string;
 
   /** 解析参数后回调事件 */
   @Event() getProp: EventEmitter<{ key: string; value: any }>;

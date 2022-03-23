@@ -9,11 +9,11 @@
 
 ## Properties
 
-| Property            | Attribute | Description | Type                            | Default     |
-| ------------------- | --------- | ----------- | ------------------------------- | ----------- |
-| `name` _(required)_ | `name`    | 参数名称        | `string`                        | `undefined` |
-| `parentEl`          | --        | 父节点         | `HTMLElement \| ParentNode`     | `undefined` |
-| `type`              | `type`    | 参数类型        | `"array" \| "json" \| "string"` | `'string'`  |
+| Property            | Attribute | Description | Type                                                                                        | Default           |
+| ------------------- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ----------------- |
+| `name` _(required)_ | `name`    | 参数名称        | `string`                                                                                    | `undefined`       |
+| `parentEl`          | --        | 父节点         | `HTMLElement \| ParentNode`                                                                 | `undefined`       |
+| `type`              | `type`    | 参数类型        | `DataType.array \| DataType.boolean \| DataType.json \| DataType.number \| DataType.string` | `DataType.string` |
 
 
 ## Events

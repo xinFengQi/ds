@@ -3,7 +3,6 @@ import { BaseCompoent } from '../../core/BaseCompoent';
 
 /**
  * @componentName 代码执行
- * @slot default - 展示的内容
  *
  */
 @Component({

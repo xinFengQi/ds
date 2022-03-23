@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.form_single{
+  display: flex;
+  align-items: center;
+}
+
+.form_single_block{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
