@@ -18,3 +18,14 @@
 
 <!-- Auto Generated Below -->
 
+
+## Properties
+
+| Property | Attribute | Description | Type    | Default |
+| -------- | --------- | ----------- | ------- | ------- |
+| `type`   | `type`    | 内容展示方式      | `"row"` | `null`  |
+
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

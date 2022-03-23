@@ -52,3 +52,65 @@
    </dsb5-webcomponent-show>
 
 <!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property               | Attribute | Description | Type                                                                                                                                                                                            | Default                 |
+| ---------------------- | --------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `close`                | `close`   | 是否显示关闭按钮    | `boolean`                                                                                                                                                                                       | `false`                 |
+| `content` _(required)_ | `content` | 弹框的内容       | `string`                                                                                                                                                                                        | `undefined`             |
+| `delay`                | `delay`   | 延迟关闭        | `number`                                                                                                                                                                                        | `3000`                  |
+| `fixed`                | `fixed`   | 弹框是否是浮动的    | `boolean`                                                                                                                                                                                       | `true`                  |
+| `show`                 | `show`    | 是否显示        | `boolean`                                                                                                                                                                                       | `true`                  |
+| `type`                 | `type`    | 弹框的类型       | `ComponentType.danger \| ComponentType.dark \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning` | `ComponentType.primary` |
+
+
+## Events
+
+| Event       | Description | Type                   |
+| ----------- | ----------- | ---------------------- |
+| `closeEmit` | 弹框关闭事件      | `CustomEvent<boolean>` |
+
+
+## Methods
+
+### `showAlert(opt: { content: string; type?: ComponentType; close?: boolean; delay?: number; }) => Promise<void>`
+
+显示弹框组件;
+用法: dsb5.dsb5Alert.showAlert({content: '测试弹框'});
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## Slots
+
+| Slot        | Description |
+| ----------- | ----------- |
+| `"default"` | 展示的内容       |
+
+
+## Dependencies
+
+### Used by
+
+ - [dsb5-alert](.)
+
+### Depends on
+
+- [dsb5-alert](.)
+
+### Graph
+```mermaid
+graph TD;
+  dsb5-alert --> dsb5-alert
+  style dsb5-alert fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

@@ -8,3 +8,21 @@
 
 <!-- Auto Generated Below -->
 
+
+## Properties
+
+| Property   | Attribute | Description | Type                        | Default     |
+| ---------- | --------- | ----------- | --------------------------- | ----------- |
+| `parentEl` | --        | 父节点         | `HTMLElement \| ParentNode` | `undefined` |
+
+
+## Events
+
+| Event        | Description | Type               |
+| ------------ | ----------- | ------------------ |
+| `getExecute` | 解析参数后回调事件   | `CustomEvent<any>` |
+
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

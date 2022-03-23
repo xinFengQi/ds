@@ -89,6 +89,9 @@ export namespace Components {
          */
         "type": 'testCase';
     }
+    interface Dsb5Tabs {
+        "tabs": string[];
+    }
     interface Dsb5Test {
         /**
           * 一个字符串参数
@@ -137,6 +140,12 @@ declare global {
         prototype: HTMLDsb5FunctionExecuteElement;
         new (): HTMLDsb5FunctionExecuteElement;
     };
+    interface HTMLDsb5TabsElement extends Components.Dsb5Tabs, HTMLStencilElement {
+    }
+    var HTMLDsb5TabsElement: {
+        prototype: HTMLDsb5TabsElement;
+        new (): HTMLDsb5TabsElement;
+    };
     interface HTMLDsb5TestElement extends Components.Dsb5Test, HTMLStencilElement {
     }
     var HTMLDsb5TestElement: {
@@ -155,6 +164,7 @@ declare global {
         "dsb5-alert": HTMLDsb5AlertElement;
         "dsb5-button": HTMLDsb5ButtonElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
+        "dsb5-tabs": HTMLDsb5TabsElement;
         "dsb5-test": HTMLDsb5TestElement;
         "dsb5-webcomponent-show": HTMLDsb5WebcomponentShowElement;
     }
@@ -250,6 +260,9 @@ declare namespace LocalJSX {
          */
         "type"?: 'testCase';
     }
+    interface Dsb5Tabs {
+        "tabs"?: string[];
+    }
     interface Dsb5Test {
         /**
           * 一个字符串参数
@@ -272,6 +285,7 @@ declare namespace LocalJSX {
         "dsb5-alert": Dsb5Alert;
         "dsb5-button": Dsb5Button;
         "dsb5-function-execute": Dsb5FunctionExecute;
+        "dsb5-tabs": Dsb5Tabs;
         "dsb5-test": Dsb5Test;
         "dsb5-webcomponent-show": Dsb5WebcomponentShow;
     }
@@ -285,6 +299,7 @@ declare module "@stencil/core" {
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
             "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
+            "dsb5-tabs": LocalJSX.Dsb5Tabs & JSXBase.HTMLAttributes<HTMLDsb5TabsElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
             "dsb5-webcomponent-show": LocalJSX.Dsb5WebcomponentShow & JSXBase.HTMLAttributes<HTMLDsb5WebcomponentShowElement>;
         }

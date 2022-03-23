@@ -26,7 +26,6 @@ program.command('test')
     })
 
 import './bin/config.js';
-import './bin/stencil.js';
 import './bin/gitee.js';
 import './bin/util.js';
 

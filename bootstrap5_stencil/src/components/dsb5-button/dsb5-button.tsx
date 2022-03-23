@@ -1,6 +1,11 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 import { ComponentType } from '../../interface/type.interface';
 
+/**
+ * @componentName 按钮
+ * @slot default - 展示的内容
+ *
+ */
 @Component({
   tag: 'dsb5-button',
   styleUrl: 'dsb5-button.css',

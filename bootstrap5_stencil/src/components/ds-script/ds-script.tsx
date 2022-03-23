@@ -1,5 +1,9 @@
 import { Component, Host, h, Element, Prop, EventEmitter, Event } from '@stencil/core';
 
+/**
+ * @componentName js执行组件
+ *
+ */
 @Component({
   tag: 'ds-script',
   shadow: true,

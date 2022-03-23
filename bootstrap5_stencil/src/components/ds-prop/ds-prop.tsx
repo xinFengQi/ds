@@ -1,5 +1,9 @@
 import { Component, Element, h, Event, Host, EventEmitter, Prop } from '@stencil/core';
 
+/**
+ * @componentName 参数组件
+ *
+ */
 @Component({
   tag: 'ds-prop',
   shadow: true,

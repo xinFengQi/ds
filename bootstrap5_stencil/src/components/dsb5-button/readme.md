@@ -18,3 +18,23 @@
    </dsb5-webcomponent-show>
 
 <!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property  | Attribute | Description | Type                                                                                                                                                                                            | Default                 |
+| --------- | --------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `outline` | `outline` | 弹框的类型       | `boolean`                                                                                                                                                                                       | `false`                 |
+| `type`    | `type`    | 按钮的类型       | `ComponentType.danger \| ComponentType.dark \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning` | `ComponentType.primary` |
+
+
+## Slots
+
+| Slot        | Description |
+| ----------- | ----------- |
+| `"default"` | 展示的内容       |
+
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

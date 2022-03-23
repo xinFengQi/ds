@@ -1,6 +1,11 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 
+/**
+ * @componentName 代码执行
+ * @slot default - 展示的内容
+ *
+ */
 @Component({
   tag: 'dsb5-function-execute',
   styleUrl: 'dsb5-function-execute.css',
@@ -35,6 +40,8 @@ export class Dsb5FunctionTest {
   executeTime = 0;
   // 执行的结果
   isResult = false;
+  // 执行的函数
+  excuteFunction = null;
 
   connectedCallback() {
     // 通过代码插入获取参数或相应的
@@ -57,14 +64,14 @@ export class Dsb5FunctionTest {
       while (funs.length > 0) {
         const obj = funs.shift();
         if (funObj === null) {
-          objs.push(obj)
+          objs.push(obj);
           funObj = window[obj];
           continue;
         }
         if (!funObj) {
           throw `未在window上找到需要执行的${objs.join('.')}函数`;
         }
-        objs.push(obj)
+        objs.push(obj);
         funObj = funObj[obj];
       }
       if (!funObj) {
@@ -74,17 +81,18 @@ export class Dsb5FunctionTest {
       this.errors.push(error);
     }
     if (funObj) {
+      this.excuteFunction = funObj;
       const startTime = new Date().getTime();
       const getResult = funObj.apply(this, this.params);
       for (let i = 1; i < this.time; i++) {
         funObj.apply(this, this.params);
       }
       this.executeTime = new Date().getTime() - startTime;
-      this.isResult = this.isEqual(getResult, this.result)
+      this.isResult = this.isEqual(getResult, this.result);
       if (!this.isResult) {
-        this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`)
+        this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`);
       }
-      console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result)
+      console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result);
     }
   }
 
@@ -97,7 +105,7 @@ export class Dsb5FunctionTest {
       return true;
     }
     if (typeof a === 'object') {
-      return JSON.stringify(a) === JSON.stringify(b)
+      return JSON.stringify(a) === JSON.stringify(b);
     }
 
     return false;
@@ -124,27 +132,43 @@ export class Dsb5FunctionTest {
                     </span>
                   ) : (
                     <span>
-                      <span class="font_success">执行成功</span>;执行时间{this.executeTime}ms;
-                        执行次数:{this.time}
+                      <span class="font_success">执行成功</span>;执行时间{this.executeTime}ms; 执行次数:{this.time}
                     </span>
                   )}
                 </button>
               </div>
               <div id={this.baseCompoent.id + 1} class="accordion-collapse collapse" aria-labelledby={this.baseCompoent.id} data-bs-parent={'#' + this.baseCompoent.id + 'main'}>
                 <div class="accordion-body">
-                  {this.errors.length ? (
-                    <span>
-                      {this.errors.map((v, i) => {
-                        return <strong>{i + 1}:{v}</strong>;
-                      })}
-                    </span>
-                  ) : (
-                    <span>
-                      <span>执行参数:</span>{this.params}<br />
-                      <span>执行结果:</span>{this.result}<br />
-
-                    </span>
-                  )}
+                  <dsb5-tabs tabs={['执行结果', '代码展示', '执行测试']}>
+                    <div class="detail_content" slot="执行结果">
+                      {this.errors.length ? (
+                        <span>
+                          {this.errors.map((v, i) => {
+                            return (
+                              <strong>
+                                {i + 1}:{v}
+                              </strong>
+                            );
+                          })}
+                        </span>
+                      ) : (
+                        <div>
+                          <span>执行参数:</span>
+                          {this.params}
+                          <br />
+                          <span>执行结果:</span>
+                          {this.result}
+                          <br />
+                        </div>
+                      )}
+                    </div>
+                    <div class="detail_content" slot="代码展示">
+                      <pre class="margin0">{this.excuteFunction ? this.excuteFunction.toString() : null}</pre>
+                    </div>
+                    <div class="detail_content" slot="执行测试">
+                        
+                    </div>
+                  </dsb5-tabs>
                 </div>
               </div>
             </div>
