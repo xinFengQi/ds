@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property          | Attribute | Description | Type                                         | Default                                                                            |
-| ----------------- | --------- | ----------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `isEqualSync`     | --        |             | `(a: any, b: any) => boolean`                | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                           |
-| `valueVerifySync` | --        |             | `(value: string, type: DataType) => boolean` | `(value: string, type: DataType) => {     return valueVerifyFun(value, type);   }` |
+| Property          | Attribute | Description | Type                                                                     | Default                                                                            |
+| ----------------- | --------- | ----------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `isEqualSync`     | --        |             | `(a: any, b: any) => boolean`                                            | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                           |
+| `valueVerifySync` | --        |             | `(value: string, type: DataType) => { valid: boolean; realValue: any; }` | `(value: string, type: DataType) => {     return valueVerifyFun(value, type);   }` |
 
 
 ## Methods
@@ -25,13 +25,13 @@ Type: `Promise<boolean>`
 
 
 
-### `valueVerify(value: string, type: DataType) => Promise<boolean>`
+### `valueVerify(value: string, type: DataType) => Promise<{ valid: boolean; realValue: any; }>`
 
 
 
 #### Returns
 
-Type: `Promise<boolean>`
+Type: `Promise<{ valid: boolean; realValue: any; }>`
 
 
 

@@ -31,8 +31,8 @@ export namespace Components {
     interface DsUtil {
         "isEqual": (a: any, b: any) => Promise<boolean>;
         "isEqualSync": (a: any, b: any) => boolean;
-        "valueVerify": (value: string, type: DataType) => Promise<boolean>;
-        "valueVerifySync": (value: string, type: DataType) => boolean;
+        "valueVerify": (value: string, type: DataType) => Promise<{ valid: boolean; realValue: any; }>;
+        "valueVerifySync": (value: string, type: DataType) => { valid: boolean; realValue: any; };
     }
     interface Dsb5Alert {
         /**
@@ -257,7 +257,7 @@ declare namespace LocalJSX {
     }
     interface DsUtil {
         "isEqualSync"?: (a: any, b: any) => boolean;
-        "valueVerifySync"?: (value: string, type: DataType) => boolean;
+        "valueVerifySync"?: (value: string, type: DataType) => { valid: boolean; realValue: any; };
     }
     interface Dsb5Alert {
         /**
@@ -325,7 +325,7 @@ declare namespace LocalJSX {
         /**
           * 返回变更的数据
          */
-        "onValueChange"?: (event: CustomEvent<Dsb5FromModel[]>) => void;
+        "onValueChange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[] }>) => void;
     }
     interface Dsb5Input {
         /**

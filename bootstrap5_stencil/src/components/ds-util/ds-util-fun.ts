@@ -1,25 +1,28 @@
 import { DataType } from '../../interface/type.interface';
 
-export function valueVerifyFun(value: string, type: DataType) {
+export function valueVerifyFun(value: string, type: DataType): {valid: boolean, realValue: any} {
+  let realValue: any = value;
   if (value === null || value === undefined) {
-    return false;
+    return {valid: false, realValue} ;
   }
   if (type === DataType.number) {
-    return isNaN(Number(value));
+    realValue = Number(value);
+    return { valid: isNaN(realValue), realValue: value };
   }
   if (type === DataType.boolean) {
-    let flag = true;
+    let flag = { valid: true, realValue: realValue };
     try {
-      Boolean(value);
-      flag = false;
+      flag.realValue = Boolean(value);
+      flag.valid = false;
     } catch (error) {}
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
-    let flag = true;
+    let flag = { valid: true, realValue: realValue };
     try {
-      if (typeof JSON.parse(value) === 'object') {
-        flag = false;
+      flag.realValue = JSON.parse(value);
+      if (typeof flag.realValue === 'object') {
+        flag.valid = false;
       }
     } catch (error) {}
     return flag;

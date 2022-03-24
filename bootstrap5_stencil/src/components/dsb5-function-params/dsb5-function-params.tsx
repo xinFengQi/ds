@@ -20,7 +20,7 @@ export class Dsb5FunctionParams {
   @Element() hostDiv: HTMLElement;
 
   /** 返回变更的数据 */
-  @Event() valueChange: EventEmitter<Dsb5FromModel[]>;
+  @Event() valueChange: EventEmitter<{ valid: boolean; value: Dsb5FromModel[] }>;
 
   // 表单数组
   forms: Dsb5FromModel[] = [
@@ -49,17 +49,19 @@ export class Dsb5FunctionParams {
   }
 
   // 值校验
-  valueVerify(value: string, type: DataType): boolean {
+  valueVerify(form: Dsb5FromModel): boolean {
+    let returnFa = { valid: false, realValue: form.value };
     if (dsb5.dsUtil && dsb5.dsUtil.valueVerifySync) {
-      return dsb5.dsUtil.valueVerifySync(value, type);
-    } else {
-      return false;
+      returnFa = dsb5.dsUtil.valueVerifySync(form.value, form.type);
     }
+    form.__value = returnFa.realValue;
+    form.__error = returnFa.valid;
+    return returnFa.valid;
   }
 
   // 增加表单
   addForm(i: number) {
-    this.forms.splice(i, 0, {
+    this.forms.splice(i + 1, 0, {
       type: DataType.string,
       value: null,
     });
@@ -74,7 +76,17 @@ export class Dsb5FunctionParams {
 
   // 整体数据改变
   emitData() {
-    this.valueChange.emit(this.forms);
+    this.valueChange.emit({
+      valid: !!this.forms.filter(v => v.__error).length,
+      value: this.forms
+        .filter(v => !v.__error)
+        .map(v => {
+          return {
+            type: v.type,
+            value: v.__value,
+          };
+        }),
+    });
   }
 
   render() {
@@ -92,13 +104,13 @@ export class Dsb5FunctionParams {
               </dsb5-select>
               <div class="form_single_block">
                 {[DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (
-                  <dsb5-input class="w100" value={form.value} error={this.valueVerify(form.value, form.type)} onValueChange={event => this.valueChanged(event, form)}></dsb5-input>
+                  <dsb5-input class="w100" value={form.value} error={this.valueVerify(form)} onValueChange={event => this.valueChanged(event, form)}></dsb5-input>
                 ) : null}
                 {form.type === DataType.boolean ? (
                   <dsb5-select
                     class={{
                       w100: true,
-                      error_border: this.valueVerify(form.value, form.type),
+                      error_border: this.valueVerify(form),
                     }}
                     value={form.value}
                     onValueChange={event => this.valueChanged(event, form)}
@@ -109,7 +121,7 @@ export class Dsb5FunctionParams {
                 ) : null}
               </div>
               <i onClick={() => this.addForm(i)} class="bi bi-plus-circle-fill"></i>
-              {this.forms.length > 1  ? <i onClick={() => this.removeForm(i)} class="bi bi-dash-circle-fill"></i> : null}
+              {this.forms.length > 1 ? <i onClick={() => this.removeForm(i)} class="bi bi-dash-circle-fill"></i> : null}
             </div>
           );
         })}

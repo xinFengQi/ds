@@ -4,7 +4,7 @@
     <dsb5-function-params>
     <ds-script>
     console.log('---------------')
-      $el.addEventListener('onValueChange', function(el){
+      $el.addEventListener('valueChange', function(el){
         console.log(el.detail)
       })
    </ds-script>
@@ -16,9 +16,9 @@
 
 ## Events
 
-| Event         | Description | Type                           |
-| ------------- | ----------- | ------------------------------ |
-| `valueChange` | 返回变更的数据     | `CustomEvent<Dsb5FromModel[]>` |
+| Event         | Description | Type                                                       |
+| ------------- | ----------- | ---------------------------------------------------------- |
+| `valueChange` | 返回变更的数据     | `CustomEvent<{ valid: boolean; value: Dsb5FromModel[]; }>` |
 
 
 ## Dependencies
