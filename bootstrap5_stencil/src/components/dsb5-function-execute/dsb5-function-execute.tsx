@@ -1,8 +1,12 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
+import { Dsb5 } from '../../interface/method.interface';
+
+declare const dsb5: Dsb5;
 
 /**
  * @componentName 代码执行
+ * @componentType 文档
  *
  */
 @Component({
@@ -87,27 +91,14 @@ export class Dsb5FunctionTest {
         funObj.apply(this, this.params);
       }
       this.executeTime = new Date().getTime() - startTime;
-      this.isResult = this.isEqual(getResult, this.result);
-      if (!this.isResult) {
-        this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`);
-      }
-      console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result);
+      dsb5.dsUtil.isEqual(getResult, this.result).then(v => {
+        this.isResult = v;
+        if (!this.isResult) {
+          this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`);
+        }
+        console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result);
+      });
     }
-  }
-
-  // 判断两个值是否相等
-  isEqual(a: any, b: any) {
-    if (typeof a !== typeof b) {
-      return false;
-    }
-    if (a === b) {
-      return true;
-    }
-    if (typeof a === 'object') {
-      return JSON.stringify(a) === JSON.stringify(b);
-    }
-
-    return false;
   }
 
   render() {
@@ -164,9 +155,7 @@ export class Dsb5FunctionTest {
                     <div class="detail_content" slot="代码展示">
                       <pre class="margin0">{this.excuteFunction ? this.excuteFunction.toString() : null}</pre>
                     </div>
-                    <div class="detail_content" slot="执行测试">
-                        
-                    </div>
+                    <div class="detail_content" slot="执行测试"></div>
                   </dsb5-tabs>
                 </div>
               </div>

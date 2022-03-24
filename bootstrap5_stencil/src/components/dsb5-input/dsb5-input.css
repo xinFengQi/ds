@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+
+.error_border{
+  border-color: red !important;
+}

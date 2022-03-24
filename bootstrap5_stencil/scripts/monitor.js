@@ -57,10 +57,35 @@ function copyHandler(filename) {
   let docsJson = null;
   if (fs.existsSync('./dist/docs.json')) {
     console.log('解析文档json数据')
+    const docsAll = {
+      '其他': []
+    };
     docsJson = JSON.parse(fs.readFileSync('./dist/docs.json').toString())
     docsJson.components.forEach(com => {
       const componentName = com.docsTags.find(v => v.name === 'componentName');
-      _sidebarStr = _sidebarStr + `   * [${componentName ? componentName.text : com.tag}](/components/${com.tag}.md)\n`
+      if (!componentName) {
+        return;
+      }
+      const componentType = com.docsTags.find(v => v.name === 'componentType');
+      const docsPaths = `   * [${componentName ? componentName.text : com.tag}](/components/${com.tag}.md)\n`;
+      if (!componentType) {
+        docsAll['其他'].push(docsPaths);
+      } else {
+        if (docsAll[componentType.text]) {
+          docsAll[componentType.text].push(docsPaths)
+        } else {
+          docsAll[componentType.text] = [docsPaths]
+        }
+      }
+    })
+    Object.keys(docsAll).forEach(v => {
+      if (!docsAll[v].length) {
+        return;
+      }
+      _sidebarStr = _sidebarStr + `* ${v}\n`
+      docsAll[v].forEach(docPath => {
+        _sidebarStr = _sidebarStr + docPath
+      })
     })
   }
   fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
@@ -83,49 +108,68 @@ function generatorDocs(docsJson, filename) {
   if (!fs.existsSync('./dist/www/components')) {
     fs.mkdirSync('./dist/www/components')
   }
+  if (!docsJson) {
+    return;
+  }
   docsJson.components.forEach(com => {
     // if (filename && filename.indexOf(com.tag) < 0) {
     //   return;
     // }
     let mdStr = com.readme;
+    const isLib = com.docsTags.find(v => v.name === 'lib');
+    if (isLib) {
+      // 这个用于生成lib的文档
+    }
     // 生成参数
-    if (com.props && com.props.length) {
-      mdStr = mdStr + '\n\n## 属性\n'
-      mdStr = mdStr + generatorDocsTable(
-        [
-          {
-            header: '属性(Property)', value: (data) => {
-              return data.name + (data.required ? '(必填)' : '')
-            }
-          },
-          { header: '属性(Attribute)', value: 'attr' },
-          { header: '描述', value: 'docs' },
-          {
-            header: '类型', value: (data) => {
-              return data.values.map(v => {
-                return v.value ? v.value : v.type
-              }).join(' \\| ')
-            }
-          },
-          { header: '默认值', value: 'default' },
-
-        ], com.props
-      )
+    if (!isLib && com.props && com.props.length) {
+      mdStr = generatorPropMd(mdStr, com)
     }
 
     // 生成事件
-    if (com.events && com.events.length) {
-      mdStr = mdStr + '\n\n## 事件\n'
-      mdStr = mdStr + generatorDocsTable(
-        [
-          { header: '事件名', value: 'event' },
-          { header: '描述', value: 'docs' },
-          { header: '类型', value: 'detail' },
-        ], com.events
-      )
+    if (!isLib && com.events && com.events.length) {
+      mdStr = generatorEventMd(mdStr, com)
     }
     fs.writeFileSync(`./dist/www/components/${com.tag}.md`, mdStr)
   })
+}
+
+// 非lib的参数文档
+function generatorPropMd(mdStr, com) {
+  mdStr = mdStr + '\n\n## 属性\n'
+  mdStr = mdStr + generatorDocsTable(
+    [
+      {
+        header: '属性(Property)', value: (data) => {
+          return data.name + (data.required ? '(必填)' : '')
+        }
+      },
+      { header: '属性(Attribute)', value: 'attr' },
+      { header: '描述', value: 'docs' },
+      {
+        header: '类型', value: (data) => {
+          return data.values.map(v => {
+            return v.value ? v.value : v.type
+          }).join(' \\| ')
+        }
+      },
+      { header: '默认值', value: 'default' },
+
+    ], com.props
+  )
+  return mdStr;
+}
+
+// 非lib的事件文档
+function generatorEventMd(mdStr, com) {
+  mdStr = mdStr + '\n\n## 事件\n'
+  mdStr = mdStr + generatorDocsTable(
+    [
+      { header: '事件名', value: 'event' },
+      { header: '描述', value: 'docs' },
+      { header: '类型', value: 'detail' },
+    ], com.events
+  )
+  return mdStr;
 }
 
 // 生成表格

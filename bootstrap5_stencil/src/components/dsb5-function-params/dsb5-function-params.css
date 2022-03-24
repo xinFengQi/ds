@@ -2,9 +2,14 @@
   display: block;
 }
 
+.error_border{
+  border: 1px solid red;
+}
+
 .form_single{
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .form_single_block{

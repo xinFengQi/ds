@@ -3,6 +3,7 @@ import { ComponentType } from '../../interface/type.interface';
 
 /**
  * @componentName 按钮
+ * @componentType 基础
  * @slot default - 展示的内容
  *
  */

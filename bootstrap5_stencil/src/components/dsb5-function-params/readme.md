@@ -1,21 +1,24 @@
 # 单列表单
 
-
 <dsb5-webcomponent-show>
-    <dsb5-function-params></dsb5-function-params>
+    <dsb5-function-params>
+    <ds-script>
+    console.log('---------------')
+      $el.addEventListener('onValueChange', function(el){
+        console.log(el.detail)
+      })
+   </ds-script>
+    </dsb5-function-params>
 </dsb5-webcomponent-show>
-
-
-
 
 <!-- Auto Generated Below -->
 
 
 ## Events
 
-| Event     | Description | Type                           |
-| --------- | ----------- | ------------------------------ |
-| `getData` | 返回变更的数据     | `CustomEvent<Dsb5FromModel[]>` |
+| Event         | Description | Type                           |
+| ------------- | ----------- | ------------------------------ |
+| `valueChange` | 返回变更的数据     | `CustomEvent<Dsb5FromModel[]>` |
 
 
 ## Dependencies

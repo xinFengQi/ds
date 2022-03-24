@@ -14,9 +14,18 @@
 
 ## Properties
 
-| Property      | Attribute     | Description  | Type     | Default     |
-| ------------- | ------------- | ------------ | -------- | ----------- |
-| `placeholder` | `placeholder` | placeholder值 | `string` | `undefined` |
+| Property      | Attribute     | Description  | Type      | Default     |
+| ------------- | ------------- | ------------ | --------- | ----------- |
+| `error`       | `error`       | 是否是错误        | `boolean` | `undefined` |
+| `placeholder` | `placeholder` | placeholder值 | `string`  | `undefined` |
+| `value`       | `value`       | 当前的值         | `any`     | `null`      |
+
+
+## Events
+
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `valueChange` | 值变化的事件      | `CustomEvent<any>` |
 
 
 ## Dependencies

@@ -2,6 +2,7 @@ import { Component, Host, h, Element, Prop, EventEmitter, Event } from '@stencil
 
 /**
  * @componentName js执行组件
+ * @componentType 基础
  *
  */
 @Component({
@@ -12,7 +13,7 @@ export class DsScript {
   @Element() el: HTMLElement;
 
   /** 父节点 */
-  @Prop() parentEl: HTMLElement | ParentNode;
+  @Prop({ mutable: true }) parentEl: HTMLElement | ParentNode;
 
   /** 解析参数后回调事件 */
   @Event() getExecute: EventEmitter<any>;
@@ -27,10 +28,13 @@ export class DsScript {
     this.jstext = this.el.innerHTML;
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (!this.parentEl) {
       this.parentEl = this.el.parentNode;
     }
+  }
+
+  componentDidLoad() {
     new Function('$el', this.jstext)(this.parentEl);
     this.getExecute.emit(true);
   }

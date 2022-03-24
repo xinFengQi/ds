@@ -4,6 +4,12 @@ import { ComponentType } from '../../interface/type.interface';
 import { BaseCompoent } from './../../core/BaseCompoent';
 
 declare const dsb5: Dsb5;
+
+/**
+ * @componentName 组件预览
+ * @componentType 文档
+ *
+ */
 @Component({
   tag: 'dsb5-webcomponent-show',
   styleUrl: 'dsb5-webcomponent-show.css',

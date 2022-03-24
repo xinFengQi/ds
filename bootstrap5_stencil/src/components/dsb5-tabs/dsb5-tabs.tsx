@@ -1,6 +1,12 @@
 import { Component, Host, h, Prop, Element, forceUpdate } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 
+
+/**
+ * @componentName 标签导航
+ * @componentType 布局
+ *
+ */
 @Component({
   tag: 'dsb5-tabs',
   styleUrl: 'dsb5-tabs.css',

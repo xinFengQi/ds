@@ -4,6 +4,7 @@ import { ComponentType } from '../../interface/type.interface';
 
 /**
  * @componentName 弹框
+ * @componentType 交互
  * @slot default - 展示的内容
  *
  */

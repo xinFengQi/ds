@@ -28,6 +28,12 @@ export namespace Components {
          */
         "parentEl": HTMLElement | ParentNode;
     }
+    interface DsUtil {
+        "isEqual": (a: any, b: any) => Promise<boolean>;
+        "isEqualSync": (a: any, b: any) => boolean;
+        "valueVerify": (value: string, type: DataType) => Promise<boolean>;
+        "valueVerifySync": (value: string, type: DataType) => boolean;
+    }
     interface Dsb5Alert {
         /**
           * 是否显示关闭按钮
@@ -94,9 +100,17 @@ export namespace Components {
     }
     interface Dsb5Input {
         /**
+          * 是否是错误
+         */
+        "error": boolean;
+        /**
           * placeholder值
          */
         "placeholder": string;
+        /**
+          * 当前的值
+         */
+        "value": any;
     }
     interface Dsb5Select {
         /**
@@ -136,6 +150,12 @@ declare global {
     var HTMLDsScriptElement: {
         prototype: HTMLDsScriptElement;
         new (): HTMLDsScriptElement;
+    };
+    interface HTMLDsUtilElement extends Components.DsUtil, HTMLStencilElement {
+    }
+    var HTMLDsUtilElement: {
+        prototype: HTMLDsUtilElement;
+        new (): HTMLDsUtilElement;
     };
     interface HTMLDsb5AlertElement extends Components.Dsb5Alert, HTMLStencilElement {
     }
@@ -194,6 +214,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "ds-prop": HTMLDsPropElement;
         "ds-script": HTMLDsScriptElement;
+        "ds-util": HTMLDsUtilElement;
         "dsb5-alert": HTMLDsb5AlertElement;
         "dsb5-button": HTMLDsb5ButtonElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
@@ -233,6 +254,10 @@ declare namespace LocalJSX {
           * 父节点
          */
         "parentEl"?: HTMLElement | ParentNode;
+    }
+    interface DsUtil {
+        "isEqualSync"?: (a: any, b: any) => boolean;
+        "valueVerifySync"?: (value: string, type: DataType) => boolean;
     }
     interface Dsb5Alert {
         /**
@@ -300,13 +325,25 @@ declare namespace LocalJSX {
         /**
           * 返回变更的数据
          */
-        "onGetData"?: (event: CustomEvent<Dsb5FromModel[]>) => void;
+        "onValueChange"?: (event: CustomEvent<Dsb5FromModel[]>) => void;
     }
     interface Dsb5Input {
+        /**
+          * 是否是错误
+         */
+        "error"?: boolean;
+        /**
+          * 值变化的事件
+         */
+        "onValueChange"?: (event: CustomEvent<any>) => void;
         /**
           * placeholder值
          */
         "placeholder"?: string;
+        /**
+          * 当前的值
+         */
+        "value"?: any;
     }
     interface Dsb5Select {
         /**
@@ -340,6 +377,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "ds-prop": DsProp;
         "ds-script": DsScript;
+        "ds-util": DsUtil;
         "dsb5-alert": Dsb5Alert;
         "dsb5-button": Dsb5Button;
         "dsb5-function-execute": Dsb5FunctionExecute;
@@ -357,6 +395,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ds-prop": LocalJSX.DsProp & JSXBase.HTMLAttributes<HTMLDsPropElement>;
             "ds-script": LocalJSX.DsScript & JSXBase.HTMLAttributes<HTMLDsScriptElement>;
+            "ds-util": LocalJSX.DsUtil & JSXBase.HTMLAttributes<HTMLDsUtilElement>;
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
             "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;

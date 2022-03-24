@@ -2,6 +2,7 @@ import { Component, Host, h, Prop, Event, EventEmitter, Element } from '@stencil
 
 /**
  * @componentName 下拉列表
+ * @componentType 表单
  *
  */
 @Component({
@@ -15,7 +16,7 @@ export class Dsb5Select {
 
   selectEl: HTMLSelectElement;
   /** 当前的值 */
-  @Prop() value: any = null;
+  @Prop({mutable: true}) value: any = null;
   /** 值变化的事件 */
   @Event() valueChange: EventEmitter<any>;
 
@@ -24,8 +25,8 @@ export class Dsb5Select {
   }
 
   componentShouldUpdate(oldData, newData, prop) {
-    if (prop === 'value' && oldData === newData) {
-      return false;
+    if (prop === 'value') {
+      return oldData !== newData;
     }
     return true;
   }
@@ -47,6 +48,9 @@ export class Dsb5Select {
 
   // 数据改变
   onChange(el: any) {
+    if (this.value === el.target.value) {
+      return;
+    }
     this.value = el.target.value;
     this.valueChange.emit(el.target.value);
   }

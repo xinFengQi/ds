@@ -3,7 +3,7 @@ import { DataType } from '../../interface/type.interface';
 
 /**
  * @componentName 参数组件
- *
+ * @componentType 基础
  */
 @Component({
   tag: 'ds-prop',
@@ -13,7 +13,7 @@ export class DsProp {
   @Element() el: HTMLElement;
 
   /** 父节点 */
-  @Prop() parentEl: HTMLElement | ParentNode;
+  @Prop({ mutable: true }) parentEl: HTMLElement | ParentNode;
 
   /** 参数名称 */
   @Prop() name!: string;

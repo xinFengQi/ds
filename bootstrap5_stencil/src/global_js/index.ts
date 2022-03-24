@@ -4,6 +4,7 @@ import 'bootstrap';
 (function dsb5Global() {
   const funMap = {
     dsb5Alert: 'dsb5-alert',
+    dsUtil: 'ds-util',
   };
 
   const funInterce: { [key: string]: HTMLElement } = {};
