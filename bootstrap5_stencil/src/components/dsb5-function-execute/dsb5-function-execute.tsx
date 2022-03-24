@@ -1,6 +1,7 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core';
+import { Component, Host, h, Element, forceUpdate, Prop } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 import { Dsb5 } from '../../interface/method.interface';
+import { ComponentType } from '../../interface/type.interface';
 
 declare const dsb5: Dsb5;
 
@@ -16,9 +17,6 @@ declare const dsb5: Dsb5;
   scoped: true,
 })
 export class Dsb5FunctionTest {
-  /** 展示用例的类型 */
-  @Prop() type: 'testCase' = 'testCase';
-
   /** 需要执行的全局函数 */
   @Prop() fun!: string;
 
@@ -41,127 +39,171 @@ export class Dsb5FunctionTest {
 
   // 执行时间
   executeTime = 0;
-  // 执行的结果
-  isResult = false;
   // 执行的函数
   excuteFunction = null;
+
+  // 自定义的执行参数
+  customExcuteData = null;
+  customExcuteResultData = null;
+  customExecuteTime = 0;
+  customErrors = [];
 
   connectedCallback() {
     // 通过代码插入获取参数或相应的
     this.baseCompoent.connectedCallback(this.hostDiv, () => {
-      this.executeFun();
+      const data = this.executeFun(this.params, this.result, this.time);
+      this.executeTime = data.time;
+      this.errors = data.errors;
     });
     return true;
   }
 
   // 执行函数
-  executeFun() {
-    this.errors = [];
+  executeFun(params, result, times) {
+    const errors = [];
+    let time = 0;
     if (!this.fun) {
       throw '函数参数未传';
     }
     const funs = this.fun.split('.');
-    let funObj = null;
-    const objs = ['window'];
-    try {
-      while (funs.length > 0) {
-        const obj = funs.shift();
-        if (funObj === null) {
+    let funObj = this.excuteFunction;
+    if (!this.excuteFunction) {
+      const objs = ['window'];
+      try {
+        while (funs.length > 0) {
+          const obj = funs.shift();
+          if (funObj === null) {
+            objs.push(obj);
+            funObj = window[obj];
+            continue;
+          }
+          if (!funObj) {
+            throw `未在window上找到需要执行的${objs.join('.')}函数`;
+          }
           objs.push(obj);
-          funObj = window[obj];
-          continue;
+          funObj = funObj[obj];
         }
         if (!funObj) {
           throw `未在window上找到需要执行的${objs.join('.')}函数`;
         }
-        objs.push(obj);
-        funObj = funObj[obj];
+      } catch (error) {
+        errors.push(error);
       }
-      if (!funObj) {
-        throw `未在window上找到需要执行的${objs.join('.')}函数`;
-      }
-    } catch (error) {
-      this.errors.push(error);
     }
+
     if (funObj) {
       this.excuteFunction = funObj;
       const startTime = new Date().getTime();
-      const getResult = funObj.apply(this, this.params);
-      for (let i = 1; i < this.time; i++) {
-        funObj.apply(this, this.params);
+      const getResult = funObj.apply(this, params);
+      for (let i = 1; i < times; i++) {
+        funObj.apply(this, params);
       }
-      this.executeTime = new Date().getTime() - startTime;
-      dsb5.dsUtil.isEqual(getResult, this.result).then(v => {
-        this.isResult = v;
-        if (!this.isResult) {
-          this.errors.push(`执行结果${getResult}与预计结果${this.result}不符合`);
-        }
-        console.log('需要执行的函数', funObj, this.params, typeof getResult, typeof this.result);
-      });
+      time = new Date().getTime() - startTime;
+      if (result) {
+        dsb5.dsUtil.isEqual(getResult, result).then(v => {
+          if (!v) {
+            errors.push(`执行结果${getResult}与预计结果${result}不符合`);
+          }
+        });
+      }
     }
+    return { time, errors };
+  }
+
+  getExcuteDatas(ev: CustomEvent) {
+    this.customExcuteData = ev.detail;
+  }
+  getExcuteResultDatas(ev: CustomEvent) {
+    this.customExcuteResultData = ev.detail;
+  }
+
+  excuteCustom() {
+    if (!this.customExcuteData || this.customExcuteData.valid) {
+      return;
+    }
+    if (this.customExcuteResultData && this.customExcuteResultData.valid) {
+      return;
+    }
+    const result = this.customExcuteResultData ? this.customExcuteResultData.value[0].value : null;
+    const params = this.customExcuteData.value.map(v => v.value);
+    const data = this.executeFun(params, result, this.time);
+    this.customExecuteTime = data.time;
+    this.customErrors = data.errors;
+    console.log(this.hostDiv);
+    forceUpdate(this.hostDiv);
+    console.log(params,result, '===');
   }
 
   render() {
     return (
       <Host>
-        {this.type === 'testCase' && (
-          <div class="accordion accordion-flush" id={this.baseCompoent.id + 'main'}>
-            <div class="accordion-item">
-              <div class="accordion-header" id={this.baseCompoent.id}>
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={'#' + this.baseCompoent.id + 1}
-                  aria-expanded="false"
-                  aria-controls={this.baseCompoent.id + 1}
-                >
-                  {this.errors.length ? (
-                    <span>
-                      <span class="font_danger">执行失败</span>:{this.errors[0]}
-                    </span>
-                  ) : (
-                    <span>
-                      <span class="font_success">执行成功</span>;执行时间{this.executeTime}ms; 执行次数:{this.time}
-                    </span>
-                  )}
-                </button>
-              </div>
-              <div id={this.baseCompoent.id + 1} class="accordion-collapse collapse" aria-labelledby={this.baseCompoent.id} data-bs-parent={'#' + this.baseCompoent.id + 'main'}>
-                <div class="accordion-body">
-                  <dsb5-tabs tabs={['执行结果', '代码展示', '执行测试']}>
-                    <div class="detail_content" slot="执行结果">
-                      {this.errors.length ? (
-                        <span>
-                          {this.errors.map((v, i) => {
-                            return (
-                              <strong>
-                                {i + 1}:{v}
-                              </strong>
-                            );
-                          })}
-                        </span>
-                      ) : (
-                        <div>
-                          <span>执行参数:</span>
-                          {this.params}
-                          <br />
-                          <span>执行结果:</span>
-                          {this.result}
-                          <br />
-                        </div>
-                      )}
+        <div class="accordion accordion-flush" id={this.baseCompoent.id + 'main'}>
+          <div class="accordion-item">
+            <div class="accordion-header" id={this.baseCompoent.id}>
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={'#' + this.baseCompoent.id + 1}
+                aria-expanded="false"
+                aria-controls={this.baseCompoent.id + 1}
+              >
+                {this.errors.length ? (
+                  <span>
+                    <span class="font_danger">执行失败</span>:{this.errors[0]}
+                  </span>
+                ) : (
+                  <span>
+                    <span class="font_success">执行成功</span>;执行时间{this.executeTime}ms; 执行次数:{this.time}
+                  </span>
+                )}
+              </button>
+            </div>
+            <div id={this.baseCompoent.id + 1} class="accordion-collapse collapse" aria-labelledby={this.baseCompoent.id} data-bs-parent={'#' + this.baseCompoent.id + 'main'}>
+              <div class="accordion-body">
+                <dsb5-tabs tabs={['执行结果', '代码展示', '执行测试']}>
+                  <div class="detail_content" slot="执行结果">
+                    {this.errors.length ? (
+                      <span>
+                        {this.errors.map((v, i) => {
+                          return (
+                            <strong>
+                              {i + 1}:{v}
+                            </strong>
+                          );
+                        })}
+                      </span>
+                    ) : (
+                      <div>
+                        <span>执行参数:</span>
+                        {this.params}
+                        <br />
+                        <span>执行结果:</span>
+                        {this.result}
+                        <br />
+                      </div>
+                    )}
+                  </div>
+                  <div class="detail_content" slot="代码展示">
+                    <pre class="margin0">{this.excuteFunction ? this.excuteFunction.toString() : null}</pre>
+                  </div>
+                  <div class="detail_content" slot="执行测试">
+                    参数：
+                    <dsb5-function-params onFormChange={ev => this.getExcuteDatas(ev)}></dsb5-function-params>
+                    结果：
+                    <dsb5-function-params onFormChange={ev => this.getExcuteResultDatas(ev)}></dsb5-function-params>
+                    <div class="excute_tool">
+                      {this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`}
+                      <dsb5-button class="ml_1" onClick={() => this.excuteCustom()} type={ComponentType.primary}>
+                        执行
+                      </dsb5-button>
                     </div>
-                    <div class="detail_content" slot="代码展示">
-                      <pre class="margin0">{this.excuteFunction ? this.excuteFunction.toString() : null}</pre>
-                    </div>
-                    <div class="detail_content" slot="执行测试"></div>
-                  </dsb5-tabs>
-                </div>
+                  </div>
+                </dsb5-tabs>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </Host>
     );
   }

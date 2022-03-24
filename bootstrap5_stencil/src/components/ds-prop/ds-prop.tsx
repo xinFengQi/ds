@@ -39,10 +39,13 @@ export class DsProp {
     }
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (!this.parentEl) {
       this.parentEl = this.el.parentNode;
     }
+  }
+
+  componentDidLoad() {
     this.parentEl[this.name] = this.value;
     this.getProp.emit({ key: this.name, value: this.value });
   }

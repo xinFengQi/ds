@@ -4,7 +4,7 @@
     <dsb5-function-params>
     <ds-script>
     console.log('---------------')
-      $el.addEventListener('valueChange', function(el){
+      $el.addEventListener('formChange', function(el){
         console.log(el.detail)
       })
    </ds-script>
@@ -16,12 +16,16 @@
 
 ## Events
 
-| Event         | Description | Type                                                       |
-| ------------- | ----------- | ---------------------------------------------------------- |
-| `valueChange` | 返回变更的数据     | `CustomEvent<{ valid: boolean; value: Dsb5FromModel[]; }>` |
+| Event        | Description | Type                                                       |
+| ------------ | ----------- | ---------------------------------------------------------- |
+| `formChange` | 返回变更的数据     | `CustomEvent<{ valid: boolean; value: Dsb5FromModel[]; }>` |
 
 
 ## Dependencies
+
+### Used by
+
+ - [dsb5-function-execute](../dsb5-function-execute)
 
 ### Depends on
 
@@ -33,6 +37,7 @@
 graph TD;
   dsb5-function-params --> dsb5-select
   dsb5-function-params --> dsb5-input
+  dsb5-function-execute --> dsb5-function-params
   style dsb5-function-params fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

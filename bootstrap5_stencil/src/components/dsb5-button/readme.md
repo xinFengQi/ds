@@ -35,6 +35,19 @@
 | `"default"` | 展示的内容       |
 
 
+## Dependencies
+
+### Used by
+
+ - [dsb5-function-execute](../dsb5-function-execute)
+
+### Graph
+```mermaid
+graph TD;
+  dsb5-function-execute --> dsb5-button
+  style dsb5-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -7,10 +7,10 @@ export function valueVerifyFun(value: string, type: DataType): {valid: boolean, 
   }
   if (type === DataType.number) {
     realValue = Number(value);
-    return { valid: isNaN(realValue), realValue: value };
+    return { valid: isNaN(realValue), realValue };
   }
   if (type === DataType.boolean) {
-    let flag = { valid: true, realValue: realValue };
+    let flag = { valid: true, realValue };
     try {
       flag.realValue = Boolean(value);
       flag.valid = false;
@@ -18,7 +18,7 @@ export function valueVerifyFun(value: string, type: DataType): {valid: boolean, 
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
-    let flag = { valid: true, realValue: realValue };
+    let flag = { valid: true, realValue };
     try {
       flag.realValue = JSON.parse(value);
       if (typeof flag.realValue === 'object') {
@@ -27,6 +27,8 @@ export function valueVerifyFun(value: string, type: DataType): {valid: boolean, 
     } catch (error) {}
     return flag;
   }
+  return {valid: false, realValue} ;
+
 }
 
 export function isEqualFun(a: any, b: any) {

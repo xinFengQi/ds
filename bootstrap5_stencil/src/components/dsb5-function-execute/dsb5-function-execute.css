@@ -6,3 +6,9 @@
 .detail_content{
   padding: 20px 0px 0px 0px;
 }
+
+.excute_tool{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

@@ -29,9 +29,21 @@ export namespace Components {
         "parentEl": HTMLElement | ParentNode;
     }
     interface DsUtil {
+        /**
+          * 判断两个数值是否相同
+         */
         "isEqual": (a: any, b: any) => Promise<boolean>;
+        /**
+          * 判断两个数值是否相同
+         */
         "isEqualSync": (a: any, b: any) => boolean;
+        /**
+          * 值校验
+         */
         "valueVerify": (value: string, type: DataType) => Promise<{ valid: boolean; realValue: any; }>;
+        /**
+          * 值校验
+         */
         "valueVerifySync": (value: string, type: DataType) => { valid: boolean; realValue: any; };
     }
     interface Dsb5Alert {
@@ -91,10 +103,6 @@ export namespace Components {
           * 执行次数
          */
         "time": number;
-        /**
-          * 展示用例的类型
-         */
-        "type": 'testCase';
     }
     interface Dsb5FunctionParams {
     }
@@ -256,7 +264,13 @@ declare namespace LocalJSX {
         "parentEl"?: HTMLElement | ParentNode;
     }
     interface DsUtil {
+        /**
+          * 判断两个数值是否相同
+         */
         "isEqualSync"?: (a: any, b: any) => boolean;
+        /**
+          * 值校验
+         */
         "valueVerifySync"?: (value: string, type: DataType) => { valid: boolean; realValue: any; };
     }
     interface Dsb5Alert {
@@ -316,16 +330,12 @@ declare namespace LocalJSX {
           * 执行次数
          */
         "time"?: number;
-        /**
-          * 展示用例的类型
-         */
-        "type"?: 'testCase';
     }
     interface Dsb5FunctionParams {
         /**
           * 返回变更的数据
          */
-        "onValueChange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[] }>) => void;
+        "onFormChange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[] }>) => void;
     }
     interface Dsb5Input {
         /**

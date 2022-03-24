@@ -37,13 +37,12 @@
 
 ## Properties
 
-| Property           | Attribute | Description | Type         | Default      |
-| ------------------ | --------- | ----------- | ------------ | ------------ |
-| `fun` _(required)_ | `fun`     | 需要执行的全局函数   | `string`     | `undefined`  |
-| `params`           | --        | 需要执行函数的参数   | `any[]`      | `undefined`  |
-| `result`           | --        | 执行函数的结果     | `any[]`      | `undefined`  |
-| `time`             | `time`    | 执行次数        | `number`     | `10`         |
-| `type`             | `type`    | 展示用例的类型     | `"testCase"` | `'testCase'` |
+| Property           | Attribute | Description | Type     | Default     |
+| ------------------ | --------- | ----------- | -------- | ----------- |
+| `fun` _(required)_ | `fun`     | 需要执行的全局函数   | `string` | `undefined` |
+| `params`           | --        | 需要执行函数的参数   | `any[]`  | `undefined` |
+| `result`           | --        | 执行函数的结果     | `any[]`  | `undefined` |
+| `time`             | `time`    | 执行次数        | `number` | `10`        |
 
 
 ## Dependencies
@@ -51,11 +50,17 @@
 ### Depends on
 
 - [dsb5-tabs](../dsb5-tabs)
+- [dsb5-function-params](../dsb5-function-params)
+- [dsb5-button](../dsb5-button)
 
 ### Graph
 ```mermaid
 graph TD;
   dsb5-function-execute --> dsb5-tabs
+  dsb5-function-execute --> dsb5-function-params
+  dsb5-function-execute --> dsb5-button
+  dsb5-function-params --> dsb5-select
+  dsb5-function-params --> dsb5-input
   style dsb5-function-execute fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

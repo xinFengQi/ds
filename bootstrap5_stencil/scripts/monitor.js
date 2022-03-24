@@ -117,10 +117,7 @@ function generatorDocs(docsJson, filename) {
     // }
     let mdStr = com.readme;
     const isLib = com.docsTags.find(v => v.name === 'lib');
-    if (isLib) {
-      // 这个用于生成lib的文档
-    }
-    // 生成参数
+
     if (!isLib && com.props && com.props.length) {
       mdStr = generatorPropMd(mdStr, com)
     }
@@ -129,6 +126,29 @@ function generatorDocs(docsJson, filename) {
     if (!isLib && com.events && com.events.length) {
       mdStr = generatorEventMd(mdStr, com)
     }
+    // 生成方法
+    if (!isLib && com.methods && com.methods.length) {
+      mdStr = generatorMethodMd(mdStr, com)
+    }
+
+    // lib 文档处理
+    if (isLib) {
+      let methodMap = {};
+      if (com.methods && com.methods.length) {
+        methodMap = { ...generatorLibSingleMethodMd(com) };
+      }
+      if (com.props && com.props.length) {
+        com.props.forEach((prop) => {
+          if (!prop.isCheck) {
+            methodMap[prop] = generatorLibSinglePropMd(prop, true);
+          }
+        })
+      }
+      Object.keys(methodMap).forEach(key => {
+        mdStr = mdStr.replace(`<!-- ${key}信息 -->`, methodMap[key])
+      })
+    }
+
     fs.writeFileSync(`./dist/www/components/${com.tag}.md`, mdStr)
   })
 }
@@ -171,6 +191,46 @@ function generatorEventMd(mdStr, com) {
   )
   return mdStr;
 }
+
+// 非lib方法文档
+function generatorMethodMd(mdStr, com) {
+  mdStr = mdStr + '\n\n## 方法\n'
+  com.methods.forEach(co => {
+    mdStr = mdStr + `### ${co.signature}\n`;
+    mdStr = mdStr + `${co.docs.replace(/\n/g, '   \n')}\n`;
+    mdStr = mdStr + `#### 返回值\n`;
+    mdStr = mdStr + `${co.returns.type}\n`;
+  })
+  return mdStr;
+}
+
+function generatorLibSingleMethodMd(com) {
+  const methodMap = {};
+  com.methods.forEach(co => {
+    let str = '#### 注释信息\n' + `${co.docs.replace(/\n/g, '  \n')}\n`;
+    str = str + '#### 异步方法\n';
+    str = str + co.signature + '\n';
+    const index = com.props.findIndex(v => v.name === co.name + 'Sync');
+    if (index > -1) {
+      com.props[index].isCheck = true;
+      str = str + generatorLibSinglePropMd(com.props[index]);
+    }
+    methodMap[co.name] = str;
+  })
+  return methodMap;
+}
+
+
+function generatorLibSinglePropMd(prop, isSingle) {
+  let str = '';
+  if (isSingle) {
+    str = str + '#### 注释信息\n' + `${prop.docs.replace(/\n/g, '  \n')}\n`;;
+  }
+  str = str + '#### 同步方法\n';
+  str = str + prop.name + prop.type + '\n';
+  return str;
+}
+
 
 // 生成表格
 function generatorDocsTable(headers, datas) {
