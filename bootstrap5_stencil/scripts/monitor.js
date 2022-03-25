@@ -2,7 +2,8 @@ const fs = require('fs')
 var exec = require('child_process').exec;
 // 引用 browserSync 模块
 var bs = require("browser-sync").create();
-const dfb = require('dfb');
+const dfb = require('dfb/export');
+
 
 // 是否启动服务器
 let serveOpen = false;
@@ -92,7 +93,7 @@ function copyHandler(filename) {
   }
   fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
   // 复制相关的文件
-  dfb.nodeExecute({ Copy: true })
+  dfb.nodeExecute.nodeExecute({ Copy: true })
   openBrowserSync();
   // 生成文档
   generatorDocs(docsJson, filename)

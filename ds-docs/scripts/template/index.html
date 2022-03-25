@@ -12,8 +12,13 @@
   <meta http-equiv="Cache" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <link rel="stylesheet" href="{{docsify_custom_path}}/docsify_custom/docsify_custom.css?v={{version}}">
+  <link rel="stylesheet" href="{{docsify_custom_path}}docsify_custom/docsify_custom.css?v={{version}}">
  
+  <link rel="stylesheet" href="{{docsify_custom_path}}docsify_custom/bootstrap5_stencli/bootstrap5_stencli.css">
+  <script type="module" src="{{docsify_custom_path}}docsify_custom/bootstrap5_stencli/index.esm.js" data-stencil></script>
+  <script type="module" src="{{docsify_custom_path}}docsify_custom/bootstrap5_stencli/bootstrap5_stencli.esm.js" data-stencil></script>
+  <script nomodule="" src="{{docsify_custom_path}}docsify_custom/bootstrap5_stencli/bootstrap5_stencli.js" data-stencil></script>
+
 </head>
 
 <body>
@@ -33,6 +38,7 @@
         <ul>
           <li><a href="/index.html?v={{version}}" title="ds系列">ds子系统</a></li>
           <li><a href="/docs/ds-series/dsn/index.html?v={{version}}" title="dsn系列">dsn脚手架</a></li>
+          <li><a href="/docs/ds-series/dsb5/index.html?v={{version}}" title="ds前端库">ds前端库</a></li>
         </ul>
       </li>
     </ul>

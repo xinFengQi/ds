@@ -6,7 +6,7 @@ const handlebars = require('handlebars');// 修改字符
 const ora = require('ora');
 const chalk = require('chalk');
 const logSymbols = require('log-symbols');
-const fs = require('fs');
+const fs = require('fs-extra');
 const nodePath = require('path');
 const { getDsnConfig } = require('./src/config/index.js');
 
@@ -28,10 +28,6 @@ program.command('test')
 require('./bin/config.js');
 require('./bin/gitee.js');
 require('./bin/util.js');
-const allExport = require('./export');
-module.export = {
-    ...allExport
-}
 
 if(process.argv) {
     program.parse(process.argv);

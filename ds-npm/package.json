@@ -1,6 +1,6 @@
 {
   "name": "dfb",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "scripts": {

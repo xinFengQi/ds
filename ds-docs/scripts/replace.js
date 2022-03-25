@@ -16,7 +16,7 @@ const allPath = [
     },
     {
         path: './all_docs/docs/ds-series/dsb5',
-        title: '基于bootstrap5的标准web组件',
+        title: '标准组件及工具库',
         docsify_custom_path:  '../../'
     },
     {

@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const request = require('request');
 const inquirer = require('inquirer');
 const { pathFomate, giteePathHandler  } = require( './gitee_util.js');

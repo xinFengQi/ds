@@ -37,8 +37,8 @@
                     "dest": "./dist/www/_sidebar.md"
                 },
                 {
-                    "src": "./readme.md",
-                    "dest": "./dist/www/readme.md"
+                    "src": "./README.md",
+                    "dest": "./dist/www/README.md"
                 }
             ]
         },

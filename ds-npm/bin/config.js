@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const fs = require('fs');
+const fs = require('fs-extra');
 const logSymbols = require('log-symbols');
 const chalk = require('chalk');
 const nodePath = require('path');

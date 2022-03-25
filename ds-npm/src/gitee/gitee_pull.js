@@ -1,7 +1,7 @@
 
 
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const request = require('request');
 const nodePath = require('path');
 const { getExcPath } = require( '../util/index.js');
