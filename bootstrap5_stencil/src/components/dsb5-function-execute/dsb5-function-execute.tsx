@@ -41,6 +41,8 @@ export class Dsb5FunctionTest {
   executeTime = 0;
   // 执行的函数
   excuteFunction = null;
+  excuteFunctionName = null;
+
 
   // 自定义的执行参数
   customExcuteData = null;
@@ -52,8 +54,10 @@ export class Dsb5FunctionTest {
     // 通过代码插入获取参数或相应的
     this.baseCompoent.connectedCallback(this.hostDiv, () => {
       const data = this.executeFun(this.params, this.result, this.time);
+      console.log('获取到的参数:', this.params, this.fun)
       this.executeTime = data.time;
       this.errors = data.errors;
+      forceUpdate(this.hostDiv);
     });
     return true;
   }
@@ -72,8 +76,8 @@ export class Dsb5FunctionTest {
       try {
         while (funs.length > 0) {
           const obj = funs.shift();
+          this.excuteFunctionName = obj;
           if (funObj === null) {
-            objs.push(obj);
             funObj = window[obj];
             continue;
           }
@@ -100,11 +104,10 @@ export class Dsb5FunctionTest {
       }
       time = new Date().getTime() - startTime;
       if (result) {
-        dsb5.dsUtil.isEqual(getResult, result).then(v => {
-          if (!v) {
-            errors.push(`执行结果${getResult}与预计结果${result}不符合`);
-          }
-        });
+        const isResult =  dsb5.dsUtil.isEqualSync(getResult, result);
+        if (!isResult) {
+          errors.push(`执行结果${this.getString(getResult)}与预计结果${this.getString(result)}不符合`);
+        }
       }
     }
     return { time, errors };
@@ -129,9 +132,31 @@ export class Dsb5FunctionTest {
     const data = this.executeFun(params, result, this.time);
     this.customExecuteTime = data.time;
     this.customErrors = data.errors;
-    console.log(this.hostDiv);
     forceUpdate(this.hostDiv);
-    console.log(params,result, '===');
+  }
+
+  // 获取代码字符串
+  getExcuteFunctionStr() {
+    if(this.excuteFunction) {
+      let str  = this.excuteFunction.toString();
+      if(str.indexOf(this.excuteFunctionName) < 0) {
+        str = `    const ${this.excuteFunctionName} = ` + str;
+      }
+      return str
+    }
+    return ''
+  }
+
+  getString(str: any) {
+    try {
+      return JSON.stringify(str)
+    } catch (error) {
+      try {
+        return str.toString()
+      } catch (error) {
+        return str
+      }
+    }
   }
 
   render() {
@@ -176,16 +201,16 @@ export class Dsb5FunctionTest {
                     ) : (
                       <div>
                         <span>执行参数:</span>
-                        {this.params}
+                        {this.getString(this.params)}
                         <br />
                         <span>执行结果:</span>
-                        {this.result}
+                        {this.getString(this.result)}
                         <br />
                       </div>
                     )}
                   </div>
                   <div class="detail_content" slot="代码展示">
-                    <pre class="margin0">{this.excuteFunction ? this.excuteFunction.toString() : null}</pre>
+                    <pre class="margin0">{this.getExcuteFunctionStr()}</pre>
                   </div>
                   <div class="detail_content" slot="执行测试">
                     参数：

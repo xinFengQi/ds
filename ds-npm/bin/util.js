@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-import { dsnCopyFile } from '../src/util/index.js'
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-import program from 'commander' // 设计命令行
-import { getDsnConfig } from '../src/config/index.js';
-import fs from 'fs-extra';
+const program = require('commander');
+const fs = require('fs');
+const logSymbols = require('log-symbols');
+const chalk = require('chalk');
+const { getDsnConfig } = require('../src/config/index.js');
+const { dsnCopyFile } = require('../src/util/index.js');
+const nodePath = require('path');
+
 
 initUtilCmd();
 
@@ -18,16 +20,19 @@ function initUtilCmd() {
         .option('--dest <config>', '需要处理文件的生成路径')
         .description('文件处理的工具命令集合')
         .action((options) => {
-            console.log(options)
-            if (options.Copy) {
-                handlerFileCopy(options)
-            }
-            if (options.Move) {
-                handlerFileCopy(options, true)
-            }
+            nodeExecute(options);
         })
 }
 
+module.exports.nodeExecute = (options) => {
+    console.log(options)
+    if (options.Copy) {
+        handlerFileCopy(options)
+    }
+    if (options.Move) {
+        handlerFileCopy(options, true)
+    }
+}
 
 // 复制文件夹的逻辑
 function handlerFileCopy(options, isMove) {
@@ -78,7 +83,7 @@ function handlerFileCopyByKey(customConfig, key, configKey, isMove) {
 
 
 if (process.argv[1].indexOf('util.js') > -1) {
-    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    const data = JSON.parse(fs.readFileSync(nodePath.resolve(__dirname, '../package.json')).toString());
     // dsn -V|--version
     program.version(data.version);
 

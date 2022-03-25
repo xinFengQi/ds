@@ -1,7 +1,6 @@
 
-
-import os from 'os';
-
+const os = require('os');
+const nodePath = require('path');
 
 function osType() {
     if (os.type() == 'Windows_NT') {
@@ -19,14 +18,11 @@ function osType() {
 
 // 如果文件名需要进行拼接，则需要如此使用
 function getExcPath(str) {
-    const url = new URL(str, import.meta.url).toString().replace('file:///', '');
-    if(osType() === 'mac'){
-        return '/' + url;
-    }
+    const url = nodePath.resolve(__dirname, str)
     return url;
 }
 
 
-export {
+module.exports = {
     getExcPath
 }

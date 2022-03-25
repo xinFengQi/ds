@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-import program from 'commander' // 设计命令行
-import inquirer from 'inquirer' // 命令行答询
-import handlebars from 'handlebars' // 修改字符
-import ora from 'ora'
-import chalk from 'chalk'
-import logSymbols from 'log-symbols'
-import fs from 'fs-extra'
-import path, { parse } from 'path'
-
-import { getDsnConfig } from './src/config/index.js';
-
+const program = require('commander');  // 设计命令行
+const inquirer = require('inquirer'); // 命令行答询
+const handlebars = require('handlebars');// 修改字符
+const ora = require('ora');
+const chalk = require('chalk');
+const logSymbols = require('log-symbols');
+const fs = require('fs');
+const nodePath = require('path');
+const { getDsnConfig } = require('./src/config/index.js');
 
 
-const data = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)).toString());
+
+
+const data = JSON.parse(fs.readFileSync(nodePath.resolve(__dirname, './package.json')).toString());
 // dsn -V|--version
 program.version(data.version);
 
@@ -25,8 +25,14 @@ program.command('test')
         console.log(logSymbols.info, chalk.green(`当前目录是${path.resolve()}`));
     })
 
-import './bin/config.js';
-import './bin/gitee.js';
-import './bin/util.js';
+require('./bin/config.js');
+require('./bin/gitee.js');
+require('./bin/util.js');
+const allExport = require('./export');
+module.export = {
+    ...allExport
+}
 
-program.parse(process.argv);
+if(process.argv) {
+    program.parse(process.argv);
+}

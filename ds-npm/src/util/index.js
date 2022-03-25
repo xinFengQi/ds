@@ -1,2 +1,8 @@
-export * from './content_handler.mjs'
-export * from './file_path.mjs'
+const contentHandler = require('./content_handler.js');
+const filePath = require('./file_path.js');
+
+
+module.exports = {
+    ...contentHandler,
+    ...filePath,
+}

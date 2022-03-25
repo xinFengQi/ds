@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
-import program from 'commander' // 设计命令行
-import fs from 'fs-extra'
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-import { getExcPath } from '../src/util/index.js'
+const program = require('commander');
+const fs = require('fs');
+const logSymbols = require('log-symbols');
+const chalk = require('chalk');
+const nodePath = require('path');
+
+const { getExcPath } = require('../src/util/index.js');
+
 
 program.command('config').alias('dc')
     .option('-init, --i', '初始化配置文件')
@@ -46,8 +49,7 @@ function initConfigFile(options) {
         console.log(logSymbols.warning, chalk.yellow('配置文件已存在,请删除重新创建或者进行更新使用 dc -update'));
         return;
     }
-    const data = fs.readFileSync
-        (new URL('../dsn.config.json', import.meta.url)).toString()
+    const data = fs.readFileSync(nodePath.resolve(__dirname, '../dsn.config.json')).toString()
     const generateArr = ['gitee_info'];
     if (options.stencil) {
         generateArr.push('_stencil');
@@ -109,7 +111,7 @@ function lopoForEmpty(data, arr) {
 
 // 写入配置
 function setGiteeConfig(options) {
-    const data = JSON.parse(fs.readFileSync(new URL('../../dsn.config.json', import.meta.url)).toString());
+    const data = JSON.parse(fs.readFileSync(nodePath.resolve(__dirname, '../dsn.config.json')).toString());
     if (options.Token) {
         console.log(logSymbols.info, `access_token配置从${data.gitee_info.access_token}修改为${options.Token}`);
         data.gitee_info.access_token = options.Token;
@@ -122,12 +124,12 @@ function setGiteeConfig(options) {
         console.log(logSymbols.info, `owner配置从${data.gitee_info.owner}修改为${options.Owner}`);
         data.gitee_info.owner = options.Owner;
     }
-    fs.writeFileSync(new URL('../../dsn.config.json', import.meta.url), JSON.stringify(data))
+    fs.writeFileSync(nodePath.resolve(__dirname, '../dsn.config.json'), JSON.stringify(data))
     console.log(logSymbols.success, `配置写入成功`);
 }
 
 if (process.argv[1].indexOf('config.js') > -1) {
-    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    const data = JSON.parse(fs.readFileSync(nodePath.resolve(__dirname, '../package.json')).toString());
     // dsn -V|--version
     program.version(data.version);
 

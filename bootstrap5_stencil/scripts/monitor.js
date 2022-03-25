@@ -2,6 +2,7 @@ const fs = require('fs')
 var exec = require('child_process').exec;
 // 引用 browserSync 模块
 var bs = require("browser-sync").create();
+const dfb = require('dfb');
 
 // 是否启动服务器
 let serveOpen = false;
@@ -12,6 +13,7 @@ let copyHandlerCmd = null;
 stencilCompolie();
 const excepts = ['_sidebar.md']
 
+const menu = ['基础', '布局', '交互', '表单', '文档', '工具'];
 
 // 监听src下目录改变
 fs.watch('./src', { recursive: true }, function (event, filename) {
@@ -78,7 +80,7 @@ function copyHandler(filename) {
         }
       }
     })
-    Object.keys(docsAll).forEach(v => {
+    menu.forEach(v => {
       if (!docsAll[v].length) {
         return;
       }
@@ -90,15 +92,8 @@ function copyHandler(filename) {
   }
   fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
   // 复制相关的文件
-  const cmd = 'dsn dfu -copy';
-  copyHandlerCmd = exec(cmd, function (error, stdout, stderr) {
-    // 获取命令执行的输出
-    console.log(error);
-    console.log(stdout);
-    console.log(stderr);
-    console.log(cmd, '命令被执行')
-    openBrowserSync();
-  });
+  dfb.nodeExecute({ Copy: true })
+  openBrowserSync();
   // 生成文档
   generatorDocs(docsJson, filename)
 }
@@ -140,7 +135,7 @@ function generatorDocs(docsJson, filename) {
       if (com.props && com.props.length) {
         com.props.forEach((prop) => {
           if (!prop.isCheck) {
-            methodMap[prop] = generatorLibSinglePropMd(prop, true);
+            methodMap[prop.name] = generatorLibSinglePropMd(prop, true);
           }
         })
       }

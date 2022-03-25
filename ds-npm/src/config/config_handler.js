@@ -1,9 +1,10 @@
 
-import fs from 'fs-extra'
-import nodePath from 'path'
+const fs = require('fs');
+const nodePath = require('path');
+
 
 // 获取config的配置
-function getDsnConfig(configpath = './dsn.config.json') {
+module.exports.getDsnConfig = (configpath = './dsn.config.json') => {
     const isConfig = fs.existsSync(configpath);
 
     const dsnConfig = { defaultConfig: null, customConfig: null };
@@ -13,13 +14,10 @@ function getDsnConfig(configpath = './dsn.config.json') {
         );
     }
     dsnConfig.defaultConfig = JSON.parse(fs.readFileSync
-        (new URL('../../dsn.config.json', import.meta.url)).toString()
+        (nodePath.resolve(__dirname, '../../dsn.config.json')).toString()
     );
     return dsnConfig;
 }
 
 
 
-
-
-export { getDsnConfig }

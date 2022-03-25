@@ -1,9 +1,11 @@
-import fs from 'fs-extra';
-import request from 'request';
-import nodePath from 'path'
-import { pathFomate, giteePathHandler } from './gitee_util.mjs';
-import { getExcPath } from '../../src/util/index.js'
-import md5 from 'md5'
+
+
+
+const fs = require('fs');
+const request = require('request');
+const nodePath = require('path');
+const { getExcPath } = require( '../util/index.js');
+const { pathFomate, giteePathHandler  } = require( './gitee_util.js');
 
 let gitOwner = 'semonstrate'
 let gitRepo = 'demonstrate_storage';
@@ -188,7 +190,7 @@ function taskInfosEnd(distPath) {
 }
 
 
-export {
+module.exports = {
     setPullConfig,
     giteeDirDownload
 }

@@ -32,15 +32,7 @@ export namespace Components {
         /**
           * 判断两个数值是否相同
          */
-        "isEqual": (a: any, b: any) => Promise<boolean>;
-        /**
-          * 判断两个数值是否相同
-         */
         "isEqualSync": (a: any, b: any) => boolean;
-        /**
-          * 值校验
-         */
-        "valueVerify": (value: string, type: DataType) => Promise<{ valid: boolean; realValue: any; }>;
         /**
           * 值校验
          */

@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 
-import program from 'commander' // 设计命令行
-import fs from 'fs-extra'
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-import { isUEmpty, getExcPath } from '../src/util/index.js';
-import { getDsnConfig } from '../src/config/index.js';
-import nodePath from 'path'
-import { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig, giteePathHandler } from '../src/gitee/index.js'
+
+
+const program = require('commander');
+const fs = require('fs');
+const logSymbols = require('log-symbols');
+const chalk = require('chalk');
+const { isUEmpty, getExcPath } = require('../src/util/index.js');
+const { giteeDirUpload, giteeDirDownload, setPushConfig, setPullConfig, giteePathHandler } = require('../src/gitee/index.js');
+const { getDsnConfig } = require('../src/config/index.js');
+const nodePath = require('path');
+
+
+
 program.command('gitee').alias('dg')
     .option('-config <dir>', '输入配置文件地址') // 设置配置的文件路径
     .option('-push', '根据配置上传文件')
@@ -113,7 +118,7 @@ function getGiteeConfig(customConfig, defaultConfig) {
 
 
 if (process.argv[1].indexOf('gitee.js') > -1) {
-    const data = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)).toString());
+    const data = JSON.parse(fs.readFileSync(nodePath.resolve(__dirname, '../package.json')).toString());
     // dsn -V|--version
     program.version(data.version);
 

@@ -25,7 +25,9 @@ export class DsScript {
   isExecute = false;
 
   connectedCallback() {
-    this.jstext = this.el.innerHTML;
+    if(this.el) {
+      this.jstext = this.el.innerHTML;
+    }
   }
 
   componentWillLoad() {

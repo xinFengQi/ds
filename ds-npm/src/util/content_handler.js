@@ -1,7 +1,6 @@
-import fs from 'fs-extra'
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-
+const fs = require('fs');
+const logSymbols = require('log-symbols');
+const chalk = require('chalk');
 
 // 文件复制
 function dsnCopyFile(src, dest, isMove) {
@@ -38,7 +37,7 @@ function isUEmpty(str) {
 }
 
 
-export {
+module.exports = {
     contentReplace,
     removeSpace,
     isUEmpty,

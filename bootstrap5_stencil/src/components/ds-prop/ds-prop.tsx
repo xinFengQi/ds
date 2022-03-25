@@ -25,14 +25,21 @@ export class DsProp {
   @Event() getProp: EventEmitter<{ key: string; value: any }>;
 
   // 获取到的值
-  value = '';
+  value: any = null;
 
   connectedCallback() {
-    const text = this.el.innerHTML.replace(/\n|\r| /g, '');
+    const text = this.el.innerHTML.replace(/\n|\r| /g, '').trim();
     try {
       const lowerType = this.type.toLocaleLowerCase();
       if (lowerType === 'array' || lowerType === 'json') {
         this.value = JSON.parse(text);
+      }
+      if (lowerType === 'boolean') {
+        if(text === 'false' || text === '0') {
+          this.value === false;
+        } else {
+          this.value = Boolean(text);
+        }
       }
     } catch (error) {
       console.error(error);

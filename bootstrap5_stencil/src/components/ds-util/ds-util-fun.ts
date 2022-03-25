@@ -1,16 +1,17 @@
 import { DataType } from '../../interface/type.interface';
 
-export function valueVerifyFun(value: string, type: DataType): {valid: boolean, realValue: any} {
-  let realValue: any = value;
+export function valueVerifyFun(value: any, type: DataType): { valid: boolean; realValue: any } {
+  let flag = { valid: false, realValue: value };
+
   if (value === null || value === undefined) {
-    return {valid: false, realValue} ;
+    return flag;
   }
   if (type === DataType.number) {
-    realValue = Number(value);
-    return { valid: isNaN(realValue), realValue };
+    flag.realValue = Number(value);
+    flag.valid = isNaN(flag.realValue);
+    return flag;
   }
   if (type === DataType.boolean) {
-    let flag = { valid: true, realValue };
     try {
       flag.realValue = Boolean(value);
       flag.valid = false;
@@ -18,7 +19,6 @@ export function valueVerifyFun(value: string, type: DataType): {valid: boolean, 
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
-    let flag = { valid: true, realValue };
     try {
       flag.realValue = JSON.parse(value);
       if (typeof flag.realValue === 'object') {
@@ -27,8 +27,7 @@ export function valueVerifyFun(value: string, type: DataType): {valid: boolean, 
     } catch (error) {}
     return flag;
   }
-  return {valid: false, realValue} ;
-
+  return flag;
 }
 
 export function isEqualFun(a: any, b: any) {

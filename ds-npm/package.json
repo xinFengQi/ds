@@ -1,9 +1,8 @@
 {
   "name": "dfb",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "pack": "npm pack && npm install -g dfb-1.0.1.tgz",
     "serve": "npm install . -g --force && npm link --force",
@@ -16,7 +15,6 @@
     "dsn": "index.js",
     "dsgitee": "bin/gitee.js",
     "dsconfig": "bin/config.js",
-    "dsstecil": "bin/stencil.js",
     "dsutil": "bin/util.js"
   },
   "author": "fbdong",
@@ -27,7 +25,7 @@
     "fs-extra": "^10.0.0",
     "handlebars": "^4.7.7",
     "inquirer": "^8.1.1",
-    "log-symbols": "^5.0.0",
+    "log-symbols": "^4.1.0",
     "marked": "^2.1.3",
     "md5": "^2.3.0",
     "ora": "^5.4.1",

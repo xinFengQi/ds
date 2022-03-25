@@ -1,1 +1,6 @@
-export * from './config_handler.mjs'
+
+const configHandler = require('./config_handler.js');
+
+module.exports = {
+    ...configHandler
+}

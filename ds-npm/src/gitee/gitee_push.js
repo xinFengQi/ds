@@ -1,7 +1,8 @@
-import fs from 'fs-extra';
-import request from 'request';
-import { pathFomate, giteePathHandler } from './gitee_util.mjs';
-import inquirer from 'inquirer' // 命令行答询
+const fs = require('fs');
+const request = require('request');
+const inquirer = require('inquirer');
+const { pathFomate, giteePathHandler  } = require( './gitee_util.js');
+
 
 
 let gitOwner = 'dongfubao'
@@ -198,4 +199,4 @@ function uploadFile(path, gitPath) {
 }
 
 
-export { setPushConfig, giteeDirUpload }
+module.exports =  { setPushConfig, giteeDirUpload }
