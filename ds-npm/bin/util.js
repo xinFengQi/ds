@@ -15,6 +15,7 @@ function initUtilCmd() {
     program.command('fileutil').alias('dfu')
         .option('-copy', '根据配置文件进行简单复制')
         .option('-move', '根据配置文件进行移动')
+        .option('-config <dir>', '输入配置文件地址') // 设置配置的文件路径 暂未使用，后期使用
         .option('--key <config>', '需要进行文件处理的配置key')
         .option('--src <config>', '需要处理文件的原路径')
         .option('--dest <config>', '需要处理文件的生成路径')

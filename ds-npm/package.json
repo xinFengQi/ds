@@ -1,6 +1,6 @@
 {
   "name": "dfb",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "dfb的npm辅助工具",
   "main": "index.js",
   "scripts": {
@@ -34,5 +34,8 @@
   "keywords": [
     "ds",
     "个人工具"
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^9.2.2"
+  }
 }

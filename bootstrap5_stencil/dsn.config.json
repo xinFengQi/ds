@@ -39,6 +39,10 @@
                 {
                     "src": "./README.md",
                     "dest": "./dist/www/README.md"
+                },
+                {
+                    "src": "./docs/.components",
+                    "dest": "./dist/www/components"
                 }
             ]
         },
