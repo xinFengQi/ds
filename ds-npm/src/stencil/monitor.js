@@ -2,7 +2,7 @@ const fs = require('fs')
 var exec = require('child_process').exec;
 // 引用 browserSync 模块
 var bs = require("browser-sync").create();
-const dfb = require('dfb/export');
+const dfb = require('../../export');
 const { generatorMenu, generatorDocs } = require('./doc');
 // 是否启动服务器
 let serveOpen = false;
@@ -12,20 +12,24 @@ let timer = null;
 let isListenerJson = false;
 
 
-console.log(' 启动stencil服务器与编译器');
-const cmd = 'stencil build --docs --dev --watch';
-let stencilCompolieCmd = exec(cmd);
-
-stencilCompolieCmd.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
-  if (data.indexOf('build finished') > -1) {
-    watchFileChanges();
-  }
-});
-
-stencilCompolieCmd.stderr.on('data', (data) => {
-  console.log(`stderr: ${data}`);
-});
+module.exports.startMonitor = function() {
+  console.log(' 启动stencil服务器与编译器');
+  const cmd = 'stencil build --docs --dev --watch';
+  let stencilCompolieCmd = exec(cmd);
+  
+  stencilCompolieCmd.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+    if (data.indexOf('build finished') > -1) {
+      watchFileChanges();
+    }
+  });
+  
+  stencilCompolieCmd.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+  });
+  
+  
+}
 
 
 
@@ -65,7 +69,7 @@ function copyHandler(filename) {
   // 生成缓存文档
   generatorDocs(docsJson, filename)
   // 复制相关的文件
-  dfb.nodeExecute({ Copy: true })
+  dfb.utilExecute({ Copy: true })
   // 打开或重启浏览器
   openBrowserSync();
 }

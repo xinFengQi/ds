@@ -21,11 +21,11 @@ function initUtilCmd() {
         .option('--dest <config>', '需要处理文件的生成路径')
         .description('文件处理的工具命令集合')
         .action((options) => {
-            nodeExecute(options);
+            utilExecute(options);
         })
 }
 
-module.exports.nodeExecute = (options) => {
+const utilExecute = (options) => {
     console.log(options)
     if (options.Copy) {
         handlerFileCopy(options)
@@ -91,3 +91,6 @@ if (process.argv[1].indexOf('util.js') > -1) {
     program.parse(process.argv);
 }
 
+module.exports = {
+    utilExecute
+}

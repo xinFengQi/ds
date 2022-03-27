@@ -28,6 +28,8 @@ program.command('test')
 require('./bin/config.js');
 require('./bin/gitee.js');
 require('./bin/util.js');
+require('./bin/stencil.js');
+
 
 if(process.argv) {
     program.parse(process.argv);
