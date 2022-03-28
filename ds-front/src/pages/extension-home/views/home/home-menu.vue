@@ -1,6 +1,6 @@
 <template>
   <a-menu
-    style="width: auto"
+    style="width: auto; min-width: 160px"
     mode="inline"
     v-model:selectedKeys="selectedKeys"
     :inline-collapsed="collapsed"
@@ -13,6 +13,7 @@
     >
       <span>{{ item.title }}</span>
       <span class="opate" v-if="edit">
+        <HighlightTwoTone @click="editMenu($event, item)"></HighlightTwoTone>
         <DeleteOutlined @click="deleteMenu($event, item)"></DeleteOutlined>
       </span>
     </a-menu-item>
@@ -26,11 +27,27 @@
       <span>{{ item.title }}</span>
     </a-menu-item>
   </a-menu>
+
+  <a-modal
+    v-model:visible="editMenuNameItem"
+    title="编辑名称"
+    okText="保存"
+    cancelText="取消"
+    @ok="editMenuName"
+    :centered="true"
+    :maskClosable="false"
+  >
+    <div v-if="editMenuNameItem" class="form_col">
+      <label class="form_col_label">名称:</label>
+      <a-input class="form_col_input" v-model:value="editMenuNameItem.title" />
+    </div>
+  </a-modal>
 </template>
 
 <script>
 import browerExtensionService from "@/sevices/brower_extension.services";
-import { DeleteOutlined } from "@ant-design/icons-vue";
+import { DeleteOutlined, HighlightTwoTone } from "@ant-design/icons-vue";
+
 export default {
   name: "homeMenu",
   props: {
@@ -38,6 +55,7 @@ export default {
   },
   components: {
     DeleteOutlined,
+    HighlightTwoTone,
   },
   data() {
     return {
@@ -45,6 +63,7 @@ export default {
       selectedKeys: [],
       machineMenu: [],
       pubilcMachineMenu: [],
+      editMenuNameItem: false,
     };
   },
   mounted() {
@@ -81,17 +100,33 @@ export default {
     getClickPublicMenu(data) {
       this.$emit("getShowPublicMenu", data);
     },
+
+    editMenuName() {
+      console.log("编辑书签名", this.editMenuNameItem);
+      this.$emit("editItem", this.editMenuNameItem);
+      setTimeout(() => {
+        this.editMenuNameItem = null;
+      });
+    },
+
+    editMenu(ev, item) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      this.editMenuNameItem = item;
+    },
+
     deleteMenu(ev, item) {
       ev.stopPropagation();
       ev.preventDefault();
       console.log("删除导航", item);
       this.machineMenu = this.machineMenu.filter((v) => v.dateAdded !== item.dateAdded);
-
       if (this.machineMenu.length && this.selectedKeys.includes(item.dateAdded + "")) {
         this.selectedKeys = [this.machineMenu[0].dateAdded + ""];
         this.getClickMenu(this.machineMenu[0]);
       } else {
-        this.getClickMenu(null);
+        if (!this.machineMenu.length) {
+          this.getClickMenu(null);
+        }
       }
       this.$emit("deleteItem", item);
     },

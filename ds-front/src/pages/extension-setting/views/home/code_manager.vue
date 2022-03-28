@@ -106,12 +106,14 @@ export default {
     const localOpenCode = localStorgeData.getLocalVariable("__execute_codeScriptArr");
     const allCode = browerExtensionService.getCodes();
     Promise.all([allCode, localOpenCode]).then((data) => {
+      console.log(data, "=====================");
       if (!data[0].privateDatas) {
         return;
       }
       // 处理全部的代码
       this.codeList = data[0].privateDatas;
       if (data[0].publicDatas) {
+        console.log(this.codeList, data[0].publicDatas, "------------");
         this.codeList = [
           ...this.codeList,
           ...data[0].publicDatas.map((pubCo) => {
@@ -131,6 +133,7 @@ export default {
       this.codeList.forEach((ok) => {
         ok.isOpen = this.getOpenOrClose(ok.key);
       });
+      console.log(this.codeList, "==================");
       this.codeList = [...this.codeList];
     });
   },

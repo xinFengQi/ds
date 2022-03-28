@@ -46,6 +46,7 @@
         v-if="!isShowPublic && !value && showContentData && showContentData.length"
         :showContentData="showContentData"
         @deleteItem="deleteItem($event)"
+        @editItem="editItem($event)"
       ></HomeContent>
 
       <!-- 公有书签展示 -->
@@ -146,12 +147,11 @@ export default {
       if (!marks) {
         return [];
       }
-      const outputData = marks.filter(
-        (v) =>
-          !deleteArr.includes(
-            (dV) => v.dateAdded === dV.dateAdded && v.title === dV.title
-          )
-      );
+      const outputData = marks.filter((v) => {
+        return !deleteArr.find(
+          (dV) => v.dateAdded === dV.dateAdded && v.title === dV.title && v.id === dV.id
+        );
+      });
       if (outputData && outputData.length) {
         outputData.forEach((v) => {
           v.children = this.loopDeleteMarks(v.children, deleteArr);
@@ -200,6 +200,12 @@ export default {
       this.deleteMarkData.push(ev);
       this.showContentData = this.showContentData.filter((v) => v.dateAdded !== ev);
     },
+    editItem(ev) {
+      const index = this.allData.find(
+        (v) => v.dateAdded === ev.dateAdded && v.id === ev.id
+      );
+      this.allData[index].title = ev.title;
+    },
   },
 };
 </script>
@@ -214,6 +220,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 600px;
 }
 .home_tool {
   display: flex;

@@ -326,13 +326,13 @@ function handlerPublicPrivateData(publicData: any, privateData: any) {
         retuObj.publicDatas = JSON.parse(
             decodeURIComponent(atob(publicData.content))
         );
-        retuObj.publicDatas = retuObj.publicDatas[0];
+        retuObj.publicDatas = retuObj.publicDatas;
     }
     if (privateData && privateData.content) {
         retuObj.privateDatas = JSON.parse(
             decodeURIComponent(atob(privateData.content))
         );
-        retuObj.privateDatas = retuObj.privateDatas[0];
+        retuObj.privateDatas = retuObj.privateDatas;
     }
     return retuObj;
 }
