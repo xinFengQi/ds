@@ -6,6 +6,9 @@ node_modules/**
 dist/**
 **/dist/**
 
+
+**/.components/**
+
 **/dist_html/**
 **/dist_markdown/**
 **/dist_json/**
@@ -36,8 +39,6 @@ _book/**
 .DS_Store
 **/.DS_Store
 
-.gitignore
-**/.gitignore
 
 
 ## 文件缓存

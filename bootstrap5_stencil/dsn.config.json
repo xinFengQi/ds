@@ -37,12 +37,16 @@
                     "dest": "./dist/www/_sidebar.md"
                 },
                 {
-                    "src": "./README.md",
+                    "src": "./docs/.dstemp/README.md",
                     "dest": "./dist/www/README.md"
                 },
                 {
-                    "src": "./docs/.components",
+                    "src": "./docs/.dstemp/components",
                     "dest": "./dist/www/components"
+                },
+                {
+                    "src": "./docs/.dstemp/docs",
+                    "dest": "./dist/www/docs"
                 }
             ]
         },

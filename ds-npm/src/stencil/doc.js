@@ -1,21 +1,72 @@
 
-const fs = require('fs')
-
+const fsExtra = require('fs-extra')
+var yamlFront = require('yaml-front-matter');
 const menu = ['基础', '布局', '交互', '表单', '文档', '工具'];
 
+// 缓存文档目录
+let lastDocsMenuStr = '';
 
 // 生成目录
-module.exports.generatorMenu = function () {
+module.exports.generatorMenu = function (filename) {
     console.log('开始生成文件目录');
+    fsExtra.ensureDirSync('./docs/.dstemp/docs');
     // 先去生成目录
     let _sidebarStr = '* [介绍](/readme.md)\n';
+    // 解析文档目录
+    _sidebarStr = _sidebarStr + generatorDocsMenu(filename)
+    // 解析组件目录
+    const componentMenu = generatorComponentMenu()
+    _sidebarStr = _sidebarStr + componentMenu._sidebarStr;
+    fsExtra.writeFileSync('./src/_sidebar.md', _sidebarStr)
+    return componentMenu.docsJson;
+}
+// 解析文档目录
+function generatorDocsMenu(filename) {
+    if (filename) {
+        return lastDocsMenuStr;
+    }
+    if (!fsExtra.existsSync('./docs')) {
+        throw '必须存在docs目录, docs必须存在README.md文件'
+    }
+    if (!fsExtra.existsSync('./docs/README.md')) {
+        throw 'docs必须存在README.md文件'
+    }
+    console.log('解析文档目录');
+    let _sidebarStr = '';
+    const dirs = fsExtra.readdirSync('./docs');
+    const mds = [];
+    dirs.forEach(dir => {
+        const path = `./docs/${dir}`;
+        if (fsExtra.statSync(path).isDirectory()) {
+            return;
+        }
+        const content = yamlFront.loadFront(fsExtra.readFileSync(path));
+        if (dir === 'README.md') {
+            fsExtra.writeFileSync('./docs/.dstemp/README.md', content.__content);
+        } else {
+            fsExtra.writeFileSync(`./docs/.dstemp/docs/${dir}`, content.__content);
+            mds.push({ name: dir, ...content, tag: dir });
+        }
+    })
+    mds.sort((a, b) => {
+        return a.order - b.order
+    }).forEach(item => {
+        _sidebarStr = _sidebarStr + `* [${item.name}](/docs/${item.tag}.md)\n`
+    })
+    lastDocsMenuStr = _sidebarStr;
+    return _sidebarStr;
+}
+
+// 解析组件目录
+function generatorComponentMenu() {
+    let _sidebarStr = '';
     let docsJson = null;
-    if (fs.existsSync('./dist/docs.json')) {
+    if (fsExtra.existsSync('./dist/docs.json')) {
         console.log('解析文档json数据')
         const docsAll = {
             '其他': []
         };
-        docsJson = JSON.parse(fs.readFileSync('./dist/docs.json').toString())
+        docsJson = JSON.parse(fsExtra.readFileSync('./dist/docs.json').toString())
         docsJson.components.forEach(com => {
             const componentName = com.docsTags.find(v => v.name === 'componentName');
             if (!componentName) {
@@ -43,31 +94,28 @@ module.exports.generatorMenu = function () {
             })
         })
     }
-    fs.writeFileSync('./src/_sidebar.md', _sidebarStr)
-    return docsJson;
+    return { docsJson, _sidebarStr }
 }
 
 // 生成文档
 module.exports.generatorDocs = function (docsJson, filename) {
-    if (!fs.existsSync('./docs/.components')) {
-        fs.mkdirSync('./docs/.components')
-    }
+    fsExtra.ensureDirSync('./docs/.dstemp/components')
     if (!docsJson) {
         return;
     }
     docsJson.components.forEach(com => {
         if (filename && filename.indexOf(com.tag) < 0) {
-          return;
+            return;
         }
         let mdStr = com.readme;
         // 再次运行不会监听，所以需要自己读取
-        if(filename) {
+        if (filename) {
             console.log(filename, '===')
-            const mdPath = './src'+ '/' + filename.split(com.tag)[0]+com.tag+'/readme.md';
-            if(fs.existsSync(mdPath));
-            const newMd = fs.readFileSync(mdPath).toString().split('<!-- Auto Generated Below -->')[0].trim();
-            if(newMd !== mdStr) {
-                mdStr= newMd;
+            const mdPath = './src' + '/' + filename.split(com.tag)[0] + com.tag + '/readme.md';
+            if (fsExtra.existsSync(mdPath));
+            const newMd = fsExtra.readFileSync(mdPath).toString().split('<!-- Auto Generated Below -->')[0].trim();
+            if (newMd !== mdStr) {
+                mdStr = newMd;
             }
         }
         const isLib = com.docsTags.find(v => v.name === 'lib');
@@ -102,8 +150,7 @@ module.exports.generatorDocs = function (docsJson, filename) {
                 mdStr = mdStr.replace(`<!-- ${key}信息 -->`, methodMap[key])
             })
         }
-
-        fs.writeFileSync(`./docs/.components/${com.tag}.md`, mdStr)
+        fsExtra.writeFileSync(`./docs/.dstemp/components/${com.tag}.md`, mdStr)
     })
 }
 

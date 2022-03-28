@@ -1,4 +1,5 @@
 * [介绍](/readme.md)
+* [快速开始](/docs/QuickStart.md.md)
 * 基础
    * [参数组件](/components/ds-prop.md)
    * [js执行组件](/components/ds-script.md)

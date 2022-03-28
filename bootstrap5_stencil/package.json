@@ -15,7 +15,7 @@
     "./dist/dist/loader/"
   ],
   "scripts": {
-    "dev": "node ./scripts/monitor.js",
+    "dev": "dsn stencil -dev",
     "start:stencil": "stencil build --docs --dev --watch --serve",
     "build": "stencil build --docs",
     "test": "stencil test --spec --e2e",

@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const fs = require('fs-extra');
-const { startMonitor } = require('../src/stencil/index.js');
+const { stencilExecute } = require('../src/stencil/index');
 const nodePath = require('path');
 
 
@@ -18,14 +18,6 @@ function initStencilCmd() {
         })
 }
 
-const stencilExecute = (options) => {
-    console.log(options)
-    if (options.Init) {
-    }
-    if (options.Dev) {
-        startMonitor()
-    }
-}
 
 
 if (process.argv[1].indexOf('stencil.js') > -1) {
