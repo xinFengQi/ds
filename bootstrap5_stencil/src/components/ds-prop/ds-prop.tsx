@@ -4,6 +4,7 @@ import { DataType } from '../../interface/type.interface';
 /**
  * @componentName 参数组件
  * @componentType 基础
+ * @docsOrder 1
  */
 @Component({
   tag: 'ds-prop',

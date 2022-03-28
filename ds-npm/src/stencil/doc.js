@@ -1,7 +1,8 @@
 
 const fsExtra = require('fs-extra')
 var yamlFront = require('yaml-front-matter');
-const menu = ['基础', '布局', '交互', '表单', '文档', '工具'];
+const { getDsnConfig } = require('../config/index');
+let menu = [];
 
 // 缓存文档目录
 let lastDocsMenuStr = '';
@@ -9,6 +10,8 @@ let lastDocsMenuStr = '';
 // 生成目录
 module.exports.generatorMenu = function (filename) {
     console.log('开始生成文件目录');
+    const config = getDsnConfig();
+    menu = config.customConfig.stencil.compileMenu ?? config.defaultConfig.stencil.compileMenu
     fsExtra.ensureDirSync('./docs/.dstemp/docs');
     // 先去生成目录
     let _sidebarStr = '* [介绍](/readme.md)\n';
@@ -68,19 +71,38 @@ function generatorComponentMenu() {
         };
         docsJson = JSON.parse(fsExtra.readFileSync('./dist/docs.json').toString())
         docsJson.components.forEach(com => {
-            const componentName = com.docsTags.find(v => v.name === 'componentName');
+            let componentName = null; componentType = null; docsOrder = null;
+            // 解析所有标签内容
+            com.docsTags.forEach(v => {
+                if (v.name === 'componentName') {
+                    componentName = v.text.trim();
+                }
+                if (v.name === 'componentType') {
+                    componentType = v.text.trim();
+                }
+                if (v.name === 'docsOrder') {
+                    try {
+                        docsOrder = Number(v);
+                        if (isNaN(docsOrder)) {
+                            throw `${com.tag}的docsOrder注释值存在问题`
+                        }
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }
+
+            })
             if (!componentName) {
                 return;
             }
-            const componentType = com.docsTags.find(v => v.name === 'componentType');
-            const docsPaths = `   * [${componentName ? componentName.text : com.tag}](/components/${com.tag}.md)\n`;
+            const docsPaths = `   * [${componentName ? componentName : com.tag}](/components/${com.tag}.md)\n`;
             if (!componentType) {
-                docsAll['其他'].push(docsPaths);
+                docsAll['其他'].push({ path: docsPaths, order: docsOrder });
             } else {
-                if (docsAll[componentType.text]) {
-                    docsAll[componentType.text].push(docsPaths)
+                if (docsAll[componentType]) {
+                    docsAll[componentType].push({ path: docsPaths, order: docsOrder })
                 } else {
-                    docsAll[componentType.text] = [docsPaths]
+                    docsAll[componentType] = [{ path: docsPaths, order: docsOrder }]
                 }
             }
         })
@@ -89,8 +111,8 @@ function generatorComponentMenu() {
                 return;
             }
             _sidebarStr = _sidebarStr + `* ${v}\n`
-            docsAll[v].forEach(docPath => {
-                _sidebarStr = _sidebarStr + docPath
+            docsAll[v].sort((a, b) => a.order - b.order).forEach(data => {
+                _sidebarStr = _sidebarStr + data.path
             })
         })
     }

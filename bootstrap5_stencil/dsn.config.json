@@ -4,14 +4,10 @@
         "repo": "",
         "owner": ""
     },
-    "_stencil": "stencil功能,主要是将生成的文档网页部署到gitee",
+    "_stencil": "stencil功能,主要时文档编译时及上传等功能",
     "stencil": {
-        "_outputGitDist": "需要上传到gitee的文件夹",
-        "outputGitDist": "",
-        "_distJsonPath": "组件的json信息",
-        "distJsonPath": "",
-        "_distPath": "组件打包后的文件夹",
-        "distPath": ""
+        "_compileMenu": "编译时的文档目录",
+        "compileMenu":["基础", "布局", "交互", "表单", "文档", "工具"]
     },
     "_gitee": "gitee功能,主要是将gitee代码上传或者下载",
     "gitee": {
