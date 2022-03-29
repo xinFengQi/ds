@@ -27,7 +27,13 @@ export class Dsb5Button {
 
   render() {
     return (
-      <Host>
+      <Host
+      class={{
+        btn: true,
+        [`btn-${this.type}`]: !this.outline,
+        [`btn-${this.size}`]: !!this.size,
+      }}
+      >
         <button
           type="button"
           class={{

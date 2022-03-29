@@ -6,12 +6,12 @@ const { utilExecute } = require('../util/index');
 const { generatorMenu, generatorDocs } = require('./doc');
 // 是否启动服务器
 let serveOpen = false;
+// 节流
+let timer = null;
 // 是否启动文件监听器
 let isListenerJson = false;
 
-let srcChange = [];
-let docsChange = [];
-
+let isStencilIsComplie = false;
 
 module.exports.startMonitor = function () {
   console.log(' 启动stencil服务器与编译器');
@@ -20,11 +20,13 @@ module.exports.startMonitor = function () {
 
   stencilCompolieCmd.stdout.on('data', (data) => {
     console.log(`${data}`);
+    this.isStencilIsComplie = false;
     if (data.indexOf('build finished') > -1) {
       watchFileChanges();
+      this.isStencilIsComplie = true;
     }
-    if (data.indexOf('rebuild finished') > -1) {
-      fileChangesComplete()
+    if(data.indexOf('rebuild finished') > -1) {
+      this.isStencilIsComplie = true;
     }
   });
 
@@ -34,6 +36,10 @@ module.exports.startMonitor = function () {
 
 
 }
+
+
+
+
 
 function watchFileChanges() {
   if (isListenerJson) {
@@ -49,11 +55,14 @@ function watchFileChanges() {
     if (excepts.find(v => filename.indexOf(v) > -1)) {
       return;
     }
-    if(filename.indexOf('.md') > -1) {
-      copyHandler(filename)
-    } else {
-      srcChange.push(filename);
+    console.log(event, filename)
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
     }
+    timer = setTimeout(() => {
+      copyHandler(filename);
+    }, 2000)
   });
   const exceptsDocs = ['.dstemp']
   // 监听文档内部变更
@@ -61,20 +70,16 @@ function watchFileChanges() {
     if (exceptsDocs.find(v => filename.indexOf(v) > -1)) {
       return;
     }
-    docsChange.push(filename);
+    console.log(event, filename)
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    timer = setTimeout(() => {
+      copyHandler();
+    }, 1000)
   });
-}
 
-function fileChangesComplete() {
-  if(docsChange.length) {
-    copyHandler()
-  } else {
-    srcChange.forEach(v => {
-      copyHandler(v);
-    })
-  }
-  docsChange = [];
-  srcChange = [];
 }
 
 // 生成文档目录

@@ -38,10 +38,10 @@
 
 ## Properties
 
-| Property          | Attribute | Description | Type                                                                     | Default                                                                            |
-| ----------------- | --------- | ----------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| `isEqualSync`     | --        | 判断两个数值是否相同  | `(a: any, b: any) => boolean`                                            | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                           |
-| `valueVerifySync` | --        | 值校验         | `(value: string, type: DataType) => { valid: boolean; realValue: any; }` | `(value: string, type: DataType) => {     return valueVerifyFun(value, type);   }` |
+| Property          | Attribute | Description | Type                                                      | Default                                                                                                  |
+| ----------------- | --------- | ----------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `isEqualSync`     | --        | 判断两个数值是否相同  | `(a: any, b: any) => boolean`                             | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                                                 |
+| `valueVerifySync` | --        | 值校验         | `(value: string, type: DataType) => ValueVerifyFunReturn` | `(value: string, type: DataType): ValueVerifyFunReturn => {     return valueVerifyFun(value, type);   }` |
 
 
 ----------------------------------------------

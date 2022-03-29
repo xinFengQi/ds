@@ -19,7 +19,7 @@ export class BaseCompoent {
    * @param el 父组件节点实例
    * @param cb 返回的回调函数
    */
-  public connectedCallback(el: HTMLElement, cb: (prop: { key: string; value: any }[], script: any) => void) {
+  public connectedCallback(el: HTMLElement, propCb?: null | ((prop: { key: string; value: any }[], script: any) => void), slotCb?: (slots: Element[]) => void) {
     const child = el.children;
     const len = child.length;
     // 参数的变量
@@ -33,22 +33,27 @@ export class BaseCompoent {
     // 队列执行拦截器
     const next = () => {
       if (propDataArr.length === propNum && scriptDataArr.length === scriptNum) {
-        cb(propDataArr, scriptDataArr);
+        propCb && propCb(propDataArr, scriptDataArr);
         propDataArr = [];
         scriptDataArr = [];
       }
     };
+    const slots = [];
     // 判断所有子节点,标识特殊节点
     for (let i = 0; i < len; i++) {
       const elChildren = child.item(i);
-      if (elChildren?.localName === 'ds-prop') {
+      if (elChildren?.localName.toLocaleLowerCase() === 'ds-prop') {
         propElArr.push(elChildren);
       }
-      if (elChildren?.localName === 'ds-script') {
+      if (elChildren?.localName.toLocaleLowerCase() === 'ds-script') {
         (elChildren as any).parentEl = el;
         scriptElArr.push(elChildren);
       }
+      if (elChildren?.slot) {
+        slots.push(elChildren);
+      }
     }
+    (slotCb && slots.length) && slotCb(slots);
     propNum = propElArr.length;
     scriptNum = scriptElArr.length;
     // 将获取参数的事件监听

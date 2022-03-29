@@ -1,8 +1,12 @@
 import { DataType } from '../../interface/type.interface';
 
-export function valueVerifyFun(value: any, type: DataType): { valid: boolean; realValue: any } {
-  let flag = { valid: false, realValue: value };
+export interface ValueVerifyFunReturn {
+  valid: boolean;
+  realValue: any;
+}
 
+export function valueVerifyFun(value: any, type: DataType): ValueVerifyFunReturn {
+  let flag: ValueVerifyFunReturn = { valid: false, realValue: null };
   if (value === null || value === undefined) {
     return flag;
   }
@@ -27,6 +31,7 @@ export function valueVerifyFun(value: any, type: DataType): { valid: boolean; re
     } catch (error) {}
     return flag;
   }
+  flag.realValue = value
   return flag;
 }
 

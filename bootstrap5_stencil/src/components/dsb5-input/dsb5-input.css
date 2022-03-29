@@ -2,6 +2,13 @@
   display: block;
 }
 
-.error_border{
-  border-color: red !important;
+.error_input_border{
+  border: 0px !important;
 }
+
+
+.error_border{
+  border: 1px solid red !important;
+  border-radius: 0.25rem
+}
+

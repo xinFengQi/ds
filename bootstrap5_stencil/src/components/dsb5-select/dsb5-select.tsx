@@ -16,7 +16,7 @@ export class Dsb5Select {
 
   selectEl: HTMLSelectElement;
   /** 当前的值 */
-  @Prop({mutable: true}) value: any = null;
+  @Prop() value: any = null;
   /** 值变化的事件 */
   @Event() valueChange: EventEmitter<any>;
 
@@ -25,6 +25,7 @@ export class Dsb5Select {
   }
 
   componentShouldUpdate(oldData, newData, prop) {
+    console.log(oldData, newData, prop, '===============')
     if (prop === 'value') {
       return oldData !== newData;
     }
@@ -48,10 +49,6 @@ export class Dsb5Select {
 
   // 数据改变
   onChange(el: any) {
-    if (this.value === el.target.value) {
-      return;
-    }
-    this.value = el.target.value;
     this.valueChange.emit(el.target.value);
   }
 

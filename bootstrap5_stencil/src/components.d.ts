@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentType, DataType, SizeType } from "./interface/type.interface";
+import { ValueVerifyFunReturn } from "./components/ds-util/ds-util-fun";
 import { Dsb5FromModel } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
@@ -36,7 +37,7 @@ export namespace Components {
         /**
           * 值校验
          */
-        "valueVerifySync": (value: string, type: DataType) => { valid: boolean; realValue: any; };
+        "valueVerifySync": (value: string, type: DataType) => ValueVerifyFunReturn;
     }
     interface Dsb5Alert {
         /**
@@ -82,6 +83,8 @@ export namespace Components {
          */
         "type": ComponentType;
     }
+    interface Dsb5Dropdown {
+    }
     interface Dsb5FunctionExecute {
         /**
           * 需要执行的全局函数
@@ -116,13 +119,9 @@ export namespace Components {
          */
         "size": SizeType | null;
         /**
-          * 是否是输入框组
-         */
-        "type": 'group' | null;
-        /**
           * 当前的值
          */
-        "value": any;
+        "value": string;
     }
     interface Dsb5Select {
         /**
@@ -181,6 +180,12 @@ declare global {
         prototype: HTMLDsb5ButtonElement;
         new (): HTMLDsb5ButtonElement;
     };
+    interface HTMLDsb5DropdownElement extends Components.Dsb5Dropdown, HTMLStencilElement {
+    }
+    var HTMLDsb5DropdownElement: {
+        prototype: HTMLDsb5DropdownElement;
+        new (): HTMLDsb5DropdownElement;
+    };
     interface HTMLDsb5FunctionExecuteElement extends Components.Dsb5FunctionExecute, HTMLStencilElement {
     }
     var HTMLDsb5FunctionExecuteElement: {
@@ -229,6 +234,7 @@ declare global {
         "ds-util": HTMLDsUtilElement;
         "dsb5-alert": HTMLDsb5AlertElement;
         "dsb5-button": HTMLDsb5ButtonElement;
+        "dsb5-dropdown": HTMLDsb5DropdownElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
         "dsb5-function-params": HTMLDsb5FunctionParamsElement;
         "dsb5-input": HTMLDsb5InputElement;
@@ -275,7 +281,7 @@ declare namespace LocalJSX {
         /**
           * 值校验
          */
-        "valueVerifySync"?: (value: string, type: DataType) => { valid: boolean; realValue: any; };
+        "valueVerifySync"?: (value: string, type: DataType) => ValueVerifyFunReturn;
     }
     interface Dsb5Alert {
         /**
@@ -321,6 +327,8 @@ declare namespace LocalJSX {
          */
         "type"?: ComponentType;
     }
+    interface Dsb5Dropdown {
+    }
     interface Dsb5FunctionExecute {
         /**
           * 需要执行的全局函数
@@ -353,7 +361,7 @@ declare namespace LocalJSX {
         /**
           * 值变化的事件
          */
-        "onValueChange"?: (event: CustomEvent<any>) => void;
+        "onValueChange"?: (event: CustomEvent<string>) => void;
         /**
           * placeholder值
          */
@@ -363,13 +371,9 @@ declare namespace LocalJSX {
          */
         "size"?: SizeType | null;
         /**
-          * 是否是输入框组
-         */
-        "type"?: 'group' | null;
-        /**
           * 当前的值
          */
-        "value"?: any;
+        "value"?: string;
     }
     interface Dsb5Select {
         /**
@@ -406,6 +410,7 @@ declare namespace LocalJSX {
         "ds-util": DsUtil;
         "dsb5-alert": Dsb5Alert;
         "dsb5-button": Dsb5Button;
+        "dsb5-dropdown": Dsb5Dropdown;
         "dsb5-function-execute": Dsb5FunctionExecute;
         "dsb5-function-params": Dsb5FunctionParams;
         "dsb5-input": Dsb5Input;
@@ -424,6 +429,7 @@ declare module "@stencil/core" {
             "ds-util": LocalJSX.DsUtil & JSXBase.HTMLAttributes<HTMLDsUtilElement>;
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
             "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
+            "dsb5-dropdown": LocalJSX.Dsb5Dropdown & JSXBase.HTMLAttributes<HTMLDsb5DropdownElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
             "dsb5-function-params": LocalJSX.Dsb5FunctionParams & JSXBase.HTMLAttributes<HTMLDsb5FunctionParamsElement>;
             "dsb5-input": LocalJSX.Dsb5Input & JSXBase.HTMLAttributes<HTMLDsb5InputElement>;

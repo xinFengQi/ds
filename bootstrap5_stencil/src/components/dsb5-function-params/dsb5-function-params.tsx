@@ -40,6 +40,10 @@ export class Dsb5FunctionParams {
 
   // 值变化
   valueChanged(ev: CustomEvent, form: Dsb5FromModel) {
+    if(!ev.currentTarget) {
+      return;
+    }
+    console.log(ev.currentTarget,ev.detail,ev,  '-------------------11111111111111111111111')
     form.value = ev.detail;
     if (form.type === DataType.boolean) {
       form.value = Boolean(ev.detail);
@@ -89,22 +93,33 @@ export class Dsb5FunctionParams {
     });
   }
 
+  getPrefix(form: Dsb5FromModel, noSlot?: boolean) {
+    return (
+      <dsb5-select slot={!noSlot ? 'prefix' : null} value={form.type} onValueChange={event => this.typeChange(event, form)}>
+        <option value={DataType.string}>字符串</option>
+        <option value={DataType.number}>数字</option>
+        <option value={DataType.boolean}>布尔值</option>
+        <option value={DataType.array}>数组</option>
+        <option value={DataType.json}>json</option>
+      </dsb5-select>
+    );
+  }
+
   render() {
     return (
       <Host>
         {this.forms.map((form, i: number) => {
           return (
             <div class="form_single">
-              <dsb5-select value={form.type} onValueChange={event => this.typeChange(event, form)}>
-                <option value={DataType.string}>字符串</option>
-                <option value={DataType.number}>数字</option>
-                <option value={DataType.boolean}>布尔值</option>
-                <option value={DataType.array}>数组</option>
-                <option value={DataType.json}>json</option>
-              </dsb5-select>
+              {form.value}
+              {form.type === DataType.boolean && this.getPrefix(form, true)}
               <div class="form_single_block">
+                {/* value={form.value} */}
                 {[DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (
-                  <dsb5-input class="w100" value={form.value} error={this.valueVerify(form)} onValueChange={event => this.valueChanged(event, form)}></dsb5-input>
+                  <dsb5-input class="w100" error={this.valueVerify(form)} 
+                    onValueChange={(event) => this.valueChanged(event, form)}>
+                    {this.getPrefix(form)}
+                  </dsb5-input>
                 ) : null}
                 {form.type === DataType.boolean ? (
                   <dsb5-select

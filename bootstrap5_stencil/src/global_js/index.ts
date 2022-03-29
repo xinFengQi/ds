@@ -1,5 +1,6 @@
 import '@popperjs/core';
 import 'bootstrap';
+import '../core/BaseCompoent';
 
 (function dsb5Global() {
   const funMap = {

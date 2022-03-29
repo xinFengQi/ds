@@ -5,6 +5,7 @@
    * [js执行组件](/components/ds-script.md)
    * [按钮](/components/dsb5-button.md)
 * 布局
+   * [下拉选择](/components/dsb5-dropdown.md)
    * [标签导航](/components/dsb5-tabs.md)
 * 交互
    * [弹框](/components/dsb5-alert.md)

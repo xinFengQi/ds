@@ -10,9 +10,11 @@
 
 2. 前后缀使用示例
    <dsb5-webcomponent-show>
+   <dsb5-input type="group">
+   <dsb5-button>前缀</dsb5-button>
    <dsb5-input>
-   <dsb5-button slot="prefix">前缀</dsb5-button>
-   <dsb5-button slot="suffix">后缀</dsb5-button>
+   </dsb5-input>
+   <dsb5-button >后缀</dsb5-button>
    </dsb5-input>
    </dsb5-webcomponent-show>
 
@@ -26,15 +28,14 @@
 | `error`       | `error`       | 是否是错误        | `boolean`                    | `undefined` |
 | `placeholder` | `placeholder` | placeholder值 | `string`                     | `undefined` |
 | `size`        | `size`        | 按钮大小         | `SizeType.lg \| SizeType.sm` | `null`      |
-| `type`        | `type`        | 是否是输入框组      | `"group"`                    | `null`      |
-| `value`       | `value`       | 当前的值         | `any`                        | `null`      |
+| `value`       | `value`       | 当前的值         | `string`                     | `null`      |
 
 
 ## Events
 
-| Event         | Description | Type               |
-| ------------- | ----------- | ------------------ |
-| `valueChange` | 值变化的事件      | `CustomEvent<any>` |
+| Event         | Description | Type                  |
+| ------------- | ----------- | --------------------- |
+| `valueChange` | 值变化的事件      | `CustomEvent<string>` |
 
 
 ## Dependencies

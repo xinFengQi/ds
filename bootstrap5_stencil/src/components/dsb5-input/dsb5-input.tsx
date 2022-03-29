@@ -16,9 +16,6 @@ import { SizeType } from '../../interface/type.interface';
 export class Dsb5Input {
   @Element() hostDiv: HTMLElement;
 
-  /** 是否是输入框组 */
-  @Prop() type: 'group' | null = null;
-
   /** placeholder值 */
   @Prop() placeholder: string;
 
@@ -29,15 +26,34 @@ export class Dsb5Input {
   @Prop() size: SizeType | null = null;
 
   /** 当前的值 */
-  @Prop({ mutable: true }) value: any = null;
+  @Prop() value: string = null;
 
   /** 值变化的事件 */
-  @Event() valueChange: EventEmitter<any>;
+  @Event() valueChange: EventEmitter<string>;
 
   // 继承基础组件
   baseComponent = new BaseCompoent();
 
+  connectedCallback() {
+    this.baseComponent.connectedCallback(this.hostDiv, null, (slots) => {
+      // 针对前后缀是纯文本增加类名
+      const slot = ['prefix', 'suffix'];
+      const element = ['span', 'label'];
+      slots.forEach(v => {
+        if(slot.includes(v.slot) && element.includes(v.localName.toLocaleLowerCase())) {
+          v.classList.add('input-group-text')
+        }
+      })
+    })
+  }
+
+  componentWillRender() {
+  }
+
+
+  // 数值更新
   componentShouldUpdate(oldData, newData, prop) {
+    console.log(oldData, newData, prop, '===============')
     if (prop === 'value') {
       return oldData !== newData;
     }
@@ -52,22 +68,18 @@ export class Dsb5Input {
   render() {
     return (
       <Host>
-        {this.type === 'group' ? (
-          <div class={{ 'input-group': true, [`input-group-${this.size}`]: !!this.size }}>
-            <slot></slot>
-          </div>
-        ) : (
-          <div class={{ 'input-group': true, [`input-group-${this.size}`]: !!this.size }}>
-            <input
-              type="text"
-              class={{ 'form-control': true, 'error_border': this.error }}
-              value={this.value}
-              onChange={el => this.onChange(el)}
-              onInput={el => this.onChange(el)}
-              placeholder={this.placeholder}
-            ></input>
-          </div>
-        )}
+        <div class={{ 'input-group': true, [`input-group-${this.size}`]: !!this.size, 'error_border': this.error }}>
+          <slot name='prefix'></slot>
+          <input
+            type="text"
+            class={{ 'form-control': true, 'error_input_border': this.error }}
+            value={this.value}
+            onChange={el => this.onChange(el)}
+            onInput={el => this.onChange(el)}
+            placeholder={this.placeholder}
+          ></input>
+          <slot name='suffix'></slot>
+        </div>
       </Host>
     );
   }
