@@ -6,10 +6,11 @@ const { utilExecute } = require('../util/index');
 const { generatorMenu, generatorDocs } = require('./doc');
 // 是否启动服务器
 let serveOpen = false;
-// 节流
-let timer = null;
 // 是否启动文件监听器
 let isListenerJson = false;
+
+let srcChange = [];
+let docsChange = [];
 
 
 module.exports.startMonitor = function () {
@@ -22,6 +23,9 @@ module.exports.startMonitor = function () {
     if (data.indexOf('build finished') > -1) {
       watchFileChanges();
     }
+    if (data.indexOf('rebuild finished') > -1) {
+      fileChangesComplete()
+    }
   });
 
   stencilCompolieCmd.stderr.on('data', (data) => {
@@ -30,10 +34,6 @@ module.exports.startMonitor = function () {
 
 
 }
-
-
-
-
 
 function watchFileChanges() {
   if (isListenerJson) {
@@ -49,14 +49,11 @@ function watchFileChanges() {
     if (excepts.find(v => filename.indexOf(v) > -1)) {
       return;
     }
-    console.log(event, filename)
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
+    if(filename.indexOf('.md') > -1) {
+      copyHandler(filename)
+    } else {
+      srcChange.push(filename);
     }
-    timer = setTimeout(() => {
-      copyHandler(filename);
-    }, 1000)
   });
   const exceptsDocs = ['.dstemp']
   // 监听文档内部变更
@@ -64,16 +61,20 @@ function watchFileChanges() {
     if (exceptsDocs.find(v => filename.indexOf(v) > -1)) {
       return;
     }
-    console.log(event, filename)
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    timer = setTimeout(() => {
-      copyHandler();
-    }, 1000)
+    docsChange.push(filename);
   });
+}
 
+function fileChangesComplete() {
+  if(docsChange.length) {
+    copyHandler()
+  } else {
+    srcChange.forEach(v => {
+      copyHandler(v);
+    })
+  }
+  docsChange = [];
+  srcChange = [];
 }
 
 // 生成文档目录

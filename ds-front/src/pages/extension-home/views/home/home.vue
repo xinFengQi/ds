@@ -76,7 +76,7 @@ import { getGiteeKey } from "@/sevices/gitee.api";
 import moment from "moment";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     HomeMenu,
     HomeContent,
@@ -213,7 +213,7 @@ export default {
 <style scoped>
 .home_main {
   display: flex;
-  height: calc(100% - 40px);
+  height: calc(100% - 71px);
 }
 .home_content {
   height: 100%;

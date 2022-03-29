@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import { ComponentType } from '../../interface/type.interface';
+import { ComponentType, SizeType } from '../../interface/type.interface';
 
 /**
  * @componentName 按钮
@@ -17,13 +17,26 @@ export class Dsb5Button {
   /** 按钮的类型 */
   @Prop() type: ComponentType = ComponentType.primary;
 
-  /** 弹框的类型 */
+  /** 按钮outline类型 */
   @Prop() outline = false;
+
+  /** 按钮大小 */
+  @Prop() size: SizeType | null = null;
+
+
 
   render() {
     return (
       <Host>
-        <button type="button" class={{ btn: true, [`btn-${this.type}`]: !this.outline, [`btn-outline-${this.type}`]: this.outline }}>
+        <button
+          type="button"
+          class={{
+            btn: true,
+            [`btn-${this.type}`]: !this.outline,
+            [`btn-outline-${this.type}`]: this.outline,
+            [`btn-${this.size}`]: !!this.size,
+          }}
+        >
           <slot></slot>
         </button>
       </Host>

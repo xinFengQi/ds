@@ -1,6 +1,29 @@
 <template>
-  <router-view />
+  <div class="top_tool">
+    <dsb5-button class="mr_1" @click="goto('/')">书签页</dsb5-button>
+    <dsb5-button @click="goto('/apis')">请求页</dsb5-button>
+  </div>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
+
+<script>
+export default {
+  name: "app",
+  components: {},
+  data() {
+    return {};
+  },
+  methods: {
+    goto: function (url) {
+      this.$router.push(url);
+    },
+  },
+};
+</script>
 
 <style lang="less">
 @import "../../less/index.less";
@@ -15,16 +38,9 @@
   overflow: hidden;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.top_tool {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
 }
 </style>

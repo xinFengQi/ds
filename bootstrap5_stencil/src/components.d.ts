@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentType, DataType } from "./interface/type.interface";
+import { ComponentType, DataType, SizeType } from "./interface/type.interface";
 import { Dsb5FromModel } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
@@ -70,9 +70,13 @@ export namespace Components {
     }
     interface Dsb5Button {
         /**
-          * 弹框的类型
+          * 按钮outline类型
          */
         "outline": boolean;
+        /**
+          * 按钮大小
+         */
+        "size": SizeType | null;
         /**
           * 按钮的类型
          */
@@ -107,6 +111,14 @@ export namespace Components {
           * placeholder值
          */
         "placeholder": string;
+        /**
+          * 按钮大小
+         */
+        "size": SizeType | null;
+        /**
+          * 是否是输入框组
+         */
+        "type": 'group' | null;
         /**
           * 当前的值
          */
@@ -297,9 +309,13 @@ declare namespace LocalJSX {
     }
     interface Dsb5Button {
         /**
-          * 弹框的类型
+          * 按钮outline类型
          */
         "outline"?: boolean;
+        /**
+          * 按钮大小
+         */
+        "size"?: SizeType | null;
         /**
           * 按钮的类型
          */
@@ -342,6 +358,14 @@ declare namespace LocalJSX {
           * placeholder值
          */
         "placeholder"?: string;
+        /**
+          * 按钮大小
+         */
+        "size"?: SizeType | null;
+        /**
+          * 是否是输入框组
+         */
+        "type"?: 'group' | null;
         /**
           * 当前的值
          */

@@ -18,3 +18,9 @@ export enum DataType {
   array = 'array',
   json = 'json',
 }
+
+// 大小类型
+export enum SizeType {
+  sm = 'sm',
+  lg = 'lg',
+}

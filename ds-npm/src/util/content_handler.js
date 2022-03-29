@@ -5,12 +5,13 @@ const chalk = require('chalk');
 // 文件复制
 function dsnCopyFile(src, dest, isMove) {
     const isSrc = fs.existsSync(src);
-    if(!isSrc) {
+    if (!isSrc) {
         throw `${src}文件夹不存在,请检查复制配置`
     }
+    fs.removeSync(dest)
     const copyResult = fs.copySync(src, dest)
     console.log(logSymbols.success, chalk.green(`${src}文件(夹)复制到了${dest}中`));
-    if(isMove) {
+    if (isMove) {
         fs.removeSync(src)
         console.log(logSymbols.success, chalk.green(`${src}文件(夹)已删除`));
     }
@@ -28,7 +29,7 @@ function contentReplace(paths, reg, cb) {
 
 // 去除多余空格
 function removeSpace(str) {
-    return str.replace(/( )+/g,' ')
+    return str.replace(/( )+/g, ' ')
 }
 
 // 判断是否为空
