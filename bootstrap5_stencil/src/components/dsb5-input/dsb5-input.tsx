@@ -53,7 +53,6 @@ export class Dsb5Input {
 
   // 数值更新
   componentShouldUpdate(oldData, newData, prop) {
-    console.log(oldData, newData, prop, '===============')
     if (prop === 'value') {
       return oldData !== newData;
     }

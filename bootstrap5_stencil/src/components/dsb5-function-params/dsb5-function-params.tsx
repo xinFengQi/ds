@@ -32,6 +32,8 @@ export class Dsb5FunctionParams {
 
   // 类型变化
   typeChange(ev: CustomEvent, form: Dsb5FromModel) {
+    ev.stopPropagation();
+    ev.preventDefault();
     form.type = ev.detail;
     form.value = null;
     this.emitData();
@@ -40,10 +42,11 @@ export class Dsb5FunctionParams {
 
   // 值变化
   valueChanged(ev: CustomEvent, form: Dsb5FromModel) {
+    ev.stopPropagation();
+    ev.preventDefault();
     if(!ev.currentTarget) {
       return;
     }
-    console.log(ev.currentTarget,ev.detail,ev,  '-------------------11111111111111111111111')
     form.value = ev.detail;
     if (form.type === DataType.boolean) {
       form.value = Boolean(ev.detail);

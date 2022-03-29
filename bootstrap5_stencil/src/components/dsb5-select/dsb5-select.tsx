@@ -25,7 +25,6 @@ export class Dsb5Select {
   }
 
   componentShouldUpdate(oldData, newData, prop) {
-    console.log(oldData, newData, prop, '===============')
     if (prop === 'value') {
       return oldData !== newData;
     }

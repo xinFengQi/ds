@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>stencil-demo</title>
+  <script type="module" src="/build/stencil-demo.esm.js"></script>
+  <script nomodule src="/build/stencil-demo.js"></script>
+</head>
+
+<body>
+  <ds-form-1></ds-form-1>
+</body>
+
+
+<script>
+  window.onload = () => {
+    const input1 = document.getElementById('input1')
+    console.log(input1, '===')
+    input1.addEventListener('dsValueChange', (el) => {
+      console.log(el, '===')
+    })
+  }
+</script>
+
+</html>
