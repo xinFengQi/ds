@@ -56,7 +56,7 @@ export class Dsb5Dropdown {
 
   render() {
     return (
-      <Host class="btn-group pd0 mg0">
+      <Host class="btn-group emptyHost">
         <div class="btn-group">
           <button
             class={{

@@ -31,8 +31,7 @@ export class Dsb5Button {
       class={{
         btn: true,
         [`btn-${this.type}`]: !this.outline,
-        pd0: true,
-        mg0: true,
+        emptyHost: true,
       }}
       >
         <button

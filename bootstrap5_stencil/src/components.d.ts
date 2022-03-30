@@ -135,6 +135,20 @@ export namespace Components {
          */
         "value": string;
     }
+    interface Dsb5Modal {
+        /**
+          * 是否显示关闭按钮
+         */
+        "close"?: boolean;
+        /**
+          * 弹框是否是浮动的
+         */
+        "fixed"?: boolean;
+        /**
+          * 是否显示
+         */
+        "show"?: boolean;
+    }
     interface Dsb5Select {
         /**
           * 当前的值
@@ -216,6 +230,12 @@ declare global {
         prototype: HTMLDsb5InputElement;
         new (): HTMLDsb5InputElement;
     };
+    interface HTMLDsb5ModalElement extends Components.Dsb5Modal, HTMLStencilElement {
+    }
+    var HTMLDsb5ModalElement: {
+        prototype: HTMLDsb5ModalElement;
+        new (): HTMLDsb5ModalElement;
+    };
     interface HTMLDsb5SelectElement extends Components.Dsb5Select, HTMLStencilElement {
     }
     var HTMLDsb5SelectElement: {
@@ -250,6 +270,7 @@ declare global {
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
         "dsb5-function-params": HTMLDsb5FunctionParamsElement;
         "dsb5-input": HTMLDsb5InputElement;
+        "dsb5-modal": HTMLDsb5ModalElement;
         "dsb5-select": HTMLDsb5SelectElement;
         "dsb5-tabs": HTMLDsb5TabsElement;
         "dsb5-test": HTMLDsb5TestElement;
@@ -403,11 +424,25 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface Dsb5Modal {
+        /**
+          * 是否显示关闭按钮
+         */
+        "close"?: boolean;
+        /**
+          * 弹框是否是浮动的
+         */
+        "fixed"?: boolean;
+        /**
+          * 是否显示
+         */
+        "show"?: boolean;
+    }
     interface Dsb5Select {
         /**
           * 值变化的事件
          */
-        "onValueChange"?: (event: CustomEvent<any>) => void;
+        "onValuechange"?: (event: CustomEvent<any>) => void;
         /**
           * 当前的值
          */
@@ -442,6 +477,7 @@ declare namespace LocalJSX {
         "dsb5-function-execute": Dsb5FunctionExecute;
         "dsb5-function-params": Dsb5FunctionParams;
         "dsb5-input": Dsb5Input;
+        "dsb5-modal": Dsb5Modal;
         "dsb5-select": Dsb5Select;
         "dsb5-tabs": Dsb5Tabs;
         "dsb5-test": Dsb5Test;
@@ -461,6 +497,7 @@ declare module "@stencil/core" {
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
             "dsb5-function-params": LocalJSX.Dsb5FunctionParams & JSXBase.HTMLAttributes<HTMLDsb5FunctionParamsElement>;
             "dsb5-input": LocalJSX.Dsb5Input & JSXBase.HTMLAttributes<HTMLDsb5InputElement>;
+            "dsb5-modal": LocalJSX.Dsb5Modal & JSXBase.HTMLAttributes<HTMLDsb5ModalElement>;
             "dsb5-select": LocalJSX.Dsb5Select & JSXBase.HTMLAttributes<HTMLDsb5SelectElement>;
             "dsb5-tabs": LocalJSX.Dsb5Tabs & JSXBase.HTMLAttributes<HTMLDsb5TabsElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;

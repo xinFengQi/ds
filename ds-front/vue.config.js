@@ -28,5 +28,16 @@ module.exports = {
             }
         }
     },
+    chainWebpack: config => {
+        config.module
+            .rule('vue')
+            .use('vue-loader')
+            .tap(options => {
+                // modify the options...
+                options.compilerOptions = {};
+                options.compilerOptions.isCustomElement = tag => (tag.startsWith('dsb5') || tag.startsWith('ds'))
 
+                return options
+            })
+    }
 }

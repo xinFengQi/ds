@@ -8,7 +8,8 @@
    * [下拉选择](/components/dsb5-dropdown.md)
    * [标签导航](/components/dsb5-tabs.md)
 * 交互
-   * [弹框](/components/dsb5-alert.md)
+   * [警示框](/components/dsb5-alert.md)
+   * [弹框](/components/dsb5-modal.md)
 * 表单
    * [单列表单](/components/dsb5-function-params.md)
    * [输入框](/components/dsb5-input.md)

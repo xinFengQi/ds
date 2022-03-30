@@ -18,7 +18,7 @@ export class Dsb5Select {
   /** 当前的值 */
   @Prop() value: any = null;
   /** 值变化的事件 */
-  @Event() valueChange: EventEmitter<any>;
+  @Event() valuechange: EventEmitter<any>;
 
   componentDidLoad() {
     this.selectValue();
@@ -47,8 +47,10 @@ export class Dsb5Select {
   }
 
   // 数据改变
-  onChange(el: any) {
-    this.valueChange.emit(el.target.value);
+  onChange(el: Event) {
+    el.stopPropagation();
+    el.preventDefault();
+    this.valuechange.emit(el.target['value']);
   }
 
   render() {

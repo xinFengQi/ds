@@ -98,7 +98,7 @@ export class Dsb5FunctionParams {
 
   getPrefix(form: Dsb5FromModel, noSlot?: boolean) {
     return (
-      <dsb5-select slot={!noSlot ? 'prefix' : null} value={form.type} onValueChange={event => this.typeChange(event, form)}>
+      <dsb5-select slot={!noSlot ? 'prefix' : null} value={form.type} onValuechange={event => this.typeChange(event, form)}>
         <option value={DataType.string}>字符串</option>
         <option value={DataType.number}>数字</option>
         <option value={DataType.boolean}>布尔值</option>
@@ -131,7 +131,7 @@ export class Dsb5FunctionParams {
                       error_border: this.valueVerify(form),
                     }}
                     value={form.value}
-                    onValueChange={event => this.valueChanged(event, form)}
+                    onValuechange={event => this.valueChanged(event, form)}
                   >
                     <option value={1}>是</option>
                     <option value={0}>否</option>

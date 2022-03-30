@@ -17,8 +17,7 @@ const Dsb5Button = class {
     return (h(Host, { class: {
         btn: true,
         [`btn-${this.type}`]: !this.outline,
-        pd0: true,
-        mg0: true,
+        emptyHost: true,
       } }, h("button", { type: "button", class: {
         btn: true,
         [`btn-${this.type}`]: !this.outline,

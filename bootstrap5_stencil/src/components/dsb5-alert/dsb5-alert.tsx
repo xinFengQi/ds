@@ -3,7 +3,7 @@ import { BaseCompoent } from '../../core/BaseCompoent';
 import { ComponentType } from '../../interface/type.interface';
 
 /**
- * @componentName 弹框
+ * @componentName 警示框
  * @componentType 交互
  * @slot default - 展示的内容
  *

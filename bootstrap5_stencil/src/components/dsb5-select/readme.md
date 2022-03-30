@@ -27,7 +27,7 @@
 
 | Event         | Description | Type               |
 | ------------- | ----------- | ------------------ |
-| `valueChange` | 值变化的事件      | `CustomEvent<any>` |
+| `valuechange` | 值变化的事件      | `CustomEvent<any>` |
 
 
 ## Dependencies

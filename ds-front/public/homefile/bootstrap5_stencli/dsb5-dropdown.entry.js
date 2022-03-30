@@ -41,7 +41,7 @@ const Dsb5Dropdown = class {
     }
   }
   render() {
-    return (h(Host, { class: "btn-group pd0 mg0" }, h("div", { class: "btn-group" }, h("button", { class: {
+    return (h(Host, { class: "btn-group emptyHost" }, h("div", { class: "btn-group" }, h("button", { class: {
         'btn': true,
         [`btn-${this.color}`]: true,
         'dropdown-toggle': true,

@@ -5,7 +5,7 @@ const dsb5SelectCss = ".sc-dsb5-select-h{display:block}";
 const Dsb5Select = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.valueChange = createEvent(this, "valueChange", 7);
+    this.valuechange = createEvent(this, "valuechange", 7);
     /** 当前的值 */
     this.value = null;
   }
@@ -35,7 +35,9 @@ const Dsb5Select = class {
   }
   // 数据改变
   onChange(el) {
-    this.valueChange.emit(el.target.value);
+    el.stopPropagation();
+    el.preventDefault();
+    this.valuechange.emit(el.target['value']);
   }
   render() {
     return (h(Host, null, h("select", { ref: el => (this.selectEl = el), onChange: el => this.onChange(el), class: "form-select", "aria-label": "Default select example" }, h("slot", null))));

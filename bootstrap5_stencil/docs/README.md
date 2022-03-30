@@ -30,3 +30,15 @@ order: 0
 
  <dsb5-alert delay="0" content="目前使用的是组件懒加载的方式进行库的模块加载，如果不初始化模块则第一次调用该模块的同步方法会报错，使用点方法成功后，可以直接使用此js模块" fixed="false" type="warning"></dsb5-alert>
 
+
+
+### 多框架使用问题
+
+#### vue3
+
+1. 目前标准组件事件只支持一部分，本组件库使用的是全小写事件名
+
+
+#### 支持地址及文档
+
+1. [目前框架对于标准web组件支持情况](https://custom-elements-everywhere.com/)

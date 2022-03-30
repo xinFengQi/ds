@@ -130,6 +130,13 @@ option{
 .w100{
   width: 100%;
 }
+
+.emptyHost {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: unset;
+}
 .pd0 {
   padding: 0;
 }
