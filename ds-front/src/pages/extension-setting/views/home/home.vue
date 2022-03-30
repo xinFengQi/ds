@@ -16,6 +16,7 @@
         <TaskListSetting v-if="currentKey === 'tasklist_setting'"></TaskListSetting>
         <ResourceManager v-if="currentKey === 'resource_manager'"></ResourceManager>
         <BlogManager v-if="currentKey === 'blog_manager'"></BlogManager>
+        <ApisSetting v-if="currentKey === 'apis_setting'"></ApisSetting>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -31,7 +32,7 @@ import developPreface from "./develop_preface.vue";
 import TaskListSetting from "./tasklist_setting.vue";
 import ResourceManager from "./resource_manager.vue";
 import BlogManager from "./blog_manager/blog_manager.vue";
-
+import ApisSetting from "./apis_setting.vue";
 export default {
   name: "Home",
   components: {
@@ -43,7 +44,8 @@ export default {
     developPreface,
     TaskListSetting,
     ResourceManager,
-    BlogManager
+    BlogManager,
+    ApisSetting,
   },
   data() {
     return {
@@ -59,7 +61,6 @@ export default {
 </script>
 
 <style>
-
 .main_layout {
   height: 100%;
   overflow: hidden;

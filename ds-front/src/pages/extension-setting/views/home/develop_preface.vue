@@ -310,20 +310,21 @@ export default {
       });
     },
     quickSetting: function () {
-      const dsFlags = ["booksMarks", "codes", "tasklist"];
+      const dsFlags = ["booksMarks", "codes", "tasklist",  "apisData"];
       const dsGiteePublicFlags = [
         "booksMarks",
         "codes",
         "tasklist",
         "resource",
         "blog_manager",
+        "apisData"
       ];
-      const dsGiteePrivateFlags = ["booksMarks", "codes", "tasklist"];
+      const dsGiteePrivateFlags = ["booksMarks", "codes", "tasklist", "apisData"];
 
-      const dsPublicFlags = ["booksMarks", "codes", "tasklist"];
+      const dsPublicFlags = ["booksMarks", "codes", "tasklist", "apisData"];
 
-      const dsPublicOpen = ["booksMarks", "codes", "tasklist"];
-      const dsPrivateOpen = ["booksMarks", "codes", "tasklist"];
+      const dsPublicOpen = ["booksMarks", "codes", "tasklist", "apisData"];
+      const dsPrivateOpen = ["booksMarks", "codes", "tasklist", "apisData"];
 
       console.log("一键设置");
 

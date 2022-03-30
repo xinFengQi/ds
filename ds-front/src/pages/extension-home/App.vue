@@ -1,7 +1,7 @@
 <template>
   <div class="top_tool">
-    <dsb5-button class="mr_1" @click="goto('/')">书签页</dsb5-button>
-    <dsb5-button @click="goto('/apis')">请求页</dsb5-button>
+    <dsb5-button size="sm" class="mr_1" @click="goto('/')">书签页</dsb5-button>
+    <dsb5-button size="sm" @click="goto('/apis')">请求页</dsb5-button>
   </div>
   <router-view v-slot="{ Component }">
     <keep-alive>

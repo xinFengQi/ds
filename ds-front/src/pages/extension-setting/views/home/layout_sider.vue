@@ -76,6 +76,12 @@ export default {
           icon: SnippetsTwoTone,
           isShow: false,
         },
+        {
+          key: "apis_setting",
+          label: "api数据设置",
+          icon: SnippetsTwoTone,
+          isShow: true,
+        },
       ],
     };
   },

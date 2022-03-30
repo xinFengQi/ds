@@ -8,6 +8,7 @@ export enum ComponentType {
   info = 'info',
   light = 'light',
   dark = 'dark',
+  empty = 'empty',
 }
 
 // 数据类型

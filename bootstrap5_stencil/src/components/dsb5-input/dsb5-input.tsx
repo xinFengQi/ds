@@ -5,6 +5,8 @@ import { SizeType } from '../../interface/type.interface';
 /**
  * @componentName 输入框
  * @componentType 表单
+ * @slot prefix - 前缀
+ * @slot suffix - 后缀
  *
  */
 @Component({

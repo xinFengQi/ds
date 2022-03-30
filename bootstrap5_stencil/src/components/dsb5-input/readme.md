@@ -38,6 +38,14 @@
 | `valueChange` | 值变化的事件      | `CustomEvent<string>` |
 
 
+## Slots
+
+| Slot       | Description |
+| ---------- | ----------- |
+| `"prefix"` | 前缀          |
+| `"suffix"` | 后缀          |
+
+
 ## Dependencies
 
 ### Used by

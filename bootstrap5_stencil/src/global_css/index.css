@@ -130,6 +130,12 @@ option{
 .w100{
   width: 100%;
 }
+.pd0 {
+  padding: 0;
+}
+.mg0 {
+  margin: 0;
+}
 .padding0 {
   padding: 0 !important;
 }

@@ -22,11 +22,11 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type                                                                                                                                                                                            | Default                 |
-| --------- | --------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `outline` | `outline` | 按钮outline类型 | `boolean`                                                                                                                                                                                       | `false`                 |
-| `size`    | `size`    | 按钮大小        | `SizeType.lg \| SizeType.sm`                                                                                                                                                                    | `null`                  |
-| `type`    | `type`    | 按钮的类型       | `ComponentType.danger \| ComponentType.dark \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning` | `ComponentType.primary` |
+| Property  | Attribute | Description | Type                                                                                                                                                                                                                   | Default                 |
+| --------- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `outline` | `outline` | 按钮outline类型 | `boolean`                                                                                                                                                                                                              | `false`                 |
+| `size`    | `size`    | 按钮大小        | `SizeType.lg \| SizeType.sm`                                                                                                                                                                                           | `null`                  |
+| `type`    | `type`    | 按钮的类型       | `ComponentType.danger \| ComponentType.dark \| ComponentType.empty \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning` | `ComponentType.primary` |
 
 
 ## Slots

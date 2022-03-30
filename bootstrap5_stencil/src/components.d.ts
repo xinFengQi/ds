@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentType, DataType, SizeType } from "./interface/type.interface";
 import { ValueVerifyFunReturn } from "./components/ds-util/ds-util-fun";
-import { Dsb5FromModel } from "./interface/component.interface";
+import { Dsb5DropdownData, Dsb5FromModel } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
         /**
@@ -84,6 +84,18 @@ export namespace Components {
         "type": ComponentType;
     }
     interface Dsb5Dropdown {
+        /**
+          * 按钮颜色
+         */
+        "color"?: ComponentType;
+        /**
+          * 下拉选择选项
+         */
+        "data": Dsb5DropdownData[] | string[];
+        /**
+          * 是否变更值
+         */
+        "valueChange": boolean;
     }
     interface Dsb5FunctionExecute {
         /**
@@ -328,6 +340,22 @@ declare namespace LocalJSX {
         "type"?: ComponentType;
     }
     interface Dsb5Dropdown {
+        /**
+          * 按钮颜色
+         */
+        "color"?: ComponentType;
+        /**
+          * 下拉选择选项
+         */
+        "data"?: Dsb5DropdownData[] | string[];
+        /**
+          * 弹框关闭事件
+         */
+        "onGetSelectData"?: (event: CustomEvent<Dsb5DropdownData | string>) => void;
+        /**
+          * 是否变更值
+         */
+        "valueChange"?: boolean;
     }
     interface Dsb5FunctionExecute {
         /**

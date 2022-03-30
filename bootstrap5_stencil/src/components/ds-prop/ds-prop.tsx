@@ -1,4 +1,5 @@
 import { Component, Element, h, Event, Host, EventEmitter, Prop } from '@stencil/core';
+import { BaseCompoent } from '../../core/BaseCompoent';
 import { DataType } from '../../interface/type.interface';
 
 /**
@@ -28,7 +29,18 @@ export class DsProp {
   // 获取到的值
   value: any = null;
 
+  
+  // 基础组件minix
+  baseCompoent = new BaseCompoent();
+
+  componentWillLoad() {
+    if (!this.parentEl) {
+      this.parentEl = this.el.parentNode;
+    }
+  }
+
   connectedCallback() {
+    this.el.slot = this.baseCompoent.id;
     const text = this.el.innerHTML.replace(/\n|\r| /g, '').trim();
     try {
       const lowerType = this.type.toLocaleLowerCase();
@@ -36,7 +48,7 @@ export class DsProp {
         this.value = JSON.parse(text);
       }
       if (lowerType === 'boolean') {
-        if(text === 'false' || text === '0') {
+        if (text === 'false' || text === '0') {
           this.value === false;
         } else {
           this.value = Boolean(text);
@@ -44,12 +56,6 @@ export class DsProp {
       }
     } catch (error) {
       console.error(error);
-    }
-  }
-
-  componentWillLoad() {
-    if (!this.parentEl) {
-      this.parentEl = this.el.parentNode;
     }
   }
 
