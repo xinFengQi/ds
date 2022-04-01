@@ -1,9 +1,12 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Element, forceUpdate } from '@stencil/core';
+import { BaseCompoent } from '../../core/BaseCompoent';
 
 /**
  * @componentName 弹框
  * @componentType 交互
- *
+ * @slot content - 展示的内容
+ * @slot footer - 底部内容
+ * 
  */
 @Component({
   tag: 'dsb5-modal',
@@ -12,61 +15,115 @@ import { Component, Host, h, Prop } from '@stencil/core';
   scoped: true,
 })
 export class Dsb5Modal {
+  @Element() hostDiv: HTMLElement;
+
+  /** 弹框的位置 */
+  @Prop() location?: 'top' | 'center' = 'center';
   /** 弹框是否是浮动的 */
   @Prop() fixed? = true;
 
   /** 是否显示 */
-  @Prop() show? = true;
+  @Prop({ mutable: true }) show? = true;
 
   /** 是否显示关闭按钮 */
   @Prop() close? = false;
 
-  connectedCallback() {}
+  /** 弹框的标题 */
+  @Prop() dstitle: string;
+
+  /** 弹框的底部 */
+  @Prop() footer: string | HTMLElement | null | boolean = true;
+  existFooterSolt = false;
+  // 基础组件minix
+  baseCompoent = new BaseCompoent();
+
+  bodyOverFlowCache = null;
+
+  // 组件初始化连接时
+  connectedCallback() {
+    this.baseCompoent.connectedCallback(this.hostDiv, null, (slots: Element[]) => {
+      this.existFooterSolt = !!slots.find(v => v.slot === 'footer');
+    });
+  }
+
+  componentDidLoad() {
+    this.changeBodyOverFlow();
+  }
 
   // 数值更新
-  componentShouldUpdate(oldData, newData, prop) {
+  componentShouldUpdate(_newData, _oldData, prop) {
     if (prop === 'show') {
-      if (newData) {
-        document.body.style.overflow = 'hidden';
-      }
-      if (!newData) {
-        document.body.style.overflow = 'unset';
+      this.changeBodyOverFlow();
+      if (_newData) {
+        setTimeout(() => {
+          forceUpdate(this.hostDiv);
+        });
       }
     }
     return true;
   }
 
+  changeBodyOverFlow() {
+    if (this.fixed && this.show) {
+      this.bodyOverFlowCache = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = this.bodyOverFlowCache;
+    }
+  }
+
+  closeModal() {
+    this.show = false;
+  }
+
   render() {
+    console.log('------------------------------------------------');
     return (
       <Host>
-        {this.show && <div class="modal-backdrop fade show"></div>}
+        {this.show && this.fixed && <div class="modal-backdrop fade show"></div>}
+        <slot></slot>
         <div
           class={{
-            modal: true,
-            fade: true,
-            dsb5_no_fiexed: !this.fixed,
-            dsb5_show: this.show,
-            show: this.show,
+            'modal': true,
+            'fade': true,
+            'show': this.show,
+            'dsb5_no_fiexed': !this.fixed,
+            'dsb5_show': this.show,
+            'modal-dialog-centered': this.show && this.location === 'center',
           }}
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby={this.baseCompoent.id + 'title'}
           aria-hidden="true"
         >
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              {this.dstitle && (
+                <div class="modal-header">
+                  <h5 class="modal-title" id={this.baseCompoent.id + 'title'}>
+                    {this.dstitle}
+                  </h5>
+                  <button onClick={() => this.closeModal()} type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+              )}
+
+              <div class="modal-body">
+                <slot name="content"></slot>
               </div>
-              <div class="modal-body">...</div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
+              {(this.footer || this.existFooterSolt) && (
+                <div class="modal-footer">
+                  <slot name="footer"></slot>
+                  {!this.existFooterSolt && (
+                    <div>
+                      <button onClick={() => this.closeModal()} type="button" class="btn btn-secondary mr_1" data-bs-dismiss="modal">
+                        关闭
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        确定
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

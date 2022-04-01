@@ -23,16 +23,14 @@ export class Dsb5Button {
   /** 按钮大小 */
   @Prop() size: SizeType | null = null;
 
-
-
   render() {
     return (
       <Host
-      class={{
-        btn: true,
-        [`btn-${this.type}`]: !this.outline,
-        emptyHost: true,
-      }}
+        class={{
+          btn: true,
+          [`btn-${this.type}`]: !this.outline,
+          emptyHost: true,
+        }}
       >
         <button
           type="button"
@@ -41,6 +39,7 @@ export class Dsb5Button {
             [`btn-${this.type}`]: !this.outline,
             [`btn-outline-${this.type}`]: this.outline,
             [`btn-${this.size}`]: !!this.size,
+            w100: true,
           }}
         >
           <slot></slot>

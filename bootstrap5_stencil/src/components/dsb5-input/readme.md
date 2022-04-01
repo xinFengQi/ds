@@ -8,13 +8,12 @@
    </dsb5-input>
    </dsb5-webcomponent-show>
 
+
 2. 前后缀使用示例
    <dsb5-webcomponent-show>
-   <dsb5-input type="group">
-   <dsb5-button>前缀</dsb5-button>
    <dsb5-input>
-   </dsb5-input>
-   <dsb5-button >后缀</dsb5-button>
+   <dsb5-button slot="prefix">前缀</dsb5-button>
+   <dsb5-button slot="suffix">后缀</dsb5-button>
    </dsb5-input>
    </dsb5-webcomponent-show>
 

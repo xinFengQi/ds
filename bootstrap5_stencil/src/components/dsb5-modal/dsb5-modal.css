@@ -4,8 +4,10 @@
 
 .dsb5_no_fiexed{
   position: relative;
+  z-index: unset;
 }
 
 .dsb5_show{
   display: block;
 }
+

@@ -11,6 +11,7 @@
    * [警示框](/components/dsb5-alert.md)
    * [弹框](/components/dsb5-modal.md)
 * 表单
+   * [多列表单](/components/dsb5-api-params.md)
    * [单列表单](/components/dsb5-function-params.md)
    * [输入框](/components/dsb5-input.md)
    * [下拉列表](/components/dsb5-select.md)

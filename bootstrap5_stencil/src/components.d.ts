@@ -69,6 +69,8 @@ export namespace Components {
          */
         "type"?: ComponentType;
     }
+    interface Dsb5ApiParams {
+    }
     interface Dsb5Button {
         /**
           * 按钮outline类型
@@ -141,9 +143,21 @@ export namespace Components {
          */
         "close"?: boolean;
         /**
+          * 弹框的标题
+         */
+        "dstitle": string;
+        /**
           * 弹框是否是浮动的
          */
         "fixed"?: boolean;
+        /**
+          * 弹框的底部
+         */
+        "footer": string | HTMLElement | null | boolean;
+        /**
+          * 弹框的位置
+         */
+        "location"?: 'top' | 'center';
         /**
           * 是否显示
          */
@@ -199,6 +213,12 @@ declare global {
     var HTMLDsb5AlertElement: {
         prototype: HTMLDsb5AlertElement;
         new (): HTMLDsb5AlertElement;
+    };
+    interface HTMLDsb5ApiParamsElement extends Components.Dsb5ApiParams, HTMLStencilElement {
+    }
+    var HTMLDsb5ApiParamsElement: {
+        prototype: HTMLDsb5ApiParamsElement;
+        new (): HTMLDsb5ApiParamsElement;
     };
     interface HTMLDsb5ButtonElement extends Components.Dsb5Button, HTMLStencilElement {
     }
@@ -265,6 +285,7 @@ declare global {
         "ds-script": HTMLDsScriptElement;
         "ds-util": HTMLDsUtilElement;
         "dsb5-alert": HTMLDsb5AlertElement;
+        "dsb5-api-params": HTMLDsb5ApiParamsElement;
         "dsb5-button": HTMLDsb5ButtonElement;
         "dsb5-dropdown": HTMLDsb5DropdownElement;
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
@@ -345,6 +366,8 @@ declare namespace LocalJSX {
           * 弹框的类型
          */
         "type"?: ComponentType;
+    }
+    interface Dsb5ApiParams {
     }
     interface Dsb5Button {
         /**
@@ -430,9 +453,21 @@ declare namespace LocalJSX {
          */
         "close"?: boolean;
         /**
+          * 弹框的标题
+         */
+        "dstitle"?: string;
+        /**
           * 弹框是否是浮动的
          */
         "fixed"?: boolean;
+        /**
+          * 弹框的底部
+         */
+        "footer"?: string | HTMLElement | null | boolean;
+        /**
+          * 弹框的位置
+         */
+        "location"?: 'top' | 'center';
         /**
           * 是否显示
          */
@@ -472,6 +507,7 @@ declare namespace LocalJSX {
         "ds-script": DsScript;
         "ds-util": DsUtil;
         "dsb5-alert": Dsb5Alert;
+        "dsb5-api-params": Dsb5ApiParams;
         "dsb5-button": Dsb5Button;
         "dsb5-dropdown": Dsb5Dropdown;
         "dsb5-function-execute": Dsb5FunctionExecute;
@@ -492,6 +528,7 @@ declare module "@stencil/core" {
             "ds-script": LocalJSX.DsScript & JSXBase.HTMLAttributes<HTMLDsScriptElement>;
             "ds-util": LocalJSX.DsUtil & JSXBase.HTMLAttributes<HTMLDsUtilElement>;
             "dsb5-alert": LocalJSX.Dsb5Alert & JSXBase.HTMLAttributes<HTMLDsb5AlertElement>;
+            "dsb5-api-params": LocalJSX.Dsb5ApiParams & JSXBase.HTMLAttributes<HTMLDsb5ApiParamsElement>;
             "dsb5-button": LocalJSX.Dsb5Button & JSXBase.HTMLAttributes<HTMLDsb5ButtonElement>;
             "dsb5-dropdown": LocalJSX.Dsb5Dropdown & JSXBase.HTMLAttributes<HTMLDsb5DropdownElement>;
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;

@@ -137,6 +137,13 @@ option{
   border: 0;
   background-color: unset;
 }
+.emptyHost:hover {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: unset;
+  transform: scale(0.95);
+}
 .pd0 {
   padding: 0;
 }
