@@ -4,7 +4,7 @@
     <dsb5-function-params>
     <ds-script>
     console.log('---------------')
-      $el.addEventListener('formChange', function(el){
+      $el.addEventListener('formchange', function(el){
         console.log(el.detail)
       })
    </ds-script>

@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element, forceUpdate } from '@stencil/core';
+import { Component, Host, h, Prop, Element, forceUpdate, Event, EventEmitter } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 
 /**
@@ -6,7 +6,7 @@ import { BaseCompoent } from '../../core/BaseCompoent';
  * @componentType 交互
  * @slot content - 展示的内容
  * @slot footer - 底部内容
- * 
+ *
  */
 @Component({
   tag: 'dsb5-modal',
@@ -34,6 +34,12 @@ export class Dsb5Modal {
   /** 弹框的底部 */
   @Prop() footer: string | HTMLElement | null | boolean = true;
   existFooterSolt = false;
+
+  /** 弹框取消关闭事件 */
+  @Event() cacel: EventEmitter<null>;
+  /** 弹框确认关闭事件 */
+  @Event() ok: EventEmitter<null>;
+
   // 基础组件minix
   baseCompoent = new BaseCompoent();
 
@@ -74,10 +80,10 @@ export class Dsb5Modal {
 
   closeModal() {
     this.show = false;
+    this.cacel.emit();
   }
 
   render() {
-    console.log('------------------------------------------------');
     return (
       <Host>
         {this.show && this.fixed && <div class="modal-backdrop fade show"></div>}

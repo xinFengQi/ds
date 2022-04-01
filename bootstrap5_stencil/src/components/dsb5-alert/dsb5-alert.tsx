@@ -36,7 +36,7 @@ export class Dsb5Alert {
   @Prop() delay?: null | number = 3000;
 
   /** 弹框关闭事件 */
-  @Event() closeEmit: EventEmitter<boolean>;
+  @Event() closeemit: EventEmitter<boolean>;
 
   // 基础组件minix
   baseCompoent = new BaseCompoent();
@@ -49,13 +49,13 @@ export class Dsb5Alert {
     if (!this.delay && this.close) {
       this.alertRef.addEventListener('closed.bs.alert', () => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       });
     }
     if (this.delay) {
       setTimeout(() => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       }, this.delay);
     }
   }

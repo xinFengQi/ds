@@ -31,7 +31,7 @@ export class Dsb5Input {
   @Prop() value: string = null;
 
   /** 值变化的事件 */
-  @Event() valueChange: EventEmitter<string>;
+  @Event() valuechange: EventEmitter<string>;
 
   // 继承基础组件
   baseComponent = new BaseCompoent();
@@ -63,7 +63,7 @@ export class Dsb5Input {
 
   // 数据改变
   onChange(el: any) {
-    this.valueChange.emit(el.target.value);
+    this.valuechange.emit(el.target.value);
   }
 
   render() {

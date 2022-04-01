@@ -20,7 +20,7 @@ export class Dsb5FunctionParams {
   @Element() hostDiv: HTMLElement;
 
   /** 返回变更的数据 */
-  @Event() formChange: EventEmitter<{ valid: boolean; value: Dsb5FromModel[] }>;
+  @Event() formchange: EventEmitter<{ valid: boolean; value: Dsb5FromModel[] }>;
 
   // 表单数组
   forms: Dsb5FromModel[] = [
@@ -83,7 +83,7 @@ export class Dsb5FunctionParams {
 
   // 整体数据改变
   emitData() {
-    this.formChange.emit({
+    this.formchange.emit({
       valid: !!this.forms.filter(v => v.__error).length,
       value: this.forms
         .filter(v => !v.__error)

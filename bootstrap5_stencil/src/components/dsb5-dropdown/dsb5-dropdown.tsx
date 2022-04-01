@@ -28,7 +28,7 @@ export class Dsb5Dropdown {
   @Prop() color?: ComponentType = ComponentType.empty;
 
   /** 弹框关闭事件 */
-  @Event() getSelectData: EventEmitter<Dsb5DropdownData | string>;
+  @Event() getselectdata: EventEmitter<Dsb5DropdownData | string>;
 
   selectValue = null;
 
@@ -37,7 +37,7 @@ export class Dsb5Dropdown {
     ev.preventDefault();
     this.selectValue = typeof data === 'string' ? data : data.text;
     forceUpdate(this.hostDiv)
-    this.getSelectData.emit(data);
+    this.getselectdata.emit(data);
   }
 
   // 通过类型获取html
