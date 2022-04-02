@@ -70,7 +70,7 @@
 
 | Event       | Description | Type                   |
 | ----------- | ----------- | ---------------------- |
-| `closeEmit` | 弹框关闭事件      | `CustomEvent<boolean>` |
+| `closeemit` | 弹框关闭事件      | `CustomEvent<boolean>` |
 
 
 ## Methods

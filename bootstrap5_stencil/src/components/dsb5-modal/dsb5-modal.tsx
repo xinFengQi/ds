@@ -83,6 +83,10 @@ export class Dsb5Modal {
     this.cacel.emit();
   }
 
+  okModal() {
+    this.ok.emit();
+  }
+
   render() {
     return (
       <Host>
@@ -123,7 +127,7 @@ export class Dsb5Modal {
                       <button onClick={() => this.closeModal()} type="button" class="btn btn-secondary mr_1" data-bs-dismiss="modal">
                         关闭
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <button onClick={() => this.okModal()} type="button" class="btn btn-primary">
                         确定
                       </button>
                     </div>

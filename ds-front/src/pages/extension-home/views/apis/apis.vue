@@ -1,6 +1,6 @@
 <template>
-  <div class="apis_main">
-    <ApisLeft class="apis_left"></ApisLeft>
+  <div class="apis_main" v-if="giteeFileData">
+    <ApisLeft :giteeFileData="giteeFileData"></ApisLeft>
     <ApisRight class="apis_right"></ApisRight>
   </div>
 </template>
@@ -9,6 +9,7 @@
 import { Options, Vue } from "vue-class-component";
 import ApisLeft from "./apis_left.vue";
 import ApisRight from "./apis_right.vue";
+import { getGiteeLocalStoreData, getAll } from "@/sevices/gitee.api";
 
 @Options({
   components: {
@@ -17,6 +18,13 @@ import ApisRight from "./apis_right.vue";
   },
 })
 export default class ApiHome extends Vue {
+  giteeFileData = null;
+
+  mounted() {
+    getGiteeLocalStoreData("apisData", "private", true).then((v: any) => {
+      this.giteeFileData = v;
+    });
+  }
 }
 </script>
 
@@ -25,9 +33,6 @@ export default class ApiHome extends Vue {
   display: flex;
   height: 100%;
   padding: 10px;
-  .apis_left {
-    min-width: 150px;
-  }
   .apis_right {
     flex: 1;
     padding: 0px 0px 10px 0px;

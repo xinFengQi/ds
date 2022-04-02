@@ -30,7 +30,7 @@
 
 | Event           | Description | Type                                                                  |
 | --------------- | ----------- | --------------------------------------------------------------------- |
-| `getSelectData` | 弹框关闭事件      | `CustomEvent<Dsb5DropdownDataLine \| Dsb5DropdownDataText \| string>` |
+| `getselectdata` | 弹框关闭事件      | `CustomEvent<Dsb5DropdownDataLine \| Dsb5DropdownDataText \| string>` |
 
 
 ----------------------------------------------

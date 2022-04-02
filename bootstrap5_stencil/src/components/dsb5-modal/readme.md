@@ -62,6 +62,14 @@
 | `show`     | `show`     | 是否显示        | `boolean`                          | `true`      |
 
 
+## Events
+
+| Event   | Description | Type                |
+| ------- | ----------- | ------------------- |
+| `cacel` | 弹框取消关闭事件    | `CustomEvent<null>` |
+| `ok`    | 弹框确认关闭事件    | `CustomEvent<null>` |
+
+
 ## Slots
 
 | Slot        | Description |

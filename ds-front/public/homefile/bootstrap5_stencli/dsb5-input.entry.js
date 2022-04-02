@@ -7,7 +7,7 @@ const dsb5InputCss = ".sc-dsb5-input-h{display:block}.error_input_border.sc-dsb5
 const Dsb5Input = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.valueChange = createEvent(this, "valueChange", 7);
+    this.valuechange = createEvent(this, "valuechange", 7);
     /** 按钮大小 */
     this.size = null;
     /** 当前的值 */
@@ -38,7 +38,7 @@ const Dsb5Input = class {
   }
   // 数据改变
   onChange(el) {
-    this.valueChange.emit(el.target.value);
+    this.valuechange.emit(el.target.value);
   }
   render() {
     return (h(Host, null, h("div", { class: { 'input-group': true, [`input-group-${this.size}`]: !!this.size, 'error_border': this.error } }, h("slot", { name: 'prefix' }), h("input", { type: "text", class: { 'form-control': true, 'error_input_border': this.error }, value: this.value, onChange: el => this.onChange(el), onInput: el => this.onChange(el), placeholder: this.placeholder }), h("slot", { name: 'suffix' }))));

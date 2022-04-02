@@ -357,7 +357,7 @@ declare namespace LocalJSX {
         /**
           * 弹框关闭事件
          */
-        "onCloseEmit"?: (event: CustomEvent<boolean>) => void;
+        "onCloseemit"?: (event: CustomEvent<boolean>) => void;
         /**
           * 是否显示
          */
@@ -395,7 +395,7 @@ declare namespace LocalJSX {
         /**
           * 弹框关闭事件
          */
-        "onGetSelectData"?: (event: CustomEvent<Dsb5DropdownData | string>) => void;
+        "onGetselectdata"?: (event: CustomEvent<Dsb5DropdownData | string>) => void;
         /**
           * 是否变更值
          */
@@ -423,7 +423,7 @@ declare namespace LocalJSX {
         /**
           * 返回变更的数据
          */
-        "onFormChange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[] }>) => void;
+        "onFormchange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[] }>) => void;
     }
     interface Dsb5Input {
         /**
@@ -433,7 +433,7 @@ declare namespace LocalJSX {
         /**
           * 值变化的事件
          */
-        "onValueChange"?: (event: CustomEvent<string>) => void;
+        "onValuechange"?: (event: CustomEvent<string>) => void;
         /**
           * placeholder值
          */
@@ -468,6 +468,14 @@ declare namespace LocalJSX {
           * 弹框的位置
          */
         "location"?: 'top' | 'center';
+        /**
+          * 弹框取消关闭事件
+         */
+        "onCacel"?: (event: CustomEvent<null>) => void;
+        /**
+          * 弹框确认关闭事件
+         */
+        "onOk"?: (event: CustomEvent<null>) => void;
         /**
           * 是否显示
          */

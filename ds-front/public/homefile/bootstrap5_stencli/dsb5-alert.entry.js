@@ -8,7 +8,7 @@ const dsb5AlertCss = ".sc-dsb5-alert-h{display:block}.alert_fixed.sc-dsb5-alert{
 const Dsb5Alert = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.closeEmit = createEvent(this, "closeEmit", 7);
+    this.closeemit = createEvent(this, "closeemit", 7);
     /** 弹框是否是浮动的 */
     this.fixed = true;
     /** 弹框的类型 */
@@ -27,13 +27,13 @@ const Dsb5Alert = class {
     if (!this.delay && this.close) {
       this.alertRef.addEventListener('closed.bs.alert', () => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       });
     }
     if (this.delay) {
       setTimeout(() => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       }, this.delay);
     }
   }

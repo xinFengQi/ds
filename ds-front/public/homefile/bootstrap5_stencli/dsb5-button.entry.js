@@ -23,6 +23,7 @@ const Dsb5Button = class {
         [`btn-${this.type}`]: !this.outline,
         [`btn-outline-${this.type}`]: this.outline,
         [`btn-${this.size}`]: !!this.size,
+        w100: true,
       } }, h("slot", null))));
   }
 };

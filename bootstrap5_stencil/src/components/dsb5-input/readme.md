@@ -34,7 +34,7 @@
 
 | Event         | Description | Type                  |
 | ------------- | ----------- | --------------------- |
-| `valueChange` | 值变化的事件      | `CustomEvent<string>` |
+| `valuechange` | 值变化的事件      | `CustomEvent<string>` |
 
 
 ## Slots

@@ -8,7 +8,7 @@ const dsb5DropdownCss = ".sc-dsb5-dropdown-h{display:block}.dropdown-menu.sc-dsb
 const Dsb5Dropdown = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.getSelectData = createEvent(this, "getSelectData", 7);
+    this.getselectdata = createEvent(this, "getselectdata", 7);
     // 基础组件minix
     this.baseCompoent = new BaseCompoent();
     /** 是否变更值 */
@@ -24,7 +24,7 @@ const Dsb5Dropdown = class {
     ev.preventDefault();
     this.selectValue = typeof data === 'string' ? data : data.text;
     forceUpdate(this.hostDiv);
-    this.getSelectData.emit(data);
+    this.getselectdata.emit(data);
   }
   // 通过类型获取html
   getTypeHtml(da) {

@@ -120,7 +120,7 @@ export class Dsb5FunctionParams {
                 {/* value={form.value} */}
                 {[DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (
                   <dsb5-input class="w100" error={this.valueVerify(form)} 
-                    onValueChange={(event) => this.valueChanged(event, form)}>
+                    onValuechange={(event) => this.valueChanged(event, form)}>
                     {this.getPrefix(form)}
                   </dsb5-input>
                 ) : null}

@@ -75,12 +75,16 @@ export function getAll(
     giteeOwner: string,
     giteeRepo: string,
     key: string | null,
-    path: string
+    path?: string
 ) {
-    let keyPath = path;
-    if (key) {
+    let keyPath = path || '';
+    if (key && path) {
         keyPath = `_data_${key}/${path}.json`;
     }
+    if (key && !path) {
+        keyPath = `_data_${key}`;
+    }
+
     const url = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${decodeURI(
         keyPath
     )}?access_token=${accessToken}`;

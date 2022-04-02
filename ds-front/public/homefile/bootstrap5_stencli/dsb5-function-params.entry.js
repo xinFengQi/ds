@@ -6,7 +6,7 @@ const dsb5FunctionParamsCss = ".sc-dsb5-function-params-h{display:block}.error_b
 const Dsb5FunctionParams = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.formChange = createEvent(this, "formChange", 7);
+    this.formchange = createEvent(this, "formchange", 7);
     // 表单数组
     this.forms = [
       {
@@ -63,7 +63,7 @@ const Dsb5FunctionParams = class {
   }
   // 整体数据改变
   emitData() {
-    this.formChange.emit({
+    this.formchange.emit({
       valid: !!this.forms.filter(v => v.__error).length,
       value: this.forms
         .filter(v => !v.__error)
@@ -80,7 +80,7 @@ const Dsb5FunctionParams = class {
   }
   render() {
     return (h(Host, null, this.forms.map((form, i) => {
-      return (h("div", { class: "form_single" }, form.value, form.type === DataType.boolean && this.getPrefix(form, true), h("div", { class: "form_single_block" }, [DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (h("dsb5-input", { class: "w100", error: this.valueVerify(form), onValueChange: (event) => this.valueChanged(event, form) }, this.getPrefix(form))) : null, form.type === DataType.boolean ? (h("dsb5-select", { class: {
+      return (h("div", { class: "form_single" }, form.value, form.type === DataType.boolean && this.getPrefix(form, true), h("div", { class: "form_single_block" }, [DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (h("dsb5-input", { class: "w100", error: this.valueVerify(form), onValuechange: (event) => this.valueChanged(event, form) }, this.getPrefix(form))) : null, form.type === DataType.boolean ? (h("dsb5-select", { class: {
           w100: true,
           error_border: this.valueVerify(form),
         }, value: form.value, onValuechange: event => this.valueChanged(event, form) }, h("option", { value: 1 }, "\u662F"), h("option", { value: 0 }, "\u5426"))) : null), h("i", { onClick: () => this.addForm(i), class: "bi bi-plus-circle-fill" }), this.forms.length > 1 ? h("i", { onClick: () => this.removeForm(i), class: "bi bi-dash-circle-fill" }) : null));

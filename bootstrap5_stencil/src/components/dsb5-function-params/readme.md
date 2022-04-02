@@ -18,7 +18,7 @@
 
 | Event        | Description | Type                                                       |
 | ------------ | ----------- | ---------------------------------------------------------- |
-| `formChange` | 返回变更的数据     | `CustomEvent<{ valid: boolean; value: Dsb5FromModel[]; }>` |
+| `formchange` | 返回变更的数据     | `CustomEvent<{ valid: boolean; value: Dsb5FromModel[]; }>` |
 
 
 ## Dependencies

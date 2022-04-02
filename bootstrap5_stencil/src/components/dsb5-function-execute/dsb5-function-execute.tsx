@@ -214,9 +214,9 @@ export class Dsb5FunctionTest {
                   </div>
                   <div class="detail_content" slot="执行测试">
                     参数：
-                    <dsb5-function-params onFormChange={ev => this.getExcuteDatas(ev)}></dsb5-function-params>
+                    <dsb5-function-params onFormchange={ev => this.getExcuteDatas(ev)}></dsb5-function-params>
                     结果：
-                    <dsb5-function-params onFormChange={ev => this.getExcuteResultDatas(ev)}></dsb5-function-params>
+                    <dsb5-function-params onFormchange={ev => this.getExcuteResultDatas(ev)}></dsb5-function-params>
                     <div class="excute_tool">
                       {this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`}
                       <dsb5-button class="ml_1" onClick={() => this.excuteCustom()} type={ComponentType.primary}>
