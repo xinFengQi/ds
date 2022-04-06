@@ -38,10 +38,24 @@
 
 ## Properties
 
-| Property          | Attribute | Description | Type                                                      | Default                                                                                                  |
-| ----------------- | --------- | ----------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `isEqualSync`     | --        | 判断两个数值是否相同  | `(a: any, b: any) => boolean`                             | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                                                 |
-| `valueVerifySync` | --        | 值校验         | `(value: string, type: DataType) => ValueVerifyFunReturn` | `(value: string, type: DataType): ValueVerifyFunReturn => {     return valueVerifyFun(value, type);   }` |
+| Property           | Attribute | Description | Type                                                       | Default                                                                                                                                                                                                                                               |
+| ------------------ | --------- | ----------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `debounceTimeSync` | --        | 防抖函数        | `(fun: Function, time: number) => (...arg: any[]) => void` | `(fun: Function, time: number) => {     let timer = null;     return (...arg) => {       if (timer) {         clearTimeout(timer);         timer = null;       }       timer = setTimeout(() => {         fun.apply(arg);       }, time);     };   }` |
+| `isEqualSync`      | --        | 判断两个数值是否相同  | `(a: any, b: any) => boolean`                              | `(a: any, b: any) => {     return isEqualFun(a, b);   }`                                                                                                                                                                                              |
+| `valueVerifySync`  | --        | 值校验         | `(value: string, type: DataType) => ValueVerifyFunReturn`  | `(value: string, type: DataType): ValueVerifyFunReturn => {     return valueVerifyFun(value, type);   }`                                                                                                                                              |
+
+
+## Methods
+
+### `init() => Promise<HTMLElement>`
+
+初始化信息
+
+#### Returns
+
+Type: `Promise<HTMLElement>`
+
+
 
 
 ----------------------------------------------

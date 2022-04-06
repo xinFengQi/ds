@@ -24,7 +24,7 @@ function handlerFileCopy(options, isMove) {
     try {
         // 优先获取写的其一配置
         if (options.src || options.dest) {
-            dsnCopyFile(options.src ?? './', options.dest ?? './', isMove)
+            dsnCopyFile(options.src || './', options.dest || './', isMove)
         }
         // 没有写入路径则读取文件配置的内容
         if (!options.src && !options.dest && customConfig.fileHandler && customConfig.fileHandler[configKey]) {
@@ -33,7 +33,7 @@ function handlerFileCopy(options, isMove) {
                     console.log(logSymbols.warning, chalk.yellow('copy配置是一个数组,key值无用'));
                 }
                 customConfig.fileHandler[configKey].forEach(cpItem => {
-                    dsnCopyFile(cpItem.src ?? './', cpItem.dest ?? './', isMove)
+                    dsnCopyFile(cpItem.src || './', cpItem.dest || './', isMove)
                 })
             } else {
                 options.key ?
@@ -57,10 +57,10 @@ function handlerFileCopyByKey(customConfig, key, configKey, isMove) {
     }
     if (Array.isArray(config)) {
         config.forEach(cpItem => {
-            dsnCopyFile(cpItem.src ?? './', cpItem.dest ?? './', isMove)
+            dsnCopyFile(cpItem.src || './', cpItem.dest || './', isMove)
         })
     } else {
-        dsnCopyFile(config.src ?? './', config.dest ?? './', isMove)
+        dsnCopyFile(config.src || './', config.dest || './', isMove)
     }
 }
 

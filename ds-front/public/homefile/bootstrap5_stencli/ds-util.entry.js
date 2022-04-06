@@ -16,7 +16,9 @@ function valueVerifyFun(value, type) {
       flag.realValue = Boolean(value);
       flag.valid = false;
     }
-    catch (error) { }
+    catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
@@ -26,7 +28,9 @@ function valueVerifyFun(value, type) {
         flag.valid = false;
       }
     }
-    catch (error) { }
+    catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
   flag.realValue = value;
@@ -55,6 +59,19 @@ const DsUtil = class {
     /**值校验 */
     this.valueVerifySync = (value, type) => {
       return valueVerifyFun(value, type);
+    };
+    /**防抖函数 */
+    this.debounceTimeSync = (fun, time) => {
+      let timer = null;
+      return (...arg) => {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        timer = setTimeout(() => {
+          fun.apply(arg);
+        }, time);
+      };
     };
   }
   render() {

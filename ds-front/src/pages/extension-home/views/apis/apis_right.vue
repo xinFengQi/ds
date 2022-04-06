@@ -1,30 +1,31 @@
 <template>
   <div class="apis_right_main">
     <div class="right_sendurl">
-      <dsb5-select id="aaaaa" class="mr_1" @valuechange="methodChange($event)">
+      <dsb5-select  class="mr_1" @valuechange="methodChange($event)">
         <option v-for="item in httpMethods" :selected="selectHttpMethod === item" :value="item">{{item}}</option>
       </dsb5-select>
       <dsb5-input class="right_sendurl_input mr_1"> </dsb5-input>
       <dsb5-button>发送</dsb5-button>
     </div>
-    <div class="right_sendbody"></div>
+    <ApisSend class="right_sendbody"></ApisSend>
     <div class="right_sendresponse"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
+import ApisSend from "./apis_send.vue";
 
+@Options({
+  components: {
+    ApisSend,
+  },
+})
 export default class ApisRight extends Vue {
   httpMethods = ['Get', 'Post', 'Put', 'Delete'];
   selectHttpMethod = 'Get';
   mounted() {
-    const a =  document.getElementById("aaaaa");
-    if (a) {
-     a.addEventListener("valueChange", (ev) => {
-        console.log(ev);
-      });
-    }
+    
   }
 
   // 方法变化
@@ -49,12 +50,14 @@ export default class ApisRight extends Vue {
     }
   }
   .right_sendbody {
-    border: 1px solid red;
+    padding: 0px 1rem;
     flex: 1;
+    overflow: auto;
   }
   .right_sendresponse {
     border: 1px solid red;
     flex: 1;
+    overflow: auto;
   }
 }
 </style>

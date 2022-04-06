@@ -13,7 +13,7 @@ import './BaseCompoent-00b95334.js';
   if (!window['dsb5']) {
     window['dsb5'] = {};
   }
-  window['ds'].tsetFun = tsetFun;
+  window['ds'].initFun = getFun;
   Object.keys(funMap).forEach(name => {
     Object.defineProperty(window['dsb5'], name, {
       set: () => { },
@@ -37,9 +37,6 @@ import './BaseCompoent-00b95334.js';
       }
       return el;
     };
-  }
-  function tsetFun(str) {
-    return str;
   }
 })();
 const globalFn = () => { };

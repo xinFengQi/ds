@@ -1,9 +1,9 @@
 * [介绍](/readme.md)
 * [快速开始](/docs/QuickStart.md.md)
 * 基础
-   * [参数组件](/components/ds-prop.md)
    * [js执行组件](/components/ds-script.md)
    * [按钮](/components/dsb5-button.md)
+   * [参数组件](/components/ds-prop.md)
 * 布局
    * [下拉选择](/components/dsb5-dropdown.md)
    * [标签导航](/components/dsb5-tabs.md)

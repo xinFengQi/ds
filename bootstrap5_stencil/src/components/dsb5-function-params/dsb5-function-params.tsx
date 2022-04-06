@@ -30,59 +30,8 @@ export class Dsb5FunctionParams {
     },
   ];
 
-  // 类型变化
-  typeChange(ev: CustomEvent, form: Dsb5FromModel) {
-    ev.stopPropagation();
-    ev.preventDefault();
-    form.type = ev.detail;
-    form.value = null;
-    this.emitData();
-    forceUpdate(this.hostDiv);
-  }
-
-  // 值变化
-  valueChanged(ev: CustomEvent, form: Dsb5FromModel) {
-    ev.stopPropagation();
-    ev.preventDefault();
-    if(!ev.currentTarget) {
-      return;
-    }
-    form.value = ev.detail;
-    if (form.type === DataType.boolean) {
-      form.value = Boolean(ev.detail);
-    }
-    this.emitData();
-    forceUpdate(this.hostDiv);
-  }
-
-  // 值校验
-  valueVerify(form: Dsb5FromModel): boolean {
-    let returnFa = { valid: false, realValue: form.value };
-    if (dsb5.dsUtil && dsb5.dsUtil.valueVerifySync) {
-      returnFa = dsb5.dsUtil.valueVerifySync(form.value, form.type);
-    }
-    form.__value = returnFa.realValue;
-    form.__error = returnFa.valid;
-    return returnFa.valid;
-  }
-
-  // 增加表单
-  addForm(i: number) {
-    this.forms.splice(i + 1, 0, {
-      type: DataType.string,
-      value: null,
-    });
-    forceUpdate(this.hostDiv);
-  }
-
-  // 删除表单
-  removeForm(i: number) {
-    this.forms.splice(i, 1);
-    forceUpdate(this.hostDiv);
-  }
-
   // 整体数据改变
-  emitData() {
+  emitData = () => {
     this.formchange.emit({
       valid: !!this.forms.filter(v => v.__error).length,
       value: this.forms
@@ -94,6 +43,64 @@ export class Dsb5FunctionParams {
           };
         }),
     });
+  };
+
+  emitDataSync = () => {};
+
+  async componentWillRender() {
+    await dsb5.dsUtil.init();
+    this.emitDataSync = dsb5.dsUtil.debounceTimeSync(this.emitData, 100);
+    return true;
+  }
+
+  // 类型变化
+  typeChange(ev: CustomEvent, form: Dsb5FromModel) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    form.type = ev.detail;
+    form.value = null;
+    this.emitDataSync();
+    forceUpdate(this.hostDiv);
+  }
+
+  // 值变化
+  valueChanged(ev: CustomEvent, form: Dsb5FromModel) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    if (!ev.currentTarget) {
+      return;
+    }
+    form.value = ev.detail;
+    if (form.type === DataType.boolean) {
+      form.value = Boolean(ev.detail);
+    }
+    this.emitDataSync();
+    forceUpdate(this.hostDiv);
+  }
+
+  // 值校验
+  valueVerify(form: Dsb5FromModel): boolean {
+    let returnFa = { valid: false, realValue: form.value };
+    returnFa = dsb5.dsUtil.valueVerifySync(form.value, form.type);
+    form.__value = returnFa.realValue;
+    form.__error = returnFa.valid;
+    return returnFa.valid;
+  }
+
+  // 增加表单
+  addForm(i: number) {
+    this.forms.splice(i + 1, 0, {
+      type: DataType.string,
+      value: null,
+    });
+    this.forms = [...this.forms];
+    forceUpdate(this.hostDiv);
+  }
+
+  // 删除表单
+  removeForm(i: number) {
+    this.forms.splice(i, 1);
+    forceUpdate(this.hostDiv);
   }
 
   getPrefix(form: Dsb5FromModel, noSlot?: boolean) {
@@ -111,16 +118,14 @@ export class Dsb5FunctionParams {
   render() {
     return (
       <Host>
-        {this.forms.map((form, i: number) => {
+        {this.forms.map((form: Dsb5FromModel, i: number) => {
           return (
             <div class="form_single">
-              {form.value}
               {form.type === DataType.boolean && this.getPrefix(form, true)}
               <div class="form_single_block">
                 {/* value={form.value} */}
                 {[DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (
-                  <dsb5-input class="w100" error={this.valueVerify(form)} 
-                    onValuechange={(event) => this.valueChanged(event, form)}>
+                  <dsb5-input class="w100" value={form.value} error={this.valueVerify(form)} onValuechange={event => this.valueChanged(event, form)}>
                     {this.getPrefix(form)}
                   </dsb5-input>
                 ) : null}
@@ -138,8 +143,10 @@ export class Dsb5FunctionParams {
                   </dsb5-select>
                 ) : null}
               </div>
-              <i onClick={() => this.addForm(i)} class="bi bi-plus-circle-fill"></i>
-              {this.forms.length > 1 ? <i onClick={() => this.removeForm(i)} class="bi bi-dash-circle-fill"></i> : null}
+              <div class="form_single_tool">
+                <i onClick={() => this.addForm(i)} class="bi bi-plus-circle-fill"></i>
+                {this.forms.length > 1 ? <i onClick={() => this.removeForm(i)} class="bi bi-dash-circle-fill"></i> : null}
+              </div>
             </div>
           );
         })}

@@ -2,7 +2,9 @@ import { DataType } from './type.interface';
 
 export interface Dsb5FromModel {
   type: DataType;
-  value: any;
+  value?: any;
+  name?: string;
+  __isHeader?: boolean;
   __error?: boolean;
   __value?: any;
 }

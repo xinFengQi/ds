@@ -19,7 +19,9 @@ export function valueVerifyFun(value: any, type: DataType): ValueVerifyFunReturn
     try {
       flag.realValue = Boolean(value);
       flag.valid = false;
-    } catch (error) {}
+    } catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
@@ -28,10 +30,12 @@ export function valueVerifyFun(value: any, type: DataType): ValueVerifyFunReturn
       if (typeof flag.realValue === 'object') {
         flag.valid = false;
       }
-    } catch (error) {}
+    } catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
-  flag.realValue = value
+  flag.realValue = value;
   return flag;
 }
 

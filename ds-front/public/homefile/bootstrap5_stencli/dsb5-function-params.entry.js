@@ -1,7 +1,7 @@
 import { r as registerInstance, e as createEvent, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
 import { D as DataType } from './type.interface-66dd2cb8.js';
 
-const dsb5FunctionParamsCss = ".sc-dsb5-function-params-h{display:block}.error_border.sc-dsb5-function-params{border:1px solid red}.form_single.sc-dsb5-function-params{display:flex;align-items:center;margin-bottom:1rem}.form_single_block.sc-dsb5-function-params{flex:1;display:flex;align-items:center;margin-right:10px}";
+const dsb5FunctionParamsCss = ".sc-dsb5-function-params-h{display:block}.error_border.sc-dsb5-function-params{border:1px solid red}.form_single.sc-dsb5-function-params{display:flex;align-items:center;margin-bottom:1rem}.form_single_block.sc-dsb5-function-params{flex:1;display:flex;align-items:center;margin-right:10px}.form_single_tool.sc-dsb5-function-params{min-width:52px}";
 
 const Dsb5FunctionParams = class {
   constructor(hostRef) {
@@ -14,6 +14,21 @@ const Dsb5FunctionParams = class {
         value: null,
       },
     ];
+    // 整体数据改变
+    this.emitData = () => {
+      this.formchange.emit({
+        valid: !!this.forms.filter(v => v.__error).length,
+        value: this.forms
+          .filter(v => !v.__error)
+          .map(v => {
+          return {
+            type: v.type,
+            value: v.__value,
+          };
+        }),
+      });
+    };
+    this.emitDataSync = dsb5.dsUtil.debounceTimeSync(this.emitData, 100);
   }
   // 类型变化
   typeChange(ev, form) {
@@ -21,7 +36,7 @@ const Dsb5FunctionParams = class {
     ev.preventDefault();
     form.type = ev.detail;
     form.value = null;
-    this.emitData();
+    this.emitDataSync();
     forceUpdate(this.hostDiv);
   }
   // 值变化
@@ -35,7 +50,7 @@ const Dsb5FunctionParams = class {
     if (form.type === DataType.boolean) {
       form.value = Boolean(ev.detail);
     }
-    this.emitData();
+    this.emitDataSync();
     forceUpdate(this.hostDiv);
   }
   // 值校验
@@ -54,6 +69,7 @@ const Dsb5FunctionParams = class {
       type: DataType.string,
       value: null,
     });
+    this.forms = [...this.forms];
     forceUpdate(this.hostDiv);
   }
   // 删除表单
@@ -61,29 +77,15 @@ const Dsb5FunctionParams = class {
     this.forms.splice(i, 1);
     forceUpdate(this.hostDiv);
   }
-  // 整体数据改变
-  emitData() {
-    this.formchange.emit({
-      valid: !!this.forms.filter(v => v.__error).length,
-      value: this.forms
-        .filter(v => !v.__error)
-        .map(v => {
-        return {
-          type: v.type,
-          value: v.__value,
-        };
-      }),
-    });
-  }
   getPrefix(form, noSlot) {
     return (h("dsb5-select", { slot: !noSlot ? 'prefix' : null, value: form.type, onValuechange: event => this.typeChange(event, form) }, h("option", { value: DataType.string }, "\u5B57\u7B26\u4E32"), h("option", { value: DataType.number }, "\u6570\u5B57"), h("option", { value: DataType.boolean }, "\u5E03\u5C14\u503C"), h("option", { value: DataType.array }, "\u6570\u7EC4"), h("option", { value: DataType.json }, "json")));
   }
   render() {
     return (h(Host, null, this.forms.map((form, i) => {
-      return (h("div", { class: "form_single" }, form.value, form.type === DataType.boolean && this.getPrefix(form, true), h("div", { class: "form_single_block" }, [DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (h("dsb5-input", { class: "w100", error: this.valueVerify(form), onValuechange: (event) => this.valueChanged(event, form) }, this.getPrefix(form))) : null, form.type === DataType.boolean ? (h("dsb5-select", { class: {
+      return (h("div", { class: "form_single" }, form.type === DataType.boolean && this.getPrefix(form, true), h("div", { class: "form_single_block" }, [DataType.string, DataType.json, DataType.array, DataType.number].includes(form.type) ? (h("dsb5-input", { class: "w100", value: form.value, error: this.valueVerify(form), onValuechange: event => this.valueChanged(event, form) }, this.getPrefix(form))) : null, form.type === DataType.boolean ? (h("dsb5-select", { class: {
           w100: true,
           error_border: this.valueVerify(form),
-        }, value: form.value, onValuechange: event => this.valueChanged(event, form) }, h("option", { value: 1 }, "\u662F"), h("option", { value: 0 }, "\u5426"))) : null), h("i", { onClick: () => this.addForm(i), class: "bi bi-plus-circle-fill" }), this.forms.length > 1 ? h("i", { onClick: () => this.removeForm(i), class: "bi bi-dash-circle-fill" }) : null));
+        }, value: form.value, onValuechange: event => this.valueChanged(event, form) }, h("option", { value: 1 }, "\u662F"), h("option", { value: 0 }, "\u5426"))) : null), h("div", { class: "form_single_tool" }, h("i", { onClick: () => this.addForm(i), class: "bi bi-plus-circle-fill" }), this.forms.length > 1 ? h("i", { onClick: () => this.removeForm(i), class: "bi bi-dash-circle-fill" }) : null)));
     })));
   }
   get hostDiv() { return getElement(this); }

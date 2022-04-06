@@ -1,3 +1,26 @@
 :host {
   display: block;
 }
+
+.form_single{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.form_single:last-child{
+  margin-bottom: 0px;
+}
+.single_form_header{
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form_single_block{
+  flex: 1;
+}
+.form_single_tool{
+  min-width: 52px;
+}
+

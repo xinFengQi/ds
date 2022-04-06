@@ -8,7 +8,7 @@ import store from './store';
 const app = createApp(App);
 
 importAnt(app);
-app.config.compilerOptions.isCustomElement = tag => (tag.startsWith('dsb5') || tag.startsWith('ds'))
+app.config.compilerOptions.isCustomElement = tag => (tag.startsWith('dsb5') || tag.startsWith('ds'));
 
 
 app.use(store).use(router).mount('#app');

@@ -18,3 +18,7 @@
   align-items: center;
   margin-right: 10px;
 }
+.form_single_tool{
+  min-width: 52px;
+}
+

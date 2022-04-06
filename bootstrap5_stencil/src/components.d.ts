@@ -31,6 +31,14 @@ export namespace Components {
     }
     interface DsUtil {
         /**
+          * 防抖函数
+         */
+        "debounceTimeSync": (fun: Function, time: number) => (...arg: any[]) => void;
+        /**
+          * 初始化信息
+         */
+        "init": () => Promise<HTMLElement>;
+        /**
           * 判断两个数值是否相同
          */
         "isEqualSync": (a: any, b: any) => boolean;
@@ -70,6 +78,10 @@ export namespace Components {
         "type"?: ComponentType;
     }
     interface Dsb5ApiParams {
+        /**
+          * 表单结构
+         */
+        "forms": Dsb5FromModel[];
     }
     interface Dsb5Button {
         /**
@@ -329,6 +341,10 @@ declare namespace LocalJSX {
     }
     interface DsUtil {
         /**
+          * 防抖函数
+         */
+        "debounceTimeSync"?: (fun: Function, time: number) => (...arg: any[]) => void;
+        /**
           * 判断两个数值是否相同
          */
         "isEqualSync"?: (a: any, b: any) => boolean;
@@ -368,6 +384,14 @@ declare namespace LocalJSX {
         "type"?: ComponentType;
     }
     interface Dsb5ApiParams {
+        /**
+          * 表单结构
+         */
+        "forms"?: Dsb5FromModel[];
+        /**
+          * 返回变更的数据
+         */
+        "onFormchange"?: (event: CustomEvent<{ valid: boolean; value: Dsb5FromModel[][] }>) => void;
     }
     interface Dsb5Button {
         /**

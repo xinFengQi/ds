@@ -16,7 +16,7 @@ import '../core/BaseCompoent';
   if (!window['dsb5']) {
     window['dsb5'] = {};
   }
-  window['ds'].tsetFun = tsetFun;
+  window['ds'].initFun = getFun;
 
   Object.keys(funMap).forEach(name => {
     Object.defineProperty(window['dsb5'], name, {
@@ -32,19 +32,16 @@ import '../core/BaseCompoent';
         throw '未获取到类示例';
       }
       let el = funInterce[elName];
-      if (!el) {
-        console.log('创建了服务节点:', elName)
-        el = document.createElement(elName);
-        el.id = elName;
-        el.style.display = 'none';
-        document.body.append(el);
-        funInterce[elName] = el;
+      if (el) {
+        return el;
       }
+      console.log('创建了服务节点:', elName);
+      el = document.createElement(elName);
+      el.id = elName;
+      el.style.display = 'none';
+      document.body.append(el);
+      funInterce[elName] = el;
       return el;
     };
-  }
-
-  function tsetFun(str: any) {
-    return str;
   }
 })();

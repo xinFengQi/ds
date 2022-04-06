@@ -11,7 +11,7 @@ let lastDocsMenuStr = '';
 module.exports.generatorMenu = function (filename) {
     console.log('开始生成文件目录');
     const config = getDsnConfig();
-    menu = config.customConfig.stencil.compileMenu ?? config.defaultConfig.stencil.compileMenu
+    menu = config.customConfig.stencil.compileMenu || config.defaultConfig.stencil.compileMenu
     fsExtra.ensureDirSync('./docs/.dstemp/docs');
     // 先去生成目录
     let _sidebarStr = '* [介绍](/readme.md)\n';
@@ -82,7 +82,8 @@ function generatorComponentMenu() {
                 }
                 if (v.name === 'docsOrder') {
                     try {
-                        docsOrder = Number(v);
+                        console.log(v, '===')
+                        docsOrder = Number(v.text);
                         if (isNaN(docsOrder)) {
                             throw `${com.tag}的docsOrder注释值存在问题`
                         }
@@ -305,7 +306,7 @@ function getPropValue(key, data) {
     if (!valueStr) {
         valueStr = '--'
     }
-    return valueStr
+    return valueStr.replace(/\n/g, '')
 }
 
 // 补空
