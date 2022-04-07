@@ -9,6 +9,14 @@ export interface Dsb5FromModel {
   __value?: any;
 }
 
+export interface Dsb5MenuTreeData {
+  name: string;
+  expend?: boolean;
+  origin?: any;
+  childrens?: Dsb5MenuTreeData[];
+}
+
+
 interface Dsb5DropdownDataLine {
   type: 'line';
   text?: string;

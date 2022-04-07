@@ -46,7 +46,7 @@ export default class ApisRight extends Vue {
     justify-content: center;
     .right_sendurl_input {
       flex: 1;
-      max-width: 450px;
+      max-width: 650px;
     }
   }
   .right_sendbody {
@@ -55,7 +55,7 @@ export default class ApisRight extends Vue {
     overflow: auto;
   }
   .right_sendresponse {
-    border: 1px solid red;
+    border-top: 1px solid #d3d3d3;
     flex: 1;
     overflow: auto;
   }

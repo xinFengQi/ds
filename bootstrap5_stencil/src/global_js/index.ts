@@ -44,4 +44,13 @@ import '../core/BaseCompoent';
       return el;
     };
   }
+
+
+
+
+  // 全局监听一些事件
+  document.addEventListener('contextmenu', (ev) => {
+    console.log('来自全局监听:', ev);
+  })
+
 })();

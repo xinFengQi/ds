@@ -13,7 +13,9 @@
           @formchange="headerChange($event)"
         ></dsb5-api-params>
       </div>
-      <div slot="请求体">第一个tab，第一个tab，第一个tab，第一个tab</div>
+      <div slot="请求体">
+        <dsb5-textarea  class="apis_send_params" .rows="8"></dsb5-textarea>
+      </div>
     </dsb5-tabs>
   </div>
 </template>

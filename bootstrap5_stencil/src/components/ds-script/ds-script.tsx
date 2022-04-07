@@ -3,6 +3,7 @@ import { Component, Host, h, Element, Prop, EventEmitter, Event } from '@stencil
 /**
  * @componentName js执行组件
  * @componentType 基础
+ * @docsOrder 2
  *
  */
 @Component({

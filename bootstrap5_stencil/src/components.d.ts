@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentType, DataType, SizeType } from "./interface/type.interface";
 import { ValueVerifyFunReturn } from "./components/ds-util/ds-util-fun";
-import { Dsb5DropdownData, Dsb5FromModel } from "./interface/component.interface";
+import { Dsb5DropdownData, Dsb5FromModel, Dsb5MenuTreeData } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
         /**
@@ -149,6 +149,12 @@ export namespace Components {
          */
         "value": string;
     }
+    interface Dsb5MenuTree {
+        /**
+          * 目录树数据
+         */
+        "menuTree": Dsb5MenuTreeData[];
+    }
     interface Dsb5Modal {
         /**
           * 是否显示关闭按钮
@@ -193,6 +199,9 @@ export namespace Components {
           * 一个字符串数组参数1
          */
         "propArr": string[];
+    }
+    interface Dsb5Textarea {
+        "rows": number;
     }
     interface Dsb5WebcomponentShow {
         /**
@@ -262,6 +271,12 @@ declare global {
         prototype: HTMLDsb5InputElement;
         new (): HTMLDsb5InputElement;
     };
+    interface HTMLDsb5MenuTreeElement extends Components.Dsb5MenuTree, HTMLStencilElement {
+    }
+    var HTMLDsb5MenuTreeElement: {
+        prototype: HTMLDsb5MenuTreeElement;
+        new (): HTMLDsb5MenuTreeElement;
+    };
     interface HTMLDsb5ModalElement extends Components.Dsb5Modal, HTMLStencilElement {
     }
     var HTMLDsb5ModalElement: {
@@ -286,6 +301,12 @@ declare global {
         prototype: HTMLDsb5TestElement;
         new (): HTMLDsb5TestElement;
     };
+    interface HTMLDsb5TextareaElement extends Components.Dsb5Textarea, HTMLStencilElement {
+    }
+    var HTMLDsb5TextareaElement: {
+        prototype: HTMLDsb5TextareaElement;
+        new (): HTMLDsb5TextareaElement;
+    };
     interface HTMLDsb5WebcomponentShowElement extends Components.Dsb5WebcomponentShow, HTMLStencilElement {
     }
     var HTMLDsb5WebcomponentShowElement: {
@@ -303,10 +324,12 @@ declare global {
         "dsb5-function-execute": HTMLDsb5FunctionExecuteElement;
         "dsb5-function-params": HTMLDsb5FunctionParamsElement;
         "dsb5-input": HTMLDsb5InputElement;
+        "dsb5-menu-tree": HTMLDsb5MenuTreeElement;
         "dsb5-modal": HTMLDsb5ModalElement;
         "dsb5-select": HTMLDsb5SelectElement;
         "dsb5-tabs": HTMLDsb5TabsElement;
         "dsb5-test": HTMLDsb5TestElement;
+        "dsb5-textarea": HTMLDsb5TextareaElement;
         "dsb5-webcomponent-show": HTMLDsb5WebcomponentShowElement;
     }
 }
@@ -471,6 +494,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface Dsb5MenuTree {
+        /**
+          * 目录树数据
+         */
+        "menuTree"?: Dsb5MenuTreeData[];
+        /**
+          * 点击事件
+         */
+        "onClickNav"?: (event: CustomEvent<Dsb5MenuTreeData>) => void;
+    }
     interface Dsb5Modal {
         /**
           * 是否显示关闭按钮
@@ -528,6 +561,9 @@ declare namespace LocalJSX {
          */
         "propArr"?: string[];
     }
+    interface Dsb5Textarea {
+        "rows"?: number;
+    }
     interface Dsb5WebcomponentShow {
         /**
           * 内容展示方式
@@ -545,10 +581,12 @@ declare namespace LocalJSX {
         "dsb5-function-execute": Dsb5FunctionExecute;
         "dsb5-function-params": Dsb5FunctionParams;
         "dsb5-input": Dsb5Input;
+        "dsb5-menu-tree": Dsb5MenuTree;
         "dsb5-modal": Dsb5Modal;
         "dsb5-select": Dsb5Select;
         "dsb5-tabs": Dsb5Tabs;
         "dsb5-test": Dsb5Test;
+        "dsb5-textarea": Dsb5Textarea;
         "dsb5-webcomponent-show": Dsb5WebcomponentShow;
     }
 }
@@ -566,10 +604,12 @@ declare module "@stencil/core" {
             "dsb5-function-execute": LocalJSX.Dsb5FunctionExecute & JSXBase.HTMLAttributes<HTMLDsb5FunctionExecuteElement>;
             "dsb5-function-params": LocalJSX.Dsb5FunctionParams & JSXBase.HTMLAttributes<HTMLDsb5FunctionParamsElement>;
             "dsb5-input": LocalJSX.Dsb5Input & JSXBase.HTMLAttributes<HTMLDsb5InputElement>;
+            "dsb5-menu-tree": LocalJSX.Dsb5MenuTree & JSXBase.HTMLAttributes<HTMLDsb5MenuTreeElement>;
             "dsb5-modal": LocalJSX.Dsb5Modal & JSXBase.HTMLAttributes<HTMLDsb5ModalElement>;
             "dsb5-select": LocalJSX.Dsb5Select & JSXBase.HTMLAttributes<HTMLDsb5SelectElement>;
             "dsb5-tabs": LocalJSX.Dsb5Tabs & JSXBase.HTMLAttributes<HTMLDsb5TabsElement>;
             "dsb5-test": LocalJSX.Dsb5Test & JSXBase.HTMLAttributes<HTMLDsb5TestElement>;
+            "dsb5-textarea": LocalJSX.Dsb5Textarea & JSXBase.HTMLAttributes<HTMLDsb5TextareaElement>;
             "dsb5-webcomponent-show": LocalJSX.Dsb5WebcomponentShow & JSXBase.HTMLAttributes<HTMLDsb5WebcomponentShowElement>;
         }
     }

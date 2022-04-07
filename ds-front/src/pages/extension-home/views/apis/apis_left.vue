@@ -102,12 +102,21 @@ export default class ApisLeft extends Vue {
     ).then((v) => {
       console.log(v);
       this.addProjectModalShow = false;
-      this.getAllProject()
+      this.getAllProject();
     });
   }
 
   gotoProject(project: any): void {
     console.log(project);
+    getAll(
+      this.giteeFileData.access,
+      this.giteeFileData.owner,
+      this.giteeFileData.repo,
+      "apis_data",
+      project.name
+    ).then((data: any) => {
+      console.log(JSON.parse(decodeURIComponent(atob(data.content))), "===");
+    });
     this.cureentTab = TabList.apiList;
   }
 
@@ -127,7 +136,7 @@ export default class ApisLeft extends Vue {
   justify-content: flex-end;
   margin-bottom: 10px;
 }
-.project_card{
+.project_card {
   cursor: pointer;
 }
 </style>
