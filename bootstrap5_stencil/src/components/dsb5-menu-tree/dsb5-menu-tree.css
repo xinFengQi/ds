@@ -14,3 +14,14 @@
 .bi{
   margin-right: 4px;
 }
+
+.navbar-nav{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: calc(100% - 20px);
+}
+
+.navbar-nav-name{
+  flex: 1;
+}

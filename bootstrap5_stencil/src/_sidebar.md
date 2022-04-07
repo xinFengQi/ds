@@ -7,7 +7,7 @@
 * 布局
    * [下拉选择](/components/dsb5-dropdown.md)
    * [标签导航](/components/dsb5-tabs.md)
-   * [目录树](/components/dsb5-menu-tree.md)
+   * [树](/components/dsb5-menu-tree.md)
 * 交互
    * [警示框](/components/dsb5-alert.md)
    * [弹框](/components/dsb5-modal.md)
