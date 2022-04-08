@@ -7,6 +7,15 @@
 1. 基础使用
 <dsb5-webcomponent-show>
   <dsb5-menu-tree>
+    <ds-script>
+      $el.addEventListener('edit', function(el){
+        console.log(el.detail)
+        el.detail.el.editNode({
+          key: el.detail.node.key,
+          name: '123123'
+        }).then(function(v){})
+      })
+   </ds-script>
   </dsb5-menu-tree>
 </dsb5-webcomponent-show>
 
@@ -22,9 +31,45 @@
 
 ## Events
 
-| Event      | Description | Type                            |
-| ---------- | ----------- | ------------------------------- |
-| `clickNav` | 点击事件        | `CustomEvent<Dsb5MenuTreeData>` |
+| Event      | Description | Type                                                           |
+| ---------- | ----------- | -------------------------------------------------------------- |
+| `add`      | 增加点击事件      | `CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData; }>` |
+| `clickNav` | 点击事件        | `CustomEvent<Dsb5MenuTreeData>`                                |
+| `edit`     | 编辑点击事件      | `CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData; }>` |
+| `remove`   | 删除点击事件      | `CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData; }>` |
+
+
+## Methods
+
+### `addNode(key: string, newNode: Dsb5MenuTreeData) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `editNode(newNode: Dsb5MenuTreeData) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `removeNode(key: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ----------------------------------------------

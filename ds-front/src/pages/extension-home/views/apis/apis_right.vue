@@ -44,6 +44,7 @@ export default class ApisRight extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 20px;
     .right_sendurl_input {
       flex: 1;
       max-width: 650px;

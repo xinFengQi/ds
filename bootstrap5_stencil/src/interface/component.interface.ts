@@ -10,10 +10,12 @@ export interface Dsb5FromModel {
 }
 
 export interface Dsb5MenuTreeData {
+  key?: string;
   name: string;
   expend?: boolean;
   origin?: any;
   childrens?: Dsb5MenuTreeData[];
+  parentNode?:Dsb5MenuTreeData | 'root';
 }
 
 

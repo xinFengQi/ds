@@ -15,21 +15,33 @@
       </dsb5-alert>
     </template>
     <template v-if="cureentTab === 'apiList'">
-      <dsb5-button size="sm" @click="goto('project')">返回项目列表</dsb5-button>
-      <div></div>
+      <div class="toolbar">
+        <dsb5-button size="sm" @click="goto('project')"
+          >返回项目列表</dsb5-button
+        >
+        <dsb5-button class="ml_1" size="sm" @click="addApis()"
+          >增加</dsb5-button
+        >
+      </div>
+      <dsb5-menu-tree
+        .menuTree="apiListData"
+        @add="addApi($event)"
+        @edit="editApi($event)"
+        @remove="removeApi($event)"
+      ></dsb5-menu-tree>
     </template>
   </div>
   <dsb5-modal
-    dstitle="增加项目"
-    .show="addProjectModalShow"
-    @cacel="addProjectModalCacel()"
-    @ok="addProjectModalOk()"
+    .dstitle="modalTitle"
+    .show="addModalShow"
+    @cacel="addModalCacel()"
+    @ok="addModalOk()"
   >
     <div slot="content">
       <dsb5-input
-        placeholder="请输入项目名称"
-        .value="projectName"
-        @valuechange="projectNameChange($event)"
+        .placeholder="modalPlaceholder"
+        .value="modalValue"
+        @valuechange="modalValueChange($event)"
       ></dsb5-input>
     </div>
   </dsb5-modal>
@@ -50,10 +62,15 @@ export default class ApisLeft extends Vue {
 
   cureentTab: TabList = TabList.project;
   projectList: any = [];
-  projectName = "";
-  addProjectModalShow = false;
-  projectNameChange(ev: CustomEvent) {
-    this.projectName = ev.detail;
+  apiListData: any = [];
+  modalValue = "";
+  modalTitle = "增加项目";
+  modalPlaceholder = "请输入项目名称";
+  addModalShow = false;
+  // 当前执行的节点
+  nodeDetail: any = null;
+  modalValueChange(ev: CustomEvent) {
+    this.modalValue = ev.detail;
   }
 
   mounted() {
@@ -75,20 +92,85 @@ export default class ApisLeft extends Vue {
         v.name = v.name.split(".")[0];
         return v;
       });
-      console.log(data, "===");
     });
   }
 
   // 增加项目
   addProject() {
-    this.addProjectModalShow = true;
+    this.modalValue = "";
+    this.modalTitle = "增加项目";
+    this.modalPlaceholder = "请输入项目名称";
+    this.addModalShow = true;
   }
-  addProjectModalCacel() {
-    this.addProjectModalShow = false;
+  addApis() {
+    this.modalValue = "";
+    this.modalTitle = "增加api";
+    this.modalPlaceholder = "请输入api名称";
+    this.addModalShow = true;
+  }
+
+  addApi(ev: CustomEvent) {
+    this.modalValue = "";
+    this.modalTitle = "增加节点api";
+    this.modalPlaceholder = "请输入节点api名称";
+    this.addModalShow = true;
+    this.nodeDetail = ev.detail;
+  }
+  editApi(ev: CustomEvent) {
+    this.nodeDetail = ev.detail;
+    this.modalValue = ev.detail.node.name;
+    this.modalTitle = "编辑api";
+    this.modalPlaceholder = "请输入api名称";
+    this.addModalShow = true;
+  }
+  removeApi(ev: CustomEvent) {
+    this.nodeDetail = ev.detail;
+  }
+
+  addModalOk() {
+    if (this.modalTitle === "增加项目") {
+      this.addProjectModalOk();
+      return;
+    }
+    if (this.modalTitle === "增加api") {
+      const aname = this.modalValue.trim();
+      this.apiListData.push({ name: aname, childrens: [] });
+      this.apiListData = [...this.apiListData];
+      this.addModalCacel();
+      return;
+    }
+    if (
+      this.modalTitle === "增加节点api" &&
+      this.nodeDetail &&
+      this.nodeDetail.node
+    ) {
+      console.log(this.nodeDetail);
+      this.nodeDetail.el.addNode(this.nodeDetail.node.key, {
+        name: this.modalValue.trim(),
+      });
+      this.addModalCacel();
+      return;
+    }
+    if (
+      this.modalTitle === "编辑api" &&
+      this.nodeDetail &&
+      this.nodeDetail.node
+    ) {
+      console.log(this.nodeDetail);
+      this.nodeDetail.el.editNode({
+        ...this.nodeDetail.node,
+        name: this.modalValue.trim(),
+      });
+      this.addModalCacel();
+      return;
+    }
+  }
+  addModalCacel() {
+    this.addModalShow = false;
   }
 
   addProjectModalOk() {
-    const pname = this.projectName.trim();
+    const pname = this.modalValue.trim();
     if (this.projectList.find((v: any) => v.name === pname)) {
       return;
     }
@@ -98,10 +180,9 @@ export default class ApisLeft extends Vue {
       this.giteeFileData.repo,
       "apis_data",
       pname,
-      {}
+      { name: "测试的接口", childrens: [] }
     ).then((v) => {
-      console.log(v);
-      this.addProjectModalShow = false;
+      this.addModalCacel();
       this.getAllProject();
     });
   }
@@ -115,7 +196,7 @@ export default class ApisLeft extends Vue {
       "apis_data",
       project.name
     ).then((data: any) => {
-      console.log(JSON.parse(decodeURIComponent(atob(data.content))), "===");
+      this.apiListData = JSON.parse(decodeURIComponent(atob(data.content)));
     });
     this.cureentTab = TabList.apiList;
   }
@@ -130,6 +211,7 @@ export default class ApisLeft extends Vue {
 .apis_left_main {
   height: 100%;
   min-width: 150px;
+  max-width: 300px;
 }
 .toolbar {
   display: flex;

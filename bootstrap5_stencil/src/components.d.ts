@@ -150,10 +150,13 @@ export namespace Components {
         "value": string;
     }
     interface Dsb5MenuTree {
+        "addNode": (key: string, newNode: Dsb5MenuTreeData) => Promise<void>;
+        "editNode": (newNode: Dsb5MenuTreeData) => Promise<void>;
         /**
           * 目录树数据
          */
         "menuTree": Dsb5MenuTreeData[];
+        "removeNode": (key: string) => Promise<void>;
     }
     interface Dsb5Modal {
         /**
@@ -500,9 +503,21 @@ declare namespace LocalJSX {
          */
         "menuTree"?: Dsb5MenuTreeData[];
         /**
+          * 增加点击事件
+         */
+        "onAdd"?: (event: CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData }>) => void;
+        /**
           * 点击事件
          */
         "onClickNav"?: (event: CustomEvent<Dsb5MenuTreeData>) => void;
+        /**
+          * 编辑点击事件
+         */
+        "onEdit"?: (event: CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData }>) => void;
+        /**
+          * 删除点击事件
+         */
+        "onRemove"?: (event: CustomEvent<{ el: HTMLDivElement; node: Dsb5MenuTreeData }>) => void;
     }
     interface Dsb5Modal {
         /**
