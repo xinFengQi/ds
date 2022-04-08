@@ -1,14 +1,14 @@
-import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-389a1a77.js';
-import './bootstrap.esm-c7444ea8.js';
-import { C as ComponentType } from './type.interface-4c7cb78a.js';
-import { B as BaseCompoent } from './BaseCompoent-b6139ac3.js';
+import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
+import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { C as ComponentType } from './type.interface-66dd2cb8.js';
+import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5AlertCss = ".sc-dsb5-alert-h{display:block}.alert_fixed.sc-dsb5-alert{position:fixed;top:10px;left:0;right:0;margin-left:auto;margin-right:auto;min-width:300px;max-width:450px;z-index:99999}.alert_padding.sc-dsb5-alert{padding:5px 1rem !important}";
 
 const Dsb5Alert = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.closeEmit = createEvent(this, "closeEmit", 7);
+    this.closeemit = createEvent(this, "closeemit", 7);
     /** 弹框是否是浮动的 */
     this.fixed = true;
     /** 弹框的类型 */
@@ -27,13 +27,13 @@ const Dsb5Alert = class {
     if (!this.delay && this.close) {
       this.alertRef.addEventListener('closed.bs.alert', () => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       });
     }
     if (this.delay) {
       setTimeout(() => {
         this.hostDiv.remove();
-        this.closeEmit.emit(true);
+        this.closeemit.emit(true);
       }, this.delay);
     }
   }

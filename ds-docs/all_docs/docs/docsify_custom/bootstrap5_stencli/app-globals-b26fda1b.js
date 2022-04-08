@@ -1,4 +1,5 @@
-import './bootstrap.esm-c7444ea8.js';
+import './bootstrap.esm-e5ba53a8.js';
+import './BaseCompoent-00b95334.js';
 
 (function dsb5Global() {
   const funMap = {
@@ -12,7 +13,7 @@ import './bootstrap.esm-c7444ea8.js';
   if (!window['dsb5']) {
     window['dsb5'] = {};
   }
-  window['ds'].tsetFun = tsetFun;
+  window['ds'].initFun = getFun;
   Object.keys(funMap).forEach(name => {
     Object.defineProperty(window['dsb5'], name, {
       set: () => { },
@@ -26,20 +27,22 @@ import './bootstrap.esm-c7444ea8.js';
         throw '未获取到类示例';
       }
       let el = funInterce[elName];
-      if (!el) {
-        console.log('创建了服务节点:', elName);
-        el = document.createElement(elName);
-        el.id = elName;
-        el.style.display = 'none';
-        document.body.append(el);
-        funInterce[elName] = el;
+      if (el) {
+        return el;
       }
+      console.log('创建了服务节点:', elName);
+      el = document.createElement(elName);
+      el.id = elName;
+      el.style.display = 'none';
+      document.body.append(el);
+      funInterce[elName] = el;
       return el;
     };
   }
-  function tsetFun(str) {
-    return str;
-  }
+  // 全局监听一些事件
+  document.addEventListener('contextmenu', (ev) => {
+    console.log('来自全局监听:', ev);
+  });
 })();
 const globalFn = () => { };
 

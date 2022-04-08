@@ -1,7 +1,7 @@
-import { r as registerInstance, i as forceUpdate, h, f as Host, g as getElement } from './index-389a1a77.js';
-import './bootstrap.esm-c7444ea8.js';
-import { C as ComponentType } from './type.interface-4c7cb78a.js';
-import { B as BaseCompoent } from './BaseCompoent-b6139ac3.js';
+import { r as registerInstance, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
+import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { C as ComponentType } from './type.interface-66dd2cb8.js';
+import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5FunctionExecuteCss = ".sc-dsb5-function-execute-h{display:block}.detail_content.sc-dsb5-function-execute{padding:20px 0px 0px 0px}.excute_tool.sc-dsb5-function-execute{display:flex;justify-content:flex-end;align-items:center}";
 
@@ -133,7 +133,7 @@ const Dsb5FunctionTest = class {
   render() {
     return (h(Host, null, h("div", { class: "accordion accordion-flush", id: this.baseCompoent.id + 'main' }, h("div", { class: "accordion-item" }, h("div", { class: "accordion-header", id: this.baseCompoent.id }, h("button", { class: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": '#' + this.baseCompoent.id + 1, "aria-expanded": "false", "aria-controls": this.baseCompoent.id + 1 }, this.errors.length ? (h("span", null, h("span", { class: "font_danger" }, "\u6267\u884C\u5931\u8D25"), ":", this.errors[0])) : (h("span", null, h("span", { class: "font_success" }, "\u6267\u884C\u6210\u529F"), ";\u6267\u884C\u65F6\u95F4", this.executeTime, "ms; \u6267\u884C\u6B21\u6570:", this.time)))), h("div", { id: this.baseCompoent.id + 1, class: "accordion-collapse collapse", "aria-labelledby": this.baseCompoent.id, "data-bs-parent": '#' + this.baseCompoent.id + 'main' }, h("div", { class: "accordion-body" }, h("dsb5-tabs", { tabs: ['执行结果', '代码展示', '执行测试'] }, h("div", { class: "detail_content", slot: "\u6267\u884C\u7ED3\u679C" }, this.errors.length ? (h("span", null, this.errors.map((v, i) => {
       return (h("strong", null, i + 1, ":", v));
-    }))) : (h("div", null, h("span", null, "\u6267\u884C\u53C2\u6570:"), this.getString(this.params), h("br", null), h("span", null, "\u6267\u884C\u7ED3\u679C:"), this.getString(this.result), h("br", null)))), h("div", { class: "detail_content", slot: "\u4EE3\u7801\u5C55\u793A" }, h("pre", { class: "margin0" }, this.getExcuteFunctionStr())), h("div", { class: "detail_content", slot: "\u6267\u884C\u6D4B\u8BD5" }, "\u53C2\u6570\uFF1A", h("dsb5-function-params", { onFormChange: ev => this.getExcuteDatas(ev) }), "\u7ED3\u679C\uFF1A", h("dsb5-function-params", { onFormChange: ev => this.getExcuteResultDatas(ev) }), h("div", { class: "excute_tool" }, this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`, h("dsb5-button", { class: "ml_1", onClick: () => this.excuteCustom(), type: ComponentType.primary }, "\u6267\u884C"))))))))));
+    }))) : (h("div", null, h("span", null, "\u6267\u884C\u53C2\u6570:"), this.getString(this.params), h("br", null), h("span", null, "\u6267\u884C\u7ED3\u679C:"), this.getString(this.result), h("br", null)))), h("div", { class: "detail_content", slot: "\u4EE3\u7801\u5C55\u793A" }, h("pre", { class: "margin0" }, this.getExcuteFunctionStr())), h("div", { class: "detail_content", slot: "\u6267\u884C\u6D4B\u8BD5" }, "\u53C2\u6570\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteDatas(ev) }), "\u7ED3\u679C\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteResultDatas(ev) }), h("div", { class: "excute_tool" }, this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`, h("dsb5-button", { class: "ml_1", onClick: () => this.excuteCustom(), type: ComponentType.primary }, "\u6267\u884C"))))))))));
   }
   get hostDiv() { return getElement(this); }
 };

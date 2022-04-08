@@ -47,7 +47,7 @@ function getWindow(node) {
   return node;
 }
 
-function isElement(node) {
+function isElement$1(node) {
   var OwnElement = getWindow(node).Element;
   return node instanceof OwnElement || node instanceof Element;
 }
@@ -96,7 +96,7 @@ function applyStyles(_ref) {
   });
 }
 
-function effect(_ref2) {
+function effect$2(_ref2) {
   var state = _ref2.state;
   var initialStyles = {
     popper: {
@@ -146,7 +146,7 @@ const applyStyles$1 = {
   enabled: true,
   phase: 'write',
   fn: applyStyles,
-  effect: effect,
+  effect: effect$2,
   requires: ['computeStyles']
 };
 
@@ -226,7 +226,7 @@ function isTableElement(element) {
 
 function getDocumentElement(element) {
   // $FlowFixMe[incompatible-return]: assume body is always available
-  return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
+  return ((isElement$1(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
   element.document) || window.document).documentElement;
 }
 
@@ -580,7 +580,7 @@ var passive = {
   passive: true
 };
 
-function effect$2(_ref) {
+function effect(_ref) {
   var state = _ref.state,
       instance = _ref.instance,
       options = _ref.options;
@@ -620,11 +620,11 @@ const eventListeners = {
   enabled: true,
   phase: 'write',
   fn: function fn() {},
-  effect: effect$2,
+  effect: effect,
   data: {}
 };
 
-var hash = {
+var hash$1 = {
   left: 'right',
   right: 'left',
   bottom: 'top',
@@ -632,17 +632,17 @@ var hash = {
 };
 function getOppositePlacement(placement) {
   return placement.replace(/left|right|bottom|top/g, function (matched) {
-    return hash[matched];
+    return hash$1[matched];
   });
 }
 
-var hash$1 = {
+var hash = {
   start: 'end',
   end: 'start'
 };
 function getOppositeVariationPlacement(placement) {
   return placement.replace(/start|end/g, function (matched) {
-    return hash$1[matched];
+    return hash[matched];
   });
 }
 
@@ -810,13 +810,13 @@ function getClippingParents(element) {
   var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle$1(element).position) >= 0;
   var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
 
-  if (!isElement(clipperElement)) {
+  if (!isElement$1(clipperElement)) {
     return [];
   } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
 
 
   return clippingParents.filter(function (clippingParent) {
-    return isElement(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
+    return isElement$1(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
   });
 } // Gets the maximum area that the element is visible in due to any number of
 // clipping parents
@@ -935,7 +935,7 @@ function detectOverflow(state, options) {
   var referenceElement = state.elements.reference;
   var popperRect = state.rects.popper;
   var element = state.elements[altBoundary ? altContext : elementContext];
-  var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
+  var clippingClientRect = getClippingRect(isElement$1(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
   var referenceClientRect = getBoundingClientRect(referenceElement);
   var popperOffsets = computeOffsets({
     reference: referenceClientRect,
@@ -1683,7 +1683,7 @@ function popperGenerator(generatorOptions) {
         cleanupModifierEffects();
         state.options = Object.assign({}, defaultOptions, state.options, options);
         state.scrollParents = {
-          reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
+          reference: isElement$1(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
           popper: listScrollParents(popper)
         }; // Orders the modifiers based on their dependencies and `phase`
         // properties
@@ -1871,24 +1871,24 @@ function popperGenerator(generatorOptions) {
     return instance;
   };
 }
-var createPopper = /*#__PURE__*/popperGenerator(); // eslint-disable-next-line import/no-unused-modules
+var createPopper$2 = /*#__PURE__*/popperGenerator(); // eslint-disable-next-line import/no-unused-modules
 
-var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1];
+var defaultModifiers$1 = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1];
 var createPopper$1 = /*#__PURE__*/popperGenerator({
-  defaultModifiers: defaultModifiers
+  defaultModifiers: defaultModifiers$1
 }); // eslint-disable-next-line import/no-unused-modules
 
-var defaultModifiers$1 = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
-var createPopper$2 = /*#__PURE__*/popperGenerator({
-  defaultModifiers: defaultModifiers$1
+var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
+var createPopper = /*#__PURE__*/popperGenerator({
+  defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
 const Popper = /*#__PURE__*/Object.freeze({
   __proto__: null,
   popperGenerator: popperGenerator,
   detectOverflow: detectOverflow,
-  createPopperBase: createPopper,
-  createPopper: createPopper$2,
+  createPopperBase: createPopper$2,
+  createPopper: createPopper,
   createPopperLite: createPopper$1,
   top: top,
   bottom: bottom,
@@ -2101,7 +2101,7 @@ const triggerTransitionEnd = element => {
   element.dispatchEvent(new Event(TRANSITION_END));
 };
 
-const isElement$1 = obj => {
+const isElement = obj => {
   if (!obj || typeof obj !== 'object') {
     return false;
   }
@@ -2114,7 +2114,7 @@ const isElement$1 = obj => {
 };
 
 const getElement = obj => {
-  if (isElement$1(obj)) {
+  if (isElement(obj)) {
     // it's a jQuery object or a node element
     return obj.jquery ? obj[0] : obj;
   }
@@ -2130,7 +2130,7 @@ const typeCheckConfig = (componentName, config, configTypes) => {
   Object.keys(configTypes).forEach(property => {
     const expectedTypes = configTypes[property];
     const value = config[property];
-    const valueType = value && isElement$1(value) ? 'element' : toType(value);
+    const valueType = value && isElement(value) ? 'element' : toType(value);
 
     if (!new RegExp(expectedTypes).test(valueType)) {
       throw new TypeError(`${componentName.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
@@ -2139,7 +2139,7 @@ const typeCheckConfig = (componentName, config, configTypes) => {
 };
 
 const isVisible = element => {
-  if (!isElement$1(element) || element.getClientRects().length === 0) {
+  if (!isElement(element) || element.getClientRects().length === 0) {
     return false;
   }
 
@@ -4000,7 +4000,7 @@ class Dropdown extends BaseComponent {
 
       if (this._config.reference === 'parent') {
         referenceElement = parent;
-      } else if (isElement$1(this._config.reference)) {
+      } else if (isElement(this._config.reference)) {
         referenceElement = getElement(this._config.reference);
       } else if (typeof this._config.reference === 'object') {
         referenceElement = this._config.reference;
@@ -4009,7 +4009,7 @@ class Dropdown extends BaseComponent {
       const popperConfig = this._getPopperConfig();
 
       const isDisplayStatic = popperConfig.modifiers.find(modifier => modifier.name === 'applyStyles' && modifier.enabled === false);
-      this._popper = createPopper$2(referenceElement, this._menu, popperConfig);
+      this._popper = createPopper(referenceElement, this._menu, popperConfig);
 
       if (isDisplayStatic) {
         Manipulator.setDataAttribute(this._menu, 'popper', 'static');
@@ -4105,7 +4105,7 @@ class Dropdown extends BaseComponent {
     };
     typeCheckConfig(NAME$8, config, this.constructor.DefaultType);
 
-    if (typeof config.reference === 'object' && !isElement$1(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
+    if (typeof config.reference === 'object' && !isElement(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
       // Popper virtual elements require a getBoundingClientRect method
       throw new TypeError(`${NAME$8.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
     }
@@ -4432,7 +4432,7 @@ class ScrollBarHelper {
   }
 
   _applyManipulationCallback(selector, callBack) {
-    if (isElement$1(selector)) {
+    if (isElement(selector)) {
       callBack(selector);
     } else {
       SelectorEngine.find(selector, this._element).forEach(callBack);
@@ -5608,7 +5608,7 @@ class Tooltip extends BaseComponent {
     if (this._popper) {
       this._popper.update();
     } else {
-      this._popper = createPopper$2(this._element, tip, this._getPopperConfig(attachment));
+      this._popper = createPopper(this._element, tip, this._getPopperConfig(attachment));
     }
 
     tip.classList.add(CLASS_NAME_SHOW$3);
@@ -5728,7 +5728,7 @@ class Tooltip extends BaseComponent {
       return;
     }
 
-    if (isElement$1(content)) {
+    if (isElement(content)) {
       content = getElement(content); // content is a DOM node or a jQuery
 
       if (this._config.html) {
@@ -6327,7 +6327,7 @@ class ScrollSpy extends BaseComponent {
       ...(typeof config === 'object' && config ? config : {})
     };
 
-    if (typeof config.target !== 'string' && isElement$1(config.target)) {
+    if (typeof config.target !== 'string' && isElement(config.target)) {
       let {
         id
       } = config.target;

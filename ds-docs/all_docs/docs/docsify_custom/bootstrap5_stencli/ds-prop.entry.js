@@ -1,5 +1,7 @@
-import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-389a1a77.js';
-import { D as DataType } from './type.interface-4c7cb78a.js';
+import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
+import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { D as DataType } from './type.interface-66dd2cb8.js';
+import './bootstrap.esm-e5ba53a8.js';
 
 const DsProp = class {
   constructor(hostRef) {
@@ -9,8 +11,16 @@ const DsProp = class {
     this.type = DataType.string;
     // 获取到的值
     this.value = null;
+    // 基础组件minix
+    this.baseCompoent = new BaseCompoent();
+  }
+  componentWillLoad() {
+    if (!this.parentEl) {
+      this.parentEl = this.el.parentNode;
+    }
   }
   connectedCallback() {
+    this.el.slot = this.baseCompoent.id;
     const text = this.el.innerHTML.replace(/\n|\r| /g, '').trim();
     try {
       const lowerType = this.type.toLocaleLowerCase();
@@ -28,11 +38,6 @@ const DsProp = class {
     }
     catch (error) {
       console.error(error);
-    }
-  }
-  componentWillLoad() {
-    if (!this.parentEl) {
-      this.parentEl = this.el.parentNode;
     }
   }
   componentDidLoad() {

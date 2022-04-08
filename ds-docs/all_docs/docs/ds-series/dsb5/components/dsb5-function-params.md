@@ -4,7 +4,7 @@
     <dsb5-function-params>
     <ds-script>
     console.log('---------------')
-      $el.addEventListener('formChange', function(el){
+      $el.addEventListener('formchange', function(el){
         console.log(el.detail)
       })
    </ds-script>
@@ -15,4 +15,4 @@
 ## 事件
 |   事件名   |      描述      |                    类型                     |
 |------------|----------------|---------------------------------------------|
-|`formChange`|`返回变更的数据`|`{ valid: boolean; value: Dsb5FromModel[]; }`|
+|`formchange`|`返回变更的数据`|`{ valid: boolean; value: Dsb5FromModel[]; }`|

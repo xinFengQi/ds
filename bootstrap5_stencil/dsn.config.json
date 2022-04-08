@@ -48,7 +48,24 @@
                     "src": "./dist/dist/bootstrap5_stencli",
                     "dest": "../ds-front/public/homefile/bootstrap5_stencli"
                 }
+            ],
+            "build": [
+                {
+                    "_src": "需要复制的文件夹或者文件路径",
+                    "src": "./dist/dist/bootstrap5_stencli",
+                    "_dest": "复制后生成的路径",
+                    "dest": "../ds-docs/all_docs/docs/docsify_custom/bootstrap5_stencli"
+                },
+                { 
+                    "src": "./src/_sidebar.md",
+                    "dest": "../ds-docs/all_docs/docs/ds-series/dsb5/_sidebar.md"
+                },
+                { 
+                    "src": "./dist/www/components",
+                    "dest": "../ds-docs/all_docs/docs/ds-series/dsb5/components"
+                }
             ]
+
         },
         "_move": "移动文件的配置, 类型:{[key: string]: {src: string, dest: string}[]}",
         "move": {

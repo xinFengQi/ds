@@ -38,5 +38,5 @@ isEqualSync(a: any, b: any) => boolean
 #### 注释信息
 值校验
 #### 同步方法
-valueVerifySync(value: string, type: DataType) => { valid: boolean; realValue: any; }
+valueVerifySync(value: string, type: DataType) => ValueVerifyFunReturn
 

@@ -53,20 +53,20 @@
 
 
 ## 属性
-|属性(Property) |属性(Attribute)|       描述       |                                                                                             类型                                                                                              |        默认值         |
-|---------------|---------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-|    `close`    |    `close`    |`是否显示关闭按钮`|                                                                                           `boolean`                                                                                           |        `false`        |
-|`content(必填)`|   `content`   |   `弹框的内容`   |                                                                                           `string`                                                                                            |          --           |
-|    `delay`    |    `delay`    |    `延迟关闭`    |                                                                                           `number`                                                                                            |        `3000`         |
-|    `fixed`    |    `fixed`    |`弹框是否是浮动的`|                                                                                           `boolean`                                                                                           |        `true`         |
-|    `show`     |    `show`     |    `是否显示`    |                                                                                           `boolean`                                                                                           |        `true`         |
-|    `type`     |    `type`     |   `弹框的类型`   |`ComponentType.danger \| ComponentType.dark \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning`|`ComponentType.primary`|
+|属性(Property) |属性(Attribute)|       描述       |                                                                                                         类型                                                                                                         |        默认值         |
+|---------------|---------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+|    `close`    |    `close`    |`是否显示关闭按钮`|                                                                                                      `boolean`                                                                                                       |        `false`        |
+|`content(必填)`|   `content`   |   `弹框的内容`   |                                                                                                       `string`                                                                                                       |          --           |
+|    `delay`    |    `delay`    |    `延迟关闭`    |                                                                                                       `number`                                                                                                       |        `3000`         |
+|    `fixed`    |    `fixed`    |`弹框是否是浮动的`|                                                                                                      `boolean`                                                                                                       |        `true`         |
+|    `show`     |    `show`     |    `是否显示`    |                                                                                                      `boolean`                                                                                                       |        `true`         |
+|    `type`     |    `type`     |   `弹框的类型`   |`ComponentType.danger \| ComponentType.dark \| ComponentType.empty \| ComponentType.info \| ComponentType.light \| ComponentType.primary \| ComponentType.secondary \| ComponentType.success \| ComponentType.warning`|`ComponentType.primary`|
 
 
 ## 事件
 |  事件名   |     描述     |  类型   |
 |-----------|--------------|---------|
-|`closeEmit`|`弹框关闭事件`|`boolean`|
+|`closeemit`|`弹框关闭事件`|`boolean`|
 
 
 ## 方法

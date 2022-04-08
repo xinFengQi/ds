@@ -1,11 +1,11 @@
-import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-389a1a77.js';
+import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
 
 const dsb5SelectCss = ".sc-dsb5-select-h{display:block}";
 
 const Dsb5Select = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.valueChange = createEvent(this, "valueChange", 7);
+    this.valuechange = createEvent(this, "valuechange", 7);
     /** 当前的值 */
     this.value = null;
   }
@@ -35,11 +35,9 @@ const Dsb5Select = class {
   }
   // 数据改变
   onChange(el) {
-    if (this.value === el.target.value) {
-      return;
-    }
-    this.value = el.target.value;
-    this.valueChange.emit(el.target.value);
+    el.stopPropagation();
+    el.preventDefault();
+    this.valuechange.emit(el.target['value']);
   }
   render() {
     return (h(Host, null, h("select", { ref: el => (this.selectEl = el), onChange: el => this.onChange(el), class: "form-select", "aria-label": "Default select example" }, h("slot", null))));

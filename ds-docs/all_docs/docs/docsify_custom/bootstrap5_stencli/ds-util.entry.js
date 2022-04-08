@@ -1,8 +1,8 @@
-import { r as registerInstance, h } from './index-389a1a77.js';
-import { D as DataType } from './type.interface-4c7cb78a.js';
+import { r as registerInstance, h, g as getElement } from './index-4c5a6b9b.js';
+import { D as DataType } from './type.interface-66dd2cb8.js';
 
 function valueVerifyFun(value, type) {
-  let flag = { valid: false, realValue: value };
+  let flag = { valid: false, realValue: null };
   if (value === null || value === undefined) {
     return flag;
   }
@@ -16,7 +16,9 @@ function valueVerifyFun(value, type) {
       flag.realValue = Boolean(value);
       flag.valid = false;
     }
-    catch (error) { }
+    catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
   if (type === DataType.array || type === DataType.json) {
@@ -26,9 +28,12 @@ function valueVerifyFun(value, type) {
         flag.valid = false;
       }
     }
-    catch (error) { }
+    catch (error) {
+      flag.valid = true;
+    }
     return flag;
   }
+  flag.realValue = value;
   return flag;
 }
 function isEqualFun(a, b) {
@@ -55,10 +60,28 @@ const DsUtil = class {
     this.valueVerifySync = (value, type) => {
       return valueVerifyFun(value, type);
     };
+    /**防抖函数 */
+    this.debounceTimeSync = (fun, time) => {
+      let timer = null;
+      return (...arg) => {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        timer = setTimeout(() => {
+          fun.apply(arg);
+        }, time);
+      };
+    };
+  }
+  /** 初始化信息 */
+  async init() {
+    return this.hostDiv;
   }
   render() {
     return h("div", null);
   }
+  get hostDiv() { return getElement(this); }
 };
 
 export { DsUtil as ds_util };

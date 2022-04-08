@@ -42,7 +42,7 @@ function handlerFileCopy(options, isMove) {
             }
         }
     } catch (error) {
-        console.log(error)
+        console.log(logSymbols.error,chalk.red(error))
         throw '配置出错或者出现未知错误，请自行检查文件是否损坏'
     }
 

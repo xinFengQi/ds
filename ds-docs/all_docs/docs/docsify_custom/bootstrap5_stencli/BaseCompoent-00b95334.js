@@ -1,4 +1,4 @@
-import { T as Tooltip, a as Toast } from './bootstrap.esm-c7444ea8.js';
+import { T as Tooltip, a as Toast } from './bootstrap.esm-e5ba53a8.js';
 
 class BaseCompoent {
   constructor() {
@@ -18,7 +18,7 @@ class BaseCompoent {
    * @param el 父组件节点实例
    * @param cb 返回的回调函数
    */
-  connectedCallback(el, cb) {
+  connectedCallback(el, propCb, slotCb) {
     const child = el.children;
     const len = child.length;
     // 参数的变量
@@ -32,22 +32,27 @@ class BaseCompoent {
     // 队列执行拦截器
     const next = () => {
       if (propDataArr.length === propNum && scriptDataArr.length === scriptNum) {
-        cb(propDataArr, scriptDataArr);
+        propCb && propCb(propDataArr, scriptDataArr);
         propDataArr = [];
         scriptDataArr = [];
       }
     };
+    const slots = [];
     // 判断所有子节点,标识特殊节点
     for (let i = 0; i < len; i++) {
       const elChildren = child.item(i);
-      if ((elChildren === null || elChildren === void 0 ? void 0 : elChildren.localName) === 'ds-prop') {
+      if ((elChildren === null || elChildren === void 0 ? void 0 : elChildren.localName.toLocaleLowerCase()) === 'ds-prop') {
         propElArr.push(elChildren);
       }
-      if ((elChildren === null || elChildren === void 0 ? void 0 : elChildren.localName) === 'ds-script') {
+      if ((elChildren === null || elChildren === void 0 ? void 0 : elChildren.localName.toLocaleLowerCase()) === 'ds-script') {
         elChildren.parentEl = el;
         scriptElArr.push(elChildren);
       }
+      if (elChildren === null || elChildren === void 0 ? void 0 : elChildren.slot) {
+        slots.push(elChildren);
+      }
     }
+    (slotCb && slots.length) && slotCb(slots);
     propNum = propElArr.length;
     scriptNum = scriptElArr.length;
     // 将获取参数的事件监听

@@ -1,6 +1,6 @@
-import { r as registerInstance, i as forceUpdate, h, f as Host, g as getElement } from './index-389a1a77.js';
-import './bootstrap.esm-c7444ea8.js';
-import { B as BaseCompoent } from './BaseCompoent-b6139ac3.js';
+import { r as registerInstance, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
+import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5TabsCss = ".sc-dsb5-tabs-h{display:block}";
 

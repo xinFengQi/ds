@@ -9,6 +9,7 @@ var ComponentType;
   ComponentType["info"] = "info";
   ComponentType["light"] = "light";
   ComponentType["dark"] = "dark";
+  ComponentType["empty"] = "empty";
 })(ComponentType || (ComponentType = {}));
 // 数据类型
 var DataType;
@@ -19,5 +20,11 @@ var DataType;
   DataType["array"] = "array";
   DataType["json"] = "json";
 })(DataType || (DataType = {}));
+// 大小类型
+var SizeType;
+(function (SizeType) {
+  SizeType["sm"] = "sm";
+  SizeType["lg"] = "lg";
+})(SizeType || (SizeType = {}));
 
 export { ComponentType as C, DataType as D };
