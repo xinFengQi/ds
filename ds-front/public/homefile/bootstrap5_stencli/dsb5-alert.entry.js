@@ -51,6 +51,9 @@ const Dsb5Alert = class {
     if (opt.hasOwnProperty('content')) {
       el.content = opt.content;
     }
+    if (opt.hasOwnProperty('type')) {
+      el.type = opt.type;
+    }
     if (opt.hasOwnProperty('close')) {
       el.close = opt.close;
     }

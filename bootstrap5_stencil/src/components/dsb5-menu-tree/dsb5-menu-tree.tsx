@@ -64,6 +64,7 @@ export class Dsb5MenuTree {
     this.clickNav.emit(nav);
   }
 
+  /** 编辑节点 */
   @Method()
   async editNode(newNode: Dsb5MenuTreeData) {
     if (!newNode.key) {
@@ -73,6 +74,7 @@ export class Dsb5MenuTree {
       this.menuTreeMap[newNode.key].name = newNode.name;
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
 
   editTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {
@@ -81,6 +83,7 @@ export class Dsb5MenuTree {
     this.edit.emit({ el: this.el, node: nav });
   }
 
+  /** 增加节点 */
   @Method()
   async addNode(key: string, newNode: Dsb5MenuTreeData) {
     if (!key) {
@@ -97,6 +100,7 @@ export class Dsb5MenuTree {
       this.menuTree.push(newNode);
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
 
   addTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {
@@ -105,6 +109,7 @@ export class Dsb5MenuTree {
     this.add.emit({ el: this.el, node: nav });
   }
 
+  /** 移除节点 */
   @Method()
   async removeNode(key: string) {
     if (!key) {
@@ -124,12 +129,31 @@ export class Dsb5MenuTree {
       }
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
 
   removeTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {
     ev.stopPropagation();
     ev.preventDefault();
     this.remove.emit({ el: this.el, node: nav });
+  }
+
+
+  // 递归获取节点，去掉不需要的属性值
+  getRecurveNode(nodes: Dsb5MenuTreeData[]) {
+    if(!nodes || !Array.isArray(nodes) ) {
+      return [];
+    }
+    const newNodes = nodes.forEach(v => {
+      return {
+        key: v.key,
+        name: v.name,
+        expend: v.expend,
+        origin: v.origin,
+        childrens: this.getRecurveNode(v.childrens)
+      }
+    })
+    return newNodes;
   }
 
   getNavTree(menu: Dsb5MenuTreeData[], parentNode: 'root' | Dsb5MenuTreeData, key: string) {

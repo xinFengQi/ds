@@ -150,13 +150,22 @@ export namespace Components {
         "value": string;
     }
     interface Dsb5MenuTree {
-        "addNode": (key: string, newNode: Dsb5MenuTreeData) => Promise<void>;
-        "editNode": (newNode: Dsb5MenuTreeData) => Promise<void>;
+        /**
+          * 增加节点
+         */
+        "addNode": (key: string, newNode: Dsb5MenuTreeData) => Promise<void | any[]>;
+        /**
+          * 编辑节点
+         */
+        "editNode": (newNode: Dsb5MenuTreeData) => Promise<void | any[]>;
         /**
           * 目录树数据
          */
         "menuTree": Dsb5MenuTreeData[];
-        "removeNode": (key: string) => Promise<void>;
+        /**
+          * 移除节点
+         */
+        "removeNode": (key: string) => Promise<void | any[]>;
     }
     interface Dsb5Modal {
         /**

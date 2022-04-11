@@ -2,7 +2,7 @@ import { r as registerInstance, e as createEvent, i as forceUpdate, h, f as Host
 import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
 import './bootstrap.esm-e5ba53a8.js';
 
-const dsb5MenuTreeCss = ".dsb5_menu_div.sc-dsb5-menu-tree{display:block;width:100%}.container-fluid-center.sc-dsb5-menu-tree{justify-content:left !important}.bi.sc-dsb5-menu-tree{margin-right:4px}.navbar-nav.sc-dsb5-menu-tree{display:flex;justify-content:space-between;flex-direction:row;width:calc(100% - 20px)}.navbar-nav-name.sc-dsb5-menu-tree{flex:1}";
+const dsb5MenuTreeCss = ".dsb5_menu_div.sc-dsb5-menu-tree{display:block;width:100%}.container-fluid-center.sc-dsb5-menu-tree{justify-content:left !important}.bi.sc-dsb5-menu-tree{margin-right:4px}.navbar-nav.sc-dsb5-menu-tree{display:flex;justify-content:space-between;flex-direction:row;width:calc(100% - 20px)}.navbar-nav-name.sc-dsb5-menu-tree{flex:1;word-break:break-all}";
 
 const Dsb5MenuTree = class {
   constructor(hostRef) {
@@ -44,7 +44,8 @@ const Dsb5MenuTree = class {
     e.preventDefault();
     this.clickNav.emit(nav);
   }
-  editNode(newNode) {
+  /** 编辑节点 */
+  async editNode(newNode) {
     if (!newNode.key) {
       throw '不存在key, 无法修改节点';
     }
@@ -52,17 +53,20 @@ const Dsb5MenuTree = class {
       this.menuTreeMap[newNode.key].name = newNode.name;
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
   editTree(ev, nav) {
     ev.stopPropagation();
     ev.preventDefault();
     this.edit.emit({ el: this.el, node: nav });
   }
-  addNode(key, newNode) {
+  /** 增加节点 */
+  async addNode(key, newNode) {
     if (!key) {
       throw '不存在key, 无法修改节点';
     }
     if (this.menuTreeMap[key]) {
+      this.menuTreeMap[key].expend = true;
       if (this.menuTreeMap[key].childrens) {
         this.menuTreeMap[key].childrens.push(newNode);
       }
@@ -74,13 +78,15 @@ const Dsb5MenuTree = class {
       this.menuTree.push(newNode);
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
   addTree(ev, nav) {
     ev.stopPropagation();
     ev.preventDefault();
     this.add.emit({ el: this.el, node: nav });
   }
-  removeNode(key) {
+  /** 移除节点 */
+  async removeNode(key) {
     if (!key) {
       throw '不存在key, 无法修改节点';
     }
@@ -99,11 +105,28 @@ const Dsb5MenuTree = class {
       }
     }
     forceUpdate(this.el);
+    return this.getRecurveNode(this.menuTree);
   }
   removeTree(ev, nav) {
     ev.stopPropagation();
     ev.preventDefault();
     this.remove.emit({ el: this.el, node: nav });
+  }
+  // 递归获取节点，去掉不需要的属性值
+  getRecurveNode(nodes) {
+    if (!nodes || !Array.isArray(nodes)) {
+      return [];
+    }
+    const newNodes = nodes.forEach(v => {
+      return {
+        key: v.key,
+        name: v.name,
+        expend: v.expend,
+        origin: v.origin,
+        childrens: this.getRecurveNode(v.childrens)
+      };
+    });
+    return newNodes;
   }
   getNavTree(menu, parentNode, key) {
     if (!menu || menu.length === 0) {

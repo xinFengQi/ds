@@ -164,12 +164,7 @@ export default class ApisLeft extends Vue {
   addModalOkNext() {
     if (this.selectProject) {
       const allData = store.getters.getAllData;
-      allData[this.selectProject.key].apis = this.apiListData;
-      console.log(
-        allData,
-        JSON.stringify(this.apiListData),
-        "================-------------"
-      );
+      allData[this.selectProject.key].apis =  this.apiListData;
       this.dispatchAllDatas(allData);
     }
   }
