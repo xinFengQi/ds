@@ -22,7 +22,10 @@ function getWebLocalStorgeValue(value: any) {
         return Number(value);
     } else if (value.startsWith('[') && value.endsWith(']')) {
         return JSON.parse(value);
+    }else if (value.startsWith('{') && value.endsWith('}')) {
+        return JSON.parse(value);
     }
+    
     return value;
 }
 
@@ -39,6 +42,19 @@ function setLocalVariable(key: string, value: any) {
             });
             return;
         }
+        localStorage.setItem(
+            'extensionSetting_' + key,
+            setWebLocalStorgeValue(value)
+        );
+        resolve(true);
+        subs.filter((v) => v.key === key).forEach((v) => {
+            v.fn.apply(null, [value]);
+        });
+    });
+}
+
+function setLocalVariableWeb(key: string, value: any) {
+    return new Promise((resolve) => {
         localStorage.setItem(
             'extensionSetting_' + key,
             setWebLocalStorgeValue(value)
@@ -75,6 +91,17 @@ function getLocalVariable(key: string) {
     });
 }
 
+function getLocalVariableWeb(key: string) {
+    return new Promise((resolve) => {
+        const data = localStorage.getItem('extensionSetting_' + key);
+        if (data) {
+            resolve(getWebLocalStorgeValue(data));
+        } else {
+            resolve(null);
+        }
+    });
+}
+
 function getLocalVariableSub(key: string, cb: Function) {
     subIndex = subIndex + 1;
     getLocalVariable(key).then((data) => {
@@ -94,7 +121,7 @@ function clearLocalData() {
             localStorage.removeItem(key);
         }
     });
-    subs.forEach((v) => {
+    subs.forEach((v) => {setLocalVariableWeb
         v.fn.apply(null, [null]);
     });
 }
@@ -103,6 +130,8 @@ export default {
     deleteLocalVariableSub,
     getLocalVariableSub,
     getLocalVariable,
+    getLocalVariableWeb,
     setLocalVariable,
+    setLocalVariableWeb,
     clearLocalData,
 };

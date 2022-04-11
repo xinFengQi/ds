@@ -4,15 +4,18 @@
       <div class="toolbar">
         <dsb5-button size="sm" @click="addProject()">增加</dsb5-button>
       </div>
-      <dsb5-alert
-        class="project_card"
-        @click="gotoProject(item)"
-        v-for="(item, index) in projectList"
-        delay="0"
-        fixed="false"
-      >
-        {{ item.name }}
-      </dsb5-alert>
+      <div class="apis_left_conetnt">
+        <dsb5-alert
+          class="project_card"
+          @click="gotoProject(item)"
+          v-for="(item, index) in projectList"
+          :key="item.key"
+          delay="0"
+          fixed="false"
+        >
+          {{ item.name }}
+        </dsb5-alert>
+      </div>
     </template>
     <template v-if="cureentTab === 'apiList'">
       <div class="toolbar">
@@ -51,6 +54,9 @@
 import { Vue } from "vue-class-component";
 import { addOrUpdateData, getAll } from "@/sevices/gitee.api";
 import { Prop } from "vue-property-decorator";
+import store from "../../store";
+import localStorgeData from "@/sevices/localStorge.data";
+declare const dsb5: any;
 
 enum TabList {
   project = "project",
@@ -62,6 +68,7 @@ export default class ApisLeft extends Vue {
 
   cureentTab: TabList = TabList.project;
   projectList: any = [];
+  selectProject: any = null; // 选择的项目
   apiListData: any = [];
   modalValue = "";
   modalTitle = "增加项目";
@@ -77,20 +84,10 @@ export default class ApisLeft extends Vue {
     if (!this.giteeFileData) {
       throw "组件错误，没有gitee参数";
     }
-    this.getAllProject();
-  }
-
-  // 获取所有项目
-  getAllProject() {
-    getAll(
-      this.giteeFileData.access,
-      this.giteeFileData.owner,
-      this.giteeFileData.repo,
-      "apis_data"
-    ).then((data: any) => {
-      this.projectList = [...data].map((v) => {
-        v.name = v.name.split(".")[0];
-        return v;
+    localStorgeData.getLocalVariable("apiAll_datas").then((v) => {
+      console.log(v);
+      store.dispatch("setAllData", v).then((data) => {
+        this.getAllProject();
       });
     });
   }
@@ -130,16 +127,13 @@ export default class ApisLeft extends Vue {
   addModalOk() {
     if (this.modalTitle === "增加项目") {
       this.addProjectModalOk();
-      return;
-    }
-    if (this.modalTitle === "增加api") {
+    } else if (this.modalTitle === "增加api") {
       const aname = this.modalValue.trim();
       this.apiListData.push({ name: aname, childrens: [] });
       this.apiListData = [...this.apiListData];
+        this.addModalOkNext();
       this.addModalCacel();
-      return;
-    }
-    if (
+    } else if (
       this.modalTitle === "增加节点api" &&
       this.nodeDetail &&
       this.nodeDetail.node
@@ -147,11 +141,11 @@ export default class ApisLeft extends Vue {
       console.log(this.nodeDetail);
       this.nodeDetail.el.addNode(this.nodeDetail.node.key, {
         name: this.modalValue.trim(),
-      });
+      }).then(() =>  {
+        this.addModalOkNext();
+      });;
       this.addModalCacel();
-      return;
-    }
-    if (
+    } else if (
       this.modalTitle === "编辑api" &&
       this.nodeDetail &&
       this.nodeDetail.node
@@ -160,20 +154,86 @@ export default class ApisLeft extends Vue {
       this.nodeDetail.el.editNode({
         ...this.nodeDetail.node,
         name: this.modalValue.trim(),
+      }).then(() =>  {
+        this.addModalOkNext();
       });
       this.addModalCacel();
-      return;
     }
   }
+
+  addModalOkNext() {
+    if (this.selectProject) {
+      const allData = store.getters.getAllData;
+      allData[this.selectProject.key].apis = this.apiListData;
+      console.log(
+        allData,
+        JSON.stringify(this.apiListData),
+        "================-------------"
+      );
+      this.dispatchAllDatas(allData);
+    }
+  }
+
   addModalCacel() {
     this.addModalShow = false;
   }
 
+  // 获取所有项目
+  getAllProject() {
+    getAll(
+      this.giteeFileData.access,
+      this.giteeFileData.owner,
+      this.giteeFileData.repo,
+      "apis_data"
+    ).then((data: any) => {
+      let projectListCache = [...data].map((v) => {
+        v.name = v.name.split(".")[0];
+        v.reloadName = v.name;
+        const arrs = v.name.split("___");
+        v.name = arrs[0];
+        v.key = arrs[1];
+        return {
+          reloadName: v.reloadName,
+          name: v.name,
+          key: v.key,
+        };
+      });
+      const allData = store.getters.getAllData;
+      const isExistKeys: any = [];
+      projectListCache.forEach((v: any) => {
+        isExistKeys.push(v.key);
+        if (allData[v.key]) {
+          allData[v.key] = { ...allData[v.key], ...v };
+        } else {
+          v.oldTime = new Date().getTime();
+          allData[v.key] = v;
+        }
+      });
+      const newAllData: any = {};
+      Object.keys(allData).forEach((v) => {
+        if (isExistKeys.indexOf(v) > -1) {
+          newAllData[v] = allData[v];
+        }
+      });
+      this.dispatchAllDatas(newAllData);
+      this.projectList = [...projectListCache];
+    });
+  }
+
+  // 增加项目事件
   addProjectModalOk() {
-    const pname = this.modalValue.trim();
+    let pname = this.modalValue.trim();
+    if (pname.indexOf("___") > -1) {
+      dsb5.dsb5Alert.showAlert({
+        content: "名称中不需要存在___符号",
+        type: "danger",
+      });
+      return;
+    }
     if (this.projectList.find((v: any) => v.name === pname)) {
       return;
     }
+    pname = `${pname}___${new Date().getTime()}`;
     addOrUpdateData(
       this.giteeFileData.access,
       this.giteeFileData.owner,
@@ -187,18 +247,37 @@ export default class ApisLeft extends Vue {
     });
   }
 
+  // 选择项目
   gotoProject(project: any): void {
-    console.log(project);
+    this.selectProject = { ...project };
+    const allData = store.getters.getAllData;
+    const singleData = allData[project.key];
+    if (singleData.apis) {
+      this.apiListData = [...singleData.apis];
+      this.cureentTab = TabList.apiList;
+      return singleData.apis;
+    }
+    console.log(singleData, "================");
     getAll(
       this.giteeFileData.access,
       this.giteeFileData.owner,
       this.giteeFileData.repo,
       "apis_data",
-      project.name
+      project.reloadName
     ).then((data: any) => {
-      this.apiListData = JSON.parse(decodeURIComponent(atob(data.content)));
+      if (data.content) {
+        this.apiListData = JSON.parse(decodeURIComponent(atob(data.content)));
+        singleData.apis = [...this.apiListData];
+        allData[project.key] = singleData;
+        this.dispatchAllDatas(allData);
+      }
+      this.cureentTab = TabList.apiList;
     });
-    this.cureentTab = TabList.apiList;
+  }
+
+  dispatchAllDatas(allData: any) {
+    store.dispatch("setAllData", allData);
+    localStorgeData.setLocalVariableWeb("apiAll_datas", allData);
   }
 
   goto(item: TabList) {
@@ -210,8 +289,15 @@ export default class ApisLeft extends Vue {
 <style lang="less" scope>
 .apis_left_main {
   height: 100%;
-  min-width: 150px;
+  min-width: 200px;
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.apis_left_conetnt {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 .toolbar {
   display: flex;
