@@ -77,7 +77,7 @@ export class Dsb5MenuTree {
       this.menuTreeMap[newNode.key].name = newNode.name;
     }
     forceUpdate(this.el);
-    return this.getRecurveNode(this.menuTree);
+    return this.menuTree;
   }
 
   editTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {
@@ -103,7 +103,7 @@ export class Dsb5MenuTree {
       this.menuTree.push(newNode);
     }
     forceUpdate(this.el);
-    return this.getRecurveNode(this.menuTree);
+    return this.menuTree;
   }
 
   addTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {
@@ -132,7 +132,7 @@ export class Dsb5MenuTree {
       }
     }
     forceUpdate(this.el);
-    return this.getRecurveNode(this.menuTree);
+    return this.menuTree;
   }
 
   removeTree(ev: MouseEvent, nav: Dsb5MenuTreeData) {

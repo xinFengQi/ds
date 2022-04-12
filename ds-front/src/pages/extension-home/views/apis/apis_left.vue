@@ -131,7 +131,7 @@ export default class ApisLeft extends Vue {
       const aname = this.modalValue.trim();
       this.apiListData.push({ name: aname, childrens: [] });
       this.apiListData = [...this.apiListData];
-        this.addModalOkNext();
+      this.addModalOkNext();
       this.addModalCacel();
     } else if (
       this.modalTitle === "增加节点api" &&
@@ -139,11 +139,13 @@ export default class ApisLeft extends Vue {
       this.nodeDetail.node
     ) {
       console.log(this.nodeDetail);
-      this.nodeDetail.el.addNode(this.nodeDetail.node.key, {
-        name: this.modalValue.trim(),
-      }).then(() =>  {
-        this.addModalOkNext();
-      });;
+      this.nodeDetail.el
+        .addNode(this.nodeDetail.node.key, {
+          name: this.modalValue.trim(),
+        })
+        .then(() => {
+          this.addModalOkNext();
+        });
       this.addModalCacel();
     } else if (
       this.modalTitle === "编辑api" &&
@@ -151,12 +153,14 @@ export default class ApisLeft extends Vue {
       this.nodeDetail.node
     ) {
       console.log(this.nodeDetail);
-      this.nodeDetail.el.editNode({
-        ...this.nodeDetail.node,
-        name: this.modalValue.trim(),
-      }).then(() =>  {
-        this.addModalOkNext();
-      });
+      this.nodeDetail.el
+        .editNode({
+          ...this.nodeDetail.node,
+          name: this.modalValue.trim(),
+        })
+        .then(() => {
+          this.addModalOkNext();
+        });
       this.addModalCacel();
     }
   }
@@ -164,7 +168,7 @@ export default class ApisLeft extends Vue {
   addModalOkNext() {
     if (this.selectProject) {
       const allData = store.getters.getAllData;
-      allData[this.selectProject.key].apis =  this.apiListData;
+      allData[this.selectProject.key].apis = this.apiListData;
       this.dispatchAllDatas(allData);
     }
   }
@@ -272,7 +276,18 @@ export default class ApisLeft extends Vue {
 
   dispatchAllDatas(allData: any) {
     store.dispatch("setAllData", allData);
-    localStorgeData.setLocalVariableWeb("apiAll_datas", allData);
+    if (this.selectProject) {
+      dsb5.dsUtil
+        .getRecurveNode(
+          allData[this.selectProject.key],
+          ["key", "name", "expend", "origin"],
+          "childrens"
+        )
+        .then((data: any) => {
+          allData[this.selectProject.key] = data;
+          localStorgeData.setLocalVariableWeb("apiAll_datas", allData);
+        });
+    }
   }
 
   goto(item: TabList) {
