@@ -1,5 +1,5 @@
 import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
-import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { B as BaseCompoent } from './BaseCompoent-c2010ea0.js';
 import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5InputCss = ".sc-dsb5-input-h{display:block}.error_input_border.sc-dsb5-input{border:0px !important}.error_border.sc-dsb5-input{border:1px solid red !important;border-radius:0.25rem}";

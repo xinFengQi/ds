@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentType, DataType, SizeType } from "./interface/type.interface";
-import { ValueVerifyFunReturn } from "./components/ds-util/ds-util-fun";
+import { GenericsNode, PropNodeKeys, ValueVerifyFunReturn } from "./components/ds-util/ds-util-model";
 import { Dsb5DropdownData, Dsb5FromModel, Dsb5MenuTreeData } from "./interface/component.interface";
 export namespace Components {
     interface DsProp {
@@ -34,6 +34,11 @@ export namespace Components {
           * 防抖函数
          */
         "debounceTimeSync": (fun: Function, time: number) => (...arg: any[]) => void;
+        /**
+          * 递归获取节点,筛选自己需要的属性值
+         */
+        "getRecurveNode": <T extends GenericsNode<T>, K extends keyof T>(nodes: GenericsNode<T>[], keys: K[], childKey?: PropNodeKeys) => Promise<T[]>;
+        "getRecurveNodeSync": <T extends GenericsNode<T>, K extends keyof T>(nodes: GenericsNode<T>[], keys: K[], childKey?: string) => T[];
         /**
           * 初始化信息
          */
@@ -117,6 +122,10 @@ export namespace Components {
          */
         "fun": string;
         /**
+          * 需要执行的初始化函数
+         */
+        "initel": string;
+        /**
           * 需要执行函数的参数
          */
         "params": any[];
@@ -153,11 +162,11 @@ export namespace Components {
         /**
           * 增加节点
          */
-        "addNode": (key: string, newNode: Dsb5MenuTreeData) => Promise<void | any[]>;
+        "addNode": (key: string, newNode: Dsb5MenuTreeData) => Promise<Dsb5MenuTreeData[]>;
         /**
           * 编辑节点
          */
-        "editNode": (newNode: Dsb5MenuTreeData) => Promise<void | any[]>;
+        "editNode": (newNode: Dsb5MenuTreeData) => Promise<Dsb5MenuTreeData[]>;
         /**
           * 目录树数据
          */
@@ -165,7 +174,7 @@ export namespace Components {
         /**
           * 移除节点
          */
-        "removeNode": (key: string) => Promise<void | any[]>;
+        "removeNode": (key: string) => Promise<Dsb5MenuTreeData[]>;
     }
     interface Dsb5Modal {
         /**
@@ -379,6 +388,7 @@ declare namespace LocalJSX {
           * 防抖函数
          */
         "debounceTimeSync"?: (fun: Function, time: number) => (...arg: any[]) => void;
+        "getRecurveNodeSync"?: <T extends GenericsNode<T>, K extends keyof T>(nodes: GenericsNode<T>[], keys: K[], childKey?: string) => T[];
         /**
           * 判断两个数值是否相同
          */
@@ -465,6 +475,10 @@ declare namespace LocalJSX {
           * 需要执行的全局函数
          */
         "fun": string;
+        /**
+          * 需要执行的初始化函数
+         */
+        "initel"?: string;
         /**
           * 需要执行函数的参数
          */

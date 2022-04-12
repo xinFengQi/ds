@@ -1,5 +1,5 @@
 import { r as registerInstance, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
-import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { B as BaseCompoent } from './BaseCompoent-c2010ea0.js';
 import { C as ComponentType } from './type.interface-66dd2cb8.js';
 import './bootstrap.esm-e5ba53a8.js';
 
@@ -26,8 +26,17 @@ const Dsb5FunctionTest = class {
     this.customErrors = [];
   }
   connectedCallback() {
+    if (!this.fun) {
+      throw '未传入函数字符串';
+    }
     // 通过代码插入获取参数或相应的
-    this.baseCompoent.connectedCallback(this.hostDiv, () => {
+    this.baseCompoent.connectedCallback(this.hostDiv, async () => {
+      if (this.initel) {
+        const { fun } = this.getSplitFun(this.initel);
+        if (fun) {
+          await fun.init();
+        }
+      }
       const data = this.executeFun(this.params, this.result, this.time);
       console.log('获取到的参数:', this.params, this.fun);
       this.executeTime = data.time;
@@ -43,38 +52,16 @@ const Dsb5FunctionTest = class {
     if (!this.fun) {
       throw '函数参数未传';
     }
-    const funs = this.fun.split('.');
-    let funObj = this.excuteFunction;
     if (!this.excuteFunction) {
-      const objs = ['window'];
-      try {
-        while (funs.length > 0) {
-          const obj = funs.shift();
-          this.excuteFunctionName = obj;
-          if (funObj === null) {
-            funObj = window[obj];
-            continue;
-          }
-          if (!funObj) {
-            throw `未在window上找到需要执行的${objs.join('.')}函数`;
-          }
-          objs.push(obj);
-          funObj = funObj[obj];
-        }
-        if (!funObj) {
-          throw `未在window上找到需要执行的${objs.join('.')}函数`;
-        }
-      }
-      catch (error) {
-        errors.push(error);
-      }
+      const { fun, name } = this.getSplitFun(this.fun, errors);
+      this.excuteFunction = fun;
+      this.excuteFunctionName = name;
     }
-    if (funObj) {
-      this.excuteFunction = funObj;
+    if (this.excuteFunction) {
       const startTime = new Date().getTime();
-      const getResult = funObj.apply(this, params);
+      const getResult = this.excuteFunction.apply(this, params);
       for (let i = 1; i < times; i++) {
-        funObj.apply(this, params);
+        this.excuteFunction.apply(this, params);
       }
       time = new Date().getTime() - startTime;
       if (result) {
@@ -85,6 +72,35 @@ const Dsb5FunctionTest = class {
       }
     }
     return { time, errors };
+  }
+  // 通过点符号进行分割，获取全局函数
+  getSplitFun(funStr, errors) {
+    const funs = funStr.split('.');
+    let funObj = null;
+    let funName = null;
+    const objs = ['window'];
+    try {
+      while (funs.length > 0) {
+        const obj = funs.shift();
+        funName = obj;
+        if (funObj === null) {
+          funObj = window[obj];
+          continue;
+        }
+        if (!funObj) {
+          throw `未在window上找到需要执行的${objs.join('.')}函数`;
+        }
+        objs.push(obj);
+        funObj = funObj[obj];
+      }
+      if (!funObj) {
+        throw `未在window上找到需要执行的${objs.join('.')}函数`;
+      }
+    }
+    catch (error) {
+      errors && errors.push(error);
+    }
+    return { fun: funObj, name: funName };
   }
   getExcuteDatas(ev) {
     this.customExcuteData = ev.detail;
@@ -110,7 +126,7 @@ const Dsb5FunctionTest = class {
   getExcuteFunctionStr() {
     if (this.excuteFunction) {
       let str = this.excuteFunction.toString();
-      if (str.indexOf(this.excuteFunctionName) < 0) {
+      if (str.indexOf(` ${this.excuteFunctionName}`) < 0) {
         str = `    const ${this.excuteFunctionName} = ` + str;
       }
       return str;
@@ -131,9 +147,9 @@ const Dsb5FunctionTest = class {
     }
   }
   render() {
-    return (h(Host, null, h("div", { class: "accordion accordion-flush", id: this.baseCompoent.id + 'main' }, h("div", { class: "accordion-item" }, h("div", { class: "accordion-header", id: this.baseCompoent.id }, h("button", { class: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": '#' + this.baseCompoent.id + 1, "aria-expanded": "false", "aria-controls": this.baseCompoent.id + 1 }, this.errors.length ? (h("span", null, h("span", { class: "font_danger" }, "\u6267\u884C\u5931\u8D25"), ":", this.errors[0])) : (h("span", null, h("span", { class: "font_success" }, "\u6267\u884C\u6210\u529F"), ";\u6267\u884C\u65F6\u95F4", this.executeTime, "ms; \u6267\u884C\u6B21\u6570:", this.time)))), h("div", { id: this.baseCompoent.id + 1, class: "accordion-collapse collapse", "aria-labelledby": this.baseCompoent.id, "data-bs-parent": '#' + this.baseCompoent.id + 'main' }, h("div", { class: "accordion-body" }, h("dsb5-tabs", { tabs: ['执行结果', '代码展示', '执行测试'] }, h("div", { class: "detail_content", slot: "\u6267\u884C\u7ED3\u679C" }, this.errors.length ? (h("span", null, this.errors.map((v, i) => {
+    return (h(Host, null, this.excuteFunction && (h("div", { class: "accordion accordion-flush", id: this.baseCompoent.id + 'main' }, h("div", { class: "accordion-item" }, h("div", { class: "accordion-header", id: this.baseCompoent.id }, h("button", { class: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": '#' + this.baseCompoent.id + 1, "aria-expanded": "false", "aria-controls": this.baseCompoent.id + 1 }, this.errors.length ? (h("span", null, h("span", { class: "font_danger" }, "\u6267\u884C\u5931\u8D25"), ":", this.errors[0])) : (h("span", null, h("span", { class: "font_success" }, "\u6267\u884C\u6210\u529F"), ";\u6267\u884C\u65F6\u95F4", this.executeTime, "ms; \u6267\u884C\u6B21\u6570:", this.time)))), h("div", { id: this.baseCompoent.id + 1, class: "accordion-collapse collapse", "aria-labelledby": this.baseCompoent.id, "data-bs-parent": '#' + this.baseCompoent.id + 'main' }, h("div", { class: "accordion-body" }, h("dsb5-tabs", { tabs: ['执行结果', '代码展示', '执行测试'] }, h("div", { class: "detail_content", slot: "\u6267\u884C\u7ED3\u679C" }, this.errors.length ? (h("span", null, this.errors.map((v, i) => {
       return (h("strong", null, i + 1, ":", v));
-    }))) : (h("div", null, h("span", null, "\u6267\u884C\u53C2\u6570:"), this.getString(this.params), h("br", null), h("span", null, "\u6267\u884C\u7ED3\u679C:"), this.getString(this.result), h("br", null)))), h("div", { class: "detail_content", slot: "\u4EE3\u7801\u5C55\u793A" }, h("pre", { class: "margin0" }, this.getExcuteFunctionStr())), h("div", { class: "detail_content", slot: "\u6267\u884C\u6D4B\u8BD5" }, "\u53C2\u6570\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteDatas(ev) }), "\u7ED3\u679C\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteResultDatas(ev) }), h("div", { class: "excute_tool" }, this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`, h("dsb5-button", { class: "ml_1", onClick: () => this.excuteCustom(), type: ComponentType.primary }, "\u6267\u884C"))))))))));
+    }))) : (h("div", null, h("span", null, "\u6267\u884C\u53C2\u6570:"), this.getString(this.params), h("br", null), h("span", null, "\u6267\u884C\u7ED3\u679C:"), this.getString(this.result), h("br", null)))), h("div", { class: "detail_content", slot: "\u4EE3\u7801\u5C55\u793A" }, h("pre", { class: "margin0" }, this.getExcuteFunctionStr())), h("div", { class: "detail_content", slot: "\u6267\u884C\u6D4B\u8BD5" }, "\u53C2\u6570\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteDatas(ev) }), "\u7ED3\u679C\uFF1A", h("dsb5-function-params", { onFormchange: ev => this.getExcuteResultDatas(ev) }), h("div", { class: "excute_tool" }, this.customErrors.length ? `执行失败:${this.customErrors.join(';')}` : `执行成功;时间${this.customExecuteTime}`, h("dsb5-button", { class: "ml_1", onClick: () => this.excuteCustom(), type: ComponentType.primary }, "\u6267\u884C")))))))))));
   }
   get hostDiv() { return getElement(this); }
 };

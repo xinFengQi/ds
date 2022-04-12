@@ -69,6 +69,7 @@ class BaseCompoent {
         next();
       });
     });
+    next();
   }
 }
 

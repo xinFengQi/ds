@@ -1,5 +1,5 @@
 import { r as registerInstance, e as createEvent, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
-import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { B as BaseCompoent } from './BaseCompoent-c2010ea0.js';
 import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5MenuTreeCss = ".dsb5_menu_div.sc-dsb5-menu-tree{display:block;width:100%}.container-fluid-center.sc-dsb5-menu-tree{justify-content:left !important}.bi.sc-dsb5-menu-tree{margin-right:4px}.navbar-nav.sc-dsb5-menu-tree{display:flex;justify-content:space-between;flex-direction:row;width:calc(100% - 20px)}.navbar-nav-name.sc-dsb5-menu-tree{flex:1;word-break:break-all}";
@@ -113,20 +113,8 @@ const Dsb5MenuTree = class {
     this.remove.emit({ el: this.el, node: nav });
   }
   // 递归获取节点，去掉不需要的属性值
-  getRecurveNode(nodes) {
-    if (!nodes || !Array.isArray(nodes)) {
-      return [];
-    }
-    const newNodes = nodes.forEach(v => {
-      return {
-        key: v.key,
-        name: v.name,
-        expend: v.expend,
-        origin: v.origin,
-        childrens: this.getRecurveNode(v.childrens)
-      };
-    });
-    return newNodes;
+  async getRecurveNode(nodes) {
+    return await dsb5.dsUtil.getRecurveNode(nodes, ['key', 'name', 'expend', 'origin'], 'childrens');
   }
   getNavTree(menu, parentNode, key) {
     if (!menu || menu.length === 0) {

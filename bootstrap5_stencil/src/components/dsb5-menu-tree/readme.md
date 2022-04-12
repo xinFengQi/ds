@@ -41,33 +41,33 @@
 
 ## Methods
 
-### `addNode(key: string, newNode: Dsb5MenuTreeData) => Promise<void | any[]>`
+### `addNode(key: string, newNode: Dsb5MenuTreeData) => Promise<Dsb5MenuTreeData[]>`
 
 增加节点
 
 #### Returns
 
-Type: `Promise<void | any[]>`
+Type: `Promise<Dsb5MenuTreeData[]>`
 
 
 
-### `editNode(newNode: Dsb5MenuTreeData) => Promise<void | any[]>`
+### `editNode(newNode: Dsb5MenuTreeData) => Promise<Dsb5MenuTreeData[]>`
 
 编辑节点
 
 #### Returns
 
-Type: `Promise<void | any[]>`
+Type: `Promise<Dsb5MenuTreeData[]>`
 
 
 
-### `removeNode(key: string) => Promise<void | any[]>`
+### `removeNode(key: string) => Promise<Dsb5MenuTreeData[]>`
 
 移除节点
 
 #### Returns
 
-Type: `Promise<void | any[]>`
+Type: `Promise<Dsb5MenuTreeData[]>`
 
 
 

@@ -1,24 +1,22 @@
-import '@popperjs/core';
-import 'bootstrap';
-import '../core/BaseCompoent';
+import './bootstrap.esm-e5ba53a8.js';
+import './BaseCompoent-c2010ea0.js';
 
 (function dsb5Global() {
   const funMap = {
     dsb5Alert: 'dsb5-alert',
     dsUtil: 'ds-util',
   };
-
-  const funInterce: { [key: string]: HTMLElement } = {};
-
+  const funInterce = {};
   if (!window['ds']) {
     window['ds'] = {};
   }
   if (!window['dsb5']) {
     window['dsb5'] = {};
   }
-
-  function getFun(name: string) {
+  function getFun(name) {
+    console.log(this, '===');
     return () => {
+      console.log(this, '===');
       const elName = funMap[name];
       if (!elName) {
         throw '未获取到类示例';
@@ -32,22 +30,26 @@ import '../core/BaseCompoent';
       el.id = elName;
       el.style.display = 'none';
       document.body.append(el);
+      console.log('11111111111111111111', el);
       funInterce[elName] = el;
+      Object.assign(this, el);
       return el;
     };
   }
-
   window['ds'].initFun = getFun;
-
   Object.keys(funMap).forEach(name => {
     Object.defineProperty(window['dsb5'], name, {
-      set: () => {},
+      set: () => { },
       get: getFun(name),
     });
   });
-
   // 全局监听一些事件
   document.addEventListener('contextmenu', ev => {
     console.log('来自全局监听:', ev);
   });
 })();
+const globalFn = () => { };
+
+const globalScripts = globalFn;
+
+export { globalScripts as g };

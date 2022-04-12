@@ -1,5 +1,5 @@
 import { r as registerInstance, e as createEvent, i as forceUpdate, h, f as Host, g as getElement } from './index-4c5a6b9b.js';
-import { B as BaseCompoent } from './BaseCompoent-00b95334.js';
+import { B as BaseCompoent } from './BaseCompoent-c2010ea0.js';
 import './bootstrap.esm-e5ba53a8.js';
 
 const dsb5ModalCss = ".sc-dsb5-modal-h{display:block}.dsb5_no_fiexed.sc-dsb5-modal{position:relative;z-index:unset}.dsb5_show.sc-dsb5-modal{display:block}";

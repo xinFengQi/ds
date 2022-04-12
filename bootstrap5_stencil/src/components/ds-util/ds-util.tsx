@@ -1,12 +1,6 @@
 import { Component, h, Prop, Method, Element } from '@stencil/core';
 import { DataType } from '../../interface/type.interface';
-import { valueVerifyFun, isEqualFun, ValueVerifyFunReturn } from './ds-util-fun';
-
-type PropKeys = string | 'childrens';
-type GenericsInter<T> = {
-  [z: string]: any | T[];
-  childrens?: T[];
-};
+import { ValueVerifyFunReturn, GenericsNode, PropNodeKeys } from './ds-util-model';
 
 /**
  * @componentName 工具函数
@@ -24,47 +18,101 @@ export class DsUtil {
   /** 初始化信息 */
   @Method()
   async init() {
-    this.getRecurveNode;
     return this.hostDiv;
   }
-  /** 递归获取节点，去掉不需要的属性值 */
+  /** 递归获取节点,筛选自己需要的属性值 */
   @Method()
-  async getRecurveNode<T extends GenericsInter<T>, K extends keyof T>(
-    nodes: GenericsInter<T>[],
-    keys: K[],
-    childKey: PropKeys = 'childrens',
-  ): Promise<Promise<{ [x: string]: T }>[] | []> {
+  async getRecurveNode<T extends GenericsNode<T>, K extends keyof T>(nodes: GenericsNode<T>[], keys: K[], childKey: PropNodeKeys = 'childrens') {
     if (!nodes || !Array.isArray(nodes)) {
       return [];
     }
-    const newNodes = nodes.map(async (v: T) => {
+    const newNodes: T[] = [];
+    await nodes.forEach(async (v: T) => {
       const obj = {} as T;
       keys &&
         keys.forEach(vKey => {
           obj[vKey] = v[vKey];
         });
-      return {
+      newNodes.push({
         ...obj,
         [childKey]: await this.getRecurveNode(v[childKey] as T[], keys, childKey),
-      };
+      });
     });
     return newNodes;
   }
+  @Prop()
+  getRecurveNodeSync = <T extends GenericsNode<T>, K extends keyof T>(nodes: GenericsNode<T>[], keys: K[], childKey: PropNodeKeys = 'childrens') => {
+    if (!nodes || !Array.isArray(nodes)) {
+      return [];
+    }
+    const newNodes: T[] = [];
+    nodes.forEach(async (v: T) => {
+      const obj = {} as T;
+      keys &&
+        keys.forEach(vKey => {
+          obj[vKey] = v[vKey];
+        });
+      newNodes.push({
+        ...obj,
+        [childKey]: this.getRecurveNodeSync(v[childKey] as T[], keys, childKey),
+      });
+    });
+    return newNodes;
+  };
 
   /** 判断两个数值是否相同 */
   @Prop() isEqualSync = (a: any, b: any) => {
-    return isEqualFun(a, b);
+    if (typeof a !== typeof b) {
+      return false;
+    }
+    if (a === b) {
+      return true;
+    }
+    if (typeof a === 'object') {
+      return JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    return false;
   };
 
   /**值校验 */
   @Prop()
   valueVerifySync = (value: string, type: DataType): ValueVerifyFunReturn => {
-    return valueVerifyFun(value, type);
+    let flag: ValueVerifyFunReturn = { valid: false, realValue: null };
+    if (value === null || value === undefined) {
+      return flag;
+    }
+    if (type === DataType.number) {
+      flag.realValue = Number(value);
+      flag.valid = isNaN(flag.realValue);
+      return flag;
+    }
+    if (type === DataType.boolean) {
+      try {
+        flag.realValue = Boolean(value);
+        flag.valid = false;
+      } catch (error) {
+        flag.valid = true;
+      }
+      return flag;
+    }
+    if (type === DataType.array || type === DataType.json) {
+      try {
+        flag.realValue = JSON.parse(value);
+        if (typeof flag.realValue === 'object') {
+          flag.valid = false;
+        }
+      } catch (error) {
+        flag.valid = true;
+      }
+      return flag;
+    }
+    flag.realValue = value;
+    return flag;
   };
 
   /**防抖函数 */
-  @Prop()
-  debounceTimeSync = (fun: Function, time: number) => {
+  @Prop() debounceTimeSync = (fun: Function, time: number) => {
     let timer = null;
     return (...arg) => {
       if (timer) {

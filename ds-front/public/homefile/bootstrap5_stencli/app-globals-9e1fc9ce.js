@@ -1,5 +1,5 @@
 import './bootstrap.esm-e5ba53a8.js';
-import './BaseCompoent-00b95334.js';
+import './BaseCompoent-c2010ea0.js';
 
 (function dsb5Global() {
   const funMap = {
@@ -35,6 +35,7 @@ import './BaseCompoent-00b95334.js';
       el.id = elName;
       el.style.display = 'none';
       document.body.append(el);
+      console.log('11111111111111111111');
       funInterce[elName] = el;
       return el;
     };

@@ -43,10 +43,6 @@
                 {
                     "src": "./docs/.dstemp/docs",
                     "dest": "./dist/www/docs"
-                },
-                {
-                    "src": "./dist/dist/bootstrap5_stencli",
-                    "dest": "../ds-front/public/homefile/bootstrap5_stencli"
                 }
             ],
             "build": [
@@ -63,6 +59,12 @@
                 { 
                     "src": "./dist/www/components",
                     "dest": "../ds-docs/all_docs/docs/ds-series/dsb5/components"
+                }
+            ],
+            "servefont": [
+                {
+                    "src": "./dist/dist/bootstrap5_stencli",
+                    "dest": "../ds-front/public/homefile/bootstrap5_stencli"
                 }
             ]
 

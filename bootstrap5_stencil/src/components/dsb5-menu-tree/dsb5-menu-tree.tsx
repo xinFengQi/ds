@@ -1,6 +1,9 @@
 import { Component, Host, h, Prop, Event, EventEmitter, forceUpdate, Element, Method } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 import { Dsb5MenuTreeData } from '../../interface/component.interface';
+import { Dsb5 } from './../../interface/method.interface';
+
+declare const dsb5: Dsb5;
 
 /**
  * @componentName 树
@@ -140,20 +143,8 @@ export class Dsb5MenuTree {
 
 
   // 递归获取节点，去掉不需要的属性值
-  getRecurveNode(nodes: Dsb5MenuTreeData[]) {
-    if(!nodes || !Array.isArray(nodes) ) {
-      return [];
-    }
-    const newNodes = nodes.forEach(v => {
-      return {
-        key: v.key,
-        name: v.name,
-        expend: v.expend,
-        origin: v.origin,
-        childrens: this.getRecurveNode(v.childrens)
-      }
-    })
-    return newNodes;
+  async getRecurveNode(nodes: Dsb5MenuTreeData[]) {
+    return await dsb5.dsUtil.getRecurveNode(nodes, ['key', 'name','expend', 'origin'], 'childrens')
   }
 
   getNavTree(menu: Dsb5MenuTreeData[], parentNode: 'root' | Dsb5MenuTreeData, key: string) {

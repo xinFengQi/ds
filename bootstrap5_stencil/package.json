@@ -20,7 +20,9 @@
     "build": "stencil build --docs",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "g": "stencil generate"
+    "g": "stencil generate",
+    "publish": "dsn fileutil -copy --key build",
+    "font": "dsn fileutil -copy --key servefont"
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",

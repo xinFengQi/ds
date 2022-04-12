@@ -2,7 +2,7 @@
 
 文档功能组件，执行挂载在window下面的函数，展示执行结果和执行过程中的基础信息
 
-
+1. 传入的函数目前必须是同步函数
 ## 基础用例类型
 
 (type="testCase")仅使用折叠面板展示函数执行信息
@@ -40,6 +40,7 @@
 | Property           | Attribute | Description | Type     | Default     |
 | ------------------ | --------- | ----------- | -------- | ----------- |
 | `fun` _(required)_ | `fun`     | 需要执行的全局函数   | `string` | `undefined` |
+| `initel`           | `initel`  | 需要执行的初始化函数  | `string` | `undefined` |
 | `params`           | --        | 需要执行函数的参数   | `any[]`  | `undefined` |
 | `result`           | --        | 执行函数的结果     | `any[]`  | `undefined` |
 | `time`             | `time`    | 执行次数        | `number` | `10`        |
