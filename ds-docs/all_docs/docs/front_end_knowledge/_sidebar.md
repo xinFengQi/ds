@@ -8,6 +8,8 @@
     * [lib库使用](/knowledge/lib.md)
     * [vue3随记](/knowledge/vue3.md)
     * [typeScript设计模式](/knowledge/typeScript设计模式.md)
+* 技术记录
+    * [微前端本地调试](/technology/微前端本地调试.md)
 * 组件文档
     * [目录组件](/component/catalog.md)
     * [日期选择器组件](/component/datePicker.md)
