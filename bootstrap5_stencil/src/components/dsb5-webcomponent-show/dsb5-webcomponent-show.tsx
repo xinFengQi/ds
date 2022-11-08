@@ -1,9 +1,7 @@
 import { Component, Host, h, Element, forceUpdate, Prop } from '@stencil/core';
-import { Dsb5 } from '../../interface/method.interface';
 import { ComponentType } from '../../interface/type.interface';
 import { BaseCompoent } from './../../core/BaseCompoent';
 
-declare const dsb5: Dsb5;
 
 /**
  * @componentName 组件预览
