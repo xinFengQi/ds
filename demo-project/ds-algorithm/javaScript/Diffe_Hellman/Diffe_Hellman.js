@@ -19,16 +19,21 @@
  */
 
 
-const clockNum = 349;
-const publicBaseNum = 2;
-const baseNums = [1, 2, 3, 6];   // 这里使用生成本原根算法
-
-/** 获取随机钟表数 */
-function getRamonNum(nM=100, baseM=1000) {
+const clockNum = 11;  // 这个需要很大
+const publicBaseNum = 2; // 2，3, 5,即可，需要时本原根
+const allPrivates = [];
+/** 获取随机钟表数-作为私钥 */
+function getRamonNum(nM=100) {
     const n = parseInt((Math.random()*nM).toFixed(0));
-    const baseNum = baseNums[parseInt((Math.random()*baseM) % 4)]
+    const baseNum = parseInt(Math.random()*clockNum)
     // console.log('获取的幂数基数是：', baseNum, '获取随机幂数N为：', n);
-    return Math.pow(baseNum, n);
+    let data =  getPersonClockNum(Math.pow(baseNum, n));
+    if(allPrivates.includes(data)) {
+        data = getRamonNum(nM);
+        return data;
+    };
+    allPrivates.push(data);
+    return data;
 }
 
 
@@ -41,7 +46,7 @@ class RandomPerson {
     privateKey = '';
     publicKey = '';
     constructor(PrivateKey) {
-        this.privateKey = getPersonClockNum(PrivateKey);
+        this.privateKey = PrivateKey;
         this.publicKey = getPersonClockNum(Math.pow(publicBaseNum, this.privateKey));
         // console.log(`创建私钥为${this.privateKey},公钥为${this.publicKey}的实体`);
     }
@@ -63,10 +68,10 @@ class relationPerson {
 }
 
 
-const a = new RandomPerson(getRamonNum(10,10));
-const b = new RandomPerson(getRamonNum(10,10));
-const c = new RandomPerson(getRamonNum(10,10));
-const d = new RandomPerson(getRamonNum(10,10));
+const a = new RandomPerson(getRamonNum(10));
+const b = new RandomPerson(getRamonNum(10));
+const c = new RandomPerson(getRamonNum(10));
+const d = new RandomPerson(getRamonNum(10));
 console.log(`a的公钥${a.publicKey},私钥${a.privateKey}`);
 console.log(`b的公钥${b.publicKey},私钥${b.privateKey}`);
 console.log(`c的公钥${c.publicKey},私钥${c.privateKey}`);
