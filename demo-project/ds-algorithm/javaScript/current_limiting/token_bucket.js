@@ -28,7 +28,6 @@ function settingBucket(bucketNumParams, timeParams) {
 }
 
 
-
 function addBucketNum(num) {
     bucketNum = bucketNum + num;
     bucketNum = bucketNum > 100 ? bucketNum : 100;
