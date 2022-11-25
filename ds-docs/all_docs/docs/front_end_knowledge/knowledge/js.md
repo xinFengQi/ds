@@ -148,3 +148,19 @@ Date.now() Date.now() 返回自零日期（1970 年 1 月 1 日 00:00:00:00）�
 
 ### js基础概念
 1：Object，可以简单理解成“名称-值”对(而不是键值对：现在的Map【映射表】比对象更接近键值对)
+
+
+
+## JsDoc注释
+1. @param 参数注释
+2. @return 返回值注释
+3. @example 示例注释
+4. @author 代码的作者信息
+5. @version当前代码的版本
+6. @file对当前代码文件的描述
+7. @desc用于描述当前文件或者代码
+8. @copyright代码的版权信息
+9. @todo 接下来准备做的事情
+10. @function/@func/@method 描述一个函数
+11. @callback 描述回调函数
+12. @deprecated 标签指明一个标识在你代码中已经被弃用。

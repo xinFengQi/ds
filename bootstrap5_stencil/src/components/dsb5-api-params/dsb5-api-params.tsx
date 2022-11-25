@@ -1,9 +1,7 @@
 import { Component, Host, h, Element, Event, EventEmitter, Prop, forceUpdate } from '@stencil/core';
 import { Dsb5FromModel } from '../../interface/component.interface';
-import { Dsb5 } from '../../interface/method.interface';
 import { DataType } from '../../interface/type.interface';
 
-declare const dsb5: Dsb5;
 
 /**
  * @componentName 多列表单

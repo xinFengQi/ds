@@ -1,9 +1,7 @@
 import { Component, Host, h, Prop, Event, EventEmitter, forceUpdate, Element, Method } from '@stencil/core';
 import { BaseCompoent } from '../../core/BaseCompoent';
 import { Dsb5MenuTreeData } from '../../interface/component.interface';
-import { Dsb5 } from './../../interface/method.interface';
 
-declare const dsb5: Dsb5;
 
 /**
  * @componentName 树
